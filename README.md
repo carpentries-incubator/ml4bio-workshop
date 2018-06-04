@@ -19,21 +19,29 @@ Recent advances in high-throughput technologies have led to rapid growth in the 
   * Iteratively:
     * Feature engineering (deserves a stand-alone section)
     * Model building: training, validation, evaluation
-    * Model selectio
+    * Model selection
     * Feature selection
   * Testing
-  * Intepretation
+  * Interpretation
 
-### Classification models
+### Introduction to Classification models
 
-Introduce various classifiers using interactive visualization tools.
+Implement a GUI.
+Expose key hyperparameters to user.
+Show initial model state including model structure and initial parameters.
+(Optional) Show updated model state after every few epochs.
+Show decision boundary (when applicable)
 
 **Decision trees**
-  * Show tree structure
 
 **Random forests**
 
 **K-nearest neighbors**
+
+* unweighted and weighted versions
+* Use toy data to show 2 or 3D case
+* visualize distance through color change (gray scale: the closer, the darker)
+* curse of dimensionality?
 
 **Logistic Regression**
 
@@ -44,4 +52,29 @@ Introduce various classifiers using interactive visualization tools.
 **Naive Bayes**
 
 More to be added... 
-    
+
+### Training, validation, testing and evaluation
+
+Expand on the following topics:
+* Training set, validation set, test set
+* Stopping criteria
+* K-fold cross-validation
+* leave-one-out
+* evaluation metrics: accuracy (error rate), precision, recall, F1, etc.
+* graphics: ROC, Precision-recall, confusion matrix
+
+Emphasis on biological application:
+* unbalanced data
+* cost-sensitive analysis
+
+### Model selection
+
+Expand on the following topics:
+* Overfitting
+* Outliers
+
+### Feature selection
+
+### Model interpretation
+
+to be continued...
