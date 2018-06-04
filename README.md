@@ -6,14 +6,14 @@ Recent advances in high-throughput technologies have led to rapid growth in the 
 
 ### Machine learning workflow
 
-1. Overview
+**Overview**
   * Task definition: classification (main focus), regression, clustering, etc.
   * Data representation: 
     * Features: categorical, continuous
     * Labels: one endpoint (main focus), multi-task
     * File format: txt, json, csv, etc.
     * Input (feature vectors) -> model (functions) -> output (predictions)
-2. Pipeline
+**Pipeline**
   * Data preparation: cleaning, integration, etc.
   * Iteratively:
     * Feature engineering (deserves a stand-alone section)
