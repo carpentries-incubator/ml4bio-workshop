@@ -13,6 +13,7 @@ Recent advances in high-throughput technologies have led to rapid growth in the 
     * Labels: one endpoint (main focus), multi-task
     * File format: txt, json, csv, etc.
     * Input (feature vectors) -> model (functions) -> output (predictions)
+    
 **Pipeline**
   * Data preparation: cleaning, integration, etc.
   * Iteratively:
