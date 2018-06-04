@@ -28,13 +28,20 @@ Recent advances in high-throughput technologies have led to rapid growth in the 
 
 Introduce various classifiers using interactive visualization tools.
 
-1. Decision trees
+**Decision trees**
   * Show tree structure
-2. Random forests
-3. K-nearest neighbors
-4. Logistic Regression
-5. Neural Networks
-6. Support Vector Machines
-7. Naive Bayes
+
+**Random forests**
+
+**K-nearest neighbors**
+
+**Logistic Regression**
+
+**Neural Networks**
+
+**Support Vector Machines**
+
+**Naive Bayes**
+
 More to be added... 
     
