@@ -4,8 +4,8 @@ Recent advances in high-throughput technologies have led to rapid growth in the 
 
 ## Tentative sections:
 
-1. Machine learning workflow
-   * Overview
+**Machine learning workflow**
+   1. Overview
      * Task definition: 
        * Classification (main focus), regression, clustering, etc.
      * Data representation: 
@@ -13,7 +13,7 @@ Recent advances in high-throughput technologies have led to rapid growth in the 
        * Labels: one endpoint (main focus), multi-task
        * File format: txt, json, csv, etc.
      * Input (feature vectors) -> model (functions) -> output (predictions)
-   * Pipeline
+   1. Pipeline
      * Data preparation:
        * Cleaning, integration, etc.
      * Iteratively:
