@@ -5,6 +5,7 @@ Recent advances in high-throughput technologies have led to rapid growth in the 
 ## Tentative sections:
 
 **Machine learning workflow**
+
 1. Overview
   * Task definition: classification (main focus), regression, clustering, etc.
   * Data representation: 
@@ -23,7 +24,9 @@ Recent advances in high-throughput technologies have led to rapid growth in the 
   * Intepretation
 
 **Classification models**
+
 Introduce various classifiers using interactive visualization tools.
+
 1. Decision trees
   * Show tree structure
 2. Random forests
