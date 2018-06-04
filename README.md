@@ -30,7 +30,7 @@ Implement a GUI.
 Expose key hyperparameters to user.
 Show initial model state including model structure and initial parameters.
 (Optional) Show updated model state after every few epochs.
-Show decision boundary (when applicable)
+Show decision boundary (when applicable).
 
 **Decision trees**
 
@@ -63,7 +63,7 @@ Expand on the following topics:
 * evaluation metrics: accuracy (error rate), precision, recall, F1, etc.
 * graphics: ROC, Precision-recall, confusion matrix
 
-Emphasis on biological application:
+Unique issues in biological application:
 * unbalanced data
 * cost-sensitive analysis
 
