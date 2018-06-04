@@ -38,10 +38,11 @@ Show decision boundary (when applicable).
 
 **K-nearest neighbors**
 
-* unweighted and weighted versions
-* Use toy data to show 2 or 3D case
-* visualize distance through color change (gray scale: the closer, the darker)
-* curse of dimensionality?
+* Unweighted and weighted versions (as hyperparameter)
+* Use toy data to show 2d or 3D case.
+* In the unweighted version, use different colors to distinguish between effective and ineffective data points.
+* In the weighted version, visualize distance through color change (gray scale: the closer, the darker).
+* Curse of dimensionality?
 
 **Logistic Regression**
 
@@ -59,13 +60,14 @@ Expand on the following topics:
 * Training set, validation set, test set
 * Stopping criteria
 * K-fold cross-validation
-* leave-one-out
-* evaluation metrics: accuracy (error rate), precision, recall, F1, etc.
-* graphics: ROC, Precision-recall, confusion matrix
+* Leave-one-out
+* Evaluation metrics: accuracy (error rate), precision, recall, F1, etc.
+* Graphics: ROC, Precision-recall curve, confusion matrix
 
 Unique issues in biological application:
-* unbalanced data
-* cost-sensitive analysis
+* How to obtain negative examples?
+* Unbalanced data
+* Cost-sensitive analysis (choosing threshold)
 
 ### Model selection
 
@@ -76,5 +78,8 @@ Expand on the following topics:
 ### Feature selection
 
 ### Model interpretation
+
+### Feature engineering
+
 
 to be continued...
