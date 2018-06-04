@@ -39,7 +39,7 @@ Show decision boundary (when applicable).
 **K-nearest neighbors**
 
 * Unweighted and weighted versions (as hyperparameter)
-* Use toy data to show 2d or 3D case.
+* Use toy data to show 2D or 3D case.
 * In the unweighted version, use different colors to distinguish between effective and ineffective data points.
 * In the weighted version, visualize distance through color change (gray scale: the closer, the darker).
 * Curse of dimensionality?
