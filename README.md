@@ -6,10 +6,12 @@ Recent advances in high-throughput technologies have led to rapid growth in the 
 
 * Task definition: classification (main focus), regression, clustering, etc.
 * Data representation: 
-  * Features: categorical, continuous
-  * Labels: one endpoint (main focus), multi-task learning
-  * File format: txt, json, csv, etc.
+  * Features: categorical, numerical (discrete/continuous)
+  * Labels: univariate, multivariate
+  * File formats: txt, json, csv, etc.
   * Input (feature vectors) -> model (functions) -> output (predictions)
+  * Learning: parameter estimation
+  * Prediction: function evaluation
     
 ### ML in Biological Data Analysis: Pipeline
 
@@ -23,7 +25,7 @@ Recent advances in high-throughput technologies have led to rapid growth in the 
 * Testing
 * Interpretation
 
-### Introduction to Classification models
+### ML models for classification
 
 Implement a GUI.
 Expose key hyperparameters to user.
