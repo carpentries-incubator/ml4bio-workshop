@@ -7,7 +7,7 @@ Recent advances in high-throughput technologies have led to rapid growth in the 
 * Task definition: classification (main focus), regression, clustering, etc.
 * Data representation: 
   * Features: categorical, numerical (discrete/continuous)
-  * Labels: univariate, multivariate
+  * Labels: univariate (binary/multi-class), multivariate
   * File formats: txt, json, csv, etc.
   * Input (feature vectors) -> model (functions) -> output (predictions)
   * Learning: parameter estimation
@@ -27,7 +27,7 @@ Recent advances in high-throughput technologies have led to rapid growth in the 
 
 ### ML models for classification
 
-Implement a GUI.
+Implement a GUI (using PyQt or Pyform framework).
 Expose key hyperparameters to user.
 Show initial model state including model structure and initial parameters.
 (Optional) Show updated model state after every few epochs.
