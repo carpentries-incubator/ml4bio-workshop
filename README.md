@@ -34,7 +34,6 @@ Recent advances in high-throughput technologies have led to rapid growth in the 
     (reference: http://playground.tensorflow.org)
   * Production mode with user-supplied datasets but no visualization 
     (reference: https://github.com/gmiaslab/ClassificaIO)
-
 * Models to be included:
   * Decision trees (viewed as a special case of RF)
   * Random forests
