@@ -32,7 +32,7 @@ Recent advances in high-throughput technologies have led to rapid growth in the 
 * A GUI (developed using Kivy or PyQt framework) with two modes:
   * Teaching mode with built-in toy datasets (2D input) and data/model visualization 
     (reference: http://playground.tensorflow.org)
-  * Production mode with user-supplied datasets but no visualization 
+  * Production mode with user-supplied datasets and without visualization 
     (reference: https://github.com/gmiaslab/ClassificaIO)
 * Models to be included:
   * Decision trees (viewed as a special case of RF)
