@@ -2,19 +2,21 @@
 
 Recent advances in high-throughput technologies have led to rapid growth in the amount of omics data. These massive datasets, accompanied by numerous data points enriched over the past decades, are extremely valuable in the discovery of complex biological structures, but also present big challenges in various aspects of data analysis. This workshop introduces biologists to machine learning, a powerful set of models for drawing inference from big data.  Upon completion of the workshop, attendees will gain expertise in building simple predictive models and become more comfortable to collaborate with computational experts on more complicated data analysis tasks.
 
+[audience.md](./audience.md) describes the intended audience.
+
 ## Guideline
 
 ### Fundamentals of ML
 
 * Task definition: classification (main focus), regression, clustering, etc.
-* Data representation: 
+* Data representation:
   * Features: categorical, numerical (discrete/continuous)
   * Labels: univariate (binary/multi-class), multivariate
   * File formats: txt, json, csv, etc.
   * Input (feature vectors) -> model (functions) -> output (predictions)
   * Learning: parameter estimation
   * Prediction: function evaluation
-    
+
 ### ML in Biological Data Analysis: Pipeline
 
 * Problem formulation
@@ -32,7 +34,7 @@ Recent advances in high-throughput technologies have led to rapid growth in the 
 * A GUI (developed using PyQt5) with two modes:
   * Playground: built-in toy datasets, data/model visualization
     (reference: http://playground.tensorflow.org)
-  * Production: user-supplied datasets, no visualization 
+  * Production: user-supplied datasets, no visualization
     (reference: https://github.com/gmiaslab/ClassificaIO)
 * Models to be included:
   * Decision trees (viewed as a special case of RF)
@@ -41,7 +43,7 @@ Recent advances in high-throughput technologies have led to rapid growth in the 
   * Logistic regression (viewed as a special case of NN)
   * Neural networks
   * Support vector machines
-  * Naive bayes 
+  * Naive bayes
 
 ### Models for Classification: Training and Evaluation
 
