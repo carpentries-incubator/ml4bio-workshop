@@ -1,1 +1,4 @@
-
+6/18/18
+tested widget for displaying matplotlib plots
+built UI skeleton in Qt Designer, generated .py file
+_________________
