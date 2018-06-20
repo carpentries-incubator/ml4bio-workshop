@@ -59,6 +59,7 @@ Unique issues in biological application:
 * Small size of data
 * How to obtain negative examples?
 * Unbalanced data
+* Sparsity
 * Cost-sensitive analysis (How to pick threshold?)
 
 ### Model Selection
