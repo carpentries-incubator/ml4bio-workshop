@@ -6,7 +6,7 @@
     * Logistics (10min):  
 	  * Learning objectives  
 	  * Schedule  
-          * Software setup
+	  * Software setup
 
 ### Part II: ML basics (3hrs)
 * ML vocabulary (30mins)
