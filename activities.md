@@ -4,9 +4,9 @@
     * Why biologists should learn ML
     * Motivating examples of ML in biology
     * Logistics (10min):  
-	+ Learning objectives  
-	+ Schedule  
-	+ Software setup
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Learning objectives  
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Schedule  
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Software setup
 
 ### Part II: ML basics (3hrs)
 * ML vocabulary (30mins)
