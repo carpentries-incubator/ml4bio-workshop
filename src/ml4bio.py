@@ -1,6 +1,7 @@
 import os, sys
 import pandas as pd
 import numpy as np
+import sklearn
 from PyQt5.QtCore import QSize, Qt
 from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QFileDialog
 from PyQt5.QtWidgets import QPushButton, QRadioButton
@@ -41,14 +42,14 @@ class App(QMainWindow):
         return box
 
     def __openLabeledFile(self):
-        filepath = QFileDialog.getOpenFileName(self.dataPage, 'Select File...')
-        filepath = filepath[0]
+        path = QFileDialog.getOpenFileName(self.dataPage, 'Select File...')
+        path = path[0]
 
-        if filepath is not '':
-        	filename = os.path.basename(filepath)
-        	self.labeledFileDisplay.setText(filename)
-        	labeledDataFrame = pd.read_csv(filepath, delimiter=',')
-        	self.labeled_data = Data(labeledDataFrame, filename, True)
+        if path is not '':
+        	name = os.path.basename(path)
+        	self.labeledFileDisplay.setText(name)
+        	data = pd.read_csv(path, delimiter=',')
+        	self.labeled_data = Data(data, name, True)
         	self.dataSummaryTree.takeTopLevelItem(0)
         	self.__getDataSummary(self.labeled_data)
         	self.splitFrame.setEnabled(True)
@@ -56,47 +57,98 @@ class App(QMainWindow):
         	self.dataNextPushButton.setEnabled(True)
 
     def __openUnlabeledFile(self):
-        filepath = QFileDialog.getOpenFileName(self.dataPage, 'Select File...')
-        filepath = filepath[0]
+        path = QFileDialog.getOpenFileName(self.dataPage, 'Select File...')
+        path = path[0]
 
-        if filepath is not '':
-        	filename = os.path.basename(filepath)
-        	self.unlabeledFileDisplay.setText(filename)
-        	unlabeledDataFrame = pd.read_csv(filepath, delimiter=',')
-        	self.unlabeled_data = Data(unlabeledDataFrame, filename, False)
+        if path is not '':
+        	name = os.path.basename(path)
+        	self.unlabeledFileDisplay.setText(name)
+        	data = pd.read_csv(path, delimiter=',')
+        	self.unlabeled_data = Data(data, name, False)
         	self.dataSummaryTree.takeTopLevelItem(1)
         	self.__getDataSummary(self.unlabeled_data)
         	self.predictionPushButton.setEnabled(True)
 
     def __getDataSummary(self, data):
-        filename = QTreeWidgetItem(self.dataSummaryTree)
-        filename.setText(0, data.getName())
-        sample = QTreeWidgetItem(filename)
-        sample.setText(0, 'Samples')
-        sample.setText(1, str(data.getNumOfSamples()))
-        classCountDic = data.getClassCounts()
+        fileName = QTreeWidgetItem(self.dataSummaryTree)
+        fileName.setText(0, data.getName())
+        sampleSubTree = QTreeWidgetItem(fileName)
+        sampleSubTree.setText(0, 'Samples')
+        sampleSubTree.setText(1, str(data.getNumOfSamples()))
+        classCountsDict = data.getClassCounts()
 
-        for c in classCountDic:
-        	classCount = QTreeWidgetItem(sample)
-        	classCount.setText(0, c)
-        	classCount.setText(1, str(classCountDic[c]))
-        	classCount.setToolTip(0, c)
+        for className in classCountsDict:
+        	cls = QTreeWidgetItem(sampleSubTree)
+        	cls.setText(0, className)
+        	cls.setText(1, str(classCountsDict[className]))
+        	cls.setToolTip(0, className)
 
-        feature = QTreeWidgetItem(filename)
-        feature.setText(0, 'Features')
-        feature.setText(1, str(data.getNumOfFeatures()))
-        featureTypeDic = data.getTypeOfFeatures()
+        featureSubTree = QTreeWidgetItem(fileName)
+        featureSubTree.setText(0, 'Features')
+        featureSubTree.setText(1, str(data.getNumOfFeatures()))
+        featureTypeDict = data.getFeatureTypes()
 
-        for f in featureTypeDic:
-        	featureType = QTreeWidgetItem(feature)
-        	featureType.setText(0, f)
-        	featureType.setText(1, str(featureTypeDic[f]))
-        	featureType.setToolTip(0, f)
+        for featureName in featureTypeDict:
+        	feature = QTreeWidgetItem(featureSubTree)
+        	feature.setText(0, featureName)
+        	feature.setText(1, str(featureTypeDict[featureName]))
+        	feature.setToolTip(0, featureName)
 
     def __trainTestSplit(self):
         test_size = self.splitSpinBox.value()
         stratify = self.splitCheckBox.isChecked()
-        self.labeled_data.trainTestSplit(test_size, stratify)
+        self.train, self.test = self.labeled_data.trainTestSplit(test_size, stratify)
+
+       
+'''
+    def __trainClassifier(self, index):
+        # decision tree
+        if index == 0:
+            classifier = sklearn.tree.DecisionTreeClassifier(\
+                criterion = self.dtCriterionComboBox.currentText(), \
+                max_depth = int(self.dtMaxDepthLineEdit.text()), \
+                min_samples_split = self.dtMinSamplesSplitSpinBox.value(), \
+                min_samples_leaf = self.dtMinSamplesLeafSpinBox.value(), \
+                class_weight = self.dtClassWeightLineEdit.text())
+
+        # random forest
+        elif index == 1:
+            classifier = sklearn.ensemble.RandomForestClassifier(\
+                n_estimators = self.rfNumEstimatorsSpinBox.value(), \
+                criterion = self.rfCriterionComboBox.currentText(), \
+                max_depth = int(self.rfMaxDepthLineEdit.text()), \
+                min_samples_split = self.rfMinSamplesSplitSpinBox.value(), \
+                min_samples_leaf = self.rfMinSamplesLeafSpinBox.value(), \
+                max_features = self.rfMaxFeaturesComboBox.currentText(), \
+                bootstrap = self.rfBootstrapCheckBox.isChecked(), \
+                class_weight = self.rfClassWeightLineEdit.text())
+
+        # k-nearest neighbor
+        elif index == 2:
+            classifier = sklearn.neighbors.KNeighborsClassifier(\
+                n_neighbors = self.knnNumNeighborsSpinBox.value(), \
+                weights = self.knnWeightsComboBox.currentText(), \
+                )
+
+        # logistic regression
+        elif index == 3:
+
+
+        # neural network
+        elif index == 4:
+
+
+        # svm
+        elif index == 5:
+
+
+        # naive bayes
+        elif index == 6:
+
+
+        return classifier
+'''
+
 
     def initUI(self):
         titleFont = QFont()
@@ -284,21 +336,21 @@ class App(QMainWindow):
         paramStack.addWidget(dtPage)
 
         # fields
-        dtCriterionComboBox = QComboBox(dtPage)
-        dtCriterionComboBox.addItem('gini')
-        dtCriterionComboBox.addItem('entropy')
-        dtMaxDepthLineEdit = QLineEdit('None', dtPage)
-        dtMinSamplesSplitSpinBox = self.__setSpinBox(2, 2, 20, 1, dtPage)
-        dtMinSamplesLeafSpinBox = self.__setSpinBox(1, 1, 20, 1, dtPage)
-        dtClassWeightLineEdit = QLineEdit('balanced', dtPage)
+        self.dtCriterionComboBox = QComboBox(dtPage)
+        self.dtCriterionComboBox.addItem('gini')
+        self.dtCriterionComboBox.addItem('entropy')
+        self.dtMaxDepthLineEdit = QLineEdit('None', dtPage)
+        self.dtMinSamplesSplitSpinBox = self.__setSpinBox(2, 2, 20, 1, dtPage)
+        self.dtMinSamplesLeafSpinBox = self.__setSpinBox(1, 1, 20, 1, dtPage)
+        self.dtClassWeightLineEdit = QLineEdit('balanced', dtPage)
 
         # layout
         dtLayout = QFormLayout()
-        dtLayout.addRow('criterion:', dtCriterionComboBox)
-        dtLayout.addRow('max_depth:', dtMaxDepthLineEdit)
-        dtLayout.addRow('min_samples_split:', dtMinSamplesSplitSpinBox)
-        dtLayout.addRow('min_samples_leaf:', dtMinSamplesLeafSpinBox)
-        dtLayout.addRow('class_weight:', dtClassWeightLineEdit)
+        dtLayout.addRow('criterion:', self.dtCriterionComboBox)
+        dtLayout.addRow('max_depth:', self.dtMaxDepthLineEdit)
+        dtLayout.addRow('min_samples_split:', self.dtMinSamplesSplitSpinBox)
+        dtLayout.addRow('min_samples_leaf:', self.dtMinSamplesLeafSpinBox)
+        dtLayout.addRow('class_weight:', self.dtClassWeightLineEdit)
 
         dtPageLayout = QVBoxLayout(dtPage)
         dtPageLayout.addLayout(dtLayout)
@@ -310,31 +362,31 @@ class App(QMainWindow):
         paramStack.addWidget(rfPage)
 
         # fields
-        rfCriterionComboBox = QComboBox(rfPage)
-        rfCriterionComboBox.addItem('gini')
-        rfCriterionComboBox.addItem('entropy')
-        rfNumEstimatorsSpinBox = self.__setSpinBox(10, 1, 25, 1, rfPage)
-        rfMaxFeaturesComboBox = QComboBox(rfPage)
-        rfMaxFeaturesComboBox.addItem('sqrt')
-        rfMaxFeaturesComboBox.addItem('log2')
-        rfMaxFeaturesComboBox.addItem('None')
-        rfMaxDepthLineEdit = QLineEdit('None', rfPage)
-        rfMinSamplesSplitSpinBox = self.__setSpinBox(2, 2, 20, 1, rfPage)
-        rfMinSamplesLeafSpinBox = self.__setSpinBox(1, 1, 20, 1, rfPage)
-        rfBootstrapCheckBox = QCheckBox('', rfPage)
-        rfBootstrapCheckBox.setChecked(True)
-        rfClassWeightLineEdit = QLineEdit('balanced', rfPage)
+        self.rfCriterionComboBox = QComboBox(rfPage)
+        self.rfCriterionComboBox.addItem('gini')
+        self.rfCriterionComboBox.addItem('entropy')
+        self.rfNumEstimatorsSpinBox = self.__setSpinBox(10, 1, 25, 1, rfPage)
+        self.rfMaxFeaturesComboBox = QComboBox(rfPage)
+        self.rfMaxFeaturesComboBox.addItem('sqrt')
+        self.rfMaxFeaturesComboBox.addItem('log2')
+        self.rfMaxFeaturesComboBox.addItem('None')
+        self.rfMaxDepthLineEdit = QLineEdit('None', rfPage)
+        self.rfMinSamplesSplitSpinBox = self.__setSpinBox(2, 2, 20, 1, rfPage)
+        self.rfMinSamplesLeafSpinBox = self.__setSpinBox(1, 1, 20, 1, rfPage)
+        self.rfBootstrapCheckBox = QCheckBox('', rfPage)
+        self.rfBootstrapCheckBox.setChecked(True)
+        self.rfClassWeightLineEdit = QLineEdit('balanced', rfPage)
 
         # layout
         rfLayout = QFormLayout()
-        rfLayout.addRow('criterion:', rfCriterionComboBox)
-        rfLayout.addRow('n_estimators:', rfNumEstimatorsSpinBox)
-        rfLayout.addRow('max_features:', rfMaxFeaturesComboBox)
-        rfLayout.addRow('max_depth:', rfMaxDepthLineEdit)
-        rfLayout.addRow('min_samples_split:', rfMinSamplesSplitSpinBox)
-        rfLayout.addRow('min_samples_leaf:', rfMinSamplesLeafSpinBox)
-        rfLayout.addRow('bootstrap:', rfBootstrapCheckBox)
-        rfLayout.addRow('class_weight:', rfClassWeightLineEdit)
+        rfLayout.addRow('criterion:', self.rfCriterionComboBox)
+        rfLayout.addRow('n_estimators:', self.rfNumEstimatorsSpinBox)
+        rfLayout.addRow('max_features:', self.rfMaxFeaturesComboBox)
+        rfLayout.addRow('max_depth:', self.rfMaxDepthLineEdit)
+        rfLayout.addRow('min_samples_split:', self.rfMinSamplesSplitSpinBox)
+        rfLayout.addRow('min_samples_leaf:', self.rfMinSamplesLeafSpinBox)
+        rfLayout.addRow('bootstrap:', self.rfBootstrapCheckBox)
+        rfLayout.addRow('class_weight:', self.rfClassWeightLineEdit)
 
         rfPageLayout = QVBoxLayout(rfPage)
         rfPageLayout.addLayout(rfLayout)
@@ -346,17 +398,17 @@ class App(QMainWindow):
         paramStack.addWidget(knnPage)
 
         # fields
-        knnNumNeighborsSpinBox = self.__setSpinBox(5, 1, 20, 1, knnPage)
-        knnWeightsComboBox = QComboBox(knnPage)
-        knnWeightsComboBox.addItem('uniform')
-        knnWeightsComboBox.addItem('distance')
-        knnMetricLabel = QLabel('', knnPage)
+        self.knnNumNeighborsSpinBox = self.__setSpinBox(5, 1, 20, 1, knnPage)
+        self.knnWeightsComboBox = QComboBox(knnPage)
+        self.knnWeightsComboBox.addItem('uniform')
+        self.knnWeightsComboBox.addItem('distance')
+        self.knnMetricLabel = QLabel('', knnPage)
 
         # layout
         knnLayout = QFormLayout()
-        knnLayout.addRow('n_neighbors:', knnNumNeighborsSpinBox)
-        knnLayout.addRow('weights:', knnWeightsComboBox)
-        knnLayout.addRow('metric:', knnMetricLabel)
+        knnLayout.addRow('n_neighbors:', self.knnNumNeighborsSpinBox)
+        knnLayout.addRow('weights:', self.knnWeightsComboBox)
+        knnLayout.addRow('metric:', self.knnMetricLabel)
 
         knnPageLayout = QVBoxLayout(knnPage)
         knnPageLayout.addLayout(knnLayout)
@@ -368,40 +420,40 @@ class App(QMainWindow):
         paramStack.addWidget(lrPage)
 
         # fields
-        lrRegularizationComboBox = QComboBox(lrPage)
-        lrRegularizationComboBox.addItem('l2')
-        lrRegularizationComboBox.addItem('l1')
-        lrRglrStrengthDoubleSpinBox = self.__setDoubleSpinBox(1, 0, 10, 0.1, 1, lrPage)
-        lrFitInterceptCheckBox = QCheckBox('', lrPage)
-        lrFitInterceptCheckBox.setChecked(True)
-        lrMultiClassComboBox = QComboBox(lrPage)
-        lrMultiClassComboBox.addItem('ovr')
-        lrMultiClassComboBox.addItem('multinomial')
-        lrClassWeightLineEdit = QLineEdit('balanced', lrPage)
+        self.lrRegularizationComboBox = QComboBox(lrPage)
+        self.lrRegularizationComboBox.addItem('l2')
+        self.lrRegularizationComboBox.addItem('l1')
+        self.lrRglrStrengthDoubleSpinBox = self.__setDoubleSpinBox(1, 0, 10, 0.1, 1, lrPage)
+        self.lrFitInterceptCheckBox = QCheckBox('', lrPage)
+        self.lrFitInterceptCheckBox.setChecked(True)
+        self.lrMultiClassComboBox = QComboBox(lrPage)
+        self.lrMultiClassComboBox.addItem('ovr')
+        self.lrMultiClassComboBox.addItem('multinomial')
+        self.lrClassWeightLineEdit = QLineEdit('balanced', lrPage)
 
         lrStopLabel = QLabel('Stopping Criteria:', lrPage)
         lrTolLabel = QLabel('tol:', lrPage)
         lrTolLabel.setMinimumWidth(60)
-        lrTolLineEdit = QLineEdit('1e-3', lrPage)
+        self.lrTolLineEdit = QLineEdit('1e-3', lrPage)
         lrMaxIterLabel = QLabel('max_iter:', lrPage)
         lrMaxIterLabel.setMinimumWidth(60)
-        lrMaxIterLineEdit = QLineEdit('100', lrPage)
+        self.lrMaxIterLineEdit = QLineEdit('100', lrPage)
 
         # layout
         lrLayout = QFormLayout()
-        lrLayout.addRow('regularization:', lrRegularizationComboBox)
-        lrLayout.addRow('rglr_strength:', lrRglrStrengthDoubleSpinBox)
-        lrLayout.addRow('fit_intercept:', lrFitInterceptCheckBox)
-        lrLayout.addRow('multi_class:', lrMultiClassComboBox)
-        lrLayout.addRow('class_weight:', lrClassWeightLineEdit)
+        lrLayout.addRow('regularization:', self.lrRegularizationComboBox)
+        lrLayout.addRow('rglr_strength:', self.lrRglrStrengthDoubleSpinBox)
+        lrLayout.addRow('fit_intercept:', self.lrFitInterceptCheckBox)
+        lrLayout.addRow('multi_class:', self.lrMultiClassComboBox)
+        lrLayout.addRow('class_weight:', self.lrClassWeightLineEdit)
 
         lrSpacer = QSpacerItem(40, 20, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
         lrStopLayout = QHBoxLayout()
         lrStopLayout.addWidget(lrTolLabel)
-        lrStopLayout.addWidget(lrTolLineEdit)
+        lrStopLayout.addWidget(self.lrTolLineEdit)
         lrStopLayout.addWidget(lrMaxIterLabel)
-        lrStopLayout.addWidget(lrMaxIterLineEdit)
+        lrStopLayout.addWidget(self.lrMaxIterLineEdit)
 
         lrPageLayout = QVBoxLayout(lrPage)
         lrPageLayout.addLayout(lrLayout)
@@ -416,44 +468,44 @@ class App(QMainWindow):
         paramStack.addWidget(nnPage)
 
         # fields
-        nnNumHiddenUnitsSpinBox = self.__setSpinBox(0, 0, 10, 1, nnPage)
-        nnActivationComboBox = QComboBox(nnPage)
-        nnActivationComboBox.addItem('relu')
-        nnActivationComboBox.addItem('logistic')
-        nnActivationComboBox.addItem('tanh')
-        nnActivationComboBox.addItem('identity')
-        nnBatchSizeLineEdit = QLineEdit('auto', nnPage)
-        nnLearningRateComboBox = QComboBox(nnPage)
-        nnLearningRateComboBox.addItem('constant')
-        nnLearningRateComboBox.addItem('invscaling')
-        nnLearningRateComboBox.addItem('adaptive')
-        nnLearningRateInitLineEdit = QLineEdit('0.001', nnPage)
-        nnEarlyStoppingCheckBox = QCheckBox('', nnPage)
+        self.nnNumHiddenUnitsSpinBox = self.__setSpinBox(0, 0, 10, 1, nnPage)
+        self.nnActivationComboBox = QComboBox(nnPage)
+        self.nnActivationComboBox.addItem('relu')
+        self.nnActivationComboBox.addItem('logistic')
+        self.nnActivationComboBox.addItem('tanh')
+        self.nnActivationComboBox.addItem('identity')
+        self.nnBatchSizeLineEdit = QLineEdit('auto', nnPage)
+        self.nnLearningRateComboBox = QComboBox(nnPage)
+        self.nnLearningRateComboBox.addItem('constant')
+        self.nnLearningRateComboBox.addItem('invscaling')
+        self.nnLearningRateComboBox.addItem('adaptive')
+        self.nnLearningRateInitLineEdit = QLineEdit('0.001', nnPage)
+        self.nnEarlyStoppingCheckBox = QCheckBox('', nnPage)
 
         nnStopLabel = QLabel('Stopping Criteria:', nnPage)
         nnTolLabel = QLabel('tol:', nnPage)
         nnTolLabel.setMinimumWidth(60)
-        nnTolLineEdit = QLineEdit('1e-3', nnPage)
+        self.nnTolLineEdit = QLineEdit('1e-3', nnPage)
         nnMaxIterLabel = QLabel('max_iter:', nnPage)
         nnMaxIterLabel.setMinimumWidth(60)
-        nnMaxIterLineEdit = QLineEdit('100', nnPage)
+        self.nnMaxIterLineEdit = QLineEdit('100', nnPage)
 
         # layout
         nnLayout = QFormLayout()
-        nnLayout.addRow('num_hidden_units:', nnNumHiddenUnitsSpinBox)
-        nnLayout.addRow('activation:', nnActivationComboBox)
-        nnLayout.addRow('batch_size:', nnBatchSizeLineEdit)
-        nnLayout.addRow('learning_rate:', nnLearningRateComboBox)
-        nnLayout.addRow('learning_rate_init:', nnLearningRateInitLineEdit)
-        nnLayout.addRow('early_stopping:', nnEarlyStoppingCheckBox)
+        nnLayout.addRow('num_hidden_units:', self.nnNumHiddenUnitsSpinBox)
+        nnLayout.addRow('activation:', self.nnActivationComboBox)
+        nnLayout.addRow('batch_size:', self.nnBatchSizeLineEdit)
+        nnLayout.addRow('learning_rate:', self.nnLearningRateComboBox)
+        nnLayout.addRow('learning_rate_init:', self.nnLearningRateInitLineEdit)
+        nnLayout.addRow('early_stopping:', self.nnEarlyStoppingCheckBox)
 
         nnSpacer = QSpacerItem(40, 20, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
         nnStopLayout = QHBoxLayout()
         nnStopLayout.addWidget(nnTolLabel)
-        nnStopLayout.addWidget(nnTolLineEdit)
+        nnStopLayout.addWidget(self.nnTolLineEdit)
         nnStopLayout.addWidget(nnMaxIterLabel)
-        nnStopLayout.addWidget(nnMaxIterLineEdit)
+        nnStopLayout.addWidget(self.nnMaxIterLineEdit)
 
         nnPageLayout = QVBoxLayout(nnPage)
         nnPageLayout.addLayout(nnLayout)
@@ -468,41 +520,41 @@ class App(QMainWindow):
         paramStack.addWidget(svmPage)
 
         # fields
-        svmPenaltyDoubleSpinBox = self.__setDoubleSpinBox(1, 0, 10, 0.1, 1, svmPage)
-        svmKernelComboBox = QComboBox(svmPage)
-        svmKernelComboBox.addItem('rbf')
-        svmKernelComboBox.addItem('linear')
-        svmKernelComboBox.addItem('polynomial')
-        svmKernelComboBox.addItem('sigmoid')
-        svmDegreeSpinBox = self.__setSpinBox(3, 1, 5, 1, svmPage)
-        svmGammaLineEdit = QLineEdit('auto')
-        svmCoefDoubleSpinBox = self.__setDoubleSpinBox(0, -10, 10, 0.1, 1, svmPage)
-        svmClassWeightLineEdit = QLineEdit('balanced')
+        self.svmPenaltyDoubleSpinBox = self.__setDoubleSpinBox(1, 0, 10, 0.1, 1, svmPage)
+        self.svmKernelComboBox = QComboBox(svmPage)
+        self.svmKernelComboBox.addItem('rbf')
+        self.svmKernelComboBox.addItem('linear')
+        self.svmKernelComboBox.addItem('polynomial')
+        self.svmKernelComboBox.addItem('sigmoid')
+        self.svmDegreeSpinBox = self.__setSpinBox(3, 1, 5, 1, svmPage)
+        self.svmGammaLineEdit = QLineEdit('auto')
+        self.svmCoefDoubleSpinBox = self.__setDoubleSpinBox(0, -10, 10, 0.1, 1, svmPage)
+        self.svmClassWeightLineEdit = QLineEdit('balanced')
 
         svmStopLabel = QLabel('Stopping Criteria:', svmPage)
         svmTolLabel = QLabel('tol:', svmPage)
         svmTolLabel.setMinimumWidth(60)
-        svmTolLineEdit = QLineEdit('1e-3', svmPage)
+        self.svmTolLineEdit = QLineEdit('1e-3', svmPage)
         svmMaxIterLabel = QLabel('max_iter:', svmPage)
         svmMaxIterLabel.setMinimumWidth(60)
-        svmMaxIterLineEdit = QLineEdit('100', svmPage)
+        self.svmMaxIterLineEdit = QLineEdit('100', svmPage)
 
         # layout
         svmLayout = QFormLayout()
-        svmLayout.addRow('penalty:', svmPenaltyDoubleSpinBox)
-        svmLayout.addRow('kernel:', svmKernelComboBox)
-        svmLayout.addRow('degree:', svmDegreeSpinBox)
-        svmLayout.addRow('gamma:', svmGammaLineEdit)
-        svmLayout.addRow('coef0:', svmCoefDoubleSpinBox)
-        svmLayout.addRow('class_weight:', svmClassWeightLineEdit)
+        svmLayout.addRow('penalty:', self.svmPenaltyDoubleSpinBox)
+        svmLayout.addRow('kernel:', self.svmKernelComboBox)
+        svmLayout.addRow('degree:', self.svmDegreeSpinBox)
+        svmLayout.addRow('gamma:', self.svmGammaLineEdit)
+        svmLayout.addRow('coef0:', self.svmCoefDoubleSpinBox)
+        svmLayout.addRow('class_weight:', self.svmClassWeightLineEdit)
 
         svmSpacer = QSpacerItem(40, 20, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
         svmStopLayout = QHBoxLayout()
         svmStopLayout.addWidget(svmTolLabel)
-        svmStopLayout.addWidget(svmTolLineEdit)
+        svmStopLayout.addWidget(self.svmTolLineEdit)
         svmStopLayout.addWidget(svmMaxIterLabel)
-        svmStopLayout.addWidget(svmMaxIterLineEdit)
+        svmStopLayout.addWidget(self.svmMaxIterLineEdit)
 
         svmPageLayout = QVBoxLayout(svmPage)
         svmPageLayout.addLayout(svmLayout)
@@ -517,34 +569,34 @@ class App(QMainWindow):
         paramStack.addWidget(nbPage)
 
         # fields
-        nbDistributionLabel = QLabel('')
-        nbAddSmoothDoubleSpinBox = self.__setDoubleSpinBox(1, 0, 50, 0.5, 1, nbPage)
-        nbFitPriorCheckBox = QCheckBox(nbPage)
-        nbFitPriorCheckBox.setChecked(True)
-        nbClassPriorLineEdit = QLineEdit('None', nbPage)
+        self.nbDistributionLabel = QLabel('')
+        self.nbAddSmoothDoubleSpinBox = self.__setDoubleSpinBox(1, 0, 50, 0.5, 1, nbPage)
+        self.nbFitPriorCheckBox = QCheckBox(nbPage)
+        self.nbFitPriorCheckBox.setChecked(True)
+        self.nbClassPriorLineEdit = QLineEdit('None', nbPage)
 
         nbStopLabel = QLabel('Stopping Criteria:', nbPage)
         nbTolLabel = QLabel('tol:', nbPage)
         nbTolLabel.setMinimumWidth(60)
-        nbTolLineEdit = QLineEdit('1e-3', nbPage)
+        self.nbTolLineEdit = QLineEdit('1e-3', nbPage)
         nbMaxIterLabel = QLabel('max_iter:', nbPage)
         nbMaxIterLabel.setMinimumWidth(60)
-        nbMaxIterLineEdit = QLineEdit('100', nbPage)
+        self.nbMaxIterLineEdit = QLineEdit('100', nbPage)
 
         # layout
         nbLayout = QFormLayout()
-        nbLayout.addRow('distributon:', nbDistributionLabel)
-        nbLayout.addRow('add_smooth:', nbAddSmoothDoubleSpinBox)
-        nbLayout.addRow('fit_prior:', nbFitPriorCheckBox)
-        nbLayout.addRow('class_prior:', nbClassPriorLineEdit)
+        nbLayout.addRow('distributon:', self.nbDistributionLabel)
+        nbLayout.addRow('add_smooth:', self.nbAddSmoothDoubleSpinBox)
+        nbLayout.addRow('fit_prior:', self.nbFitPriorCheckBox)
+        nbLayout.addRow('class_prior:', self.nbClassPriorLineEdit)
 
         nbSpacer = QSpacerItem(40, 20, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
         nbStopLayout = QHBoxLayout()
         nbStopLayout.addWidget(nbTolLabel)
-        nbStopLayout.addWidget(nbTolLineEdit)
+        nbStopLayout.addWidget(self.nbTolLineEdit)
         nbStopLayout.addWidget(nbMaxIterLabel)
-        nbStopLayout.addWidget(nbMaxIterLineEdit)
+        nbStopLayout.addWidget(self.nbMaxIterLineEdit)
 
         nbPageLayout = QVBoxLayout(nbPage)
         nbPageLayout.addLayout(nbLayout)

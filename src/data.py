@@ -2,21 +2,79 @@ import pandas as pd
 import numpy as np
 from sklearn import model_selection
 
-# A data structure that stores the dataset (either labeled or unlabeled) and 
-# its key statistics.
+# A data structure that stores a dataset and its key statistics.
+# 
+# Assumptions
+# - a single classification task
+# - the labels are in the last column
+# - categorical labels
+#
+# Fields
+# data (pd dataframe):		dataset
+# name (str): 				name of the dataset
+# labeled (bool): 			whether or not the dataset is labeled
+# num_samples (int): 		number of samples
+# num_features (int): 		number of features
+# num_classes (int): 		number of classes
+# features (list): 			collection of feature names
+# classes (list): 			collection of class names
+# feature_type_dict (dict): mapping from feature names to feature types
+# class_counts_dict (dict): mapping from class names to class counts
+# feature_summary: 			summary of feature types ('string', 'numeric' or 'mixed')
+# train: 					training set
+# test: 					test set
 class Data:
 
-	# data: the dataset (a pandas dataframe)
-	# labeled: a bool that indicates whether or not the dataset is labeled
+	# constructor
+	# 
+	# data (pd dataframe): 	dataset
+	# name (str): 			name of the dataset
+	# labeled (bool): 		whether or not the dataset is labeled
 	def __init__(self, data, name, labeled):
 		self.data = data
 		self.name = name
 		self.labeled = labeled
-		self.num_rows = self.data.shape[0]
-		self.num_columns = self.data.shape[1]
+		self.num_samples = self.data.shape[0]
+		
+		# count the number of features
+		if self.labeled:
+			self.num_features = self.data.shape[1] - 1
+		else:
+			self.num_features = self.data.shape[1]
+
+		# extract features and their types
+		self.feature_type_dict = {}
+		string = 0
+		numeric = 0
+		col_names = list(self.data)
+		self.features = col_names[0: self.num_features]
+
+		for i in range(0, self.num_features):
+			if pd.api.types.is_string_dtype(self.data.iloc[:, i]):
+				self.feature_type_dict[self.features[i]] = 'string'
+				string += 1
+			else:
+				self.feature_type_dict[self.features[i]] = 'numeric'
+				numeric += 1
+
+		if string > 0 and numeric == 0:
+			self.feature_summary = 'string'
+		elif string == 0 and numeric > 0:
+			self.feature_summary = 'numeric'
+		else:
+			self.feature_summary = 'mixed'
+
+		# extract classes and their counts
+		self.classes = list(set(self.data.iloc[:, self.num_features]))
+		self.num_classes = len(self.classes)
+		class_counts = [0] * self.num_classes
+		self.class_counts_dict = dict(zip(self.classes, class_counts))
+
+		for i in range(0, self.num_samples):
+			label = self.data.iloc[i, self.num_features]
+			self.class_counts_dict[label] += 1
 
 	# return the dataset
-	# return type: pandas dataframe
 	def getData(self):
 		return self.data
 
@@ -24,56 +82,57 @@ class Data:
 	def getName(self):
 		return self.name
 
-	# return the number of samples in the dataset
+	# return the number of samples
 	def getNumOfSamples(self):
-		return self.num_rows
-
-	# return the number of classes in the dataset
-	def getNumOfClasses(self):
-		return len(set(self.data.iloc[:, self.num_columns - 1]))
-
-	# count the number of samples that belong to each class
-	# return a dictionary (key: class name, value: number of samples)
-	def getClassCounts(self):
-		classes = list(set(self.data.iloc[:, self.num_columns - 1]))
-		counts = [0] * len(classes)
-		dic = dict(zip(classes, counts))
-		for i in range(0, self.num_rows):
-			label = self.data.iloc[i, self.num_columns - 1]
-			dic[label] += 1
-		return dic
+		return self.num_samples
 
 	# return the number of features
 	def getNumOfFeatures(self):
-		if self.labeled:
-			return self.num_columns - 1
-		else:
-			return self.num_columns
+		return self.num_features
 
-	# obtain the type of each feature (numerical or categorical)
-	# return a dictionary (key: feature name, value: type)
-	def getTypeOfFeatures(self):
-		dic = {}
-		features = list(self.data)
-		for i in range(0, len(features) - 1):
-			dic[features[i]] = self.data.dtypes[i]
-		return dic
+	# return the list of features
+	def getFeatures(self):
+		return self.features
+
+	# return the type of each feature (as a dictionary)
+	def getFeatureTypes(self):
+		return self.feature_type_dict
+
+	# return the feature summary ('string', 'numeric' or 'mixed')
+	def getFeatureSummary(self):
+		return self.feature_summary
+
+	# return the number of classes
+	def getNumOfClasses(self):
+		return self.num_classes
+
+	# return the list of classes
+	def getClasses(self):
+		return self.classes
+
+	# return the count of each class (as a dictionary)
+	def getClassCounts(self):
+		return self.class_counts_dict
 
 	# split the labeled dataset into training and test sets
 	#
-	# test_size (float): the proportion of data for testing (e.g. 0.2, 0.33, etc.)
-	# stratify (bool): stratified sampling or not
+	# test_size (float): 	the proportion of data for testing (e.g. 0.2, 0.33, etc.)
+	# stratify (bool): 		stratified sampling or not
 	def trainTestSplit(self, test_size, stratify):
-		X = self.data.iloc[:, 0:self.num_columns-1]
-		y = self.data.iloc[:, self.num_columns-1]
+		X = self.data.iloc[:, 0: self.num_features]
+		y = self.data.iloc[:, self.num_features]
+		
 		if stratify:
 			s = y
 		else:
 			s = None
+		
 		X_train, X_test, y_train, y_test = model_selection.train_test_split(\
 			X, y, test_size=test_size, stratify=s, random_state=0)
 		self.train = [X_train, y_train]
 		self.test = [X_test, y_test]
+
+		return self.train, self.test
 
 
 
