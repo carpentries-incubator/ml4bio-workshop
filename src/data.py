@@ -1,28 +1,29 @@
 import pandas as pd
 import numpy as np
-from sklearn import model_selection
+from sklearn import preprocessing, model_selection
 
+###############################################################################
 # A data structure that stores a dataset and its key statistics.
 # 
-# Assumptions
-# - a single classification task
-# - the labels are in the last column
-# - categorical labels
+##### Assumptions #####
+# a single classification task (i.e. one label column)
+# the labels are in the last column
+# categorical labels
 #
-# Fields
-# data (pd dataframe):		dataset
-# name (str): 				name of the dataset
-# labeled (bool): 			whether or not the dataset is labeled
-# num_samples (int): 		number of samples
-# num_features (int): 		number of features
-# num_classes (int): 		number of classes
-# features (list): 			collection of feature names
-# classes (list): 			collection of class names
-# feature_type_dict (dict): mapping from feature names to feature types
-# class_counts_dict (dict): mapping from class names to class counts
-# feature_summary: 			summary of feature types ('string', 'numeric' or 'mixed')
-# train: 					training set
-# test: 					test set
+##### Fields #####
+# data (pd dataframe):				original dataset
+# transformed_data (pd dataframe):	transformed dataset (discrete features are one-hot encoded)
+# name (str): 						name of the dataset
+# labeled (bool): 					whether or not the dataset is labeled
+# num_samples (int): 				number of samples
+# num_features (int): 				number of features
+# num_classes (int): 				number of classes
+# features (list): 					collection of feature names
+# classes (list): 					collection of class names
+# feature_type_dict (dict): 		mapping from feature names to feature types
+# class_counts_dict (dict): 		mapping from class names to class counts
+# feature_summary (str): 			summary of feature types ('string', 'numeric' or 'mixed')
+###############################################################################
 class Data:
 
 	# constructor
@@ -74,7 +75,7 @@ class Data:
 			label = self.data.iloc[i, self.num_features]
 			self.class_counts_dict[label] += 1
 
-	# return the dataset
+	# return the original dataset
 	def getData(self):
 		return self.data
 
@@ -114,6 +115,25 @@ class Data:
 	def getClassCounts(self):
 		return self.class_counts_dict
 
+	# return the transformed dataset (discrete features are one-hot encoded)
+	def getTransformedData(self):
+		transformed_data = self.data.copy()
+		le = preprocessing.LabelEncoder()
+		for i in range(0, self.num_features):
+			if pd.api.types.is_string_dtype(self.data.iloc[:, i]):
+				le.fit(self.data.iloc[:, i])
+				new_col = le.transform(self.data.iloc[:, i])
+				transformed_data.iloc[:, i] = new_col
+
+		# one-hot encoding
+		if self.feature_summary == 'string':
+			ohe = preprocessing.OneHotEncoder()
+			ohe.fit(transformed_data.iloc[:, 0: self.num_features])
+			transformed_features = ohe.transform(transformed_data.iloc[:, 0: self.num_features])
+			transformed_data = [transformed_features, self.data.iloc[:, self.num_features]]
+
+		return transformed_data
+
 	# split the labeled dataset into training and test sets
 	#
 	# test_size (float): 	the proportion of data for testing (e.g. 0.2, 0.33, etc.)
@@ -129,10 +149,10 @@ class Data:
 		
 		X_train, X_test, y_train, y_test = model_selection.train_test_split(\
 			X, y, test_size=test_size, stratify=s, random_state=0)
-		self.train = [X_train, y_train]
-		self.test = [X_test, y_test]
+		train = Data(pd.concat([X_train, y_train], axis=1), 'train', True)
+		test = Data(pd.concat([X_test, y_test], axis=1), 'test', True)
 
-		return self.train, self.test
+		return train, test
 
 
 
