@@ -91,8 +91,20 @@ class App(QMainWindow):
         for featureName in featureTypeDict:
         	feature = QTreeWidgetItem(featureSubTree)
         	feature.setText(0, featureName)
-        	feature.setText(1, str(featureTypeDict[featureName]))
+        	feature.setText(1, featureTypeDict[featureName])
         	feature.setToolTip(0, featureName)
+
+        if data.isTransformed():
+            transformedFeatureSubTree = QTreeWidgetItem(fileName)
+            transformedFeatureSubTree.setText(0, 'Transformed Features')
+            transformedFeatureSubTree.setText(1, str(data.getNumOfTransformedFeatures))
+            transformedFeatureTypeDict = data.getTransformedFeatureTypes()
+
+            for transformedFeatureName in transformedFeatureTypeDict:
+                transformedFeature = QTreeWidgetItem(transformedFeatureSubTree)
+                transformedFeature.setText(0, transformedFeatureName)
+                transformedFeature.setText(1, transformedFeatureTypeDict[transformedFeatureName])
+                transformedFeature.setToolTip(transformedFeatureName)
 
     def __trainTestSplit(self):
         test_size = self.splitSpinBox.value()
@@ -101,8 +113,8 @@ class App(QMainWindow):
 
     def __trainClassifier(self, index):
         num_features = self.train.getNumOfFeatures()
-        X = self.train.getData().iloc[:, 0: num_features]
-        y = self.train.getData().iloc[:, num_features]
+        X = self.train.iloc[:, 0: num_features]
+        y = self.train.iloc[:, num_features]
         
         # decision tree
         if index == 0:
@@ -171,36 +183,44 @@ class App(QMainWindow):
 
         # naive bayes
         elif index == 6:
-            # discrete features: use multinomial NB
+            # string-valued features: use multinomial NB
             if self.labeled_data.getFeatureSummary() == 'string':
                 classifier = naive_bayes.MultinomialNB(\
                     alpha = self.nbAddSmoothDoubleSpinBox.value(), \
                     fit_prior = self.nbFitPriorCheckBox.isChecked(), \
                     class_prior = self.nbClassPriorLineEdit.text())
 
-            # continuous features: use gaussian NB
+            # numeric features: use gaussian NB
             elif self.labeled_data.getFeatureSummary() == 'numeric':
                 classifier = naive_bayes.GaussianNB(\
                     priors = self.nbClassPriorLineEdit.text())
 
         classifier = classifier.fit(X, y)
 
-    def knnSetHidden(self):
-        # discrete features: use hamming distance
+    def knnPreSet(self):
+        # string-valued features: use hamming distance
         if self.labeled_data.getFeatureSummary() == 'string':
             self.knnMetricListView.setRowHidden(0, True)
             self.knnMetricListView.setRowHidden(1, True)
-        # continuous features: use euclidean or manhatten distance
+        # numeric features: use euclidean or manhatten distance
         elif self.labeled_data.getFeatureSummary() == 'numeric':
             self.knnMetricListView.setRowHidden(2, True)
+        # mixed features: DO NOT use KNN
+        else:
+            self.classTypeListView.setRowHidden(3, True)
 
-    def nbSetDistribution(self):
+    def nbPreSet(self):
+        # string-valued features: use multinomial NB
         if self.labeled_data.getFeatureSummary() == 'string':
             self.nbDistributionLabel.setText('multinomial')
+        # numeric features: use gaussian NB
         elif self.labeled_data.getFeatureSummary() == 'numeric':
             self.nbDistributionLabel.setText('gaussian')
             self.nbAddSmoothDoubleSpinBox.setDisabled(True)
             self.nbFitPriorCheckBox.setDisabled(True)
+        # mixed features: DO NOT use NB
+        else:
+            self.classTypeListView.setRowHidden(7, True)
     
     def initUI(self):
         titleFont = QFont()
@@ -346,8 +366,8 @@ class App(QMainWindow):
         self.dataNextPushButton.setDisabled(True)
         self.dataNextPushButton.clicked.connect(lambda: self.leftPanel.setCurrentIndex(1))
         self.dataNextPushButton.clicked.connect(self.__trainTestSplit)
-        self.dataNextPushButton.clicked.connect(self.knnSetHidden)
-        self.dataNextPushButton.clicked.connect(self.nbSetDistribution)
+        self.dataNextPushButton.clicked.connect(self.knnPreSet)
+        self.dataNextPushButton.clicked.connect(self.nbPreSet)
         self.dataNextPushButton.clicked.connect(\
             lambda: self.svmGammaLineEdit.setText(str(1/self.labeled_data.getNumOfFeatures())))
         dataNextLayout = QHBoxLayout()
@@ -365,28 +385,29 @@ class App(QMainWindow):
 
         ### classifier type
         classTypeLabel = self.__setLabel('Classifier Type:', modelPage, titleFont)
-        classTypeComboBox = QComboBox(modelPage)
+        self.classTypeComboBox = QComboBox(modelPage)
+        self.classTypeListView = self.classTypeComboBox.view()
         classTypeLayout = QHBoxLayout()
         classTypeLayout.addWidget(classTypeLabel)
-        classTypeLayout.addWidget(classTypeComboBox)
+        classTypeLayout.addWidget(self.classTypeComboBox)
 
         ### classifier parameter stack
         paramStack = QStackedWidget(modelPage)
         paramStack.setMinimumHeight(320)
-        classTypeComboBox.currentIndexChanged.connect(paramStack.setCurrentIndex)
+        self.classTypeComboBox.currentIndexChanged.connect(paramStack.setCurrentIndex)
 
         modelPageLayout.addLayout(classTypeLayout)
         modelPageLayout.addWidget(paramStack)
 
         ## initial empty page
         noneIcon = QIcon('icons/none.png')
-        classTypeComboBox.addItem(noneIcon, '-- Select Classifier --')
+        self.classTypeComboBox.addItem(noneIcon, '-- Select Classifier --')
         initPage = QWidget()
         paramStack.addWidget(initPage)
 
         ## decision tree
         dtIcon = QIcon('icons/dt.png')
-        classTypeComboBox.addItem(dtIcon, 'Decision Tree')
+        self.classTypeComboBox.addItem(dtIcon, 'Decision Tree')
         dtPage = QWidget()
         paramStack.addWidget(dtPage)
 
@@ -414,7 +435,7 @@ class App(QMainWindow):
 
         ## Random forest
         rfIcon = QIcon('icons/rf.png')
-        classTypeComboBox.addItem(rfIcon, 'Random Forest')
+        self.classTypeComboBox.addItem(rfIcon, 'Random Forest')
         rfPage = QWidget()
         paramStack.addWidget(rfPage)
 
@@ -452,7 +473,7 @@ class App(QMainWindow):
 
         ## K-nearest neighbors
         knnIcon = QIcon('icons/knn.png')
-        classTypeComboBox.addItem(knnIcon, 'K-Nearest Neighbors')
+        self.classTypeComboBox.addItem(knnIcon, 'K-Nearest Neighbors')
         knnPage = QWidget()
         paramStack.addWidget(knnPage)
 
@@ -478,7 +499,7 @@ class App(QMainWindow):
 
         ## Logistic regression
         lrIcon = QIcon('icons/lr.png')
-        classTypeComboBox.addItem(lrIcon, 'Logistic Regression')
+        self.classTypeComboBox.addItem(lrIcon, 'Logistic Regression')
         lrPage = QWidget()
         paramStack.addWidget(lrPage)
 
@@ -528,7 +549,7 @@ class App(QMainWindow):
 
         ## Neural Network
         nnIcon = QIcon('icons/nn.png')
-        classTypeComboBox.addItem(nnIcon, 'Neural Network')
+        self.classTypeComboBox.addItem(nnIcon, 'Neural Network')
         nnPage = QWidget()
         paramStack.addWidget(nnPage)
 
@@ -580,7 +601,7 @@ class App(QMainWindow):
 
         ## SVM
         svmIcon = QIcon('icons/svm.png')
-        classTypeComboBox.addItem(svmIcon, 'SVM')
+        self.classTypeComboBox.addItem(svmIcon, 'SVM')
         svmPage = QWidget()
         paramStack.addWidget(svmPage)
 
@@ -638,7 +659,7 @@ class App(QMainWindow):
 
         ## Naive bayes
         nbIcon = QIcon('icons/nb.png')
-        classTypeComboBox.addItem(nbIcon, 'Naive Bayes')
+        self.classTypeComboBox.addItem(nbIcon, 'Naive Bayes')
         nbPage = QWidget()
         paramStack.addWidget(nbPage)
 

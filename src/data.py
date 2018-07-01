@@ -11,18 +11,22 @@ from sklearn import preprocessing, model_selection
 # categorical labels
 #
 ##### Fields #####
-# data (pd dataframe):				original dataset
-# transformed_data (pd dataframe):	transformed dataset (discrete features are one-hot encoded)
-# name (str): 						name of the dataset
-# labeled (bool): 					whether or not the dataset is labeled
-# num_samples (int): 				number of samples
-# num_features (int): 				number of features
-# num_classes (int): 				number of classes
-# features (list): 					collection of feature names
-# classes (list): 					collection of class names
-# feature_type_dict (dict): 		mapping from feature names to feature types
-# class_counts_dict (dict): 		mapping from class names to class counts
-# feature_summary (str): 			summary of feature types ('string', 'numeric' or 'mixed')
+# data (pd dataframe):					original dataset
+# transformed_data (pd dataframe):		transformed dataset (one-hot encoding)
+# is_transformed (bool):				true if the dataset is transformed
+# name (str): 							name of the dataset
+# labeled (bool): 						whether or not the dataset is labeled
+# num_samples (int): 					number of samples
+# num_features (int): 					number of features
+# num_transformedFeatures (int):		number of features after transformation
+# num_classes (int): 					number of classes
+# features (list): 						collection of features
+# transformed_features (list): 			collection of transformed features
+# classes (list): 						collection of class names
+# feature_type_dict (dict): 			mapping from feature names to types
+# transformed_feature_type_dict (dict): mapping from transformed feature names to types
+# class_counts_dict (dict): 			mapping from class names to class counts
+# feature_summary (str): 				summary of feature types ('string', 'numeric' or 'mixed')
 ###############################################################################
 class Data:
 
@@ -35,32 +39,31 @@ class Data:
 		self.data = data
 		self.name = name
 		self.labeled = labeled
+		self.is_transformed = False
 		self.num_samples = self.data.shape[0]
-		
-		# count the number of features
+		self.num_features = self.data.shape[1]
+
+		# exclude the label column if data is labeled
 		if self.labeled:
-			self.num_features = self.data.shape[1] - 1
-		else:
-			self.num_features = self.data.shape[1]
+			self.num_features -= 1
 
 		# extract features and their types
 		self.feature_type_dict = {}
-		string = 0
-		numeric = 0
-		col_names = list(self.data)
-		self.features = col_names[0: self.num_features]
+		num_string = 0
+		num_numeric = 0
+		self.features = self.data.columns[0: self.num_features]
 
 		for i in range(0, self.num_features):
 			if pd.api.types.is_string_dtype(self.data.iloc[:, i]):
 				self.feature_type_dict[self.features[i]] = 'string'
-				string += 1
+				num_string += 1
 			else:
 				self.feature_type_dict[self.features[i]] = 'numeric'
-				numeric += 1
+				num_numeric += 1
 
-		if string > 0 and numeric == 0:
+		if num_string > 0 and num_numeric == 0:
 			self.feature_summary = 'string'
-		elif string == 0 and numeric > 0:
+		elif num_string == 0 and num_numeric > 0:
 			self.feature_summary = 'numeric'
 		else:
 			self.feature_summary = 'mixed'
@@ -75,9 +78,27 @@ class Data:
 			label = self.data.iloc[i, self.num_features]
 			self.class_counts_dict[label] += 1
 
+		self.transformed_data = self.__transformData()
+		self.num_transformed_features = self.transformed_data.shape[1]
+
+		if self.labeled:
+			self.num_transformed_features -= 1
+
+		self.transformed_features = self.transformed_data.columns[0: self.num_transformed_features]
+		self.transformed_feature_type_dict = dict(\
+			zip(self.transformed_features, ['numeric'] * self.num_transformed_features))
+
 	# return the original dataset
 	def getData(self):
 		return self.data
+
+	# return the transformed dataset
+	def getTransformedData(self):
+		return self.transformed_data
+
+	# return true if the data is transformed
+	def isTransformed(self):
+		return self.is_transformed
 
 	# return the name of the dataset
 	def getName(self):
@@ -91,13 +112,25 @@ class Data:
 	def getNumOfFeatures(self):
 		return self.num_features
 
+	# return the number of features after transformation
+	def getNumOfTransformedFeatures(self):
+		return self.num_transformed_features
+
 	# return the list of features
 	def getFeatures(self):
 		return self.features
 
+	# return the list of transformed features
+	def getTransformedFeatures(self):
+		return self.transformed_features
+
 	# return the type of each feature (as a dictionary)
 	def getFeatureTypes(self):
 		return self.feature_type_dict
+
+	# return the type of each transformed feature (as a dictionary)
+	def getTransformedFeatureTypes(self):
+		return self.transformed_feature_type_dict
 
 	# return the feature summary ('string', 'numeric' or 'mixed')
 	def getFeatureSummary(self):
@@ -115,32 +148,14 @@ class Data:
 	def getClassCounts(self):
 		return self.class_counts_dict
 
-	# return the transformed dataset (discrete features are one-hot encoded)
-	def getTransformedData(self):
-		transformed_data = self.data.copy()
-		le = preprocessing.LabelEncoder()
-		for i in range(0, self.num_features):
-			if pd.api.types.is_string_dtype(self.data.iloc[:, i]):
-				le.fit(self.data.iloc[:, i])
-				new_col = le.transform(self.data.iloc[:, i])
-				transformed_data.iloc[:, i] = new_col
-
-		# one-hot encoding
-		if self.feature_summary == 'string':
-			ohe = preprocessing.OneHotEncoder()
-			ohe.fit(transformed_data.iloc[:, 0: self.num_features])
-			transformed_features = ohe.transform(transformed_data.iloc[:, 0: self.num_features])
-			transformed_data = [transformed_features, self.data.iloc[:, self.num_features]]
-
-		return transformed_data
-
 	# split the labeled dataset into training and test sets
+	# use transformed data
 	#
 	# test_size (float): 	the proportion of data for testing (e.g. 0.2, 0.33, etc.)
 	# stratify (bool): 		stratified sampling or not
 	def trainTestSplit(self, test_size, stratify):
-		X = self.data.iloc[:, 0: self.num_features]
-		y = self.data.iloc[:, self.num_features]
+		X = self.transformed_data.iloc[:, 0: self.num_transformed_features]
+		y = self.transformed_data.iloc[:, self.num_transformed_features]
 		
 		if stratify:
 			s = y
@@ -149,10 +164,36 @@ class Data:
 		
 		X_train, X_test, y_train, y_test = model_selection.train_test_split(\
 			X, y, test_size=test_size, stratify=s, random_state=0)
-		train = Data(pd.concat([X_train, y_train], axis=1), 'train', True)
-		test = Data(pd.concat([X_test, y_test], axis=1), 'test', True)
+		train = pd.concat([X_train, y_train], axis=1)
+		test = pd.concat([X_test, y_test], axis=1)
 
 		return train, test
+
+	# transform string-valued features using one-hot encoding
+	def __transformData(self):
+		transformed_data = pd.DataFrame([])
+		le = preprocessing.LabelEncoder()		# label encoder (encode strings by integers)
+		ohe = preprocessing.OneHotEncoder()		# one-hot encoder
+
+		for i in range(0, self.num_features):
+			if pd.api.types.is_string_dtype(self.data.iloc[:, i]):
+				feature_name = self.data.columns[i]
+				le_col = pd.DataFrame(le.fit_transform(self.data.iloc[:, i]))
+				num_items = len(set(le_col))	# number of values of a string-valued feature
+				item_names = list(le.inverse_transform(list(range(0, num_items))))	# a collection of values
+				col_names = [feature_name + '_is_' + s for s in item_names]	# construct descriptive column names
+				ohe_cols = pd.DataFrame(ohe.fit_transform(le_col).toarray())
+				ohe_cols.columns = col_names
+				transformed_data = pd.concat([transformed_data, ohe_cols], axis=1)
+				self.is_transformed = True
+			else:
+				transformed_data = pd.concat([transformed_data, self.data.iloc[:,i]], axis=1)
+
+		# add back the label column
+		transformed_data = pd.concat([transformed_data, self.data.iloc[:, self.num_features]], axis=1)
+
+		return transformed_data
+
 
 
 
