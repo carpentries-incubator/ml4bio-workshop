@@ -78,7 +78,7 @@ class Data:
 			label = self.data.iloc[i, self.num_features]
 			self.class_counts_dict[label] += 1
 
-		self.transformed_data = self.__transformData()
+		self.__transformData()
 		self.num_transformed_features = self.transformed_data.shape[1]
 
 		if self.labeled:
@@ -87,6 +87,9 @@ class Data:
 		self.transformed_features = self.transformed_data.columns[0: self.num_transformed_features]
 		self.transformed_feature_type_dict = dict(\
 			zip(self.transformed_features, ['numeric'] * self.num_transformed_features))
+
+		# default train/test split
+		self.trainTestSplit(0.2, True)
 
 	# return the original dataset
 	def getData(self):
@@ -148,14 +151,32 @@ class Data:
 	def getClassCounts(self):
 		return self.class_counts_dict
 
+	# return training set
+	def getTrain(self):
+		return self.train
+
+	# return transformed training set
+	def getTransformedTrain(self):
+		return self.transformed_train
+
+	# return test set
+	def getTest(self):
+		return self.test
+
+	# return transformed test set
+	def getTransformedTest(self):
+		return self.transformed_test
+
 	# split the labeled dataset into training and test sets
 	# use transformed data
 	#
 	# test_size (float): 	the proportion of data for testing (e.g. 0.2, 0.33, etc.)
 	# stratify (bool): 		stratified sampling or not
 	def trainTestSplit(self, test_size, stratify):
-		X = self.transformed_data.iloc[:, 0: self.num_transformed_features]
-		y = self.transformed_data.iloc[:, self.num_transformed_features]
+		X = self.data.iloc[:, 0: self.num_features]
+		y = self.data.iloc[:, self.num_features]
+		transformed_X = self.transformed_data.iloc[:, 0: self.num_transformed_features]
+		transformed_y = self.transformed_data.iloc[:, self.num_transformed_features]
 		
 		if stratify:
 			s = y
@@ -164,36 +185,33 @@ class Data:
 		
 		X_train, X_test, y_train, y_test = model_selection.train_test_split(\
 			X, y, test_size=test_size, stratify=s, random_state=0)
-		train = pd.concat([X_train, y_train], axis=1)
-		test = pd.concat([X_test, y_test], axis=1)
-
-		return train, test
+		transformed_X_train, transformed_X_test, transformed_y_train, transformed_y_test = \
+			model_selection.train_test_split(transformed_X, transformed_y, test_size=test_size,\
+			stratify=s, random_state=0)
+		self.train = pd.concat([X_train, y_train], axis=1)
+		self.test = pd.concat([X_test, y_test], axis=1)
+		self.transformed_train = pd.concat([transformed_X_train, transformed_y_train], axis=1)
+		self.transformed_test = pd.concat([transformed_X_test, transformed_y_test], axis=1)
 
 	# transform string-valued features using one-hot encoding
 	def __transformData(self):
-		transformed_data = pd.DataFrame([])
+		self.transformed_data = pd.DataFrame([])
 		le = preprocessing.LabelEncoder()		# label encoder (encode strings by integers)
 		ohe = preprocessing.OneHotEncoder()		# one-hot encoder
 
 		for i in range(0, self.num_features):
 			if pd.api.types.is_string_dtype(self.data.iloc[:, i]):
 				feature_name = self.data.columns[i]
-				le_col = pd.DataFrame(le.fit_transform(self.data.iloc[:, i]))
+				le_col = le.fit_transform(self.data.iloc[:, i])
 				num_items = len(set(le_col))	# number of values of a string-valued feature
 				item_names = list(le.inverse_transform(list(range(0, num_items))))	# a collection of values
 				col_names = [feature_name + '_is_' + s for s in item_names]	# construct descriptive column names
-				ohe_cols = pd.DataFrame(ohe.fit_transform(le_col).toarray())
+				ohe_cols = pd.DataFrame(ohe.fit_transform(pd.DataFrame(le_col)).toarray())
 				ohe_cols.columns = col_names
-				transformed_data = pd.concat([transformed_data, ohe_cols], axis=1)
+				self.transformed_data = pd.concat([self.transformed_data, ohe_cols], axis=1)
 				self.is_transformed = True
 			else:
-				transformed_data = pd.concat([transformed_data, self.data.iloc[:,i]], axis=1)
+				self.transformed_data = pd.concat([self.transformed_data, self.data.iloc[:,i]], axis=1)
 
 		# add back the label column
-		transformed_data = pd.concat([transformed_data, self.data.iloc[:, self.num_features]], axis=1)
-
-		return transformed_data
-
-
-
-
+		self.transformed_data = pd.concat([self.transformed_data, self.data.iloc[:, self.num_features]], axis=1)

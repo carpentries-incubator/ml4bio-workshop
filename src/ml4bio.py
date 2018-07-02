@@ -2,6 +2,7 @@ import os, sys
 import pandas as pd
 import numpy as np
 from sklearn import tree, ensemble, neighbors, linear_model, neural_network, svm, naive_bayes
+from sklearn import model_selection, metrics
 from PyQt5.QtCore import QSize, Qt
 from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QFileDialog
 from PyQt5.QtWidgets import QPushButton, QRadioButton
@@ -11,6 +12,7 @@ from PyQt5.QtWidgets import QFormLayout, QGridLayout, QHBoxLayout, QVBoxLayout, 
 from PyQt5.QtGui import QFont, QIcon, QPixmap
 
 from data import Data
+from model import Model
 
 class App(QMainWindow):
     def __init__(self):
@@ -94,108 +96,274 @@ class App(QMainWindow):
         	feature.setText(1, featureTypeDict[featureName])
         	feature.setToolTip(0, featureName)
 
+        # if data has been transformed, show statistics of transformed data
         if data.isTransformed():
             transformedFeatureSubTree = QTreeWidgetItem(fileName)
             transformedFeatureSubTree.setText(0, 'Transformed Features')
-            transformedFeatureSubTree.setText(1, str(data.getNumOfTransformedFeatures))
+            transformedFeatureSubTree.setText(1, str(data.getNumOfTransformedFeatures()))
             transformedFeatureTypeDict = data.getTransformedFeatureTypes()
 
             for transformedFeatureName in transformedFeatureTypeDict:
                 transformedFeature = QTreeWidgetItem(transformedFeatureSubTree)
                 transformedFeature.setText(0, transformedFeatureName)
                 transformedFeature.setText(1, transformedFeatureTypeDict[transformedFeatureName])
-                transformedFeature.setToolTip(transformedFeatureName)
+                transformedFeature.setToolTip(0, transformedFeatureName)
 
     def __trainTestSplit(self):
-        test_size = self.splitSpinBox.value()
+        test_size = self.splitSpinBox.value() / 100
         stratify = self.splitCheckBox.isChecked()
-        self.train, self.test = self.labeled_data.trainTestSplit(test_size, stratify)   
+        self.labeled_data.trainTestSplit(test_size, stratify)
 
-    def __trainClassifier(self, index):
-        num_features = self.train.getNumOfFeatures()
-        X = self.train.iloc[:, 0: num_features]
-        y = self.train.iloc[:, num_features]
+    def __holdOutTest(self, X, y, classifier, classifier_type, val_size, stratify):
+        if stratify:
+            s = y
+        else:
+            s = None
+
+        X_train, X_val, y_train, y_val = model_selection.train_test_split(\
+            X, y, test_size=val_size, stratify=s, random_state=0)
+
+        classifier = classifier.fit(X_train, y_train)
+        y_pred = classifier.predict(X_val)
+        accuracy = metrics.accuracy_score(y_val, y_pred)
+        class_precision = metrics.precision_score(y_val, y_pred, average=None)
+        class_recall = metrics.recall_score(y_val, y_pred, average=None)
+        class_f1 = metrics.f1_score(y_val, y_pred, average=None)
+        confusion_matrix = metrics.confusion_matrix(y_val, y_pred)
+        confusion_matrix = confusion_matrix / np.sum(confusion_matrix, axis=1)
         
-        # decision tree
-        if index == 0:
-            classifier = tree.DecisionTreeClassifier(\
-                criterion = self.dtCriterionComboBox.currentText(), \
-                max_depth = int(self.dtMaxDepthLineEdit.text()), \
-                min_samples_split = self.dtMinSamplesSplitSpinBox.value(), \
-                min_samples_leaf = self.dtMinSamplesLeafSpinBox.value(), \
-                class_weight = self.dtClassWeightComboBox.currentText())
+        return Model(classifier_type, accuracy, class_precision, class_recall, \
+            class_f1, confusion_matrix)
 
-        # random forest
-        elif index == 1:
-            classifier = ensemble.RandomForestClassifier(\
-                n_estimators = self.rfNumEstimatorsSpinBox.value(), \
-                criterion = self.rfCriterionComboBox.currentText(), \
-                max_depth = int(self.rfMaxDepthLineEdit.text()), \
-                min_samples_split = self.rfMinSamplesSplitSpinBox.value(), \
-                min_samples_leaf = self.rfMinSamplesLeafSpinBox.value(), \
-                max_features = self.rfMaxFeaturesComboBox.currentText(), \
-                bootstrap = self.rfBootstrapCheckBox.isChecked(), \
-                class_weight = self.rfClassWeightComboBox.currentText())
+    def __kFoldCrossValidation(self, X, y, classifier, classifier_type, k, stratify):
+        num_classes = self.labeled_data.getNumOfClasses()
+        accuracy = 0
+        class_precision = np.zeros(num_classes)
+        class_recall = np.zeros(num_classes)
+        class_f1 = np.zeros(num_classes)
+        confusion_matrix = np.zeros([num_classes, num_classes])
 
-        # k-nearest neighbor
+        if stratify:
+            kf = model_selection.StratifiedKFold(n_splits=k, shuffle=True, random_state=0)
+        else:
+            kf = model_selection.KFold(n_splits=k, shuffle=True, random_state=0)
+            
+        for train_idx, val_idx in kf.split(X, y):
+            X_train, X_val = X.iloc[train_idx], X.iloc[val_idx]
+            y_train, y_val = y.iloc[train_idx], y.iloc[val_idx]
+
+            classifier = classifier.fit(X_train, y_train)
+            y_pred = classifier.predict(X_val)
+            accuracy += metrics.accuracy_score(y_val, y_pred)
+            class_precision += metrics.precision_score(y_val, y_pred, average=None)
+            class_recall += metrics.recall_score(y_val, y_pred, average=None)
+            class_f1 += metrics.f1_score(y_val, y_pred, average=None)
+            confusion_matrix += metrics.confusion_matrix(y_val, y_pred)
+
+        # average over all folds
+        accuracy /= k
+        class_precision /= k
+        class_recall /= k
+        class_f1 /= k
+        confusion_matrix = confusion_matrix / np.sum(confusion_matrix, axis=1)
+
+        return Model(classifier_type, accuracy, class_precision, class_recall, \
+            class_f1, confusion_matrix)
+
+    def __leaveOneOutTest(self, X, y, classifier, classifier_type):
+        kf = model_selection.KFold(n_splits=X.shape[0])
+        y_pred = model_selection.cross_val_predict(classifier, X, y, cv=kf.split(X, y))
+
+        accuracy = metrics.accuracy_score(y, y_pred)
+        class_precision = metrics.precision_score(y, y_pred, average=None)
+        class_recall = metrics.recall_score(y, y_pred, average=None)
+        class_f1 = metrics.f1_score(y, y_pred, average=None)
+        confusion_matrix = metrics.confusion_matrix(y, y_pred)
+        confusion_matrix = confusion_matrix / np.sum(confusion_matrix, axis=1)
+        
+        return Model(classifier_type, accuracy, class_precision, class_recall, \
+            class_f1, confusion_matrix)
+
+    def __trainAndValidate(self, X, y, classifier, classifier_type):
+        stratify = self.validationCheckBox.isChecked()
+
+        if self.holdoutRadioButton.isChecked():
+            val_size = self.holdoutSpinBox.value() / 100
+            return self.__holdOutTest(X, y, classifier, classifier_type, val_size, stratify)
+
+        if self.cvRadioButton.isChecked():
+            k = self.cvSpinBox.value()
+            return self.__kFoldCrossValidation(X, y, classifier, classifier_type, k, stratify)
+
+        if self.looRadioButton.isChecked():
+            return self.__leaveOneOutTest(X, y, classifier, classifier_type)
+
+    def __trainDecisionTree(self):
+        data = self.labeled_data.getTrain()
+        num_features = self.labeled_data.getNumOfFeatures()
+        X = data.iloc[:, 0: num_features]
+        y = data.iloc[:, num_features]
+
+        max_depth = self.dtMaxDepthLineEdit.text()
+        if max_depth == 'None':
+            max_depth = None
+
+        class_weight = self.dtClassWeightComboBox.currentText()
+        if class_weight == 'uniform':
+            class_weight = None
+
+        dt = tree.DecisionTreeClassifier(\
+            criterion = self.dtCriterionComboBox.currentText(), \
+            max_depth = max_depth, \
+            min_samples_split = self.dtMinSamplesSplitSpinBox.value(), \
+            min_samples_leaf = self.dtMinSamplesLeafSpinBox.value(), \
+            class_weight = class_weight)
+        return self.__trainAndValidate(X, y, dt, 'decision tree')
+
+    def __trainRandomForest(self):
+        data = self.labeled_data.getTrain()
+        num_features = self.labeled_data.getNumOfFeatures()
+        X = data.iloc[:, 0: num_features]
+        y = data.iloc[:, num_features]
+
+        max_features = self.rfMaxFeaturesComboBox.currentText()
+        if max_depth == 'all':
+            max_depth = None
+
+        class_weight = self.rfClassWeightComboBox.currentText()
+        if class_weight == 'uniform':
+            class_weight = None
+
+        rf = ensemble.RandomForestClassifier(\
+            n_estimators = self.rfNumEstimatorsSpinBox.value(), \
+            criterion = self.rfCriterionComboBox.currentText(), \
+            max_depth = self.rfMaxDepthLineEdit.text(), \
+            min_samples_split = self.rfMinSamplesSplitSpinBox.value(), \
+            min_samples_leaf = self.rfMinSamplesLeafSpinBox.value(), \
+            max_features = max_features, \
+            bootstrap = self.rfBootstrapCheckBox.isChecked(), \
+            class_weight = class_weight)
+        return self.__trainAndValidate(X, y, rf, 'random forest')
+
+    def __trainKNearestNeighbors(self):
+        data = self.labeled_data.getTransformedTrain()
+        num_features = self.labeled_data.getNumOfTransformedFeatures()
+        X = data.iloc[:, 0: num_features]
+        y = data.iloc[:, num_features]
+
+        knn = neighbors.KNeighborsClassifier(\
+            n_neighbors = self.knnNumNeighborsSpinBox.value(), \
+            weights = self.knnWeightsComboBox.currentText(), \
+            metric = self.knnMetricComboBox.currentText())
+        return self.__trainAndValidate(X, y, knn, 'k-nearset neighbors')
+
+    def __trainLogisticRegression(self):
+        data = self.labeled_data.getTransformedTrain()
+        num_features = self.labeled_data.getNumOfTransformedFeatures()
+        X = data.iloc[:, 0: num_features]
+        y = data.iloc[:, num_features]
+
+        class_weight = self.lrClassWeightComboBox.currentText()
+        if class_weight == 'uniform':
+            class_weight = None
+
+        lr = linear_model.LogisticRegression(\
+            penalty = self.lrRegularizationComboBox.currentText(), \
+            tol = self.lrTolLineEdit.text(), \
+            C = self.lrRglrStrengthDoubleSpinBox.value(), \
+            fit_intercept = self.lrFitInterceptCheckBox.isChecked(), \
+            class_weight = class_weight, \
+            solver = 'saga', \
+            max_iter = self.lrMaxIterLineEdit.text(), \
+            multi_class = self.lrMultiClassComboBox.currentText())
+        return self.__trainAndValidate(X, y, lr, 'logistic regression')
+        
+    def __trainNeuralNetwork(self):
+        data = self.labeled_data.getTransformedTrain()
+        num_features = self.labeled_data.getNumOfTransformedFeatures()
+        X = data.iloc[:, 0: num_features]
+        y = data.iloc[:, num_features]
+
+        nn = neural_network.MLPClassifier(\
+            hidden_layer_sizes = self.nnNumHiddenUnitsSpinBox.value(), \
+            activation = self.nnActivationComboBox.currentText(), \
+            solver = 'sgd', \
+            batch_size = self.nnBatchSizeLineEdit.text(), \
+            learning_rate = self.nnLearningRateComboBox.currentText(), \
+            learning_rate_init = self.nnLearningRateInitLineEdit(), \
+            max_iter = self.nnMaxIterLineEdit.text(), \
+            tol = self.nnTolLineEdit.text(), \
+            early_stopping = self.nnEarlyStoppingCheckBox.isChecked())
+        return self.__trainAndValidate(X, y, nn, 'neural network')
+
+    def __trainSVM(self):
+        data = self.labeled_data.getTransformedTrain()
+        num_features = self.labeled_data.getNumOfTransformedFeatures()
+        X = data.iloc[:, 0: num_features]
+        y = data.iloc[:, num_features]
+
+        class_weight = self.svmClassWeightComboBox.currentText()
+        if class_weight == 'uniform':
+            class_weight = None
+
+        svm = svm.SVC(\
+            C = self.svmPenaltyDoubleSpinBox.value(), \
+            kernel = self.svmKernelComboBox.currentText(), \
+            degree = self.svmDegreeSpinBox.value(), \
+            gamma = self.svmGammaLineEdit.text(), \
+            coef0 = self.svmCoefDoubleSpinBox.value(), \
+            probability = True, \
+            tol = self.svmTolLineEdit.text(), \
+            class_weight = class_weight, \
+            max_iter = self.svmMaxIterLineEdit.text())
+        return self.__trainAndValidate(X, y, svm, 'svm')
+
+    def __trainNaiveBayes(self):
+        data = self.labeled_data.getTrain()
+        num_features = self.labeled_data.getNumOfTransformedFeatures()
+        X = data.iloc[:, 0: num_features]
+        y = data.iloc[:, num_features]
+
+        # string-valued features: use multinomial NB
+        if self.labeled_data.getFeatureSummary() == 'string':
+            nb = naive_bayes.MultinomialNB(\
+                alpha = self.nbAddSmoothDoubleSpinBox.value(), \
+                fit_prior = self.nbFitPriorCheckBox.isChecked(), \
+                class_prior = self.nbClassPriorLineEdit.text())
+
+        # numeric features: use gaussian NB
+        elif self.labeled_data.getFeatureSummary() == 'numeric':
+            nb = naive_bayes.GaussianNB(\
+                priors = self.nbClassPriorLineEdit.text())
+        
+        return self.__trainAndValidate(X, y, nb, 'naive bayes')
+
+    def __trainClassifier(self):
+        index = self.paramStack.currentIndex()
+
+        if index == 1:
+            model = self.__trainDecisionTree()
         elif index == 2:
-            classifier = neighbors.KNeighborsClassifier(\
-                n_neighbors = self.knnNumNeighborsSpinBox.value(), \
-                weights = self.knnWeightsComboBox.currentText(), \
-                metric = self.knnMetricComboBox.currentText())
-
-        # logistic regression
+            model = self.__trainRandomForest()
         elif index == 3:
-            classifier = linear_model.LogisticRegression(\
-                penalty = self.lrRegularizationComboBox.currentText(), \
-                tol = float(self.lrTolLineEdit.text()), \
-                C = self.lrRglrStrengthDoubleSpinBox.value(), \
-                fit_intercept = self.lrFitInterceptCheckBox.isChecked(), \
-                class_weight = self.lrClassWeightComboBox.currentText(), \
-                solver = 'saga', \
-                max_iter = int(self.lrMaxIterLineEdit.text()), \
-                multi_class = self.lrMultiClassComboBox.currentText())
-
-        # neural network
+            model = self.__trainKNearestNeighbors()
         elif index == 4:
-            classifier = neural_network.MLPClassifier(\
-                hidden_layer_sizes = self.nnNumHiddenUnitsSpinBox.value(), \
-                activation = self.nnActivationComboBox.currentText(), \
-                solver = 'sgd', \
-                batch_size = int(self.nnBatchSizeLineEdit.text()), \
-                learning_rate = self.nnLearningRateComboBox.currentText(), \
-                learning_rate_init = float(self.nnLearningRateInitLineEdit()), \
-                max_iter = int(self.nnMaxIterLineEdit.text()), \
-                tol = float(self.nnTolLineEdit.text()), \
-                early_stopping = self.nnEarlyStoppingCheckBox.isChecked())
-
-        # svm
+            model = self.__trainLogisticRegression()
         elif index == 5:
-            classifier = svm.SVC(\
-                C = self.svmPenaltyDoubleSpinBox.value(), \
-                kernel = self.svmKernelComboBox.currentText(), \
-                degree = self.svmDegreeSpinBox.value(), \
-                gamma = float(self.svmGammaLineEdit.text()), \
-                coef0 = self.svmCoefDoubleSpinBox.value(), \
-                probability = True, \
-                tol = float(self.svmTolLineEdit.text()), \
-                max_iter = int(self.svmMaxIterLineEdit.text()))
-
-        # naive bayes
+            model = self.__trainNeuralNetwork()
         elif index == 6:
-            # string-valued features: use multinomial NB
-            if self.labeled_data.getFeatureSummary() == 'string':
-                classifier = naive_bayes.MultinomialNB(\
-                    alpha = self.nbAddSmoothDoubleSpinBox.value(), \
-                    fit_prior = self.nbFitPriorCheckBox.isChecked(), \
-                    class_prior = self.nbClassPriorLineEdit.text())
+            model = self.__trainSVM()
+        elif index == 7:
+            model = self.__trainNaiveBayes()
 
-            # numeric features: use gaussian NB
-            elif self.labeled_data.getFeatureSummary() == 'numeric':
-                classifier = naive_bayes.GaussianNB(\
-                    priors = self.nbClassPriorLineEdit.text())
+        name = self.classNameLineEdit.text()
+        if name is not '':
+            model.setName(name)
+        model.setComment(self.classCommentTextEdit.toPlainText())
 
-        classifier = classifier.fit(X, y)
+        self.models.append(model)
+
+        # TODO: add model to the ListView
 
     def knnPreSet(self):
         # string-valued features: use hamming distance
@@ -223,6 +391,8 @@ class App(QMainWindow):
             self.classTypeListView.setRowHidden(7, True)
     
     def initUI(self):
+        self.models = []                # a collection of all trained models
+
         titleFont = QFont()
         titleFont.setBold(True)
 
@@ -369,7 +539,7 @@ class App(QMainWindow):
         self.dataNextPushButton.clicked.connect(self.knnPreSet)
         self.dataNextPushButton.clicked.connect(self.nbPreSet)
         self.dataNextPushButton.clicked.connect(\
-            lambda: self.svmGammaLineEdit.setText(str(1/self.labeled_data.getNumOfFeatures())))
+            lambda: self.svmGammaLineEdit.setText(str(round(1/self.labeled_data.getNumOfFeatures(), 2))))
         dataNextLayout = QHBoxLayout()
         dataNextLayout.addItem(dataNextSpacer)
         dataNextLayout.addWidget(self.dataNextPushButton)
@@ -392,24 +562,24 @@ class App(QMainWindow):
         classTypeLayout.addWidget(self.classTypeComboBox)
 
         ### classifier parameter stack
-        paramStack = QStackedWidget(modelPage)
-        paramStack.setMinimumHeight(320)
-        self.classTypeComboBox.currentIndexChanged.connect(paramStack.setCurrentIndex)
+        self.paramStack = QStackedWidget(modelPage)
+        self.paramStack.setMinimumHeight(320)
+        self.classTypeComboBox.currentIndexChanged.connect(self.paramStack.setCurrentIndex)
 
         modelPageLayout.addLayout(classTypeLayout)
-        modelPageLayout.addWidget(paramStack)
+        modelPageLayout.addWidget(self.paramStack)
 
         ## initial empty page
         noneIcon = QIcon('icons/none.png')
         self.classTypeComboBox.addItem(noneIcon, '-- Select Classifier --')
         initPage = QWidget()
-        paramStack.addWidget(initPage)
+        self.paramStack.addWidget(initPage)
 
         ## decision tree
         dtIcon = QIcon('icons/dt.png')
         self.classTypeComboBox.addItem(dtIcon, 'Decision Tree')
         dtPage = QWidget()
-        paramStack.addWidget(dtPage)
+        self.paramStack.addWidget(dtPage)
 
         # fields
         self.dtCriterionComboBox = QComboBox(dtPage)
@@ -419,7 +589,7 @@ class App(QMainWindow):
         self.dtMinSamplesSplitSpinBox = self.__setSpinBox(2, 2, 20, 1, dtPage)
         self.dtMinSamplesLeafSpinBox = self.__setSpinBox(1, 1, 20, 1, dtPage)
         self.dtClassWeightComboBox = QComboBox(dtPage)
-        self.dtClassWeightComboBox.addItem('None')
+        self.dtClassWeightComboBox.addItem('uniform')
         self.dtClassWeightComboBox.addItem('balanced')
 
         # layout
@@ -437,7 +607,7 @@ class App(QMainWindow):
         rfIcon = QIcon('icons/rf.png')
         self.classTypeComboBox.addItem(rfIcon, 'Random Forest')
         rfPage = QWidget()
-        paramStack.addWidget(rfPage)
+        self.paramStack.addWidget(rfPage)
 
         # fields
         self.rfCriterionComboBox = QComboBox(rfPage)
@@ -447,14 +617,14 @@ class App(QMainWindow):
         self.rfMaxFeaturesComboBox = QComboBox(rfPage)
         self.rfMaxFeaturesComboBox.addItem('sqrt')
         self.rfMaxFeaturesComboBox.addItem('log2')
-        self.rfMaxFeaturesComboBox.addItem('None')
+        self.rfMaxFeaturesComboBox.addItem('all')
         self.rfMaxDepthLineEdit = QLineEdit('None', rfPage)
         self.rfMinSamplesSplitSpinBox = self.__setSpinBox(2, 2, 20, 1, rfPage)
         self.rfMinSamplesLeafSpinBox = self.__setSpinBox(1, 1, 20, 1, rfPage)
         self.rfBootstrapCheckBox = QCheckBox('', rfPage)
         self.rfBootstrapCheckBox.setChecked(True)
         self.rfClassWeightComboBox = QComboBox(rfPage)
-        self.rfClassWeightComboBox.addItem('None')
+        self.rfClassWeightComboBox.addItem('uniform')
         self.rfClassWeightComboBox.addItem('balanced')
 
         # layout
@@ -475,7 +645,7 @@ class App(QMainWindow):
         knnIcon = QIcon('icons/knn.png')
         self.classTypeComboBox.addItem(knnIcon, 'K-Nearest Neighbors')
         knnPage = QWidget()
-        paramStack.addWidget(knnPage)
+        self.paramStack.addWidget(knnPage)
 
         # fields
         self.knnNumNeighborsSpinBox = self.__setSpinBox(5, 1, 20, 1, knnPage)
@@ -501,7 +671,7 @@ class App(QMainWindow):
         lrIcon = QIcon('icons/lr.png')
         self.classTypeComboBox.addItem(lrIcon, 'Logistic Regression')
         lrPage = QWidget()
-        paramStack.addWidget(lrPage)
+        self.paramStack.addWidget(lrPage)
 
         # fields
         self.lrRegularizationComboBox = QComboBox(lrPage)
@@ -514,7 +684,7 @@ class App(QMainWindow):
         self.lrMultiClassComboBox.addItem('ovr')
         self.lrMultiClassComboBox.addItem('multinomial')
         self.lrClassWeightComboBox = QComboBox(lrPage)
-        self.lrClassWeightComboBox.addItem('None')
+        self.lrClassWeightComboBox.addItem('uniform')
         self.lrClassWeightComboBox.addItem('balanced')
 
         lrStopLabel = QLabel('Stopping Criteria:', lrPage)
@@ -551,7 +721,7 @@ class App(QMainWindow):
         nnIcon = QIcon('icons/nn.png')
         self.classTypeComboBox.addItem(nnIcon, 'Neural Network')
         nnPage = QWidget()
-        paramStack.addWidget(nnPage)
+        self.paramStack.addWidget(nnPage)
 
         # fields
         self.nnNumHiddenUnitsSpinBox = self.__setSpinBox(0, 0, 10, 1, nnPage)
@@ -603,7 +773,7 @@ class App(QMainWindow):
         svmIcon = QIcon('icons/svm.png')
         self.classTypeComboBox.addItem(svmIcon, 'SVM')
         svmPage = QWidget()
-        paramStack.addWidget(svmPage)
+        self.paramStack.addWidget(svmPage)
 
         # fields
         self.svmPenaltyDoubleSpinBox = self.__setDoubleSpinBox(1, 0, 10, 0.1, 1, svmPage)
@@ -623,7 +793,7 @@ class App(QMainWindow):
         self.svmKernelComboBox.currentIndexChanged.connect(\
             lambda: self.svmCoefDoubleSpinBox.setDisabled(self.svmKernelComboBox.currentIndex() in [0, 1]))
         self.svmClassWeightComboBox = QComboBox(svmPage)
-        self.svmClassWeightComboBox.addItem('None')
+        self.svmClassWeightComboBox.addItem('uniform')
         self.svmClassWeightComboBox.addItem('balanced')
 
         svmStopLabel = QLabel('Stopping Criteria:', svmPage)
@@ -661,7 +831,7 @@ class App(QMainWindow):
         nbIcon = QIcon('icons/nb.png')
         self.classTypeComboBox.addItem(nbIcon, 'Naive Bayes')
         nbPage = QWidget()
-        paramStack.addWidget(nbPage)
+        self.paramStack.addWidget(nbPage)
 
         # fields
         self.nbDistributionLabel = QLabel('')
@@ -701,37 +871,42 @@ class App(QMainWindow):
 
         ### classifier name
         classNameLabel = self.__setLabel('Classifier Name:', modelPage, titleFont)
-        classNameLineEdit = QLineEdit(modelPage)
-        classNameLineEdit.setDisabled(True)
-        paramStack.currentChanged.connect(lambda: classNameLineEdit.setEnabled(paramStack.currentIndex() > 0))
+        self.classNameLineEdit = QLineEdit(modelPage)
+        self.classNameLineEdit.setDisabled(True)
+        self.paramStack.currentChanged.connect(\
+            lambda: self.classNameLineEdit.setEnabled(self.paramStack.currentIndex() > 0))
 
         classNameLayout = QHBoxLayout()
         classNameLayout.addWidget(classNameLabel)
-        classNameLayout.addWidget(classNameLineEdit)
+        classNameLayout.addWidget(self.classNameLineEdit)
 
         modelPageLayout.addLayout(classNameLayout)
 
         ### comment
         classCommentLabel = self.__setLabel('Comment:', modelPage, titleFont)
-        classCommentTextEdit = QTextEdit(modelPage)
-        classCommentTextEdit.setMaximumHeight(50)
-        classCommentTextEdit.setDisabled(True)
-        paramStack.currentChanged.connect(lambda: classCommentTextEdit.setEnabled(paramStack.currentIndex() > 0))
+        self.classCommentTextEdit = QTextEdit(modelPage)
+        self.classCommentTextEdit.setMaximumHeight(50)
+        self.classCommentTextEdit.setDisabled(True)
+        self.paramStack.currentChanged.connect(\
+            lambda: self.classCommentTextEdit.setEnabled(self.paramStack.currentIndex() > 0))
 
         modelPageLayout.addWidget(classCommentLabel)
-        modelPageLayout.addWidget(classCommentTextEdit)
+        modelPageLayout.addWidget(self.classCommentTextEdit)
 
         ### reset and train buttons
         classResetTrainSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
         classResetPushButton = QPushButton('Reset', modelPage)
         classResetPushButton.setMinimumWidth(90)
         classResetPushButton.setDisabled(True)
-        paramStack.currentChanged.connect(lambda: classResetPushButton.setEnabled(paramStack.currentIndex() > 0))
+        self.paramStack.currentChanged.connect(\
+            lambda: classResetPushButton.setEnabled(self.paramStack.currentIndex() > 0))
         classTrainPushButton = QPushButton('Train', modelPage)
         classTrainPushButton.setMinimumWidth(90)
         classTrainPushButton.setDefault(True)
         classTrainPushButton.setDisabled(True)
-        paramStack.currentChanged.connect(lambda: classTrainPushButton.setEnabled(paramStack.currentIndex() > 0))
+        self.paramStack.currentChanged.connect(\
+            lambda: classTrainPushButton.setEnabled(self.paramStack.currentIndex() > 0))
+        classTrainPushButton.clicked.connect(self.__trainClassifier)
 
         classResetTrainLayout = QHBoxLayout()
         classResetTrainLayout.addItem(classResetTrainSpacer)
@@ -788,10 +963,9 @@ class App(QMainWindow):
         metricLabel = QLabel('Metric:', classSelectFrame)
         metricComboBox = QComboBox(classSelectFrame)
         metricComboBox.addItem('accuracy')
-        metricComboBox.addItem('recall')
-        metricComboBox.addItem('specificity')
         metricComboBox.addItem('precision')
-        metricComboBox.addItem('F1')
+        metricComboBox.addItem('recall')
+        metricComboBox.addItem('f1')
         metricComboBox.addItem('AUROC')
         metricComboBox.addItem('AUPRC')
         bestPerformRadioButton.toggled.connect(metricComboBox.setEnabled)
@@ -890,6 +1064,7 @@ class App(QMainWindow):
         rocRadioButton = QRadioButton('ROC', visFrame)
         confusionMatrixRadioButton = QRadioButton('Confusion Matrix', visFrame)
         prRadioButton = QRadioButton('Precision-Recall', visFrame)
+        
         visFrameLeftLayout = QVBoxLayout()
         visFrameLeftLayout.addWidget(dataPlotRadioButton)
         visFrameLeftLayout.addWidget(rocRadioButton)
