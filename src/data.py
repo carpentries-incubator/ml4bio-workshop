@@ -11,22 +11,23 @@ from sklearn import preprocessing, model_selection
 # categorical labels
 #
 ##### Fields #####
-# data (pd dataframe):					original dataset
-# transformed_data (pd dataframe):		transformed dataset (one-hot encoding)
-# is_transformed (bool):				true if the dataset is transformed
-# name (str): 							name of the dataset
-# labeled (bool): 						whether or not the dataset is labeled
-# num_samples (int): 					number of samples
-# num_features (int): 					number of features
-# num_transformedFeatures (int):		number of features after transformation
-# num_classes (int): 					number of classes
-# features (list): 						collection of features
-# transformed_features (list): 			collection of transformed features
-# classes (list): 						collection of class names
-# feature_type_dict (dict): 			mapping from feature names to types
-# transformed_feature_type_dict (dict): mapping from transformed feature names to types
-# class_counts_dict (dict): 			mapping from class names to class counts
-# feature_summary (str): 				summary of feature types ('string', 'numeric' or 'mixed')
+# data (pd dataframe):						original dataset
+# integer_encoded_data (pd dataframe):		integer encoded dataset
+# one_hot_encoded_data (pd dataframe): 		one-hot encoded dataset
+# is_encoded (bool):						true if the dataset is encoded
+# name (str): 								name of the dataset
+# labeled (bool): 							whether or not the dataset is labeled
+# num_samples (int): 						number of samples
+# num_features (int): 						number of features
+# num_one_hot_encoded_features (int):		number of features after one-hot encoding
+# num_classes (int): 						number of classes
+# features (list): 							collection of features
+# one_hot_encoded_features (list): 			collection of features after one-hot encoding
+# classes (list): 							collection of class names
+# feature_type_dict (dict): 				mapping from feature names to types
+# one_hot_encoded_feature_type_dict (dict): mapping from one-hot encoded feature names to types
+# class_counts_dict (dict): 				mapping from class names to class counts
+# feature_summary (str): 					summary of feature types ('string', 'numeric' or 'mixed')
 ###############################################################################
 class Data:
 
@@ -39,7 +40,7 @@ class Data:
 		self.data = data
 		self.name = name
 		self.labeled = labeled
-		self.is_transformed = False
+		self.is_encoded = False
 		self.num_samples = self.data.shape[0]
 		self.num_features = self.data.shape[1]
 
@@ -78,15 +79,16 @@ class Data:
 			label = self.data.iloc[i, self.num_features]
 			self.class_counts_dict[label] += 1
 
-		self.__transformData()
-		self.num_transformed_features = self.transformed_data.shape[1]
+		self.__encodeData()
+		self.num_one_hot_encoded_features = self.one_hot_encoded_data.shape[1]
 
 		if self.labeled:
-			self.num_transformed_features -= 1
+			self.num_one_hot_encoded_features -= 1
 
-		self.transformed_features = self.transformed_data.columns[0: self.num_transformed_features]
-		self.transformed_feature_type_dict = dict(\
-			zip(self.transformed_features, ['numeric'] * self.num_transformed_features))
+		self.one_hot_encoded_features = self.one_hot_encoded_data.columns[0: self.num_one_hot_encoded_features]
+		self.one_hot_encoded_feature_type_dict = dict(\
+			zip(self.one_hot_encoded_features, ['numeric'] * self.num_one_hot_encoded_features))
+		self.integer_encoded_feature_type_dict = dict(zip(self.features, ['numeric'] * self.num_features))
 
 		# default train/test split
 		self.trainTestSplit(0.2, True)
@@ -95,13 +97,17 @@ class Data:
 	def getData(self):
 		return self.data
 
-	# return the transformed dataset
-	def getTransformedData(self):
-		return self.transformed_data
+	# return the integer encoded dataset
+	def getIntegerEncodedData(self):
+		return self.integer_encoded_data
 
-	# return true if the data is transformed
-	def isTransformed(self):
-		return self.is_transformed
+	# return the one-hot encoded dataset
+	def getOneHotEncodedData(self):
+		return self.one_hot_encoded_data
+
+	# return True if the dataset has been encoded
+	def isEncoded(self):
+		return self.is_encoded
 
 	# return the name of the dataset
 	def getName(self):
@@ -115,25 +121,29 @@ class Data:
 	def getNumOfFeatures(self):
 		return self.num_features
 
-	# return the number of features after transformation
-	def getNumOfTransformedFeatures(self):
-		return self.num_transformed_features
+	# return the number of features after one-hot encoding
+	def getNumOfOneHotEncodedFeatures(self):
+		return self.num_one_hot_encoded_features
 
 	# return the list of features
 	def getFeatures(self):
 		return self.features
 
-	# return the list of transformed features
-	def getTransformedFeatures(self):
-		return self.transformed_features
+	# return the list of one-hot encoded features
+	def getOneHotEncodedFeatures(self):
+		return self.one_hot_encoded_features
 
 	# return the type of each feature (as a dictionary)
 	def getFeatureTypes(self):
 		return self.feature_type_dict
 
-	# return the type of each transformed feature (as a dictionary)
-	def getTransformedFeatureTypes(self):
-		return self.transformed_feature_type_dict
+	# return the type of each integer encoded feature (as a dictionary)
+	def getIntegerEncodedFeatureTypes(self):
+		return self.integer_encoded_feature_type_dict
+
+	# return the type of each one-hot encoded feature (as a dictionary)
+	def getOneHotEncodedFeatureTypes(self):
+		return self.one_hot_encoded_feature_type_dict
 
 	# return the feature summary ('string', 'numeric' or 'mixed')
 	def getFeatureSummary(self):
@@ -155,28 +165,37 @@ class Data:
 	def getTrain(self):
 		return self.train
 
-	# return transformed training set
-	def getTransformedTrain(self):
-		return self.transformed_train
+	# return integer encoded training set
+	def getIntegerEncodedTrain(self):
+		return self.integer_encoded_train
+
+	# return one-hot encoded training set
+	def getOneHotEncodedTrain(self):
+		return self.one_hot_encoded_train
 
 	# return test set
 	def getTest(self):
 		return self.test
 
-	# return transformed test set
-	def getTransformedTest(self):
-		return self.transformed_test
+	# return integer encoded test set
+	def getIntegerEncodedTest(self):
+		return self.integer_encoded_test
+
+	# return one-hot encoded test set
+	def getOneHotEncodedTest(self):
+		return self.one_hot_encoded_test
 
 	# split the labeled dataset into training and test sets
-	# use transformed data
 	#
 	# test_size (float): 	the proportion of data for testing (e.g. 0.2, 0.33, etc.)
 	# stratify (bool): 		stratified sampling or not
 	def trainTestSplit(self, test_size, stratify):
 		X = self.data.iloc[:, 0: self.num_features]
 		y = self.data.iloc[:, self.num_features]
-		transformed_X = self.transformed_data.iloc[:, 0: self.num_transformed_features]
-		transformed_y = self.transformed_data.iloc[:, self.num_transformed_features]
+		integer_encoded_X = self.integer_encoded_data.iloc[:, 0: self.num_features]
+		integer_encoded_y = self.integer_encoded_data.iloc[:, self.num_features]
+		one_hot_encoded_X = self.one_hot_encoded_data.iloc[:, 0: self.num_one_hot_encoded_features]
+		one_hot_encoded_y = self.one_hot_encoded_data.iloc[:, self.num_one_hot_encoded_features]
 		
 		if stratify:
 			s = y
@@ -185,33 +204,47 @@ class Data:
 		
 		X_train, X_test, y_train, y_test = model_selection.train_test_split(\
 			X, y, test_size=test_size, stratify=s, random_state=0)
-		transformed_X_train, transformed_X_test, transformed_y_train, transformed_y_test = \
-			model_selection.train_test_split(transformed_X, transformed_y, test_size=test_size,\
+		integer_encoded_X_train, integer_encoded_X_test, integer_encoded_y_train, integer_encoded_y_test = \
+			model_selection.train_test_split(integer_encoded_X, integer_encoded_y, test_size=test_size, \
+			stratify=s, random_state=0)
+		one_hot_encoded_X_train, one_hot_encoded_X_test, one_hot_encoded_y_train, one_hot_encoded_y_test = \
+			model_selection.train_test_split(one_hot_encoded_X, one_hot_encoded_y, test_size=test_size, \
 			stratify=s, random_state=0)
 		self.train = pd.concat([X_train, y_train], axis=1)
 		self.test = pd.concat([X_test, y_test], axis=1)
-		self.transformed_train = pd.concat([transformed_X_train, transformed_y_train], axis=1)
-		self.transformed_test = pd.concat([transformed_X_test, transformed_y_test], axis=1)
+		self.integer_encoded_train = pd.concat([integer_encoded_X_train, integer_encoded_y_train], axis=1)
+		self.integer_encoded_test = pd.concat([integer_encoded_X_test, integer_encoded_y_test], axis=1)
+		self.one_hot_encoded_train = pd.concat([one_hot_encoded_X_train, one_hot_encoded_y_train], axis=1)
+		self.one_hot_encoded_test = pd.concat([one_hot_encoded_X_test, one_hot_encoded_y_test], axis=1)
 
-	# transform string-valued features using one-hot encoding
-	def __transformData(self):
-		self.transformed_data = pd.DataFrame([])
-		le = preprocessing.LabelEncoder()		# label encoder (encode strings by integers)
+	# encode discrete features
+	def __encodeData(self):
+		self.integer_encoded_data = pd.DataFrame([])
+		self.one_hot_encoded_data = pd.DataFrame([])
+		le = preprocessing.LabelEncoder()		# integer encoder
 		ohe = preprocessing.OneHotEncoder()		# one-hot encoder
 
 		for i in range(0, self.num_features):
 			if pd.api.types.is_string_dtype(self.data.iloc[:, i]):
 				feature_name = self.data.columns[i]
+
 				le_col = le.fit_transform(self.data.iloc[:, i])
 				num_items = len(set(le_col))	# number of values of a string-valued feature
+				le_col = pd.DataFrame(le_col)
+				le_col.columns = [feature_name]
+				self.integer_encoded_data = pd.concat([self.integer_encoded_data, le_col], axis=1)
+
+				ohe_cols = pd.DataFrame(ohe.fit_transform(le_col).toarray())
 				item_names = list(le.inverse_transform(list(range(0, num_items))))	# a collection of values
 				col_names = [feature_name + '_is_' + s for s in item_names]	# construct descriptive column names
-				ohe_cols = pd.DataFrame(ohe.fit_transform(pd.DataFrame(le_col)).toarray())
 				ohe_cols.columns = col_names
-				self.transformed_data = pd.concat([self.transformed_data, ohe_cols], axis=1)
-				self.is_transformed = True
+				self.one_hot_encoded_data = pd.concat([self.one_hot_encoded_data, ohe_cols], axis=1)
+
+				self.is_encoded = True
 			else:
-				self.transformed_data = pd.concat([self.transformed_data, self.data.iloc[:,i]], axis=1)
+				self.integer_encoded_data = pd.concat([self.integer_encoded_data, self.data.iloc[:,i]], axis=1)
+				self.one_hot_encoded_data = pd.concat([self.one_hot_encoded_data, self.data.iloc[:,i]], axis=1)
 
 		# add back the label column
-		self.transformed_data = pd.concat([self.transformed_data, self.data.iloc[:, self.num_features]], axis=1)
+		self.integer_encoded_data = pd.concat([self.integer_encoded_data, self.data.iloc[:, self.num_features]], axis=1)
+		self.one_hot_encoded_data = pd.concat([self.one_hot_encoded_data, self.data.iloc[:, self.num_features]], axis=1)
