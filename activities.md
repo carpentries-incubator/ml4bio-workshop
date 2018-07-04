@@ -51,8 +51,8 @@
     * Change in experimental conditions
     
 ### Part III: ML application (1hr30min)
-    * Participants pick real biological datasets and build classifiers on their own
-    * Participants discuss their results and share their thoughts in a discussion session
+* Participants pick real biological datasets and build classifiers on their own
+* Participants discuss their results and share their thoughts in a discussion session
 (total time: 6hr)
 
 		
