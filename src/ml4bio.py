@@ -1,8 +1,17 @@
 import os, sys
+
 import pandas as pd
 import numpy as np
+from itertools import cycle
+
 from sklearn import tree, ensemble, neighbors, linear_model, neural_network, svm, naive_bayes
 from sklearn import model_selection, metrics
+
+import matplotlib
+from matplotlib.backends.backend_qt5agg import FigureCanvas
+from matplotlib.figure import Figure
+import matplotlib.pyplot as plt
+
 from PyQt5.QtCore import QSize, Qt
 from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QFileDialog
 from PyQt5.QtWidgets import QPushButton, QRadioButton
@@ -125,6 +134,149 @@ class App(QMainWindow):
         stratify = self.splitCheckBox.isChecked()
         self.labeled_data.trainTestSplit(test_size, stratify)
 
+    # plot an ROC curve for each individual class 
+    # and an ROC curve that averages over all individual curves
+    #
+    # code reference:
+    # scikit-learn.org/stable/auto_examples/model_selection/plot_roc.html
+    def plotROC(self, y_true, y_prob):
+        y_true = y_true.values
+        num_classes = self.labeled_data.getNumOfClasses()
+
+        fpr = dict()
+        tpr = dict()
+        auc = dict()
+
+        # compute ROC curve and ROC area for each class
+        for i in range(0, num_classes):
+            fpr[i], tpr[i], _ = metrics.roc_curve(y_true, y_prob[:, i], pos_label=i)
+            auc[i] = metrics.auc(fpr[i], tpr[i])
+
+        # compute macro-average ROC curve and ROC area
+        all_fpr = np.unique(np.concatenate([fpr[i] for i in range(0, num_classes)]))
+        
+        mean_tpr = np.zeros_like(all_fpr)
+        for i in range(0, num_classes):
+            mean_tpr += np.interp(all_fpr, fpr[i], tpr[i])
+        mean_tpr /= num_classes
+
+        fpr['avg'] = all_fpr
+        tpr['avg'] = mean_tpr
+        auc['avg'] = metrics.auc(fpr['avg'], tpr['avg'])
+
+        # plot all ROC curves
+        self.canvas.figure.clear()              # clear the canvas before plotting
+        ax = self.canvas.figure.subplots()     # add a subplot to the canvas
+        class_map = self.labeled_data.getClassMap()
+        ax.plot(fpr['avg'], tpr['avg'], label='avg (area={0:.2f})'.format(auc['avg']), \
+            color = 'black', linewidth=2, linestyle='--')
+        colors = cycle(['red', 'green', 'orange', 'blue', 'yellow', 'purple', 'cyan'])
+        for i, color in zip(range(0, num_classes), colors):
+            ax.plot(fpr[i], tpr[i], label='{0} (area={1:.2f})'.format(class_map[i], auc[i]), \
+                color=color, linewidth=1)
+
+        ax.plot([0 ,1], [0, 1], color='lightgray', linewidth=1, linestyle='--')
+        ax.set_xlim([0.0, 1.0])
+        ax.set_ylim([0.0, 1.05])
+        ax.set_xlabel('FPR')
+        ax.set_ylabel('TPR')
+        ax.legend(loc='lower right')
+
+        self.canvas.figure.tight_layout()
+        self.canvas.draw()
+
+    # plot a precision-recall curve for each individual class 
+    # and a precision-recall curve that averages over all individual curves
+    # plot iso-f1 curves
+    #
+    # code reference:
+    # scikit-learn.org/stable/auto_examples/model_selection/plot_precision_recall.html
+    def plotPrecisionRecall(self, y_true, y_prob):
+        y_true = y_true.values
+        num_classes = self.labeled_data.getNumOfClasses()
+
+        precision = dict()
+        recall = dict()
+        auc = dict()
+
+        # compute PR curve and PR area for each class
+        for i in range(0, num_classes):
+            precision[i], recall[i], _ = metrics.precision_recall_curve(y_true, y_prob[:, i], pos_label=i)
+            auc[i] = metrics.auc(recall[i], precision[i])
+
+        # compute macro-average PR curve and PR area
+        all_recall = np.unique(np.concatenate([recall[i] for i in range(0, num_classes)]))
+
+        mean_precision = np.zeros_like(all_recall)
+        for i in range(0, num_classes):
+            mean_precision += np.interp(all_recall, np.flip(recall[i], 0), np.flip(precision[i], 0))
+        mean_precision /= num_classes
+
+        precision['avg'] = mean_precision
+        recall['avg'] = all_recall
+        auc['avg'] = metrics.auc(recall['avg'], precision['avg'])
+
+        # plot all PR curves
+        self.canvas.figure.clear()              # clear the canvas before plotting
+        ax = self.canvas.figure.subplots()     # add a subplot to the canvas
+        class_map = self.labeled_data.getClassMap()
+        ax.plot(recall['avg'], precision['avg'], label='avg (area={0:.2f})'.format(auc['avg']), \
+            color = 'black', linewidth=2, linestyle='--')
+        colors = cycle(['red', 'green', 'orange', 'blue', 'yellow', 'purple', 'cyan'])
+        for i, color in zip(range(0, num_classes), colors):
+            ax.plot(recall[i], precision[i], label='{0} (area={1:.2f})'.format(class_map[i], auc[i]), \
+                color=color, linewidth=1)
+
+        # plot iso-f1 curves
+        f1_scores = np.linspace(0.2, 0.8, num=4)
+        x_top = np.array([0.1, 0.25, 0.45, 0.7])
+        i = 0
+        for f1_score in f1_scores:
+            x = np.linspace(0.01, 1)
+            y = f1_score * x / (2 * x - f1_score)
+            ax.plot(x[y >= 0], y[y >= 0], color='lightgray', alpha=0.2, linewidth=1)
+            ax.annotate('f1={0:.1f}'.format(f1_score), xy=(x_top[i], 1)) 
+            i += 1
+
+        ax.set_xlim([0.0, 1.0])
+        ax.set_ylim([0.0, 1.05])
+        ax.set_xlabel('Recall')
+        ax.set_ylabel('Precision')
+        ax.legend(loc='lower right')
+
+        self.canvas.figure.tight_layout()
+        self.canvas.draw()
+
+    # plot a confusion matrix with color gradient
+    #
+    # code reference:
+    # scikit-learn.org/stable/auto_examples/model_selection/plot_confusion_matrix.html
+    def plotConfusionMatrix(self, confusion_matrix):
+        self.canvas.figure.clear()              # clear the canvas before plotting
+        ax = self.canvas.figure.subplots()      # add a subplot to the canvas
+        num_classes = self.labeled_data.getNumOfClasses()
+        tick_marks = np.arange(num_classes)
+        class_map = self.labeled_data.getClassMap()
+        classes = [class_map[i] for i in tick_marks]
+        confusion_matrix = np.around(confusion_matrix, decimals=2)
+
+        ax.imshow(confusion_matrix, interpolation='nearest', cmap=plt.cm.Blues)
+        ax.set_xticks(tick_marks)
+        ax.set_yticks(tick_marks)
+        ax.set_xticklabels(classes, rotation=45)
+        ax.set_yticklabels(classes, rotation=45)
+
+        for i in range(0, confusion_matrix.shape[0]):
+            for j in range(0, confusion_matrix.shape[1]):
+                ax.text(j, i, confusion_matrix[i, j], horizontalalignment='center', \
+                    color='white' if confusion_matrix[i, j] > 0.5 else 'black')
+
+        ax.set_xlabel('Predicted class')
+        ax.set_ylabel('True class')
+
+        self.canvas.figure.tight_layout()
+        self.canvas.draw()
+
     def holdOutTest(self, X, y, classifier, classifier_type, val_size, stratify):
         if stratify:
             s = y
@@ -136,12 +288,18 @@ class App(QMainWindow):
 
         classifier = classifier.fit(X_train, y_train)
         y_pred = classifier.predict(X_val)
+        y_prob = classifier.predict_proba(X_val)
+
         accuracy = metrics.accuracy_score(y_val, y_pred)
         class_precision = metrics.precision_score(y_val, y_pred, average=None)
         class_recall = metrics.recall_score(y_val, y_pred, average=None)
         class_f1 = metrics.f1_score(y_val, y_pred, average=None)
         confusion_matrix = metrics.confusion_matrix(y_val, y_pred)
         confusion_matrix = confusion_matrix / np.sum(confusion_matrix, axis=1)
+
+        self.plotROC(y_val, y_prob)
+        #self.plotPrecisionRecall(y_val, y_prob)
+        #self.plotConfusionMatrix(confusion_matrix)
         
         return Model(classifier_type, accuracy, class_precision, class_recall, \
             class_f1, confusion_matrix)
@@ -232,6 +390,7 @@ class App(QMainWindow):
             min_samples_leaf = self.dtMinSamplesLeafSpinBox.value(), \
             class_weight = class_weight, \
             random_state = 0)
+        
         return self.trainAndValidate(X, y, dt, 'decision tree')
 
     def trainRandomForest(self):
@@ -264,6 +423,7 @@ class App(QMainWindow):
             bootstrap = self.rfBootstrapCheckBox.isChecked(), \
             class_weight = class_weight, \
             random_state = 0)
+        
         return self.trainAndValidate(X, y, rf, 'random forest')
 
     def trainKNearestNeighbors(self):
@@ -277,6 +437,7 @@ class App(QMainWindow):
             weights = self.knnWeightsComboBox.currentText(), \
             metric = self.knnMetricComboBox.currentText(), \
             algorithm = 'auto')
+        
         return self.trainAndValidate(X, y, knn, 'k-nearset neighbors')
 
     def trainLogisticRegression(self):
@@ -299,6 +460,7 @@ class App(QMainWindow):
             max_iter = int(self.lrMaxIterLineEdit.text()), \
             multi_class = self.lrMultiClassComboBox.currentText(), \
             random_state = 0)
+        
         return self.trainAndValidate(X, y, lr, 'logistic regression')
         
     def trainNeuralNetwork(self):
@@ -307,21 +469,18 @@ class App(QMainWindow):
         X = data.iloc[:, 0: num_features]
         y = data.iloc[:, num_features]
 
-        batch_size = self.nnBatchSizeLineEdit.text()
-        if batch_size != 'auto':
-            batch_size = int(batch_size)
-
         nn = neural_network.MLPClassifier(\
             hidden_layer_sizes = self.nnNumHiddenUnitsSpinBox.value(), \
             activation = self.nnActivationComboBox.currentText(), \
             solver = 'sgd', \
-            batch_size = batch_size, \
+            batch_size = int(self.nnBatchSizeLineEdit.text()), \
             learning_rate = self.nnLearningRateComboBox.currentText(), \
             learning_rate_init = float(self.nnLearningRateInitLineEdit.text()), \
             max_iter = int(self.nnMaxIterLineEdit.text()), \
             tol = float(self.nnTolLineEdit.text()), \
             early_stopping = self.nnEarlyStoppingCheckBox.isChecked(), \
             random_state = 0)
+        
         return self.trainAndValidate(X, y, nn, 'neural network')
 
     def trainSVM(self):
@@ -349,6 +508,7 @@ class App(QMainWindow):
             class_weight = class_weight, \
             max_iter = int(self.svmMaxIterLineEdit.text()), \
             random_state = 0)
+        
         return self.trainAndValidate(X, y, svc, 'svm')
 
     def trainNaiveBayes(self):
@@ -357,13 +517,14 @@ class App(QMainWindow):
         X = data.iloc[:, 0: num_features]
         y = data.iloc[:, num_features]
 
+        class_prior = self.nbClassPriorLineEdit.text()
+        if class_prior == 'None':
+            class_prior = None
+        else:
+            class_prior = [float(i.strip()) for i in class_prior.split(',')]
+
         # string-valued features: use multinomial NB
         if self.labeled_data.getFeatureSummary() == 'string':
-            class_prior = self.nbClassPriorLineEdit.text()
-            if class_prior == 'None':
-                class_prior = None
-            else:
-                class_prior = [float(i.strip()) for i in class_prior.split(',')]
             nb = naive_bayes.MultinomialNB(\
                 alpha = self.nbAddSmoothDoubleSpinBox.value(), \
                 fit_prior = self.nbFitPriorCheckBox.isChecked(), \
@@ -371,13 +532,7 @@ class App(QMainWindow):
 
         # numeric features: use gaussian NB
         elif self.labeled_data.getFeatureSummary() == 'numeric':
-            priors = self.nbClassPriorLineEdit.text()
-            if priors == 'None':
-                priors = None
-            else:
-                priors = [float(i.strip()) for i in priors.split(',')]
-            print(priors)
-            nb = naive_bayes.GaussianNB(priors = priors)
+            nb = naive_bayes.GaussianNB(priors = class_prior)
         
         return self.trainAndValidate(X, y, nb, 'naive bayes')
 
@@ -399,10 +554,10 @@ class App(QMainWindow):
         elif index == 7:
             model = self.trainNaiveBayes()
 
-        name = self.classNameLineEdit.text()
-        if name is not '':
+        name = self.classNameLineEdit.text().strip()
+        if name != '':
             model.setName(name)
-        model.setComment(self.classCommentTextEdit.toPlainText())
+        model.setComment(self.classCommentTextEdit.toPlainText().strip())
 
         self.models.append(model)
 
@@ -446,7 +601,7 @@ class App(QMainWindow):
     def resetNeuralNetwork(self):
         self.nnNumHiddenUnitsSpinBox.setValue(3)
         self.nnActivationComboBox.setCurrentIndex(0)
-        self.nnBatchSizeLineEdit.setText('200')
+        self.nnBatchSizeLineEdit.setText('20')
         self.nnLearningRateComboBox.setCurrentIndex(0)
         self.nnLearningRateInitLineEdit.setText('0.01')
         self.nnEarlyStoppingCheckBox.setChecked(False)
@@ -535,6 +690,7 @@ class App(QMainWindow):
     
     def initUI(self):
         self.models = []                # a collection of all trained models
+        matplotlib.rcParams.update({'font.size': 6})
 
         titleFont = QFont()
         titleFont.setBold(True)
@@ -873,7 +1029,7 @@ class App(QMainWindow):
         self.nnActivationComboBox.addItem('logistic')
         self.nnActivationComboBox.addItem('tanh')
         self.nnActivationComboBox.addItem('identity')
-        self.nnBatchSizeLineEdit = QLineEdit('200', nnPage)
+        self.nnBatchSizeLineEdit = QLineEdit('20', nnPage)
         self.nnLearningRateComboBox = QComboBox(nnPage)
         self.nnLearningRateComboBox.addItem('constant')
         self.nnLearningRateComboBox.addItem('invscaling')
@@ -1231,10 +1387,11 @@ class App(QMainWindow):
         visListLayout.addWidget(visFrame)
         visLayout.addLayout(visListLayout)
 
-        plotArea = QWidget(self.rightPanel)
-        plotArea.setFixedSize(340, 340)
-        plotArea.setAutoFillBackground(True)
-        visLayout.addWidget(plotArea)
+        self.canvas = FigureCanvas(Figure(figsize=(340, 340)))
+        self.canvas.setMaximumWidth(340)
+        self.canvas.setMaximumHeight(340)
+        self.canvas.setParent(self.rightPanel)
+        visLayout.addWidget(self.canvas)
 
         rightPanelLayout.addLayout(visLayout)
 

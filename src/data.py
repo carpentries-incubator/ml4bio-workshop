@@ -49,7 +49,7 @@ class Data:
 			self.num_features -= 1
 
 		# extract features and their types
-		self.feature_type_dict = {}
+		self.feature_type_dict = dict()
 		num_string = 0
 		num_numeric = 0
 		self.features = self.data.columns[0: self.num_features]
@@ -161,6 +161,10 @@ class Data:
 	def getClassCounts(self):
 		return self.class_counts_dict
 
+	# return the mapping from integers to class names (as a dictionary)
+	def getClassMap(self):
+		return self.class_map
+
 	# return training set
 	def getTrain(self):
 		return self.train
@@ -221,6 +225,7 @@ class Data:
 	def __encodeData(self):
 		self.integer_encoded_data = pd.DataFrame([])
 		self.one_hot_encoded_data = pd.DataFrame([])
+		self.class_map = dict()
 		le = preprocessing.LabelEncoder()		# integer encoder
 		ohe = preprocessing.OneHotEncoder()		# one-hot encoder
 
@@ -228,10 +233,9 @@ class Data:
 			if pd.api.types.is_string_dtype(self.data.iloc[:, i]):
 				feature_name = self.data.columns[i]
 
-				le_col = le.fit_transform(self.data.iloc[:, i])
-				num_items = len(set(le_col))	# number of values of a string-valued feature
-				le_col = pd.DataFrame(le_col)
+				le_col = pd.DataFrame(le.fit_transform(self.data.iloc[:, i]))
 				le_col.columns = [feature_name]
+				num_items = len(le_col[feature_name].unique())	# number of values of a string-valued feature
 				self.integer_encoded_data = pd.concat([self.integer_encoded_data, le_col], axis=1)
 
 				ohe_cols = pd.DataFrame(ohe.fit_transform(le_col).toarray())
@@ -246,5 +250,12 @@ class Data:
 				self.one_hot_encoded_data = pd.concat([self.one_hot_encoded_data, self.data.iloc[:,i]], axis=1)
 
 		# add back the label column
-		self.integer_encoded_data = pd.concat([self.integer_encoded_data, self.data.iloc[:, self.num_features]], axis=1)
-		self.one_hot_encoded_data = pd.concat([self.one_hot_encoded_data, self.data.iloc[:, self.num_features]], axis=1)
+		label_col = pd.DataFrame(le.fit_transform(self.data.iloc[:, self.num_features]))
+		num_classes = self.getNumOfClasses()
+		class_names = list(le.inverse_transform(list(range(0, num_classes))))
+		
+		for i in range(0, num_classes):
+			self.class_map[i] = class_names[i]
+
+		self.integer_encoded_data = pd.concat([self.integer_encoded_data, label_col], axis=1)
+		self.one_hot_encoded_data = pd.concat([self.one_hot_encoded_data, label_col], axis=1)
