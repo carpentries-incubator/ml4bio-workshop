@@ -1,14 +1,12 @@
-import os, sys
-
+import os, sys, warnings
 import pandas as pd
+from pandas import errors
 import numpy as np
-
-from sklearn import tree, ensemble, neighbors, linear_model, neural_network, svm, naive_bayes
+from sklearn import tree, ensemble, neighbors, linear_model, neural_network, svm, naive_bayes, exceptions
 from matplotlib.backends.backend_qt5agg import FigureCanvas
 from matplotlib.figure import Figure
-
 from PyQt5.QtCore import QSize, Qt
-from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QFileDialog
+from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QFileDialog, QMessageBox
 from PyQt5.QtWidgets import QPushButton, QRadioButton
 from PyQt5.QtWidgets import QComboBox, QSpinBox, QDoubleSpinBox, QCheckBox, QLineEdit, QTextEdit, QLabel
 from PyQt5.QtWidgets import QStackedWidget, QGroupBox, QFrame, QTableWidget, QTreeWidget, QTableWidgetItem, QTreeWidgetItem, QListView
@@ -26,12 +24,16 @@ class App(QMainWindow):
         self.rightPanel = QGroupBox(self)
         self.initUI()
 
-    def setLabel(self, str, parent, font=QFont()):
+    # return a title
+    def title(self, str, parent):
         label = QLabel(str, parent)
+        font = QFont()
+        font.setBold(True)
         label.setFont(font)
         return label
 
-    def setSpinBox(self, val, min, max, stepsize, parent):
+    # return a spin box
+    def spin_box(self, val, min, max, stepsize, parent):
         box = QSpinBox(parent)
         box.setMinimum(min)
         box.setMaximum(max)
@@ -39,7 +41,8 @@ class App(QMainWindow):
         box.setValue(val)
         return box
 
-    def setDoubleSpinBox(self, val, min, max, stepsize, prec, parent):
+    # return a double spin box
+    def double_spin_box(self, val, min, max, stepsize, prec, parent):
         box = QDoubleSpinBox(parent)
         box.setMinimum(min)
         box.setMaximum(max)
@@ -48,96 +51,283 @@ class App(QMainWindow):
         box.setDecimals(prec)
         return box
 
-    def openLabeledFile(self):
-        path = QFileDialog.getOpenFileName(self.dataPage, 'Select File...')
-        path = path[0]
+    # load file
+    def load(self, labeled):
+        path = QFileDialog.getOpenFileName(self.dataPage)[0]
+        if path != '':
+            if labeled:
+                try:
+                    self.data = Data(path)
+                # exception: wrong data format
+                except:
+                    self.error('format')
+                    return
+                # exception: too few samples
+                if self.data.num_samples() < 20:
+                    self.error('num_samples')
+                    return
 
-        if path is not '':
-        	name = os.path.basename(path)
-        	self.labeledFileDisplay.setText(name)
-        	data = pd.read_csv(path, delimiter=',')
-        	self.labeled_data = Data(data, name, True)
-        	self.dataSummaryTree.takeTopLevelItem(0)
-        	self.getDataSummary(self.labeled_data)
-        	self.splitFrame.setEnabled(True)
-        	self.validationFrame.setEnabled(True)
-        	self.dataNextPushButton.setEnabled(True)
+                self.labeledFileDisplay.setText(self.data.name('labeled'))
+                self.unlabeledFilePushButton.setEnabled(True)
+                self.splitFrame.setEnabled(True)
+                self.validationFrame.setEnabled(True)
+                self.dataNextPushButton.setEnabled(True)
+            else:
+                try:
+                    self.data.add_unlabeled_data(path)
+                # exception: wrong data format
+                except errors.ParserError:
+                    self.error('format')
+                    return
+                # exception: features do not match
+                except:
+                    self.error('features')
+                    return
 
-    def openUnlabeledFile(self):
-        path = QFileDialog.getOpenFileName(self.dataPage, 'Select File...')
-        path = path[0]
+                self.unlabeledFileDisplay.setText(self.data.name('unlabeled'))
+                self.predictionPushButton.setEnabled(True)
 
-        if path is not '':
-        	name = os.path.basename(path)
-        	self.unlabeledFileDisplay.setText(name)
-        	data = pd.read_csv(path, delimiter=',')
-        	self.unlabeled_data = Data(data, name, False)
-        	self.dataSummaryTree.takeTopLevelItem(1)
-        	self.getDataSummary(self.unlabeled_data)
-        	self.predictionPushButton.setEnabled(True)
+            self.data_summary()
 
-    # print summary statistics of the dataset
-    # - total number of items
-    #   - number of items that belong to each class
-    # - total number of features
-    #   - type of each feature
-    #
-    # if there exist discrete features, show feature information after transformation
-    # - total number of features after integer encoding
-    # - total number of features after one-hot encoding 
-    def getDataSummary(self, data):
-        fileName = QTreeWidgetItem(self.dataSummaryTree)
-        fileName.setText(0, data.getName())
-        sampleSubTree = QTreeWidgetItem(fileName)
-        sampleSubTree.setText(0, 'Samples')
-        sampleSubTree.setText(1, str(data.getNumOfSamples()))
-        classCountsDict = data.getClassCounts()
+    # show summary of data
+    def data_summary(self):
+        self.data.summary(self.data_summary_)
 
-        for className in classCountsDict:
-        	cls = QTreeWidgetItem(sampleSubTree)
-        	cls.setText(0, className)
-        	cls.setText(1, str(classCountsDict[className]))
-        	cls.setToolTip(0, className)
+    # set decision tree hyperparameters
+    def set_decision_tree(self):
+        self.dtCriterionComboBox.setCurrentIndex(0)
+        self.dtMaxDepthLineEdit.setText('None')
+        self.dtMinSamplesSplitSpinBox.setValue(2)
+        self.dtMinSamplesLeafSpinBox.setValue(1)
+        self.dtClassWeightComboBox.setCurrentIndex(0)
 
-        featureSubTree = QTreeWidgetItem(fileName)
-        featureSubTree.setText(0, 'Features')
-        featureSubTree.setText(1, str(data.getNumOfFeatures()))
-        featureTypeDict = data.getFeatureTypes()
+    # set random forest hyperparameters
+    def set_random_forest(self):
+        self.rfCriterionComboBox.setCurrentIndex(0)
+        self.rfNumEstimatorsSpinBox.setValue(10)
+        self.rfMaxFeaturesComboBox.setCurrentIndex(0)
+        self.rfMaxDepthLineEdit.setText('None')
+        self.rfMinSamplesSplitSpinBox.setValue(2)
+        self.rfMinSamplesLeafSpinBox.setValue(1)
+        self.rfBootstrapCheckBox.setChecked(True)
+        self.rfClassWeightComboBox.setCurrentIndex(0)
 
-        for featureName in featureTypeDict:
-        	feature = QTreeWidgetItem(featureSubTree)
-        	feature.setText(0, featureName)
-        	feature.setText(1, featureTypeDict[featureName])
-        	feature.setToolTip(0, featureName)
+    # k-nearest neighbors hyperparameters
+    def set_k_nearest_neighbors(self):
+        self.knnNumNeighborsSpinBox.setValue(5)
+        self.knnWeightsComboBox.setCurrentIndex(0)
 
-        # if data has been encoded, show statistics of encoded data
-        if data.isEncoded():
-            integerEncodedFeatureSubTree = QTreeWidgetItem(fileName)
-            integerEncodedFeatureSubTree.setText(0, 'Integer Encoded')
-            integerEncodedFeatureSubTree.setText(1, str(data.getNumOfFeatures()))
-            integerEncodedFeatureTypeDict = data.getIntegerEncodedFeatureTypes()
+        # discrete features: use hamming distance
+        if self.data.feature_type() == 'discrete':
+            self.knnMetricComboBox.setCurrentIndex(2)
+            self.knnMetricListView.setRowHidden(0, True)
+            self.knnMetricListView.setRowHidden(1, True)
+        # continuous features: use euclidean or manhatten distance
+        elif self.data.feature_type() == 'continuous':
+            self.knnMetricListView.setRowHidden(2, True)
+        # mixed features: DO NOT use KNN
+        else:
+            self.classTypeListView.setRowHidden(3, True)
 
-            for integerEncodedFeatureName in integerEncodedFeatureTypeDict:
-                integerEncodedFeature = QTreeWidgetItem(integerEncodedFeatureSubTree)
-                integerEncodedFeature.setText(0, integerEncodedFeatureName)
-                integerEncodedFeature.setText(1, integerEncodedFeatureTypeDict[integerEncodedFeatureName])
-                integerEncodedFeature.setToolTip(0, integerEncodedFeatureName)
+    # set logistic regression hyperparameters
+    def set_logistic_regression(self):
+        self.lrRegularizationComboBox.setCurrentIndex(0)
+        self.lrRglrStrengthLineEdit.setText('1.0')
+        self.lrFitInterceptCheckBox.setChecked(True)
+        self.lrInterceptScalingLineEdit.setText('1.0')
+        self.lrSolverComboBox.setCurrentIndex(0)
+        self.lrMultiClassComboBox.setCurrentIndex(0)
+        self.lrClassWeightComboBox.setCurrentIndex(0)
+        self.lrTolLineEdit.setText('1e-4')
+        self.lrMaxIterLineEdit.setText('100')
 
-            oneHotEncodedFeatureSubTree = QTreeWidgetItem(fileName)
-            oneHotEncodedFeatureSubTree.setText(0, 'One-Hot Encoded')
-            oneHotEncodedFeatureSubTree.setText(1, str(data.getNumOfOneHotEncodedFeatures()))
-            oneHotEncodedFeatureTypeDict = data.getOneHotEncodedFeatureTypes()
+    def update_logistic_regression(self):
+        if self.lrSolverComboBox.currentIndex() in [1, 2, 4]:
+            self.lrRegularizationListView.setRowHidden(1, True)
+            self.lrRegularizationComboBox.setCurrentIndex(0)
+        else:
+            self.lrRegularizationListView.setRowHidden(1, False)
+        if self.lrSolverComboBox.currentIndex() == 0:
+            self.lrMultiClassListView.setRowHidden(1, True)
+            self.lrMultiClassComboBox.setCurrentIndex(0)
+        else:
+            self.lrMultiClassListView.setRowHidden(1, False)
 
-            for oneHotEncodedFeatureName in oneHotEncodedFeatureTypeDict:
-                oneHotEncodedFeature = QTreeWidgetItem(oneHotEncodedFeatureSubTree)
-                oneHotEncodedFeature.setText(0, oneHotEncodedFeatureName)
-                oneHotEncodedFeature.setText(1, oneHotEncodedFeatureTypeDict[oneHotEncodedFeatureName])
-                oneHotEncodedFeature.setToolTip(0, oneHotEncodedFeatureName)
+    # set neural network hyperparameters
+    def set_neural_network(self):
+        self.nnNumHiddenUnitsSpinBox.setValue(100)
+        self.nnActivationComboBox.setCurrentIndex(0)
+        self.nnSolverComboBox.setCurrentIndex(0)
+        self.nnAlphaLineEdit.setText('1e-4')
+        self.nnBatchSizeLineEdit.setText('20')
+        self.nnLearningRateComboBox.setCurrentIndex(0)
+        self.nnLearningRateInitLineEdit.setText('0.001')
+        self.nnEarlyStoppingCheckBox.setChecked(False)
+        self.nnTolLineEdit.setText('1e-4')
+        self.nnMaxIterLineEdit.setText('200')
+
+    def update_neural_network(self):
+        if self.nnSolverComboBox.currentIndex() == 2:
+            self.nnLearningRateComboBox.setEnabled(True)
+        else:
+            self.nnLearningRateComboBox.setDisabled(True)
+        if self.nnSolverComboBox.currentIndex() == 1:
+            self.nnLearningRateInitLineEdit.setDisabled(True)
+            self.nnEarlyStoppingCheckBox.setDisabled(True)
+        else:
+            self.nnLearningRateInitLineEdit.setEnabled(True)
+            self.nnEarlyStoppingCheckBox.setEnabled(True)
+
+    # set svm hyperparameters
+    def set_svm(self):
+        self.svmPenaltyLineEdit.setText('1.0')
+        self.svmKernelComboBox.setCurrentIndex(0)
+        self.svmDegreeSpinBox.setValue(3)
+        gamma = 1 / self.data.num_features('one-hot')
+        self.svmGammaLineEdit.setText(str(round(gamma, 2)))
+        self.svmCoefLineEdit.setText('0.0')
+        self.svmClassWeightComboBox.setCurrentIndex(0)
+        self.svmTolLineEdit.setText('1e-3')
+        self.svmMaxIterLineEdit.setText('200')
+
+    def update_svm(self):
+        if self.svmKernelComboBox.currentIndex() == 2:
+            self.svmDegreeSpinBox.setEnabled(True)
+        else:
+            self.svmDegreeSpinBox.setDisabled(True)
+        if self.svmKernelComboBox.currentIndex() == 1:
+            self.svmGammaLineEdit.setDisabled(True)
+        else:
+            self.svmGammaLineEdit.setEnabled(True)
+        if self.svmKernelComboBox.currentIndex() in [0, 1]:
+            self.svmCoefLineEdit.setDisabled(True)
+        else:
+            self.svmCoefLineEdit.setEnabled(True)
+
+    # set naive bayes hyperparameters
+    def set_naive_bayes(self):
+        # discrete features: use multinomial NB
+        if self.data.feature_type() == 'discrete':
+            self.nbDistributionLabel.setText('multinomial')
+        # continuous features: use gaussian NB
+        elif self.data.feature_type() == 'continuous':
+            self.nbDistributionLabel.setText('gaussian')
+            self.nbAddSmoothDoubleSpinBox.setDisabled(True)
+            self.nbFitPriorCheckBox.setDisabled(True)
+        # mixed features: DO NOT use NB
+        else:
+            self.classTypeListView.setRowHidden(7, True)
+
+        self.nbAddSmoothDoubleSpinBox.setValue(1.0)
+        self.nbFitPriorCheckBox.setChecked(True)
+        self.nbClassPriorLineEdit.setText('None')
+
+    # reset hyperparameters of current classifier to default
+    def reset(self):
+        index = self.paramStack.currentIndex()
+        if index == 1:      self.set_decision_tree()
+        elif index == 2:    self.set_random_forest()
+        elif index == 3:    self.set_k_nearest_neighbors()
+        elif index == 4:    self.set_logistic_regression()
+        elif index == 5:    self.set_neural_network()
+        elif index == 6:    self.set_svm()
+        elif index == 7:    self.set_naive_bayes()
+
+        self.classNameLineEdit.clear()
+        self.classCommentTextEdit.clear()
+
+    # set up the system for training
+    def set(self):
+        # train/test split
+        test_size = self.splitSpinBox.value() / 100
+        stratify = self.splitCheckBox.isChecked()
+        self.data.encode()
+        self.data.split(test_size, stratify)
+
+        if self.data.feature_type() == 'continuous' \
+            and self.data.num_features() == 2 and self.data.num_classes() == 2:
+            self.dataPlotRadioButton.setEnabled(True)
+
+        # validation method
+        val = 0
+        if self.holdoutRadioButton.isChecked(): 
+            self.val_method = 'holdout'
+            if self.holdoutSpinBox.value() == 0:
+                val = self.warn('holdout')  # warning: no validation data
+        elif self.cvRadioButton.isChecked():    
+            self.val_method = 'cv'
+            if self.data.num_samples() / self.cvSpinBox.value() < 10:
+                val = self.warn('cv')       # warning: too few samples in each fold
+        elif self.looRadioButton.isChecked():   
+            self.val_method = 'loo'
+            if self.data.num_samples() > 50:
+                val = self.warn('loo')      # warning: too many samples for leave-one-out
+
+        if val == QMessageBox.Close:
+            return
+
+        # classifier hyperparameters
+        self.classTypeComboBox.setCurrentIndex(0)
+        self.set_decision_tree()
+        self.set_random_forest()
+        self.set_k_nearest_neighbors()
+        self.set_logistic_regression()
+        self.set_neural_network()
+        self.set_svm()
+        self.set_naive_bayes()
+        self.classNameLineEdit.clear()
+        self.classCommentTextEdit.clear()
+
+        if self.holdoutRadioButton.isChecked() and self.holdoutSpinBox.value() == 0:
+            self.performanceComboBox.setCurrentIndex(1)
+            self.performanceListView.setRowHidden(0, True)
+
+        self.leftPanel.setCurrentIndex(1)
+
+    # back to default
+    def clear(self, option):
+        if option == 'all':
+            self.clear('test')
+            self.clear('train')
+            self.data = None
+            self.val_method = 'cv'
+            self.tested = False
+            self.unlabeledFilePushButton.setDisabled(True)
+            self.labeledFileDisplay.setText('')
+            self.unlabeledFileDisplay.setText('')
+            self.data_summary_.clear()
+            self.splitFrame.setDisabled(True)
+            self.splitSpinBox.setValue(20)
+            self.splitCheckBox.setChecked(True)
+            self.validationFrame.setDisabled(True)
+            self.holdoutSpinBox.setValue(20)
+            self.holdoutSpinBox.setDisabled(True)
+            self.cvRadioButton.setChecked(True)
+            self.cvSpinBox.setValue(5)
+            self.validationCheckBox.setChecked(True)
+        if option == 'train':
+            self.curr_model = None
+            self.models.clear()
+            self.models_table.setRowCount(0)
+            self.model_summary_.clear()
+            self.classNextPushButton.setDisabled(True)
+            self.performanceListView.setRowHidden(0, False)
+            self.performanceComboBox.setCurrentIndex(0)
+            self.canvas.figure.clear()
+            self.canvas.draw()
+            self.dataPlotRadioButton.setDisabled(True)
+            self.confusionMatrixRadioButton.setChecked(True)
+            self.leftPanel.setCurrentIndex(0)
+        elif option == 'test':
+            self.selected_model = None
+            self.bestPerformRadioButton.setChecked(True)
+            self.metricComboBox.setCurrentIndex(0)
+            self.leftPanel.setCurrentIndex(1)
 
     # train and return a decision tree classifier
     def decision_tree(self):
-        data = self.labeled_data.getIntegerEncodedTrain()
-        num_features = self.labeled_data.getNumOfFeatures()
+        data = self.data.train('integer')
+        num_features = self.data.num_features('integer')
         X = data.iloc[:, 0: num_features]
         y = data.iloc[:, num_features]
 
@@ -145,7 +335,15 @@ class App(QMainWindow):
         if max_depth == 'None':
             max_depth = None
         else:
-            max_depth = int(max_depth)
+            try:
+                max_depth = int(max_depth)
+            except:
+                self.error('max_depth')
+                return
+            
+            if max_depth <= 0 or float(self.dtMaxDepthLineEdit.text()) - max_depth != 0:
+                self.error('max_depth')
+                return
 
         class_weight = self.dtClassWeightComboBox.currentText()
         if class_weight == 'uniform':
@@ -166,8 +364,8 @@ class App(QMainWindow):
 
     # train and return a random forest classifier
     def random_forest(self):
-        data = self.labeled_data.getIntegerEncodedTrain()
-        num_features = self.labeled_data.getNumOfFeatures()
+        data = self.data.train('integer')
+        num_features = self.data.num_features('integer')
         X = data.iloc[:, 0: num_features]
         y = data.iloc[:, num_features]
 
@@ -175,7 +373,15 @@ class App(QMainWindow):
         if max_depth == 'None':
             max_depth = None
         else:
-            max_depth = int(max_depth)
+            try:
+                max_depth = int(max_depth)
+            except:
+                self.error('max_depth')
+                return
+            
+            if max_depth <= 0 or float(self.rfMaxDepthLineEdit.text()) - max_depth != 0:
+                self.error('max_depth')
+                return
 
         max_features = self.rfMaxFeaturesComboBox.currentText()
         if max_features == 'all':
@@ -203,8 +409,8 @@ class App(QMainWindow):
 
     # train and return a k-nearest neighbors classifier
     def k_nearest_neighbors(self):
-        data = self.labeled_data.getIntegerEncodedTrain()
-        num_features = self.labeled_data.getNumOfFeatures()
+        data = self.data.train('integer')
+        num_features = self.data.num_features('integer')
         X = data.iloc[:, 0: num_features]
         y = data.iloc[:, num_features]
 
@@ -221,10 +427,41 @@ class App(QMainWindow):
 
     # train and return a logistic regression classifier
     def logistic_regression(self):
-        data = self.labeled_data.getOneHotEncodedTrain()
-        num_features = self.labeled_data.getNumOfOneHotEncodedFeatures()
+        data = self.data.train('one-hot')
+        num_features = self.data.num_features('one-hot')
         X = data.iloc[:, 0: num_features]
         y = data.iloc[:, num_features]
+
+        try:
+            penalty = float(self.lrRglrStrengthLineEdit.text())
+        except:
+            self.error('penalty')
+            return
+        try:
+            intercept_scaling = float(self.lrInterceptScalingLineEdit.text())
+        except:
+            self.error('intercept_scaling')
+            return
+        try:
+            tol = float(self.lrTolLineEdit.text())
+        except:
+            self.error('tol')
+            return
+        try:
+            max_iter = int(self.lrMaxIterLineEdit.text())
+        except:
+            self.error('max_iter')
+            return
+
+        if penalty <= 0:
+            self.error('penalty')
+            return
+        if tol <= 0:
+            self.error('tol')
+            return
+        if max_iter <= 0 or float(self.lrMaxIterLineEdit.text()) - max_iter != 0:
+            self.error('max_iter')
+            return
 
         class_weight = self.lrClassWeightComboBox.currentText()
         if class_weight == 'uniform':
@@ -232,80 +469,177 @@ class App(QMainWindow):
 
         lr = linear_model.LogisticRegression(\
             penalty = self.lrRegularizationComboBox.currentText(), \
-            tol = float(self.lrTolLineEdit.text()), \
-            C = float(self.lrRglrStrengthLineEdit.text()), \
+            tol = tol, \
+            C = penalty, \
             fit_intercept = self.lrFitInterceptCheckBox.isChecked(), \
+            intercept_scaling = intercept_scaling, \
             class_weight = class_weight, \
             solver = 'saga', \
-            max_iter = int(self.lrMaxIterLineEdit.text()), \
+            max_iter = max_iter, \
             multi_class = self.lrMultiClassComboBox.currentText(), \
             random_state = 0)
         
-        return LogisticRegression(lr, X, y, val_method=self.val_method, \
+        try:
+            model =  LogisticRegression(lr, X, y, val_method=self.val_method, \
                 val_size=self.holdoutSpinBox.value() / 100, \
                 k = self.cvSpinBox.value(), \
                 stratify=self.validationCheckBox.isChecked())
+        except exceptions.ConvergenceWarning:
+            self.info('converge')
+            return
+
+        return model
 
     # train and return a neural network classifier
     def neural_network(self):
-        data = self.labeled_data.getOneHotEncodedTrain()
-        num_features = self.labeled_data.getNumOfOneHotEncodedFeatures()
+        data = self.data.train('one-hot')
+        num_features = self.data.num_features('one-hot')
         X = data.iloc[:, 0: num_features]
         y = data.iloc[:, num_features]
+
+        try:
+            penalty = float(self.nnAlphaLineEdit.text())
+        except:
+            self.error('penalty')
+            return
+        try:
+            batch_size = int(self.nnBatchSizeLineEdit.text())
+        except:
+            self.error('batch_size')
+            return
+        try:
+            learning_rate_init = float(self.nnLearningRateInitLineEdit.text())
+        except:
+            self.error('learning_rate_init')
+            return
+        try:
+            tol = float(self.nnTolLineEdit.text())
+        except:
+            self.error('tol')
+            return
+        try:
+            max_iter = int(self.nnMaxIterLineEdit.text())
+        except:
+            self.error('max_iter')
+            return
+
+        if penalty <= 0:
+            self.error('penalty')
+            return
+        if batch_size <= 0 or float(self.nnBatchSizeLineEdit.text()) - batch_size != 0:
+            self.error('batch_size')
+            return
+        if learning_rate_init <= 0:
+            self.error('learning_rate_init')
+            return
+        if tol <= 0:
+            self.error('tol')
+            return
+        if max_iter <= 0 or float(self.nnMaxIterLineEdit.text()) - max_iter != 0:
+            self.error('max_iter')
+            return
 
         nn = neural_network.MLPClassifier(\
             hidden_layer_sizes = self.nnNumHiddenUnitsSpinBox.value(), \
             activation = self.nnActivationComboBox.currentText(), \
-            solver = 'sgd', \
-            batch_size = int(self.nnBatchSizeLineEdit.text()), \
+            solver = self.nnSolverComboBox.currentText(), \
+            alpha = penalty, \
+            batch_size = batch_size, \
             learning_rate = self.nnLearningRateComboBox.currentText(), \
-            learning_rate_init = float(self.nnLearningRateInitLineEdit.text()), \
-            max_iter = int(self.nnMaxIterLineEdit.text()), \
-            tol = float(self.nnTolLineEdit.text()), \
+            learning_rate_init = learning_rate_init, \
+            max_iter = max_iter, \
+            tol = tol, \
             early_stopping = self.nnEarlyStoppingCheckBox.isChecked(), \
             random_state = 0)
-        
-        return NeuralNetwork(nn, X, y, val_method=self.val_method, \
+
+        try:
+            model = NeuralNetwork(nn, X, y, val_method=self.val_method, \
                 val_size=self.holdoutSpinBox.value() / 100, \
                 k = self.cvSpinBox.value(), \
                 stratify=self.validationCheckBox.isChecked())
+        except exceptions.ConvergenceWarning:
+            self.info('converge')
+            return
+
+        return model
 
     # train and return a svm classifier
     def svm(self):
-        data = self.labeled_data.getIntegerEncodedTrain()
-        num_features = self.labeled_data.getNumOfFeatures()
+        data = self.data.train('one-hot')
+        num_features = self.data.num_features('one-hot')
         X = data.iloc[:, 0: num_features]
         y = data.iloc[:, num_features]
 
-        gamma = self.svmGammaLineEdit.text()
-        if gamma != 'auto':
-            gamma = float(gamma)
+        try:
+            penalty = float(self.svmPenaltyLineEdit.text())
+        except:
+            self.error('penalty')
+            return
+        try:
+            gamma = float(self.svmGammaLineEdit.text())
+        except:
+            self.error('kernel_coef')
+            return
+        try:
+            coef0 = float(self.svmCoefLineEdit.text())
+        except:
+            self.error('indenpendent_term')
+            return
+        try:
+            tol = float(self.svmTolLineEdit.text())
+        except:
+            self.error('tol')
+            return
+        try:
+            max_iter = int(self.svmMaxIterLineEdit.text())
+        except:
+            self.error('max_iter')
+            return
+
+        if penalty <= 0:
+            self.error('penalty')
+            return
+        if gamma <= 0:
+            self.error('kernel_coef')
+            return
+        if tol <= 0:
+            self.error('tol')
+            return
+        if max_iter <= 0 or float(self.svmMaxIterLineEdit.text()) - max_iter != 0:
+            self.error('max_iter')
+            return
 
         class_weight = self.svmClassWeightComboBox.currentText()
         if class_weight == 'uniform':
             class_weight = None
 
         svc = svm.SVC(\
-            C = self.svmPenaltyDoubleSpinBox.value(), \
+            C = penalty, \
             kernel = self.svmKernelComboBox.currentText(), \
             degree = self.svmDegreeSpinBox.value(), \
             gamma = gamma, \
-            coef0 = self.svmCoefDoubleSpinBox.value(), \
+            coef0 = coef0, \
             probability = True, \
-            tol = float(self.svmTolLineEdit.text()), \
+            tol = tol, \
             class_weight = class_weight, \
-            max_iter = int(self.svmMaxIterLineEdit.text()), \
+            max_iter = max_iter, \
             random_state = 0)
-        
-        return SVM(svc, X, y, val_method=self.val_method, \
+           
+        try: 
+            model = SVM(svc, X, y, val_method=self.val_method, \
                 val_size=self.holdoutSpinBox.value() / 100, \
                 k = self.cvSpinBox.value(), \
                 stratify=self.validationCheckBox.isChecked())
+        except exceptions.ConvergenceWarning:
+            self.info('converge')
+            return
+
+        return model
 
     # train and return a naive bayes classifier
     def naive_bayes(self):
-        data = self.labeled_data.getIntegerEncodedTrain()
-        num_features = self.labeled_data.getNumOfFeatures()
+        data = self.data.train('integer')
+        num_features = self.data.num_features('integer')
         X = data.iloc[:, 0: num_features]
         y = data.iloc[:, num_features]
 
@@ -313,18 +647,23 @@ class App(QMainWindow):
         if class_prior == 'None':
             class_prior = None
         else:
-            class_prior = [float(i.strip()) for i in class_prior.split(',')]
+            try:
+                class_prior = [float(i.strip()) for i in class_prior.split(',')]
+            except:
+                self.error('class_prior')
+                return
 
-        # string-valued features: use multinomial NB
-        if self.labeled_data.getFeatureSummary() == 'string':
+            if len(class_prior) != self.data.num_classes() or sum(class_prior) != 1:
+                self.error('class_prior')
+                return
+
+        if self.nbDistributionLabel.text() == 'multinomial':
             nb = naive_bayes.MultinomialNB(\
                 alpha = self.nbAddSmoothDoubleSpinBox.value(), \
                 fit_prior = self.nbFitPriorCheckBox.isChecked(), \
                 class_prior = class_prior)
             mode = 'multinomial'
-
-        # numeric features: use gaussian NB
-        elif self.labeled_data.getFeatureSummary() == 'numeric':
+        elif self.nbDistributionLabel.text() == 'gaussian':
             nb = naive_bayes.GaussianNB(priors = class_prior)
             mode = 'gaussian'
         
@@ -334,7 +673,7 @@ class App(QMainWindow):
                 stratify=self.validationCheckBox.isChecked(), \
                 mode=mode)
 
-    # train a classifier and add it to the collection of trained classifiers
+    # train a classifier and push it into the model table
     def train(self):
         index = self.paramStack.currentIndex()
         if index == 1:      model = self.decision_tree()
@@ -345,251 +684,401 @@ class App(QMainWindow):
         elif index == 6:    model = self.svm()
         elif index == 7:    model = self.naive_bayes()
 
+        if model is None:
+            return
+
         name = self.classNameLineEdit.text().strip()
         if name != '':
-            model.setName(name)
-        model.setComment(self.classCommentTextEdit.toPlainText().strip())
+            if name in self.models:
+                self.error('name')
+                return
+            model.set_name(name)
 
-        self.models[model.name()] = model
-        self.push(model, 'train')
-        self.push(model, 'val')
+        model.set_comment(self.classCommentTextEdit.toPlainText().strip())
+        self.classNameLineEdit.clear()
+        self.classCommentTextEdit.clear()
 
-    # push a classifier into the model table
+        self.models[model.name()] = model   # add to the collection of classifiers
+        if self.performanceComboBox.currentIndex() == 0:
+            self.push(model, 'val')
+        else:
+            self.push(model, 'train')
+
+        self.classNextPushButton.setEnabled(True)
+
+    # enter a classifier into the table
     def push(self, model, option):
         if option == 'train':
-            metrics = model.metrics(option='train')
-        elif option == 'val':
-            metrics = model.metrics(option='val')
+            metrics = model.metrics('train')
+        else:
+            metrics = model.metrics('val')
+            if metrics is None:
+                return
 
-        row = self.models_table.rowCount()
+        row = self.models_table.rowCount()  # enter as the last row
         self.models_table.insertRow(row)
 
-        name = QTableWidgetItem(model.name())
-        type_ = QTableWidgetItem(model.type())
-        accuracy = QTableWidgetItem(str(metrics.accuracy()))
-        precision = QTableWidgetItem(str(metrics.precision()))
-        recall = QTableWidgetItem(str(metrics.recall()))
-        f1 = QTableWidgetItem(str(metrics.f1()))
+        name_item = QTableWidgetItem(model.name())
+        type_item = QTableWidgetItem(model.type())
+        accuracy_item = QTableWidgetItem()
+        precision_item = QTableWidgetItem()
+        recall_item = QTableWidgetItem()
+        f1_item = QTableWidgetItem()
+        auroc_item = QTableWidgetItem()
+        auprc_item = QTableWidgetItem()
 
-        name.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
-        type_.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
-        accuracy.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
-        precision.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
-        recall.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
-        f1.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
+        name_item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
+        type_item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
+        accuracy_item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
+        precision_item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
+        recall_item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
+        f1_item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
+        auroc_item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
+        auprc_item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
 
-        self.models_table.setItem(row, 0, name)
-        self.models_table.setItem(row, 1, type_)
-        self.models_table.setItem(row, 2, accuracy)
-        self.models_table.setItem(row, 3, precision)
-        self.models_table.setItem(row, 4, recall)
-        self.models_table.setItem(row, 5, f1)
+        self.models_table.setItem(row, 0, name_item)
+        self.models_table.setItem(row, 1, type_item)
+        self.models_table.setItem(row, 2, accuracy_item)
+        self.models_table.setItem(row, 3, precision_item)
+        self.models_table.setItem(row, 4, recall_item)
+        self.models_table.setItem(row, 5, f1_item)
+        self.models_table.setItem(row, 6, auroc_item)
+        self.models_table.setItem(row, 7, auprc_item)
 
-    # reset decision tree hyperparameters to default
-    def reset_decision_tree(self):
-        self.dtCriterionComboBox.setCurrentIndex(0)
-        self.dtMaxDepthLineEdit.setText('None')
-        self.dtMinSamplesSplitSpinBox.setValue(2)
-        self.dtMinSamplesLeafSpinBox.setValue(1)
-        self.dtClassWeightComboBox.setCurrentIndex(0)
+        self.set_metrics(row, metrics)
+        self.switch_model(row, 0)    # mark the new classifier as selected
 
-    # reset random forest hyperparameters to default
-    def reset_random_forest(self):
-        self.rfCriterionComboBox.setCurrentIndex(0)
-        self.rfNumEstimatorsSpinBox.setValue(10)
-        self.rfMaxFeaturesComboBox.setCurrentIndex(0)
-        self.rfMaxDepthLineEdit.setText('None')
-        self.rfMinSamplesSplitSpinBox.setValue(2)
-        self.rfMinSamplesLeafSpinBox.setValue(1)
-        self.rfBootstrapCheckBox.setChecked(True)
-        self.rfClassWeightComboBox.setCurrentIndex(0)
+    # set metrics of a classifier in the table
+    def set_metrics(self, row, metrics):
+        self.models_table.item(row, 2).setText(str(metrics.accuracy()))
+        self.models_table.item(row, 3).setText(str(metrics.precision()))
+        self.models_table.item(row, 4).setText(str(metrics.recall()))
+        self.models_table.item(row, 5).setText(str(metrics.f1()))
+        self.models_table.item(row, 6).setText(str(metrics.auroc()))
+        self.models_table.item(row, 7).setText(str(metrics.auprc()))
 
-    # reset k-nearest neighbors hyperparameters to default
-    def reset_k_nearest_neighbors(self):
-        self.knnNumNeighborsSpinBox.setValue(5)
-        self.knnWeightsComboBox.setCurrentIndex(0)
+    # switch between metrics on training and validation data
+    def switch_metrics(self, index):
+        if index == 0:      option = 'val'
+        elif index == 1:    option = 'train'
+        else:               option = 'test'
 
-        # string-valued features: use hamming distance
-        if self.labeled_data.getFeatureSummary() == 'string':
-            self.knnMetricComboBox.setCurrentIndex(2)
-            self.knnMetricListView.setRowHidden(0, True)
-            self.knnMetricListView.setRowHidden(1, True)
-        # numeric features: use euclidean or manhatten distance
-        elif self.labeled_data.getFeatureSummary() == 'numeric':
-            self.knnMetricListView.setRowHidden(2, True)
-        # mixed features: DO NOT use KNN
+        for i in range(0, self.models_table.rowCount()):
+            model = self.models[self.models_table.item(i, 0).text()]
+            metrics = model.metrics(option)
+            if metrics is not None:
+                self.set_metrics(i, metrics)
+                self.models_table.showRow(i)
+            else:
+                self.models_table.hideRow(i)
+
+        if self.curr_model is not None:
+            row = 0
+            for i in range(0, self.models_table.rowCount()):
+                if self.models_table.item(i, 0).text() == self.curr_model.name():
+                    row = i
+
+            if self.models_table.isRowHidden(row):
+                self.model_summary_.clear()
+                self.canvas.figure.clear()
+                self.canvas.draw()
+            else:
+                self.plot()
+
+        if self.leftPanel.currentIndex() == 2 and self.performanceComboBox.currentIndex() != 2:
+            self.select('best')
+            self.select('user')
+
+    # switch classifier, show summary and plots
+    def switch_model(self, row, col):
+        self.models_table.setCurrentCell(row, 0)
+        self.curr_model = self.models[self.models_table.item(row, 0).text()]
+        self.model_summary()
+        self.plot()
+
+        if self.leftPanel.currentIndex() == 2 and self.userPickRadioButton.isChecked():
+            self.selected_model = self.curr_model
+            self.userPickLabel.setText(self.selected_model.name())
+            self.testPushButton.setEnabled(True)
+
+    # show summary of classifier
+    def model_summary(self):
+            self.curr_model.summary(self.model_summary_)
+
+    # show plots
+    def plot(self):
+        if self.curr_model is not None:
+            index = self.performanceComboBox.currentIndex()
+            if  index == 0:
+                metrics = self.curr_model.metrics('val')
+                option = 'train'
+            elif index == 1:
+                metrics = self.curr_model.metrics('train')
+                option = 'train'
+            else:
+                metrics = self.curr_model.metrics('test')
+                option = 'test'
+
+            if self.confusionMatrixRadioButton.isChecked():
+                metrics.plot_confusion_matrix(self.canvas)
+            elif self.rocRadioButton.isChecked():
+                metrics.plot_ROC(self.canvas)
+            elif self.prRadioButton.isChecked():
+                metrics.plot_precision_recall(self.canvas)
+            elif self.dataPlotRadioButton.isChecked():
+                self.curr_model.plot_decision_regions(option, self.canvas)
+
+    # sort classifiers in descending order w.r.t. the selected metric
+    def sort(self, col):
+        self.models_table.sortItems(col, Qt.DescendingOrder)
+
+    # select a model for testing
+    def select(self, option):
+        if option == 'best' and self.bestPerformRadioButton.isChecked():
+            index = self.metricComboBox.currentIndex()
+            if index == 0:
+                self.selected_model = None
+                self.userPickLabel.setText('None')
+                self.testPushButton.setDisabled(True)
+                return
+            else:
+                col = index + 1
+                self.sort(col)
+                self.switch_model(0, 0)
+                self.selected_model = self.curr_model        
+                self.userPickLabel.setText(self.selected_model.name())
+                self.testPushButton.setEnabled(True)
+        elif option == 'user' and self.userPickRadioButton.isChecked():
+            self.selected_model = self.curr_model        
+            self.userPickLabel.setText(self.selected_model.name())
+            self.testPushButton.setEnabled(True)
+
+    # test the selected classifier
+    def test(self):
+        if self.tested:
+            val = self.warn('test')
+            if val == QMessageBox.Cancel:
+                return
         else:
-            self.classTypeListView.setRowHidden(3, True)
+            msg = 'You cannot train more classifiers once you begin testing. '
+            msg += 'Do you want to proceed?'
+            self.test_box.setText(msg)
+            val = self.test_box.exec_()
+            if val == QMessageBox.Cancel:
+                return
 
-    # reset logistic regression hyperparameters to default
-    def reset_logistic_regression(self):
-        self.lrRegularizationComboBox.setCurrentIndex(0)
-        self.lrRglrStrengthLineEdit.setText('1.0')
-        self.lrFitInterceptCheckBox.setChecked(True)
-        self.lrMultiClassComboBox.setCurrentIndex(0)
-        self.lrClassWeightComboBox.setCurrentIndex(0)
-        self.lrTolLineEdit.setText('1e-3')
-        self.lrMaxIterLineEdit.setText('100')
-
-    # reset neural network hyperparameters to default
-    def reset_neural_network(self):
-        self.nnNumHiddenUnitsSpinBox.setValue(3)
-        self.nnActivationComboBox.setCurrentIndex(0)
-        self.nnBatchSizeLineEdit.setText('20')
-        self.nnLearningRateComboBox.setCurrentIndex(0)
-        self.nnLearningRateInitLineEdit.setText('0.01')
-        self.nnEarlyStoppingCheckBox.setChecked(False)
-        self.nnTolLineEdit.setText('1e-3')
-        self.nnMaxIterLineEdit.setText('100')
-
-    # reset svm hyperparameters to default
-    def reset_svm(self):
-        self.svmPenaltyDoubleSpinBox.setValue(1.0)
-        self.svmKernelComboBox.setCurrentIndex(0)
-        self.svmDegreeSpinBox.setValue(3)
-        gamma = 1 / self.labeled_data.getNumOfFeatures()
-        self.svmGammaLineEdit.setText(str(round(gamma, 2)))
-        self.svmCoefDoubleSpinBox.setValue(0.0)
-        self.svmClassWeightComboBox.setCurrentIndex(0)
-        self.svmTolLineEdit.setText('1e-3')
-        self.svmMaxIterLineEdit.setText('100')
-
-    # reset naive bayes hyperparameters to default
-    def reset_naive_bayes(self):
-        # string-valued features: use multinomial NB
-        if self.labeled_data.getFeatureSummary() == 'string':
-            self.nbDistributionLabel.setText('multinomial')
-        # numeric features: use gaussian NB
-        elif self.labeled_data.getFeatureSummary() == 'numeric':
-            self.nbDistributionLabel.setText('gaussian')
-            self.nbAddSmoothDoubleSpinBox.setDisabled(True)
-            self.nbFitPriorCheckBox.setDisabled(True)
-        # mixed features: DO NOT use NB
+        if self.selected_model.type() in ['decision tree', 'random forest', \
+            'k-nearest neighbors', 'naive bayes']:
+            data = self.data.test('integer')
+            num_features = self.data.num_features('integer')
         else:
-            self.classTypeListView.setRowHidden(7, True)
+            data = self.data.test('one-hot')
+            num_features = self.data.num_features('one-hot')
 
-        self.nbAddSmoothDoubleSpinBox.setValue(1.0)
-        self.nbFitPriorCheckBox.setChecked(True)
-        self.nbClassPriorLineEdit.setText('None')
-        self.nbTolLineEdit.setText('1e-3')
-        self.nbMaxIterLineEdit.setText('100')
-    
-    # reset hyperparameters of current classifier type to default
-    def reset(self):
-        index = self.paramStack.currentIndex()
-        if index == 1:      self.reset_decision_tree()
-        elif index == 2:    self.reset_random_forest()
-        elif index == 3:    self.reset_k_nearest_neighbors()
-        elif index == 4:    self.reset_logistic_regression()
-        elif index == 5:    self.reset_neural_network()
-        elif index == 6:    self.reset_svm()
-        elif index == 7:    self.reset_naive_bayes()
+        X = data.iloc[:, 0: num_features]
+        y = data.iloc[:, num_features]
+        self.selected_model.test(X, y)
+        self.tested = True
 
-        self.classNameLineEdit.clear()
-        self.classCommentTextEdit.clear()
+        row = 0
+        for i in range(0, self.models_table.rowCount()):
+            if self.models_table.item(i, 0).text() == self.selected_model.name():
+                row = i
 
-    # set up the system for training classifiers
-    def set(self):
-        # set train/test split
-        test_size = self.splitSpinBox.value() / 100
-        stratify = self.splitCheckBox.isChecked()
-        self.labeled_data.trainTestSplit(test_size, stratify)
+        self.switch_model(row, 0)       # swtich to the selected model
+        self.performanceListView.setRowHidden(2, False)
+        self.bestPerformRadioButton.setChecked(True)
+        self.metricComboBox.setCurrentIndex(0)          # DO NOT switch order
+        self.performanceComboBox.setCurrentIndex(2)     # (bug in GUI library) 
 
-        # set validation method
-        if self.holdoutRadioButton.isChecked(): self.val_method = 'holdout'
-        elif self.cvRadioButton.isChecked():    self.val_method = 'cv'
-        elif self.looRadioButton.isChecked():   self.val_method = 'loo'
+        self.testBackPushButton.setDisabled(True)
+        self.testFinishPushButton.setEnabled(True)
 
-        # set classifier hyperparameters
-        self.classTypeComboBox.setCurrentIndex(0)
-        self.reset_decision_tree()
-        self.reset_random_forest()
-        self.reset_k_nearest_neighbors()
-        self.reset_logistic_regression()
-        self.reset_neural_network()
-        self.reset_svm()
-        self.reset_naive_bayes()
-        self.classNameLineEdit.clear()
-        self.classCommentTextEdit.clear()
+    # use the selected classifier to make prediction
+    def predict(self):
+        if self.curr_model.type() in ['decision tree', 'random forest', \
+            'k-nearest neighbors', 'naive bayes']:
+            data = self.data.prediction('integer')
+        else:
+            data = self.data.prediction('one-hot')
+
+        path = QFileDialog.getSaveFileName(self.testPage)[0]
+        self.curr_model.predict(data, path)
+
+    # finish analyzing the dataset
+    def finish(self):
+        msg = 'Do you want to analyze more data?'
+        self.finish_box.setText(msg)
+        val = self.finish_box.exec_()
+        if val == QMessageBox.Yes:
+            self.clear('all')
+        elif val == QMessageBox.No:
+            QApplication.instance().quit()
+
+    # show reminders
+    def info(self, flag):
+        if flag == 'converge':
+            msg = 'Maximum iterations reached and the classifier has not converged yet. '
+            msg += 'Consider increasing max_iter.'
+        self.info_box.setText(msg)
+        self.info_box.exec_()
+
+    # show warning messages
+    def warn(self, flag):
+        self.warn_message(flag)
+        return self.warn_box.exec_()
+
+    # show error messages
+    def error(self, flag):
+        self.error_message(flag)
+        return self.err_box.exec_()
+
+    # construct warning messages
+    def warn_message(self, flag):
+        if flag == 'holdout':
+            msg = 'No validation data is allocated. Classifiers may overfit.'
+        elif flag == 'cv':
+            msg = 'Too few samples in each fold. '
+            msg += 'Use fewer folds or consider leave-one-out validation.'
+        elif flag == 'loo':
+            msg = 'Too many samples for leave-one-out validation. '
+            msg += 'Consider hold-out validation or k-fold cross-validation.'
+        elif flag == 'test':
+            msg = 'Model selection on test data may lead to an overfit model.'
+        self.warn_box.setText(msg)
+
+    # construct error messages
+    def error_message(self, flag):
+        if flag == 'format':
+            msg = 'Wrong data format. Only .csv is accepted.'
+        elif flag == 'num_samples':
+            msg = 'Too few samples. At least 20 samples are required.'
+        elif flag == 'features':
+            msg = 'Feature names do not match.'
+        elif flag == 'max_depth':
+            msg = 'max_depth: must be a positive integer (e.g. 3) or None'
+        elif flag == 'penalty':
+            msg = 'penalty: must be a positive number (e.g. 0.5)'
+        elif flag == 'intercept_scaling':
+            msg = 'intercept_scaling: must be a number (e.g. 1.0)'
+        elif flag == 'batch_size':
+            msg = 'batch_size: must be a positive integer (e.g. 200)'
+        elif flag == 'learning_rate_init':
+            msg = 'learning_rate_init: must be a positive number (e.g. 0.001)'
+        elif flag == 'kernel_coef':
+            msg = 'kernel_coef: must be a positive number (e.g. 0.5)'
+        elif flag == 'indenpendent_term':
+            msg = 'indenpendent_term: must be a number (e.g. 0)'
+        elif flag == 'class_prior':
+            msg = 'class_prior: must be None or follow the format <value>,...,<value> '
+            msg += 'where the number of values equals the number of classes '
+            msg += 'and the values sum to 1 (e.g. 0.2,0.6,0.2 for three classes)'
+        elif flag == 'tol':
+            msg = 'tol: must be a positive number (e.g. 1e-4)'
+        elif flag == 'max_iter':
+            msg = 'max_iter: must be a positive integer (e.g. 200)'
+        elif flag == 'name':
+            msg = 'Classifier name already exists.'
+        self.err_box.setText(msg)
 
     def initUI(self):
-        # default setting
+        self.data = None
         self.val_method = 'cv'
         self.models = dict()
+        self.curr_model = None      # classifier highlighted in the table
+        self.selected_model = None  # classifier selected for testing
+        self.tested = False
 
-        titleFont = QFont()
-        titleFont.setBold(True)
+        self.info_box = QMessageBox()
+        self.info_box.setIcon(QMessageBox.Information)
+        self.info_box.setStandardButtons(QMessageBox.Ok)
+
+        self.warn_box = QMessageBox()
+        self.warn_box.setIcon(QMessageBox.Warning)
+        self.warn_box.setStandardButtons(QMessageBox.Close | QMessageBox.Ignore)
+        
+        self.err_box = QMessageBox()
+        self.err_box.setIcon(QMessageBox.Critical)
+        self.err_box.setStandardButtons(QMessageBox.Ok)
+
+        self.test_box = QMessageBox()
+        self.test_box.setIcon(QMessageBox.Question)
+        self.test_box.setStandardButtons(QMessageBox.Cancel | QMessageBox.Yes)
+
+        self.finish_box = QMessageBox()
+        self.finish_box.setIcon(QMessageBox.Question)
+        self.finish_box.setStandardButtons(QMessageBox.Cancel | QMessageBox.No | QMessageBox.Yes)
+
+        self.font = QFont()         # font for table and summary
+        self.font.setPointSize(10)
 
         ########## 1st page: data loading and splitting ##########
         self.dataPage = QWidget()
-        openIcon = QIcon('icons/open.png')
-        dataPageLayout = QVBoxLayout(self.dataPage)
+        self.openIcon = QIcon('icons/open.png')
+        self.dataPageLayout = QVBoxLayout(self.dataPage)
 
         ### load labeled data
-        labeledDataLabel = self.setLabel('Labeled Data:', self.dataPage, titleFont)
-        labeledFilePushButton = QPushButton('Select File...', self.dataPage)
-        labeledFilePushButton.setIcon(openIcon)
-        labeledFilePushButton.setMaximumWidth(140)
-        labeledFileSpacer = QSpacerItem(40, 20)
-        self.labeledFileDisplay = QLabel('<filename>', self.dataPage)
+        self.labeledDataLabel = self.title('Labeled Data (.csv):', self.dataPage)
+        self.labeledFilePushButton = QPushButton('Select File...', self.dataPage)
+        self.labeledFilePushButton.setIcon(self.openIcon)
+        self.labeledFilePushButton.setMaximumWidth(140)
+        self.labeledFileSpacer = QSpacerItem(40, 20)
+        self.labeledFileDisplay = QLabel('', self.dataPage)
 
-        dataPageLayout.addWidget(labeledDataLabel)
-        labeledFileLayout = QHBoxLayout()
-        labeledFileLayout.addWidget(labeledFilePushButton)
-        labeledFileLayout.addItem(labeledFileSpacer)
-        labeledFileLayout.addWidget(self.labeledFileDisplay)
-        dataPageLayout.addLayout(labeledFileLayout)
-
-        labeledFilePushButton.clicked.connect(self.openLabeledFile)
+        self.dataPageLayout.addWidget(self.labeledDataLabel)
+        self.labeledFileLayout = QHBoxLayout()
+        self.labeledFileLayout.addWidget(self.labeledFilePushButton)
+        self.labeledFileLayout.addItem(self.labeledFileSpacer)
+        self.labeledFileLayout.addWidget(self.labeledFileDisplay)
+        self.dataPageLayout.addLayout(self.labeledFileLayout)
 
         ### load unlabeled data
-        unlabeledDataLabel = self.setLabel('Unlabeled Data:', self.dataPage, titleFont)
-        unlabeledFilePushButton = QPushButton('Select File...', self.dataPage)
-        unlabeledFilePushButton.setIcon(openIcon)
-        unlabeledFilePushButton.setMaximumWidth(140)
-        unlabeledFileSpacer = QSpacerItem(40, 20)
-        self.unlabeledFileDisplay = QLabel('<filename>', self.dataPage)
+        self.unlabeledDataLabel = self.title('Unlabeled Data (.csv):', self.dataPage)
+        self.unlabeledFilePushButton = QPushButton('Select File...', self.dataPage)
+        self.unlabeledFilePushButton.setIcon(self.openIcon)
+        self.unlabeledFilePushButton.setMaximumWidth(140)
+        self.unlabeledFilePushButton.setDisabled(True)
+        self.unlabeledFileSpacer = QSpacerItem(40, 20)
+        self.unlabeledFileDisplay = QLabel('', self.dataPage)
 
-        dataPageLayout.addWidget(unlabeledDataLabel)
-        unlabeledFileLayout = QHBoxLayout()
-        unlabeledFileLayout.addWidget(unlabeledFilePushButton)
-        unlabeledFileLayout.addItem(unlabeledFileSpacer)
-        unlabeledFileLayout.addWidget(self.unlabeledFileDisplay)
-        dataPageLayout.addLayout(unlabeledFileLayout)
-
-        unlabeledFilePushButton.clicked.connect(self.openUnlabeledFile)
+        self.dataPageLayout.addWidget(self.unlabeledDataLabel)
+        self.unlabeledFileLayout = QHBoxLayout()
+        self.unlabeledFileLayout.addWidget(self.unlabeledFilePushButton)
+        self.unlabeledFileLayout.addItem(self.unlabeledFileSpacer)
+        self.unlabeledFileLayout.addWidget(self.unlabeledFileDisplay)
+        self.dataPageLayout.addLayout(self.unlabeledFileLayout)
 
         ### data summary
-        dataSummaryLabel = self.setLabel('Data Summary:', self.dataPage, titleFont)
-        self.dataSummaryTree = QTreeWidget(self.dataPage)
-        self.dataSummaryTree.setColumnCount(2)
-        self.dataSummaryTree.setHeaderHidden(True)
-        self.dataSummaryTree.setColumnWidth(0, 200)
-        dataPageLayout.addWidget(dataSummaryLabel)
-        dataPageLayout.addWidget(self.dataSummaryTree)
+        self.dataSummaryLabel = self.title('Data Summary:', self.dataPage)
+        self.data_summary_ = QTreeWidget(self.dataPage)
+        self.data_summary_.setColumnCount(2)
+        self.data_summary_.setHeaderHidden(True)
+        self.data_summary_.setColumnWidth(0, 200)
+        self.dataPageLayout.addWidget(self.dataSummaryLabel)
+        self.dataPageLayout.addWidget(self.data_summary_)
 
         ### train/test split
-        trainTestLabel = self.setLabel('Train/Test Split:', self.dataPage, titleFont)
+        self.trainTestLabel = self.title('Train/Test Split:', self.dataPage)
         self.splitFrame = QFrame(self.dataPage)
         self.splitFrame.setAutoFillBackground(True)
         self.splitFrame.setDisabled(True)
-        self.splitSpinBox = self.setSpinBox(20, 10, 50, 5, self.splitFrame)
+        self.splitSpinBox = self.spin_box(20, 10, 50, 10, self.splitFrame)
         self.splitSpinBox.setMaximumWidth(60)
-        splitLabel = self.setLabel('% for test', self.splitFrame)
+        self.splitLabel = QLabel('% for test', self.splitFrame)
         self.splitCheckBox = QCheckBox('Stratified Sampling', self.splitFrame)
         self.splitCheckBox.setChecked(True)
 
-        dataPageLayout.addWidget(trainTestLabel)
-        trainTestLayout = QHBoxLayout()
-        trainTestLayout.addWidget(self.splitSpinBox)
-        trainTestLayout.addWidget(splitLabel)
-        trainTestLayout.addWidget(self.splitCheckBox)
-        splitLayout = QVBoxLayout(self.splitFrame)
-        splitLayout.addLayout(trainTestLayout)
-        dataPageLayout.addWidget(self.splitFrame)
+        self.dataPageLayout.addWidget(self.trainTestLabel)
+        self.trainTestLayout = QHBoxLayout()
+        self.trainTestLayout.addWidget(self.splitSpinBox)
+        self.trainTestLayout.addWidget(self.splitLabel)
+        self.trainTestLayout.addWidget(self.splitCheckBox)
+        self.splitLayout = QVBoxLayout(self.splitFrame)
+        self.splitLayout.addLayout(self.trainTestLayout)
+        self.dataPageLayout.addWidget(self.splitFrame)
 
         ### validation methodology
-        validationLabel = self.setLabel('Validation Methodology:', self.dataPage, titleFont)
+        self.validationLabel = self.title('Validation Methodology:', self.dataPage)
         self.validationFrame = QFrame(self.dataPage)
         self.validationFrame.setAutoFillBackground(True)
         self.validationFrame.setDisabled(True)
@@ -597,18 +1086,67 @@ class App(QMainWindow):
         self.cvRadioButton = QRadioButton('K-Fold Cross-Validation', self.validationFrame)
         self.cvRadioButton.setChecked(True)
         self.looRadioButton = QRadioButton('Leave-One-Out Validation', self.validationFrame)
-        holdoutSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-        cvSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-        looSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-        validationSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-        self.holdoutSpinBox = self.setSpinBox(20, 10, 50, 5, self.validationFrame)
+        self.holdoutSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.cvSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.looSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.validationSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.holdoutSpinBox = self.spin_box(20, 0, 50, 10, self.validationFrame)
         self.holdoutSpinBox.setMaximumWidth(50)
         self.holdoutSpinBox.setDisabled(True)
-        self.cvSpinBox = self.setSpinBox(5, 2, 10, 1, self.validationFrame)
+        self.cvSpinBox = self.spin_box(5, 2, 10, 1, self.validationFrame)
         self.validationCheckBox = QCheckBox('Stratified Sampling', self.validationFrame)
         self.validationCheckBox.setChecked(True)
-        holdoutLabel = self.setLabel('% for validation', self.validationFrame)
-        cvLabel = self.setLabel('folds', self.validationFrame)
+        self.holdoutLabel = QLabel('% for validation', self.validationFrame)
+        self.cvLabel = QLabel('folds', self.validationFrame)
+
+        self.dataPageLayout.addWidget(self.validationLabel)
+        self.holdoutLayout = QHBoxLayout()
+        self.holdoutLayout.addWidget(self.holdoutRadioButton)
+        self.holdoutLayout.addItem(self.holdoutSpacer)
+        self.holdoutLayout.addWidget(self.holdoutSpinBox)
+        self.holdoutLayout.addWidget(self.holdoutLabel)
+        self.cvLayout = QHBoxLayout()
+        self.cvLayout.addWidget(self.cvRadioButton)
+        self.cvLayout.addItem(self.cvSpacer)
+        self.cvLayout.addWidget(self.cvSpinBox)
+        self.cvLayout.addWidget(self.cvLabel)
+        self.looLayout = QHBoxLayout()
+        self.looLayout.addWidget(self.looRadioButton)
+        self.looLayout.addItem(self.looSpacer)
+        self.samplingLayout = QHBoxLayout()
+        self.samplingLayout.addItem(self.validationSpacer)
+        self.samplingLayout.addWidget(self.validationCheckBox)
+        self.validationLayout = QVBoxLayout(self.validationFrame)
+        self.validationLayout.addLayout(self.holdoutLayout)
+        self.validationLayout.addLayout(self.cvLayout)
+        self.validationLayout.addLayout(self.looLayout)
+        self.validationLayout.addLayout(self.samplingLayout)
+        self.dataPageLayout.addWidget(self.validationFrame)
+
+        ### data spacer and line
+        self.dataSpacer = QSpacerItem(40, 20, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        self.dataPageLayout.addItem(self.dataSpacer)
+        self.dataLine = QFrame(self.dataPage)
+        self.dataLine.setFrameShape(QFrame.HLine)
+        self.dataLine.setFrameShadow(QFrame.Sunken)
+        self.dataPageLayout.addWidget(self.dataLine)
+
+        ### next button
+        self.dataNextSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.dataNextPushButton = QPushButton('Next', self.dataPage)
+        self.dataNextPushButton.setDefault(True)
+        self.dataNextPushButton.setMinimumWidth(90)
+        self.dataNextPushButton.setDisabled(True)
+        self.dataNextLayout = QHBoxLayout()
+        self.dataNextLayout.addItem(self.dataNextSpacer)
+        self.dataNextLayout.addWidget(self.dataNextPushButton)
+        self.dataPageLayout.addLayout(self.dataNextLayout)
+
+        self.leftPanel.addWidget(self.dataPage)
+
+        # signal handling
+        self.labeledFilePushButton.clicked.connect(lambda: self.load(labeled=True))
+        self.unlabeledFilePushButton.clicked.connect(lambda: self.load(labeled=False))
 
         self.holdoutRadioButton.toggled.connect(self.holdoutSpinBox.setEnabled)
         self.holdoutRadioButton.toggled.connect(self.cvSpinBox.setDisabled)
@@ -620,613 +1158,601 @@ class App(QMainWindow):
         self.looRadioButton.toggled.connect(self.cvSpinBox.setDisabled)
         self.looRadioButton.toggled.connect(self.validationCheckBox.setDisabled)
 
-        dataPageLayout.addWidget(validationLabel)
-        holdoutLayout = QHBoxLayout()
-        holdoutLayout.addWidget(self.holdoutRadioButton)
-        holdoutLayout.addItem(holdoutSpacer)
-        holdoutLayout.addWidget(self.holdoutSpinBox)
-        holdoutLayout.addWidget(holdoutLabel)
-        cvLayout = QHBoxLayout()
-        cvLayout.addWidget(self.cvRadioButton)
-        cvLayout.addItem(cvSpacer)
-        cvLayout.addWidget(self.cvSpinBox)
-        cvLayout.addWidget(cvLabel)
-        looLayout = QHBoxLayout()
-        looLayout.addWidget(self.looRadioButton)
-        looLayout.addItem(looSpacer)
-        samplingLayout = QHBoxLayout()
-        samplingLayout.addItem(validationSpacer)
-        samplingLayout.addWidget(self.validationCheckBox)
-        validationLayout = QVBoxLayout(self.validationFrame)
-        validationLayout.addLayout(holdoutLayout)
-        validationLayout.addLayout(cvLayout)
-        validationLayout.addLayout(looLayout)
-        validationLayout.addLayout(samplingLayout)
-        dataPageLayout.addWidget(self.validationFrame)
-
-        ### data spacer and line
-        dataSpacer = QSpacerItem(40, 20, QSizePolicy.Minimum, QSizePolicy.Expanding)
-        dataPageLayout.addItem(dataSpacer)
-        dataLine = QFrame(self.dataPage)
-        dataLine.setFrameShape(QFrame.HLine)
-        dataLine.setFrameShadow(QFrame.Sunken)
-        dataPageLayout.addWidget(dataLine)
-
-        ### next button
-        dataNextSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-        self.dataNextPushButton = QPushButton('Next', self.dataPage)
-        self.dataNextPushButton.setDefault(True)
-        self.dataNextPushButton.setMinimumWidth(90)
-        self.dataNextPushButton.setDisabled(True)
-        self.dataNextPushButton.clicked.connect(lambda: self.leftPanel.setCurrentIndex(1))
         self.dataNextPushButton.clicked.connect(self.set)
-        dataNextLayout = QHBoxLayout()
-        dataNextLayout.addItem(dataNextSpacer)
-        dataNextLayout.addWidget(self.dataNextPushButton)
-        dataPageLayout.addLayout(dataNextLayout)
-
-        self.leftPanel.addWidget(self.dataPage)
-
-
+        
         ########## 2nd page: training ##########
 
-        modelPage = QWidget()
-        modelPageLayout = QVBoxLayout(modelPage)
+        self.modelPage = QWidget()
+        self.modelPageLayout = QVBoxLayout(self.modelPage)
 
         ### classifier type
-        classTypeLabel = self.setLabel('Classifier Type:', modelPage, titleFont)
-        self.classTypeComboBox = QComboBox(modelPage)
+        self.classTypeLabel = self.title('Classifier Type:', self.modelPage)
+        self.classTypeComboBox = QComboBox(self.modelPage)
         self.classTypeListView = self.classTypeComboBox.view()
-        classTypeLayout = QHBoxLayout()
-        classTypeLayout.addWidget(classTypeLabel)
-        classTypeLayout.addWidget(self.classTypeComboBox)
+        self.classTypeLayout = QHBoxLayout()
+        self.classTypeLayout.addWidget(self.classTypeLabel)
+        self.classTypeLayout.addWidget(self.classTypeComboBox)
 
         ### classifier parameter stack
-        self.paramStack = QStackedWidget(modelPage)
+        self.paramStack = QStackedWidget(self.modelPage)
         self.paramStack.setMinimumHeight(320)
-        self.classTypeComboBox.currentIndexChanged.connect(self.paramStack.setCurrentIndex)
-
-        modelPageLayout.addLayout(classTypeLayout)
-        modelPageLayout.addWidget(self.paramStack)
+        self.modelPageLayout.addLayout(self.classTypeLayout)
+        self.modelPageLayout.addWidget(self.paramStack)
 
         ## initial empty page
-        noneIcon = QIcon('icons/none.png')
-        self.classTypeComboBox.addItem(noneIcon, '-- Select Classifier --')
-        initPage = QWidget()
-        self.paramStack.addWidget(initPage)
+        self.noneIcon = QIcon('icons/none.png')
+        self.classTypeComboBox.addItem(self.noneIcon, '-------- select --------')
+        self.initPage = QWidget()
+        self.paramStack.addWidget(self.initPage)
 
         ## decision tree
-        dtIcon = QIcon('icons/dt.png')
-        self.classTypeComboBox.addItem(dtIcon, 'Decision Tree')
-        dtPage = QWidget()
-        self.paramStack.addWidget(dtPage)
+        self.dtIcon = QIcon('icons/dt.png')
+        self.classTypeComboBox.addItem(self.dtIcon, 'Decision Tree')
+        self.dtPage = QWidget()
+        self.paramStack.addWidget(self.dtPage)
 
         # fields
-        self.dtCriterionComboBox = QComboBox(dtPage)
+        self.dtCriterionComboBox = QComboBox(self.dtPage)
         self.dtCriterionComboBox.addItem('gini')
         self.dtCriterionComboBox.addItem('entropy')
-        self.dtMaxDepthLineEdit = QLineEdit('None', dtPage)
-        self.dtMinSamplesSplitSpinBox = self.setSpinBox(2, 2, 20, 1, dtPage)
-        self.dtMinSamplesLeafSpinBox = self.setSpinBox(1, 1, 20, 1, dtPage)
-        self.dtClassWeightComboBox = QComboBox(dtPage)
+        self.dtMaxDepthLineEdit = QLineEdit('None', self.dtPage)
+        self.dtMinSamplesSplitSpinBox = self.spin_box(2, 2, 20, 1, self.dtPage)
+        self.dtMinSamplesLeafSpinBox = self.spin_box(1, 1, 20, 1, self.dtPage)
+        self.dtClassWeightComboBox = QComboBox(self.dtPage)
         self.dtClassWeightComboBox.addItem('uniform')
         self.dtClassWeightComboBox.addItem('balanced')
 
         # layout
-        dtLayout = QFormLayout()
-        dtLayout.addRow('criterion:', self.dtCriterionComboBox)
-        dtLayout.addRow('max_depth:', self.dtMaxDepthLineEdit)
-        dtLayout.addRow('min_samples_split:', self.dtMinSamplesSplitSpinBox)
-        dtLayout.addRow('min_samples_leaf:', self.dtMinSamplesLeafSpinBox)
-        dtLayout.addRow('class_weight:', self.dtClassWeightComboBox)
+        self.dtLayout = QFormLayout()
+        self.dtLayout.addRow('criterion:', self.dtCriterionComboBox)
+        self.dtLayout.addRow('max_depth:', self.dtMaxDepthLineEdit)
+        self.dtLayout.addRow('min_samples_split:', self.dtMinSamplesSplitSpinBox)
+        self.dtLayout.addRow('min_samples_leaf:', self.dtMinSamplesLeafSpinBox)
+        self.dtLayout.addRow('class_weight:', self.dtClassWeightComboBox)
 
-        dtPageLayout = QVBoxLayout(dtPage)
-        dtPageLayout.addLayout(dtLayout)
+        self.dtPageLayout = QVBoxLayout(self.dtPage)
+        self.dtPageLayout.addLayout(self.dtLayout)
 
         ## Random forest
-        rfIcon = QIcon('icons/rf.png')
-        self.classTypeComboBox.addItem(rfIcon, 'Random Forest')
-        rfPage = QWidget()
-        self.paramStack.addWidget(rfPage)
+        self.rfIcon = QIcon('icons/rf.png')
+        self.classTypeComboBox.addItem(self.rfIcon, 'Random Forest')
+        self.rfPage = QWidget()
+        self.paramStack.addWidget(self.rfPage)
 
         # fields
-        self.rfCriterionComboBox = QComboBox(rfPage)
+        self.rfCriterionComboBox = QComboBox(self.rfPage)
         self.rfCriterionComboBox.addItem('gini')
         self.rfCriterionComboBox.addItem('entropy')
-        self.rfNumEstimatorsSpinBox = self.setSpinBox(10, 2, 20, 1, rfPage)
-        self.rfMaxFeaturesComboBox = QComboBox(rfPage)
+        self.rfNumEstimatorsSpinBox = self.spin_box(10, 2, 20, 1, self.rfPage)
+        self.rfMaxFeaturesComboBox = QComboBox(self.rfPage)
         self.rfMaxFeaturesComboBox.addItem('sqrt')
         self.rfMaxFeaturesComboBox.addItem('log2')
         self.rfMaxFeaturesComboBox.addItem('all')
-        self.rfMaxDepthLineEdit = QLineEdit('None', rfPage)
-        self.rfMinSamplesSplitSpinBox = self.setSpinBox(2, 2, 20, 1, rfPage)
-        self.rfMinSamplesLeafSpinBox = self.setSpinBox(1, 1, 20, 1, rfPage)
-        self.rfBootstrapCheckBox = QCheckBox('', rfPage)
+        self.rfMaxDepthLineEdit = QLineEdit('None', self.rfPage)
+        self.rfMinSamplesSplitSpinBox = self.spin_box(2, 2, 20, 1, self.rfPage)
+        self.rfMinSamplesLeafSpinBox = self.spin_box(1, 1, 20, 1, self.rfPage)
+        self.rfBootstrapCheckBox = QCheckBox('', self.rfPage)
         self.rfBootstrapCheckBox.setChecked(True)
-        self.rfClassWeightComboBox = QComboBox(rfPage)
+        self.rfClassWeightComboBox = QComboBox(self.rfPage)
         self.rfClassWeightComboBox.addItem('uniform')
         self.rfClassWeightComboBox.addItem('balanced')
 
         # layout
-        rfLayout = QFormLayout()
-        rfLayout.addRow('criterion:', self.rfCriterionComboBox)
-        rfLayout.addRow('n_estimators:', self.rfNumEstimatorsSpinBox)
-        rfLayout.addRow('max_features:', self.rfMaxFeaturesComboBox)
-        rfLayout.addRow('max_depth:', self.rfMaxDepthLineEdit)
-        rfLayout.addRow('min_samples_split:', self.rfMinSamplesSplitSpinBox)
-        rfLayout.addRow('min_samples_leaf:', self.rfMinSamplesLeafSpinBox)
-        rfLayout.addRow('bootstrap:', self.rfBootstrapCheckBox)
-        rfLayout.addRow('class_weight:', self.rfClassWeightComboBox)
+        self.rfLayout = QFormLayout()
+        self.rfLayout.addRow('criterion:', self.rfCriterionComboBox)
+        self.rfLayout.addRow('n_estimators:', self.rfNumEstimatorsSpinBox)
+        self.rfLayout.addRow('max_features:', self.rfMaxFeaturesComboBox)
+        self.rfLayout.addRow('max_depth:', self.rfMaxDepthLineEdit)
+        self.rfLayout.addRow('min_samples_split:', self.rfMinSamplesSplitSpinBox)
+        self.rfLayout.addRow('min_samples_leaf:', self.rfMinSamplesLeafSpinBox)
+        self.rfLayout.addRow('bootstrap:', self.rfBootstrapCheckBox)
+        self.rfLayout.addRow('class_weight:', self.rfClassWeightComboBox)
 
-        rfPageLayout = QVBoxLayout(rfPage)
-        rfPageLayout.addLayout(rfLayout)
+        self.rfPageLayout = QVBoxLayout(self.rfPage)
+        self.rfPageLayout.addLayout(self.rfLayout)
 
         ## K-nearest neighbors
-        knnIcon = QIcon('icons/knn.png')
-        self.classTypeComboBox.addItem(knnIcon, 'K-Nearest Neighbors')
-        knnPage = QWidget()
-        self.paramStack.addWidget(knnPage)
+        self.knnIcon = QIcon('icons/knn.png')
+        self.classTypeComboBox.addItem(self.knnIcon, 'K-Nearest Neighbors')
+        self.knnPage = QWidget()
+        self.paramStack.addWidget(self.knnPage)
 
         # fields
-        self.knnNumNeighborsSpinBox = self.setSpinBox(5, 1, 20, 1, knnPage)
-        self.knnWeightsComboBox = QComboBox(knnPage)
+        self.knnNumNeighborsSpinBox = self.spin_box(5, 1, 20, 1, self.knnPage)
+        self.knnWeightsComboBox = QComboBox(self.knnPage)
         self.knnWeightsComboBox.addItem('uniform')
         self.knnWeightsComboBox.addItem('distance')
-        self.knnMetricComboBox = QComboBox(knnPage)
-        self.knnMetricListView =self.knnMetricComboBox.view() # see knnSetHidden()
+        self.knnMetricComboBox = QComboBox(self.knnPage)
+        self.knnMetricListView =self.knnMetricComboBox.view()
         self.knnMetricComboBox.addItem('euclidean') #
         self.knnMetricComboBox.addItem('manhattan') # DO NOT change order
         self.knnMetricComboBox.addItem('hamming')   #
 
         # layout
-        knnLayout = QFormLayout()
-        knnLayout.addRow('n_neighbors:', self.knnNumNeighborsSpinBox)
-        knnLayout.addRow('weights:', self.knnWeightsComboBox)
-        knnLayout.addRow('metric:', self.knnMetricComboBox)
+        self.knnLayout = QFormLayout()
+        self.knnLayout.addRow('n_neighbors:', self.knnNumNeighborsSpinBox)
+        self.knnLayout.addRow('weights:', self.knnWeightsComboBox)
+        self.knnLayout.addRow('metric:', self.knnMetricComboBox)
 
-        knnPageLayout = QVBoxLayout(knnPage)
-        knnPageLayout.addLayout(knnLayout)
+        self.knnPageLayout = QVBoxLayout(self.knnPage)
+        self.knnPageLayout.addLayout(self.knnLayout)
 
         ## Logistic regression
-        lrIcon = QIcon('icons/lr.png')
-        self.classTypeComboBox.addItem(lrIcon, 'Logistic Regression')
-        lrPage = QWidget()
-        self.paramStack.addWidget(lrPage)
+        self.lrIcon = QIcon('icons/lr.png')
+        self.classTypeComboBox.addItem(self.lrIcon, 'Logistic Regression')
+        self.lrPage = QWidget()
+        self.paramStack.addWidget(self.lrPage)
 
         # fields
-        self.lrRegularizationComboBox = QComboBox(lrPage)
+        self.lrRegularizationComboBox = QComboBox(self.lrPage)
         self.lrRegularizationComboBox.addItem('l2')
         self.lrRegularizationComboBox.addItem('l1')
-        self.lrRglrStrengthLineEdit = QLineEdit('1.0', lrPage)
-        self.lrFitInterceptCheckBox = QCheckBox('', lrPage)
+        self.lrRegularizationListView = self.lrRegularizationComboBox.view()
+        self.lrRglrStrengthLineEdit = QLineEdit('1.0', self.lrPage)
+        self.lrFitInterceptCheckBox = QCheckBox('', self.lrPage)
         self.lrFitInterceptCheckBox.setChecked(True)
-        self.lrMultiClassComboBox = QComboBox(lrPage)
+        self.lrInterceptScalingLineEdit = QLineEdit('1.0', self.lrPage)
+        self.lrSolverComboBox = QComboBox(self.lrPage)
+        self.lrSolverComboBox.addItem('liblinear')
+        self.lrSolverComboBox.addItem('lbfgs')
+        self.lrSolverComboBox.addItem('sag')
+        self.lrSolverComboBox.addItem('saga')
+        self.lrSolverComboBox.addItem('newton-cg')
+        self.lrMultiClassComboBox = QComboBox(self.lrPage)
         self.lrMultiClassComboBox.addItem('ovr')
         self.lrMultiClassComboBox.addItem('multinomial')
-        self.lrClassWeightComboBox = QComboBox(lrPage)
+        self.lrMultiClassListView = self.lrMultiClassComboBox.view()
+        self.lrClassWeightComboBox = QComboBox(self.lrPage)
         self.lrClassWeightComboBox.addItem('uniform')
         self.lrClassWeightComboBox.addItem('balanced')
 
-        lrStopLabel = QLabel('Stopping Criteria:', lrPage)
-        lrTolLabel = QLabel('tol:', lrPage)
-        lrTolLabel.setMinimumWidth(60)
-        self.lrTolLineEdit = QLineEdit('1e-3', lrPage)
-        lrMaxIterLabel = QLabel('max_iter:', lrPage)
-        lrMaxIterLabel.setMinimumWidth(60)
-        self.lrMaxIterLineEdit = QLineEdit('100', lrPage)
+        self.lrStopLabel = QLabel('Stopping Criteria:', self.lrPage)
+        self.lrTolLabel = QLabel('tol:', self.lrPage)
+        self.lrTolLabel.setMinimumWidth(60)
+        self.lrTolLineEdit = QLineEdit('1e-4', self.lrPage)
+        self.lrMaxIterLabel = QLabel('max_iter:', self.lrPage)
+        self.lrMaxIterLabel.setMinimumWidth(60)
+        self.lrMaxIterLineEdit = QLineEdit('100', self.lrPage)
 
         # layout
-        lrLayout = QFormLayout()
-        lrLayout.addRow('regularization:', self.lrRegularizationComboBox)
-        lrLayout.addRow('rglr_strength:', self.lrRglrStrengthLineEdit)
-        lrLayout.addRow('fit_intercept:', self.lrFitInterceptCheckBox)
-        lrLayout.addRow('multi_class:', self.lrMultiClassComboBox)
-        lrLayout.addRow('class_weight:', self.lrClassWeightComboBox)
+        self.lrLayout = QFormLayout()
+        self.lrLayout.addRow('penalty_type:', self.lrRegularizationComboBox)
+        self.lrLayout.addRow('penalty:', self.lrRglrStrengthLineEdit)
+        self.lrLayout.addRow('fit_intercept:', self.lrFitInterceptCheckBox)
+        self.lrLayout.addRow('intercept_scaling:', self.lrInterceptScalingLineEdit)
+        self.lrLayout.addRow('solver:', self.lrSolverComboBox)
+        self.lrLayout.addRow('multi_class:', self.lrMultiClassComboBox)
+        self.lrLayout.addRow('class_weight:', self.lrClassWeightComboBox)
 
-        lrSpacer = QSpacerItem(40, 20, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        self.lrSpacer = QSpacerItem(40, 20, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
-        lrStopLayout = QHBoxLayout()
-        lrStopLayout.addWidget(lrTolLabel)
-        lrStopLayout.addWidget(self.lrTolLineEdit)
-        lrStopLayout.addWidget(lrMaxIterLabel)
-        lrStopLayout.addWidget(self.lrMaxIterLineEdit)
+        self.lrStopLayout = QHBoxLayout()
+        self.lrStopLayout.addWidget(self.lrTolLabel)
+        self.lrStopLayout.addWidget(self.lrTolLineEdit)
+        self.lrStopLayout.addWidget(self.lrMaxIterLabel)
+        self.lrStopLayout.addWidget(self.lrMaxIterLineEdit)
 
-        lrPageLayout = QVBoxLayout(lrPage)
-        lrPageLayout.addLayout(lrLayout)
-        lrPageLayout.addItem(lrSpacer)
-        lrPageLayout.addWidget(lrStopLabel)
-        lrPageLayout.addLayout(lrStopLayout)
+        self.lrPageLayout = QVBoxLayout(self.lrPage)
+        self.lrPageLayout.addLayout(self.lrLayout)
+        self.lrPageLayout.addItem(self.lrSpacer)
+        self.lrPageLayout.addWidget(self.lrStopLabel)
+        self.lrPageLayout.addLayout(self.lrStopLayout)
 
         ## Neural Network
-        nnIcon = QIcon('icons/nn.png')
-        self.classTypeComboBox.addItem(nnIcon, 'Neural Network')
-        nnPage = QWidget()
-        self.paramStack.addWidget(nnPage)
+        self.nnIcon = QIcon('icons/nn.png')
+        self.classTypeComboBox.addItem(self.nnIcon, 'Neural Network')
+        self.nnPage = QWidget()
+        self.paramStack.addWidget(self.nnPage)
 
         # fields
-        self.nnNumHiddenUnitsSpinBox = self.setSpinBox(3, 1, 10, 1, nnPage)
-        self.nnActivationComboBox = QComboBox(nnPage)
+        self.nnNumHiddenUnitsSpinBox = self.spin_box(100, 1, 200, 1, self.nnPage)
+        self.nnActivationComboBox = QComboBox(self.nnPage)
         self.nnActivationComboBox.addItem('relu')
         self.nnActivationComboBox.addItem('logistic')
         self.nnActivationComboBox.addItem('tanh')
         self.nnActivationComboBox.addItem('identity')
-        self.nnBatchSizeLineEdit = QLineEdit('20', nnPage)
-        self.nnLearningRateComboBox = QComboBox(nnPage)
+        self.nnSolverComboBox = QComboBox(self.nnPage)
+        self.nnSolverComboBox.addItem('adam')
+        self.nnSolverComboBox.addItem('lbfgs')
+        self.nnSolverComboBox.addItem('sgd')
+        self.nnAlphaLineEdit = QLineEdit('1e-4', self.nnPage)
+        self.nnBatchSizeLineEdit = QLineEdit('20', self.nnPage)
+        self.nnLearningRateComboBox = QComboBox(self.nnPage)
         self.nnLearningRateComboBox.addItem('constant')
         self.nnLearningRateComboBox.addItem('invscaling')
         self.nnLearningRateComboBox.addItem('adaptive')
-        self.nnLearningRateInitLineEdit = QLineEdit('0.01', nnPage)
-        self.nnEarlyStoppingCheckBox = QCheckBox('', nnPage)
+        self.nnLearningRateInitLineEdit = QLineEdit('0.001', self.nnPage)
+        self.nnEarlyStoppingCheckBox = QCheckBox('', self.nnPage)
 
-        nnStopLabel = QLabel('Stopping Criteria:', nnPage)
-        nnTolLabel = QLabel('tol:', nnPage)
-        nnTolLabel.setMinimumWidth(60)
-        self.nnTolLineEdit = QLineEdit('1e-3', nnPage)
-        nnMaxIterLabel = QLabel('max_iter:', nnPage)
-        nnMaxIterLabel.setMinimumWidth(60)
-        self.nnMaxIterLineEdit = QLineEdit('100', nnPage)
+        self.nnStopLabel = QLabel('Stopping Criteria:', self.nnPage)
+        self.nnTolLabel = QLabel('tol:', self.nnPage)
+        self.nnTolLabel.setMinimumWidth(60)
+        self.nnTolLineEdit = QLineEdit('1e-3', self.nnPage)
+        self.nnMaxIterLabel = QLabel('max_iter:', self.nnPage)
+        self.nnMaxIterLabel.setMinimumWidth(60)
+        self.nnMaxIterLineEdit = QLineEdit('200', self.nnPage)
 
         # layout
-        nnLayout = QFormLayout()
-        nnLayout.addRow('num_hidden_units:', self.nnNumHiddenUnitsSpinBox)
-        nnLayout.addRow('activation:', self.nnActivationComboBox)
-        nnLayout.addRow('batch_size:', self.nnBatchSizeLineEdit)
-        nnLayout.addRow('learning_rate:', self.nnLearningRateComboBox)
-        nnLayout.addRow('learning_rate_init:', self.nnLearningRateInitLineEdit)
-        nnLayout.addRow('early_stopping:', self.nnEarlyStoppingCheckBox)
+        self.nnLayout = QFormLayout()
+        self.nnLayout.addRow('num_hidden_units:', self.nnNumHiddenUnitsSpinBox)
+        self.nnLayout.addRow('activation:', self.nnActivationComboBox)
+        self.nnLayout.addRow('solver:', self.nnSolverComboBox)
+        self.nnLayout.addRow('penalty:', self.nnAlphaLineEdit)
+        self.nnLayout.addRow('batch_size:', self.nnBatchSizeLineEdit)
+        self.nnLayout.addRow('learning_rate:', self.nnLearningRateComboBox)
+        self.nnLayout.addRow('learning_rate_init:', self.nnLearningRateInitLineEdit)
+        self.nnLayout.addRow('early_stopping:', self.nnEarlyStoppingCheckBox)
 
-        nnSpacer = QSpacerItem(40, 20, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        self.nnSpacer = QSpacerItem(40, 20, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
-        nnStopLayout = QHBoxLayout()
-        nnStopLayout.addWidget(nnTolLabel)
-        nnStopLayout.addWidget(self.nnTolLineEdit)
-        nnStopLayout.addWidget(nnMaxIterLabel)
-        nnStopLayout.addWidget(self.nnMaxIterLineEdit)
+        self.nnStopLayout = QHBoxLayout()
+        self.nnStopLayout.addWidget(self.nnTolLabel)
+        self.nnStopLayout.addWidget(self.nnTolLineEdit)
+        self.nnStopLayout.addWidget(self.nnMaxIterLabel)
+        self.nnStopLayout.addWidget(self.nnMaxIterLineEdit)
 
-        nnPageLayout = QVBoxLayout(nnPage)
-        nnPageLayout.addLayout(nnLayout)
-        nnPageLayout.addItem(nnSpacer)
-        nnPageLayout.addWidget(nnStopLabel)
-        nnPageLayout.addLayout(nnStopLayout)
+        self.nnPageLayout = QVBoxLayout(self.nnPage)
+        self.nnPageLayout.addLayout(self.nnLayout)
+        self.nnPageLayout.addItem(self.nnSpacer)
+        self.nnPageLayout.addWidget(self.nnStopLabel)
+        self.nnPageLayout.addLayout(self.nnStopLayout)
 
         ## SVM
-        svmIcon = QIcon('icons/svm.png')
-        self.classTypeComboBox.addItem(svmIcon, 'SVM')
-        svmPage = QWidget()
-        self.paramStack.addWidget(svmPage)
+        self.svmIcon = QIcon('icons/svm.png')
+        self.classTypeComboBox.addItem(self.svmIcon, 'SVM')
+        self.svmPage = QWidget()
+        self.paramStack.addWidget(self.svmPage)
 
         # fields
-        self.svmPenaltyDoubleSpinBox = self.setDoubleSpinBox(1, 0.1, 10, 0.1, 1, svmPage)
-        self.svmKernelComboBox = QComboBox(svmPage)
+        self.svmPenaltyLineEdit = QLineEdit('1.0', self.svmPage)
+        self.svmKernelComboBox = QComboBox(self.svmPage)
         self.svmKernelComboBox.addItem('rbf')
         self.svmKernelComboBox.addItem('linear')
         self.svmKernelComboBox.addItem('poly')
         self.svmKernelComboBox.addItem('sigmoid')
-        self.svmDegreeSpinBox = self.setSpinBox(3, 1, 5, 1, svmPage)
+        self.svmDegreeSpinBox = self.spin_box(3, 1, 5, 1, self.svmPage)
         self.svmDegreeSpinBox.setDisabled(True)
-        self.svmKernelComboBox.currentIndexChanged.connect(\
-            lambda: self.svmDegreeSpinBox.setEnabled(self.svmKernelComboBox.currentIndex() == 2))
-        self.svmGammaLineEdit = QLineEdit('', svmPage)
-        self.svmKernelComboBox.currentIndexChanged.connect(\
-            lambda: self.svmGammaLineEdit.setDisabled(self.svmKernelComboBox.currentIndex() == 1))
-        self.svmCoefDoubleSpinBox = self.setDoubleSpinBox(0, -10, 10, 0.1, 1, svmPage)
-        self.svmKernelComboBox.currentIndexChanged.connect(\
-            lambda: self.svmCoefDoubleSpinBox.setDisabled(self.svmKernelComboBox.currentIndex() in [0, 1]))
-        self.svmClassWeightComboBox = QComboBox(svmPage)
+        self.svmGammaLineEdit = QLineEdit('', self.svmPage)
+        self.svmCoefLineEdit = QLineEdit('0.0', self.svmPage)
+        self.svmClassWeightComboBox = QComboBox(self.svmPage)
         self.svmClassWeightComboBox.addItem('uniform')
         self.svmClassWeightComboBox.addItem('balanced')
 
-        svmStopLabel = QLabel('Stopping Criteria:', svmPage)
-        svmTolLabel = QLabel('tol:', svmPage)
-        svmTolLabel.setMinimumWidth(60)
-        self.svmTolLineEdit = QLineEdit('1e-3', svmPage)
-        svmMaxIterLabel = QLabel('max_iter:', svmPage)
-        svmMaxIterLabel.setMinimumWidth(60)
-        self.svmMaxIterLineEdit = QLineEdit('100', svmPage)
+        self.svmStopLabel = QLabel('Stopping Criteria:', self.svmPage)
+        self.svmTolLabel = QLabel('tol:', self.svmPage)
+        self.svmTolLabel.setMinimumWidth(60)
+        self.svmTolLineEdit = QLineEdit('1e-3', self.svmPage)
+        self.svmMaxIterLabel = QLabel('max_iter:', self.svmPage)
+        self.svmMaxIterLabel.setMinimumWidth(60)
+        self.svmMaxIterLineEdit = QLineEdit('200', self.svmPage)
 
         # layout
-        svmLayout = QFormLayout()
-        svmLayout.addRow('penalty:', self.svmPenaltyDoubleSpinBox)
-        svmLayout.addRow('kernel:', self.svmKernelComboBox)
-        svmLayout.addRow('degree:', self.svmDegreeSpinBox)
-        svmLayout.addRow('gamma:', self.svmGammaLineEdit)
-        svmLayout.addRow('coef0:', self.svmCoefDoubleSpinBox)
-        svmLayout.addRow('class_weight:', self.svmClassWeightComboBox)
+        self.svmLayout = QFormLayout()
+        self.svmLayout.addRow('penalty:', self.svmPenaltyLineEdit)
+        self.svmLayout.addRow('kernel:', self.svmKernelComboBox)
+        self.svmLayout.addRow('degree:', self.svmDegreeSpinBox)
+        self.svmLayout.addRow('kernel_coef:', self.svmGammaLineEdit)
+        self.svmLayout.addRow('indenpendent_term:', self.svmCoefLineEdit)
+        self.svmLayout.addRow('class_weight:', self.svmClassWeightComboBox)
 
-        svmSpacer = QSpacerItem(40, 20, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        self.svmSpacer = QSpacerItem(40, 20, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
-        svmStopLayout = QHBoxLayout()
-        svmStopLayout.addWidget(svmTolLabel)
-        svmStopLayout.addWidget(self.svmTolLineEdit)
-        svmStopLayout.addWidget(svmMaxIterLabel)
-        svmStopLayout.addWidget(self.svmMaxIterLineEdit)
+        self.svmStopLayout = QHBoxLayout()
+        self.svmStopLayout.addWidget(self.svmTolLabel)
+        self.svmStopLayout.addWidget(self.svmTolLineEdit)
+        self.svmStopLayout.addWidget(self.svmMaxIterLabel)
+        self.svmStopLayout.addWidget(self.svmMaxIterLineEdit)
 
-        svmPageLayout = QVBoxLayout(svmPage)
-        svmPageLayout.addLayout(svmLayout)
-        svmPageLayout.addItem(svmSpacer)
-        svmPageLayout.addWidget(svmStopLabel)
-        svmPageLayout.addLayout(svmStopLayout)
+        self.svmPageLayout = QVBoxLayout(self.svmPage)
+        self.svmPageLayout.addLayout(self.svmLayout)
+        self.svmPageLayout.addItem(self.svmSpacer)
+        self.svmPageLayout.addWidget(self.svmStopLabel)
+        self.svmPageLayout.addLayout(self.svmStopLayout)
 
         ## Naive bayes
-        nbIcon = QIcon('icons/nb.png')
-        self.classTypeComboBox.addItem(nbIcon, 'Naive Bayes')
-        nbPage = QWidget()
-        self.paramStack.addWidget(nbPage)
+        self.nbIcon = QIcon('icons/nb.png')
+        self.classTypeComboBox.addItem(self.nbIcon, 'Naive Bayes')
+        self.nbPage = QWidget()
+        self.paramStack.addWidget(self.nbPage)
 
         # fields
         self.nbDistributionLabel = QLabel('')
-        self.nbAddSmoothDoubleSpinBox = self.setDoubleSpinBox(1, 0, 50, 0.5, 1, nbPage)
-        self.nbFitPriorCheckBox = QCheckBox(nbPage)
+        self.nbAddSmoothDoubleSpinBox = self.double_spin_box(1, 0, 50, 0.5, 1, self.nbPage)
+        self.nbFitPriorCheckBox = QCheckBox(self.nbPage)
         self.nbFitPriorCheckBox.setChecked(True)
-        self.nbClassPriorLineEdit = QLineEdit('None', nbPage)
-
-        nbStopLabel = QLabel('Stopping Criteria:', nbPage)
-        nbTolLabel = QLabel('tol:', nbPage)
-        nbTolLabel.setMinimumWidth(60)
-        self.nbTolLineEdit = QLineEdit('1e-3', nbPage)
-        nbMaxIterLabel = QLabel('max_iter:', nbPage)
-        nbMaxIterLabel.setMinimumWidth(60)
-        self.nbMaxIterLineEdit = QLineEdit('100', nbPage)
+        self.nbClassPriorLineEdit = QLineEdit('None', self.nbPage)
 
         # layout
-        nbLayout = QFormLayout()
-        nbLayout.addRow('distributon:', self.nbDistributionLabel)
-        nbLayout.addRow('add_smooth:', self.nbAddSmoothDoubleSpinBox)
-        nbLayout.addRow('fit_prior:', self.nbFitPriorCheckBox)
-        nbLayout.addRow('class_prior:', self.nbClassPriorLineEdit)
+        self.nbLayout = QFormLayout()
+        self.nbLayout.addRow('distributon:', self.nbDistributionLabel)
+        self.nbLayout.addRow('smoothing:', self.nbAddSmoothDoubleSpinBox)
+        self.nbLayout.addRow('fit_prior:', self.nbFitPriorCheckBox)
+        self.nbLayout.addRow('class_prior:', self.nbClassPriorLineEdit)
 
-        nbSpacer = QSpacerItem(40, 20, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        self.nbSpacer = QSpacerItem(40, 20, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
-        nbStopLayout = QHBoxLayout()
-        nbStopLayout.addWidget(nbTolLabel)
-        nbStopLayout.addWidget(self.nbTolLineEdit)
-        nbStopLayout.addWidget(nbMaxIterLabel)
-        nbStopLayout.addWidget(self.nbMaxIterLineEdit)
-
-        nbPageLayout = QVBoxLayout(nbPage)
-        nbPageLayout.addLayout(nbLayout)
-        nbPageLayout.addItem(nbSpacer)
-        nbPageLayout.addWidget(nbStopLabel)
-        nbPageLayout.addLayout(nbStopLayout)
+        self.nbPageLayout = QVBoxLayout(self.nbPage)
+        self.nbPageLayout.addLayout(self.nbLayout)
+        self.nbPageLayout.addItem(self.nbSpacer)
 
         ### classifier name
-        classNameLabel = self.setLabel('Classifier Name:', modelPage, titleFont)
-        self.classNameLineEdit = QLineEdit(modelPage)
+        self.classNameLabel = self.title('Classifier Name:', self.modelPage)
+        self.classNameLineEdit = QLineEdit(self.modelPage)
         self.classNameLineEdit.setDisabled(True)
-        self.paramStack.currentChanged.connect(\
-            lambda: self.classNameLineEdit.setEnabled(self.paramStack.currentIndex() > 0))
-
-        classNameLayout = QHBoxLayout()
-        classNameLayout.addWidget(classNameLabel)
-        classNameLayout.addWidget(self.classNameLineEdit)
-
-        modelPageLayout.addLayout(classNameLayout)
+        self.classNameLayout = QHBoxLayout()
+        self.classNameLayout.addWidget(self.classNameLabel)
+        self.classNameLayout.addWidget(self.classNameLineEdit)
+        self.modelPageLayout.addLayout(self.classNameLayout)
 
         ### comment
-        classCommentLabel = self.setLabel('Comment:', modelPage, titleFont)
-        self.classCommentTextEdit = QTextEdit(modelPage)
+        self.classCommentLabel = self.title('Comment (no more than 30 characters):', self.modelPage)
+        self.classCommentTextEdit = QTextEdit(self.modelPage)
         self.classCommentTextEdit.setMaximumHeight(50)
         self.classCommentTextEdit.setDisabled(True)
-        self.paramStack.currentChanged.connect(\
-            lambda: self.classCommentTextEdit.setEnabled(self.paramStack.currentIndex() > 0))
 
-        modelPageLayout.addWidget(classCommentLabel)
-        modelPageLayout.addWidget(self.classCommentTextEdit)
+        self.modelPageLayout.addWidget(self.classCommentLabel)
+        self.modelPageLayout.addWidget(self.classCommentTextEdit)
 
         ### reset and train buttons
-        classResetTrainSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-        classResetPushButton = QPushButton('Reset', modelPage)
-        classResetPushButton.setMinimumWidth(90)
-        classResetPushButton.setDisabled(True)
-        self.paramStack.currentChanged.connect(\
-            lambda: classResetPushButton.setEnabled(self.paramStack.currentIndex() > 0))
-        classResetPushButton.clicked.connect(self.reset)
-        classTrainPushButton = QPushButton('Train', modelPage)
-        classTrainPushButton.setMinimumWidth(90)
-        classTrainPushButton.setDefault(True)
-        classTrainPushButton.setDisabled(True)
-        self.paramStack.currentChanged.connect(\
-            lambda: classTrainPushButton.setEnabled(self.paramStack.currentIndex() > 0))
-        classTrainPushButton.clicked.connect(self.train)
+        self.classResetTrainSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.classResetPushButton = QPushButton('Reset', self.modelPage)
+        self.classResetPushButton.setMinimumWidth(90)
+        self.classResetPushButton.setDisabled(True)
+        self.classTrainPushButton = QPushButton('Train', self.modelPage)
+        self.classTrainPushButton.setMinimumWidth(90)
+        self.classTrainPushButton.setDefault(True)
+        self.classTrainPushButton.setDisabled(True)
 
-        classResetTrainLayout = QHBoxLayout()
-        classResetTrainLayout.addItem(classResetTrainSpacer)
-        classResetTrainLayout.addWidget(classResetPushButton)
-        classResetTrainLayout.addWidget(classTrainPushButton)
+        self.classResetTrainLayout = QHBoxLayout()
+        self.classResetTrainLayout.addItem(self.classResetTrainSpacer)
+        self.classResetTrainLayout.addWidget(self.classResetPushButton)
+        self.classResetTrainLayout.addWidget(self.classTrainPushButton)
 
-        modelPageLayout.addLayout(classResetTrainLayout)
+        self.modelPageLayout.addLayout(self.classResetTrainLayout)
 
         ### page spacer and line
-        modelPageSpacer = QSpacerItem(40, 20, QSizePolicy.Minimum, QSizePolicy.Expanding)
-        modelPageLayout.addItem(modelPageSpacer)
-        modelLine = QFrame(modelPage)
-        modelLine.setFrameShape(QFrame.HLine)
-        modelLine.setFrameShadow(QFrame.Sunken)
-        modelPageLayout.addWidget(modelLine)
+        self.modelPageSpacer = QSpacerItem(40, 20, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        self.modelPageLayout.addItem(self.modelPageSpacer)
+        self.modelLine = QFrame(self.modelPage)
+        self.modelLine.setFrameShape(QFrame.HLine)
+        self.modelLine.setFrameShadow(QFrame.Sunken)
+        self.modelPageLayout.addWidget(self.modelLine)
 
         ### back and next buttons
-        classBackNextSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-        classBackPushButton = QPushButton('Back', modelPage)
-        classBackPushButton.setMinimumWidth(90)
-        classBackPushButton.clicked.connect(lambda: self.leftPanel.setCurrentIndex(0))
-        classNextPushButton = QPushButton('Next', modelPage)
-        classNextPushButton.setMinimumWidth(90)
-        classNextPushButton.setDefault(True)
-        classNextPushButton.setDisabled(True)
-        classTrainPushButton.clicked.connect(lambda: classNextPushButton.setEnabled(True))
-        classNextPushButton.clicked.connect(lambda: self.leftPanel.setCurrentIndex(2))
+        self.classBackNextSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.classBackPushButton = QPushButton('Back', self.modelPage)
+        self.classBackPushButton.setMinimumWidth(90)
+        self.classNextPushButton = QPushButton('Next', self.modelPage)
+        self.classNextPushButton.setMinimumWidth(90)
+        self.classNextPushButton.setDefault(True)
+        self.classNextPushButton.setDisabled(True)
+        self.classBackNextLayout = QHBoxLayout()
+        self.classBackNextLayout.addItem(self.classBackNextSpacer)
+        self.classBackNextLayout.addWidget(self.classBackPushButton)
+        self.classBackNextLayout.addWidget(self.classNextPushButton)
 
-        classBackNextLayout = QHBoxLayout()
-        classBackNextLayout.addItem(classBackNextSpacer)
-        classBackNextLayout.addWidget(classBackPushButton)
-        classBackNextLayout.addWidget(classNextPushButton)
+        self.modelPageLayout.addLayout(self.classBackNextLayout)
 
-        modelPageLayout.addLayout(classBackNextLayout)
+        self.leftPanel.addWidget(self.modelPage)
 
-        self.leftPanel.addWidget(modelPage)
+        # signal handling
+        self.classTypeComboBox.currentIndexChanged.connect(self.paramStack.setCurrentIndex)
+        self.lrSolverComboBox.currentIndexChanged.connect(self.update_logistic_regression)
+        self.nnSolverComboBox.currentIndexChanged.connect(self.update_neural_network)
+        self.svmKernelComboBox.currentIndexChanged.connect(self.update_svm)
 
+        self.paramStack.currentChanged.connect(\
+            lambda: self.classNameLineEdit.setEnabled(self.paramStack.currentIndex() > 0))
+        self.paramStack.currentChanged.connect(\
+            lambda: self.classCommentTextEdit.setEnabled(self.paramStack.currentIndex() > 0))
+        self.paramStack.currentChanged.connect(\
+            lambda: self.classTrainPushButton.setEnabled(self.paramStack.currentIndex() > 0))
+        self.paramStack.currentChanged.connect(\
+            lambda: self.classResetPushButton.setEnabled(self.paramStack.currentIndex() > 0))
+
+        self.classTrainPushButton.clicked.connect(self.train)
+        self.classResetPushButton.clicked.connect(self.reset)
+
+        self.classBackPushButton.clicked.connect(lambda: self.clear(option='train'))
+        self.classNextPushButton.clicked.connect(lambda: self.leftPanel.setCurrentIndex(2))
 
         ########## 3rd page: model selection and testing ##########
-        testPage = QWidget()
-        testPageLayout = QVBoxLayout(testPage)
+        self.testPage = QWidget()
+        self.testPageLayout = QVBoxLayout(self.testPage)
 
         ### classifier selection
-        classSelectLabel = self.setLabel('Classifier Selection:', testPage, titleFont)
-        testPageLayout.addWidget(classSelectLabel)
+        self.classSelectLabel = self.title('Classifier Selection:', self.testPage)
+        self.testPageLayout.addWidget(self.classSelectLabel)
 
-        classSelectFrame = QFrame(testPage)
-        classSelectFrame.setAutoFillBackground(True)
-        classSelectLayout = QVBoxLayout(classSelectFrame)
-        bestPerformRadioButton = QRadioButton('Best-Performing', classSelectFrame)
-        bestPerformRadioButton.setChecked(True)
-        userPickRadioButton = QRadioButton('User-Picked', classSelectFrame)
-        bestPerformSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-        metricLabel = QLabel('Metric:', classSelectFrame)
-        metricComboBox = QComboBox(classSelectFrame)
-        metricComboBox.addItem('accuracy')
-        metricComboBox.addItem('precision')
-        metricComboBox.addItem('recall')
-        metricComboBox.addItem('f1')
-        metricComboBox.addItem('AUROC')
-        metricComboBox.addItem('AUPRC')
-        bestPerformRadioButton.toggled.connect(metricComboBox.setEnabled)
-        userPickRadioButton.toggled.connect(metricComboBox.setDisabled)
-        userPickLabel = QLabel('<classifierName>', classSelectFrame)
-        userPickLabel.setMinimumWidth(150)
+        self.classSelectFrame = QFrame(self.testPage)
+        self.classSelectFrame.setAutoFillBackground(True)
+        self.classSelectLayout = QVBoxLayout(self.classSelectFrame)
+        self.bestPerformRadioButton = QRadioButton('Best-Performing', self.classSelectFrame)
+        self.bestPerformRadioButton.setChecked(True)
+        self.userPickRadioButton = QRadioButton('User-Picked', self.classSelectFrame)
+        self.bestPerformSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.metricLabel = QLabel('Metric:', self.classSelectFrame)
+        self.metricComboBox = QComboBox(self.classSelectFrame)
+        self.metricComboBox.addItem('--- select ---')
+        self.metricComboBox.addItem('accuracy')
+        self.metricComboBox.addItem('precision')
+        self.metricComboBox.addItem('recall')
+        self.metricComboBox.addItem('f1')
+        self.metricComboBox.addItem('AUROC')
+        self.metricComboBox.addItem('AUPRC')
+        self.userPickLabel = QLabel('None', self.classSelectFrame)
+        self.userPickLabel.setMinimumWidth(150)
 
-        bestPerformLayout = QHBoxLayout()
-        bestPerformLayout.addWidget(bestPerformRadioButton)
-        bestPerformLayout.addItem(bestPerformSpacer)
-        bestPerformLayout.addWidget(metricLabel)
-        bestPerformLayout.addWidget(metricComboBox)
-        classSelectLayout.addLayout(bestPerformLayout)
+        self.bestPerformLayout = QHBoxLayout()
+        self.bestPerformLayout.addWidget(self.bestPerformRadioButton)
+        self.bestPerformLayout.addItem(self.bestPerformSpacer)
+        self.bestPerformLayout.addWidget(self.metricLabel)
+        self.bestPerformLayout.addWidget(self.metricComboBox)
+        self.classSelectLayout.addLayout(self.bestPerformLayout)
 
-        userPickLayout = QHBoxLayout()
-        userPickLayout.addWidget(userPickRadioButton)
-        userPickLayout.addWidget(userPickLabel)
-        classSelectLayout.addLayout(userPickLayout)
+        self.userPickLayout = QHBoxLayout()
+        self.userPickLayout.addWidget(self.userPickRadioButton)
+        self.userPickLayout.addWidget(self.userPickLabel)
+        self.classSelectLayout.addLayout(self.userPickLayout)
 
-        testPageLayout.addWidget(classSelectFrame)
+        self.testPageLayout.addWidget(self.classSelectFrame)
 
         ### test button
-        testPushButton = QPushButton('Test')
-        testPushButton.setMinimumWidth(90)
-        testPushButton.setDefault(True)
-        testSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-        testLayout = QHBoxLayout()
-        testLayout.addItem(testSpacer)
-        testLayout.addWidget(testPushButton)
-        testPageLayout.addLayout(testLayout)
-
-        ### test result
-        testResultLabel = self.setLabel('Test Result:', testPage, titleFont)
-        testResultList = QListView(testPage)
-        testResultList.setMinimumHeight(250)
-        testPageLayout.addWidget(testResultLabel)
-        testPageLayout.addWidget(testResultList)
+        self.testPushButton = QPushButton('Test')
+        self.testPushButton.setMinimumWidth(90)
+        self.testPushButton.setDefault(True)
+        self.testPushButton.setDisabled(True)
+        self.testSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.testLayout = QHBoxLayout()
+        self.testLayout.addItem(self.testSpacer)
+        self.testLayout.addWidget(self.testPushButton)
+        self.testPageLayout.addLayout(self.testLayout)
 
         ### prediction button
-        predictionLabel = self.setLabel('Prediction:', testPage, titleFont)
-        self.predictionPushButton = QPushButton('Predict and Save As...', testPage)
+        self.predictionLabel = self.title('Prediction:', self.testPage)
+        self.predictionPushButton = QPushButton('Predict and Save as...', self.testPage)
         self.predictionPushButton.setMaximumWidth(175)
         self.predictionPushButton.setDisabled(True)
-        predictionLayout = QHBoxLayout()
-        predictionLayout.addWidget(predictionLabel)
-        predictionLayout.addWidget(self.predictionPushButton)
-        testPageLayout.addLayout(predictionLayout)
+        self.predictionLayout = QHBoxLayout()
+        self.predictionLayout.addWidget(self.predictionLabel)
+        self.predictionLayout.addWidget(self.predictionPushButton)
+        self.testPageLayout.addLayout(self.predictionLayout)
 
         ### page spacer and line
-        testPageSpacer = QSpacerItem(40, 20,QSizePolicy.Minimum, QSizePolicy.Expanding)
-        testPageLayout.addItem(testPageSpacer)
-        testLine = QFrame(testPage)
-        testLine.setFrameShape(QFrame.HLine)
-        testLine.setFrameShadow(QFrame.Sunken)
-        testPageLayout.addWidget(testLine)
+        self.testPageSpacer = QSpacerItem(40, 20,QSizePolicy.Minimum, QSizePolicy.Expanding)
+        self.testPageLayout.addItem(self.testPageSpacer)
+        self.testLine = QFrame(self.testPage)
+        self.testLine.setFrameShape(QFrame.HLine)
+        self.testLine.setFrameShadow(QFrame.Sunken)
+        self.testPageLayout.addWidget(self.testLine)
 
         ### back and finish buttons
-        testBackPushButton = QPushButton('Back', testPage)
-        testBackPushButton.setMinimumWidth(90)
-        testBackPushButton.clicked.connect(lambda: self.leftPanel.setCurrentIndex(1))
-        testPushButton.clicked.connect(lambda: testBackPushButton.setDisabled(True))
-        testFinishPushButton = QPushButton('Finish', testPage)
-        testFinishPushButton.setMinimumWidth(90)
-        testFinishPushButton.setDefault(True)
-        testFinishPushButton.setDisabled(True)
-        testPushButton.clicked.connect(lambda: testFinishPushButton.setEnabled(True))
-        testBackFinishSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-        testBackFinishLayout = QHBoxLayout()
-        testBackFinishLayout.addItem(testBackFinishSpacer)
-        testBackFinishLayout.addWidget(testBackPushButton)
-        testBackFinishLayout.addWidget(testFinishPushButton)
-        testPageLayout.addLayout(testBackFinishLayout)
+        self.testBackPushButton = QPushButton('Back', self.testPage)
+        self.testBackPushButton.setMinimumWidth(90)
+        self.testFinishPushButton = QPushButton('Finish', self.testPage)
+        self.testFinishPushButton.setMinimumWidth(90)
+        self.testFinishPushButton.setDefault(True)
+        self.testFinishPushButton.setDisabled(True)        
+        self.testBackFinishSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.testBackFinishLayout = QHBoxLayout()
+        self.testBackFinishLayout.addItem(self.testBackFinishSpacer)
+        self.testBackFinishLayout.addWidget(self.testBackPushButton)
+        self.testBackFinishLayout.addWidget(self.testFinishPushButton)
+        self.testPageLayout.addLayout(self.testBackFinishLayout)
 
-        self.leftPanel.addWidget(testPage)
+        self.leftPanel.addWidget(self.testPage)
 
+        # signal handling
+        self.bestPerformRadioButton.toggled.connect(self.metricComboBox.setEnabled)
+        self.bestPerformRadioButton.toggled.connect(lambda: self.select(option='best'))
+        self.metricComboBox.currentIndexChanged.connect(lambda: self.select(option='best'))
+
+        self.userPickRadioButton.toggled.connect(self.metricComboBox.setDisabled)
+        self.userPickRadioButton.toggled.connect(lambda: self.select(option='user'))
+        
+        self.testPushButton.clicked.connect(self.test)
+        self.predictionPushButton.clicked.connect(self.predict)
+
+        self.testBackPushButton.clicked.connect(lambda: self.clear(option='test'))
+        self.testFinishPushButton.clicked.connect(self.finish)
 
         ########## right panel ##########
-        rightPanelLayout = QVBoxLayout(self.rightPanel)
+        self.rightPanelLayout = QVBoxLayout(self.rightPanel)
 
-        ### trained classifiers
-        trainedClassifiersLabel = self.setLabel('Trained Classifiers:', self.rightPanel, titleFont)
+        self.trainedClassifiersLayout = QHBoxLayout()
+        self.trainedClassifiersLabel = self.title('Trained Classifiers:', self.rightPanel)
+        self.performanceLabel = QLabel('Show performance on ', self.rightPanel)
+        self.performanceComboBox = QComboBox(self.rightPanel)
+        self.performanceListView = self.performanceComboBox.view()
+        self.performanceComboBox.addItem('validation data')
+        self.performanceComboBox.addItem('training data')
+        self.performanceComboBox.addItem('test data')
+        self.performanceListView.setRowHidden(2, True)
+
+        self.trainedClassifiersSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.trainedClassifiersLayout.addWidget(self.trainedClassifiersLabel)
+        self.trainedClassifiersLayout.addItem(self.trainedClassifiersSpacer)
+        self.trainedClassifiersLayout.addWidget(self.performanceLabel)
+        self.trainedClassifiersLayout.addWidget(self.performanceComboBox)
         self.models_table = QTableWidget(self.rightPanel)
-        self.models_table.verticalHeader().setDefaultSectionSize(20)
+        self.models_table.verticalHeader().setDefaultSectionSize(15)
         self.models_table.verticalHeader().hide()
         self.models_table.setSelectionBehavior(QTableWidget.SelectRows)
-        self.models_table.setColumnCount(6)
-        self.models_table.setHorizontalHeaderLabels(['Name', 'Type', 'Accuracy', 'Precision', 'Recall', 'F1'])
-        self.models_table.setColumnWidth(0, 150)
-        self.models_table.setColumnWidth(1, 120)
-        self.models_table.setColumnWidth(2, 85)
-        self.models_table.setColumnWidth(3, 85)
-        self.models_table.setColumnWidth(4, 85)
-        self.models_table.setColumnWidth(5, 85)
-        rightPanelLayout.addWidget(trainedClassifiersLabel)
-        rightPanelLayout.addWidget(self.models_table)
+        self.models_table.setColumnCount(8)
+        self.models_table.setHorizontalHeaderLabels(['Name', 'Type', 'Accuracy', 'Precision', 'Recall', 'F1', 'AUROC', 'AUPRC'])
+        self.models_table.setColumnWidth(0, 140)
+        self.models_table.setColumnWidth(1, 110)
+        self.models_table.setColumnWidth(2, 60)
+        self.models_table.setColumnWidth(3, 60)
+        self.models_table.setColumnWidth(4, 60)
+        self.models_table.setColumnWidth(5, 60)
+        self.models_table.setColumnWidth(6, 60)
+        self.models_table.setColumnWidth(7, 60)
+        self.models_table.setFont(self.font)
+        self.table_header = self.models_table.horizontalHeader()
+        self.rightPanelLayout.addLayout(self.trainedClassifiersLayout)
+        self.rightPanelLayout.addWidget(self.models_table)
 
-        ### visualization panel
-        visLayout = QHBoxLayout()
-        visListLayout = QVBoxLayout()
-        visList = QListView(self.rightPanel)
-        visList.setMaximumWidth(245)
-        visListLayout.addWidget(visList)
+        self.visLayout = QHBoxLayout()
+        self.visListLayout = QVBoxLayout()
+        self.model_summary_ = QTreeWidget(self.rightPanel)
+        self.model_summary_.setMaximumWidth(260)
+        self.model_summary_.setColumnCount(2)
+        self.model_summary_.setHeaderHidden(True)
+        self.model_summary_.setColumnWidth(0, 150)
+        self.model_summary_.setFont(self.font)
+        self.visListLayout.addWidget(self.model_summary_)
 
-        visFrame = QFrame(self.rightPanel)
-        visFrameLayout = QVBoxLayout(visFrame)
-        dataPlotRadioButton = QRadioButton('Data Plot', visFrame)
-        rocRadioButton = QRadioButton('ROC', visFrame)
-        confusionMatrixRadioButton = QRadioButton('Confusion Matrix', visFrame)
-        prRadioButton = QRadioButton('Precision-Recall', visFrame)
+        self.visFrame = QFrame(self.rightPanel)
+        self.visFrameLayout = QHBoxLayout(self.visFrame)
+        self.dataPlotRadioButton = QRadioButton('Data Plot', self.visFrame)
+        self.dataPlotRadioButton.setDisabled(True)
+        self.rocRadioButton = QRadioButton('ROC', self.visFrame)
+        self.confusionMatrixRadioButton = QRadioButton('Confusion Matrix', self.visFrame)
+        self.confusionMatrixRadioButton.setChecked(True)
+        self.prRadioButton = QRadioButton('Precision-Recall', self.visFrame)
         
-        visFrameLeftLayout = QVBoxLayout()
-        visFrameLeftLayout.addWidget(dataPlotRadioButton)
-        visFrameLeftLayout.addWidget(rocRadioButton)
-        visFrameRightLayout = QVBoxLayout()
-        visFrameRightLayout.addWidget(confusionMatrixRadioButton)
-        visFrameRightLayout.addWidget(prRadioButton)
-        visFrameTopLayout = QHBoxLayout()
-        visFrameTopLayout.addLayout(visFrameLeftLayout)
-        visFrameTopLayout.addLayout(visFrameRightLayout)
-
-        visFrameSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-        visSavePushButton = QPushButton('Save As...', visFrame)
-        saveIcon = QIcon('icons/save.png')
-        visSavePushButton.setIcon(saveIcon)
-        visFrameBottomLayout = QHBoxLayout()
-        visFrameBottomLayout.addItem(visFrameSpacer)
-        visFrameBottomLayout.addWidget(visSavePushButton)
-        visFrameLayout.addLayout(visFrameTopLayout)
-        visFrameLayout.addLayout(visFrameBottomLayout)
-        visListLayout.addWidget(visFrame)
-        visLayout.addLayout(visListLayout)
+        self.visFrameLeftLayout = QVBoxLayout()
+        self.visFrameLeftLayout.addWidget(self.dataPlotRadioButton)
+        self.visFrameLeftLayout.addWidget(self.rocRadioButton)
+        self.visFrameRightLayout = QVBoxLayout()
+        self.visFrameRightLayout.addWidget(self.confusionMatrixRadioButton)
+        self.visFrameRightLayout.addWidget(self.prRadioButton)
+        self.visFrameLayout.addLayout(self.visFrameLeftLayout)
+        self.visFrameLayout.addLayout(self.visFrameRightLayout)
+        self.visListLayout.addWidget(self.visFrame)
+        self.visLayout.addLayout(self.visListLayout)
 
         self.canvas = FigureCanvas(Figure(figsize=(340, 340)))
         self.canvas.setMaximumWidth(340)
         self.canvas.setMaximumHeight(340)
         self.canvas.setParent(self.rightPanel)
-        visLayout.addWidget(self.canvas)
+        self.visLayout.addWidget(self.canvas)
 
-        rightPanelLayout.addLayout(visLayout)
+        self.rightPanelLayout.addLayout(self.visLayout)
 
+        # signal handling
+        self.performanceComboBox.currentIndexChanged.connect(self.switch_metrics)
+        self.performanceComboBox.currentIndexChanged.connect(\
+            lambda: self.bestPerformRadioButton.setDisabled(self.performanceComboBox.currentIndex() == 2))
+        self.performanceComboBox.currentIndexChanged.connect(\
+            lambda: self.metricComboBox.setDisabled(self.performanceComboBox.currentIndex() == 2 \
+                or not self.bestPerformRadioButton.isChecked()))
+        self.performanceComboBox.currentIndexChanged.connect(\
+            lambda: self.userPickRadioButton.setDisabled(self.performanceComboBox.currentIndex() == 2))
+        self.performanceComboBox.currentIndexChanged.connect(\
+            lambda: self.testPushButton.setDisabled(self.performanceComboBox.currentIndex() == 2 \
+                or self.selected_model == None))
+        self.performanceComboBox.currentIndexChanged.connect(\
+            lambda: self.table_header.setSectionsClickable(self.performanceComboBox.currentIndex() != 2))
+        self.models_table.cellClicked.connect(self.switch_model)
+        self.table_header.sectionClicked.connect(self.sort)
+
+        self.confusionMatrixRadioButton.toggled.connect(self.plot)
+        self.rocRadioButton.toggled.connect(self.plot)
+        self.prRadioButton.toggled.connect(self.plot)
+
+        # global geometry
         self.resize(1024, 700)
         self.setWindowTitle('ML4Bio')
         self.leftPanel.resize(360, 680)

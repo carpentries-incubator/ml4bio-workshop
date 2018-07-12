@@ -1,261 +1,199 @@
+import os
 import pandas as pd
 import numpy as np
 from sklearn import preprocessing, model_selection
+from PyQt5.QtWidgets import QTreeWidgetItem
 
-###############################################################################
-# A data structure that stores a dataset and its key statistics.
-# 
-##### Assumptions #####
-# a single classification task (i.e. one label column)
-# the labels are in the last column
-# categorical labels
-#
-##### Fields #####
-# data (pd dataframe):						original dataset
-# integer_encoded_data (pd dataframe):		integer encoded dataset
-# one_hot_encoded_data (pd dataframe): 		one-hot encoded dataset
-# is_encoded (bool):						true if the dataset is encoded
-# name (str): 								name of the dataset
-# labeled (bool): 							whether or not the dataset is labeled
-# num_samples (int): 						number of samples
-# num_features (int): 						number of features
-# num_one_hot_encoded_features (int):		number of features after one-hot encoding
-# num_classes (int): 						number of classes
-# features (list): 							collection of features
-# one_hot_encoded_features (list): 			collection of features after one-hot encoding
-# classes (list): 							collection of class names
-# feature_type_dict (dict): 				mapping from feature names to types
-# one_hot_encoded_feature_type_dict (dict): mapping from one-hot encoded feature names to types
-# class_counts_dict (dict): 				mapping from class names to class counts
-# feature_summary (str): 					summary of feature types ('string', 'numeric' or 'mixed')
-###############################################################################
 class Data:
+	def __init__(self, path):
+		self.labeled_data = pd.read_csv(path, sep=None)
+		self.unlabeled_data = None
+		self.labeled_name = os.path.basename(path)
+		self.labeled_num_samples = self.labeled_data.shape[0]
 
-	# constructor
-	# 
-	# data (pd dataframe): 	dataset
-	# name (str): 			name of the dataset
-	# labeled (bool): 		whether or not the dataset is labeled
-	def __init__(self, data, name, labeled):
-		self.data = data
-		self.name = name
-		self.labeled = labeled
-		self.is_encoded = False
-		self.num_samples = self.data.shape[0]
-		self.num_features = self.data.shape[1]
-
-		# exclude the label column if data is labeled
-		if self.labeled:
-			self.num_features -= 1
-
-		# extract features and their types
-		self.feature_type_dict = dict()
-		num_string = 0
-		num_numeric = 0
-		self.features = self.data.columns[0: self.num_features]
-
-		for i in range(0, self.num_features):
-			if pd.api.types.is_string_dtype(self.data.iloc[:, i]):
-				self.feature_type_dict[self.features[i]] = 'string'
-				num_string += 1
+		self.num_features_ = self.labeled_data.shape[1] - 1
+		feature_names = self.labeled_data.columns[0: self.num_features_]
+		num_continuous_features = 0
+		num_discrete_features = 0
+		
+		self.individual_feature_type = dict()
+		for f in feature_names:
+			dtype = self.labeled_data.dtypes[f]
+			if pd.api.types.is_string_dtype(dtype):
+				num_discrete_features += 1
+				self.individual_feature_type[f] = 'discrete'
+			elif pd.api.types.is_integer_dtype(dtype):
+				if len(set(self.labeled_data[f])) <= 10:
+					num_discrete_features += 1
+					self.individual_feature_type[f] = 'discrete'
+				else:
+					num_continuous_features += 1
+					self.individual_feature_type[f] = 'continuous'
 			else:
-				self.feature_type_dict[self.features[i]] = 'numeric'
-				num_numeric += 1
+				num_continuous_features += 1
+				self.individual_feature_type[f] = 'continuous'
 
-		if num_string > 0 and num_numeric == 0:
-			self.feature_summary = 'string'
-		elif num_string == 0 and num_numeric > 0:
-			self.feature_summary = 'numeric'
+		if num_continuous_features > 0 and num_discrete_features == 0:
+			self.global_feature_type = 'continuous'
+		elif num_continuous_features == 0 and num_discrete_features > 0:
+			self.global_feature_type = 'discrete'
 		else:
-			self.feature_summary = 'mixed'
+			self.global_feature_type = 'mixed'
 
-		# extract classes and their counts
-		self.classes = list(set(self.data.iloc[:, self.num_features]))
-		self.num_classes = len(self.classes)
-		class_counts = [0] * self.num_classes
-		self.class_counts_dict = dict(zip(self.classes, class_counts))
+		label_col = self.labeled_data.iloc[:, self.num_features_]
+		classes = list(set(label_col))
+		self.num_classes_ = len(classes)
+		
+		self.class_num_samples = dict()
+		for c in classes:
+			self.class_num_samples[c] = 0
+		for l in label_col:
+			self.class_num_samples[l] += 1
 
-		for i in range(0, self.num_samples):
-			label = self.data.iloc[i, self.num_features]
-			self.class_counts_dict[label] += 1
+	# add unlabeled data for prediction
+	def add_unlabeled_data(self, path):
+		try:
+			self.unlabeled_data = pd.read_csv(path, sep=',')
+		except:
+			raise
+		
+		labeled_feature_names = list(self.labeled_data.columns[0: self.num_features()])
+		unlabeled_feature_names = list(self.unlabeled_data.columns)
+		if labeled_feature_names != unlabeled_feature_names:
+			self.unlabeled_data = None
+			raise ValueError()
+		
+		self.unlabeled_name = os.path.basename(path)
+		self.unlabeled_num_samples = self.unlabeled_data.shape[0]
 
-		self.__encodeData()
-		self.num_one_hot_encoded_features = self.one_hot_encoded_data.shape[1]
+	# encode data (integer encoding + one-hot encoding)
+	def encode(self):
+		raw_data = self.labeled_data.iloc[:, 0: self.num_features()]
+		if self.unlabeled_data is not None:
+			raw_data = pd.concat([raw_data, self.unlabeled_data], axis=0)
 
-		if self.labeled:
-			self.num_one_hot_encoded_features -= 1
+		integer_encoded_data = pd.DataFrame([])
+		one_hot_encoded_data = pd.DataFrame([])
+		le = preprocessing.LabelEncoder()		# integer encoder
+		ohe = preprocessing.OneHotEncoder()		# one-hot encoder
 
-		self.one_hot_encoded_features = self.one_hot_encoded_data.columns[0: self.num_one_hot_encoded_features]
-		self.one_hot_encoded_feature_type_dict = dict(\
-			zip(self.one_hot_encoded_features, ['numeric'] * self.num_one_hot_encoded_features))
-		self.integer_encoded_feature_type_dict = dict(zip(self.features, ['numeric'] * self.num_features))
+		feature_type = self.feature_type(option='individual')
+		for i in range(0, self.num_features()):
+			feature = raw_data.columns[i]
+			if feature_type[feature] == 'discrete':
+				le_col = le.fit_transform(raw_data[feature])
+				num_values = len(np.unique(le_col))	# number of values of a discrete feature
+				le_col = pd.DataFrame(le_col)
+				le_col.columns = [feature]
+				integer_encoded_data = pd.concat([integer_encoded_data, le_col], axis=1)
 
-		# default train/test split
-		self.trainTestSplit(0.2, True)
+				ohe_cols = pd.DataFrame(ohe.fit_transform(pd.DataFrame(le_col)).toarray())
+				values = list(le.inverse_transform(list(range(0, num_values))))	# a collection of values
+				col_names = [feature + '=' + str(v) for v in values]	# construct descriptive column names
+				ohe_cols.columns = col_names
+				one_hot_encoded_data = pd.concat([one_hot_encoded_data, ohe_cols], axis=1)
+			else:
+				integer_encoded_data = pd.concat([integer_encoded_data, raw_data[feature]], axis=1)
+				one_hot_encoded_data = pd.concat([one_hot_encoded_data, raw_data[feature]], axis=1)
 
-	# return the original dataset
-	def getData(self):
-		return self.data
+		self.integer_encoded_labeled_data = integer_encoded_data[0: self.num_samples('labeled')] 	# no label column
+		self.one_hot_encoded_labeled_data = one_hot_encoded_data[0: self.num_samples('labeled')]	# no label column
+		self.num_one_hot_encoded_features = len(self.one_hot_encoded_labeled_data.columns)
 
-	# return the integer encoded dataset
-	def getIntegerEncodedData(self):
-		return self.integer_encoded_data
+		if self.unlabeled_data is not None:
+			self.integer_encoded_unlabeled_data = integer_encoded_data[self.num_samples('labeled'): ]
+			self.one_hot_encoded_unlabeled_data = one_hot_encoded_data[self.num_samples('labeled'): ]
 
-	# return the one-hot encoded dataset
-	def getOneHotEncodedData(self):
-		return self.one_hot_encoded_data
-
-	# return True if the dataset has been encoded
-	def isEncoded(self):
-		return self.is_encoded
-
-	# return the name of the dataset
-	def getName(self):
-		return self.name
-
-	# return the number of samples
-	def getNumOfSamples(self):
-		return self.num_samples
-
-	# return the number of features
-	def getNumOfFeatures(self):
-		return self.num_features
-
-	# return the number of features after one-hot encoding
-	def getNumOfOneHotEncodedFeatures(self):
-		return self.num_one_hot_encoded_features
-
-	# return the list of features
-	def getFeatures(self):
-		return self.features
-
-	# return the list of one-hot encoded features
-	def getOneHotEncodedFeatures(self):
-		return self.one_hot_encoded_features
-
-	# return the type of each feature (as a dictionary)
-	def getFeatureTypes(self):
-		return self.feature_type_dict
-
-	# return the type of each integer encoded feature (as a dictionary)
-	def getIntegerEncodedFeatureTypes(self):
-		return self.integer_encoded_feature_type_dict
-
-	# return the type of each one-hot encoded feature (as a dictionary)
-	def getOneHotEncodedFeatureTypes(self):
-		return self.one_hot_encoded_feature_type_dict
-
-	# return the feature summary ('string', 'numeric' or 'mixed')
-	def getFeatureSummary(self):
-		return self.feature_summary
-
-	# return the number of classes
-	def getNumOfClasses(self):
-		return self.num_classes
-
-	# return the list of classes
-	def getClasses(self):
-		return self.classes
-
-	# return the count of each class (as a dictionary)
-	def getClassCounts(self):
-		return self.class_counts_dict
-
-	# return the mapping from integers to class names (as a dictionary)
-	def getClassMap(self):
-		return self.class_map
-
-	# return training set
-	def getTrain(self):
-		return self.train
-
-	# return integer encoded training set
-	def getIntegerEncodedTrain(self):
-		return self.integer_encoded_train
-
-	# return one-hot encoded training set
-	def getOneHotEncodedTrain(self):
-		return self.one_hot_encoded_train
-
-	# return test set
-	def getTest(self):
-		return self.test
-
-	# return integer encoded test set
-	def getIntegerEncodedTest(self):
-		return self.integer_encoded_test
-
-	# return one-hot encoded test set
-	def getOneHotEncodedTest(self):
-		return self.one_hot_encoded_test
-
-	# split the labeled dataset into training and test sets
-	#
-	# test_size (float): 	the proportion of data for testing (e.g. 0.2, 0.33, etc.)
-	# stratify (bool): 		stratified sampling or not
-	def trainTestSplit(self, test_size, stratify):
-		X = self.data.iloc[:, 0: self.num_features]
-		y = self.data.iloc[:, self.num_features]
-		integer_encoded_X = self.integer_encoded_data.iloc[:, 0: self.num_features]
-		integer_encoded_y = self.integer_encoded_data.iloc[:, self.num_features]
-		one_hot_encoded_X = self.one_hot_encoded_data.iloc[:, 0: self.num_one_hot_encoded_features]
-		one_hot_encoded_y = self.one_hot_encoded_data.iloc[:, self.num_one_hot_encoded_features]
+	# split data into training and test sets
+	def split(self, test_size, stratify):
+		integer_encoded_X = self.integer_encoded_labeled_data
+		one_hot_encoded_X = self.one_hot_encoded_labeled_data
+		y = self.labeled_data.iloc[:, self.num_features()]
 		
 		if stratify:
 			s = y
 		else:
 			s = None
-		
-		X_train, X_test, y_train, y_test = model_selection.train_test_split(\
-			X, y, test_size=test_size, stratify=s, random_state=0)
+
 		integer_encoded_X_train, integer_encoded_X_test, integer_encoded_y_train, integer_encoded_y_test = \
-			model_selection.train_test_split(integer_encoded_X, integer_encoded_y, test_size=test_size, \
-			stratify=s, random_state=0)
+			model_selection.train_test_split(integer_encoded_X, y, test_size=test_size, stratify=s, random_state=0)
 		one_hot_encoded_X_train, one_hot_encoded_X_test, one_hot_encoded_y_train, one_hot_encoded_y_test = \
-			model_selection.train_test_split(one_hot_encoded_X, one_hot_encoded_y, test_size=test_size, \
-			stratify=s, random_state=0)
-		self.train = pd.concat([X_train, y_train], axis=1)
-		self.test = pd.concat([X_test, y_test], axis=1)
+			model_selection.train_test_split(one_hot_encoded_X, y, test_size=test_size, stratify=s, random_state=0)
+
 		self.integer_encoded_train = pd.concat([integer_encoded_X_train, integer_encoded_y_train], axis=1)
 		self.integer_encoded_test = pd.concat([integer_encoded_X_test, integer_encoded_y_test], axis=1)
 		self.one_hot_encoded_train = pd.concat([one_hot_encoded_X_train, one_hot_encoded_y_train], axis=1)
 		self.one_hot_encoded_test = pd.concat([one_hot_encoded_X_test, one_hot_encoded_y_test], axis=1)
 
-	# encode discrete features
-	def __encodeData(self):
-		self.integer_encoded_data = pd.DataFrame([])
-		self.one_hot_encoded_data = pd.DataFrame([])
-		self.class_map = dict()
-		le = preprocessing.LabelEncoder()		# integer encoder
-		ohe = preprocessing.OneHotEncoder()		# one-hot encoder
+	# return name of dataset
+	def name(self, option='labeled'):
+		if option == 'labeled':		return self.labeled_name
+		elif option == 'unlabeled':	return self.unlabeled_name
 
-		for i in range(0, self.num_features):
-			if pd.api.types.is_string_dtype(self.data.iloc[:, i]):
-				feature_name = self.data.columns[i]
+	# return number of samples
+	def num_samples(self, option='labeled'):
+		if option == 'labeled':		return self.labeled_num_samples
+		elif option == 'unlabeled':	return self.unlabeled_num_samples
+		elif option == 'classwise':	return self.class_num_samples
 
-				le_col = pd.DataFrame(le.fit_transform(self.data.iloc[:, i]))
-				le_col.columns = [feature_name]
-				num_items = len(le_col[feature_name].unique())	# number of values of a string-valued feature
-				self.integer_encoded_data = pd.concat([self.integer_encoded_data, le_col], axis=1)
+	# return number of features
+	def num_features(self, option='raw'):
+		if option in ['raw', 'integer']:	return self.num_features_
+		elif option == 'one-hot':			return self.num_one_hot_encoded_features
 
-				ohe_cols = pd.DataFrame(ohe.fit_transform(le_col).toarray())
-				item_names = list(le.inverse_transform(list(range(0, num_items))))	# a collection of values
-				col_names = [feature_name + '_is_' + s for s in item_names]	# construct descriptive column names
-				ohe_cols.columns = col_names
-				self.one_hot_encoded_data = pd.concat([self.one_hot_encoded_data, ohe_cols], axis=1)
+	# return features types
+	def feature_type(self, option='global'):
+		if option == 'individual':	return self.individual_feature_type
+		elif option == 'global':	return self.global_feature_type
 
-				self.is_encoded = True
-			else:
-				self.integer_encoded_data = pd.concat([self.integer_encoded_data, self.data.iloc[:,i]], axis=1)
-				self.one_hot_encoded_data = pd.concat([self.one_hot_encoded_data, self.data.iloc[:,i]], axis=1)
+	# return number of classes
+	def num_classes(self):
+		return self.num_classes_
 
-		# add back the label column
-		label_col = pd.DataFrame(le.fit_transform(self.data.iloc[:, self.num_features]))
-		num_classes = self.getNumOfClasses()
-		class_names = list(le.inverse_transform(list(range(0, num_classes))))
+	# show summary of data
+	def summary(self, view):
+		view.clear()
+
+		samples_item = QTreeWidgetItem(view)
+		samples_item.setText(0, 'Samples')
+		labeled_samples_item = QTreeWidgetItem(samples_item)
+		labeled_samples_item.setText(0, 'labeled')
+		labeled_samples_item.setText(1, str(self.num_samples()))
 		
-		for i in range(0, num_classes):
-			self.class_map[i] = class_names[i]
+		class_num_samples = self.num_samples('classwise')
+		for c in class_num_samples:
+			class_samples_item = QTreeWidgetItem(labeled_samples_item)
+			class_samples_item.setText(0, str(c))
+			class_samples_item.setText(1, str(class_num_samples[c]))
+			class_samples_item.setToolTip(0, str(c))
+		
+		if self.unlabeled_data is not None:
+			unlabeled_samples_item = QTreeWidgetItem(samples_item)
+			unlabeled_samples_item.setText(0, 'unlabeled')
+			unlabeled_samples_item.setText(1, str(self.num_samples('unlabeled')))
 
-		self.integer_encoded_data = pd.concat([self.integer_encoded_data, label_col], axis=1)
-		self.one_hot_encoded_data = pd.concat([self.one_hot_encoded_data, label_col], axis=1)
+		features_item = QTreeWidgetItem(view)
+		features_item.setText(0, 'Features')
+		features_item.setText(1, str(self.num_features()))
+		
+		feature_type = self.feature_type(option='individual')
+		for f in feature_type:
+			feature_type_item = QTreeWidgetItem(features_item)
+			feature_type_item.setText(0, f)
+			feature_type_item.setText(1, feature_type[f])
+			feature_type_item.setToolTip(0, f)
+
+	# return training data
+	def train(self, option):
+		if option == 'integer':		return self.integer_encoded_train
+		elif option == 'one-hot':	return self.one_hot_encoded_train
+
+	# return test data
+	def test(self, option):
+		if option == 'integer':		return self.integer_encoded_test
+		elif option == 'one-hot':	return self.one_hot_encoded_test
+
+	# return unlabeled data for prediction
+	def prediction(self, option):
+		if option == 'integer':		return self.integer_encoded_unlabeled_data
+		elif option == 'one-hot':	return self.one_hot_encoded_unlabeled_data
