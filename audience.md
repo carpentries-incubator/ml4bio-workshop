@@ -6,5 +6,6 @@ The intended audience is graduate students and postdocs who do not have programm
 
 Workshop participants may be drawn from these and other groups at UW-Madison:
 - [Quantitative Biology Initiative](https://qbi.wisc.edu/)
-- McClean lab
-- Gasch lab
+- McClean lab (Biomedical Engineering)
+- Gasch lab (Genetics)
+- Mehle lab (Medical Microbiology & Immunology)
