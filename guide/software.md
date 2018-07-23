@@ -15,12 +15,6 @@
 
 ### A quick example
 
-<img align="left" width="350" src="../screenshots/p1_before.png">
-
-Here is what the left panel looks like before we start. In this stage, we will prepare the data for training and evaluating classifiers.
-
----
-
 #### Step 1: load data
 
 <img align="left" width="350" src="../screenshots/load_1.png">
@@ -61,19 +55,6 @@ We use 5-fold cross-validation with stratified sampling.
 
 ---
 
-<img align="left" width="350" src="../screenshots/p1_after.png">
-
-Now we are ready for training some classifiers. Click on <b>Next</b> to proceed to the next page.
-
----
-
-<img align="left" width="350" src="../screenshots/p2_before.png">
-
-In the second stage, we will train a number of classifiers 
-and evaluate them based on the validation method you chose. 
-
----
-
 #### Step 4: choose classifier type
 
 <img align="left" width="350" src="../screenshots/classifier_type.png">
@@ -91,13 +72,6 @@ A list of hyperparameters for an SVM shows up.
 We first train an SVM using the default hyperparameter values.
 You may give your classifier a name and add some comment at your own discretion.
 
----
-
-<img align="left" width="350" src="../screenshots/before_train.png">
-
-Now we are ready to train the classifier. 
-If you want to start over, click on <b>Reset</b> and all values will be back to default. 
-Otherwise, click on <b>Train</b> to proceed.
 
 
 
