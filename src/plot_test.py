@@ -33,9 +33,6 @@ class MPLCanvas(FigureCanvas):
 		FigureCanvas.__init__(self, fig)
 		self.setParent(parent)
 
-		#FigureCanvas.setSizePolicy(self, QSizePolicy.Expanding, QSizePolicy.Expanding)
-		#FigureCanvas.updateGeometry(self)
-
 		with open('iris.csv', 'r') as f:
 			iris = pd.read_csv(f, delimiter=',', header=None)
 

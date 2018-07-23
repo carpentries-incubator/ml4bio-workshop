@@ -9,6 +9,13 @@ from matplotlib import pyplot as plt
 from matplotlib import rcParams
 
 class ModelMetrics:
+	# constructor
+	#
+	# classifier: 	classifier for evaluation
+	# y:			true labels
+	# y_pred:		predicted labels
+	# y_prob:		probability of each class
+	# option:		metrics on which dataset (training/validation/test)
 	def __init__(self, classifier, y, y_pred, y_prob, option):
 		labels = classifier.classes_
 		num_classes = len(labels)
@@ -47,6 +54,7 @@ class ModelMetrics:
 			class_f1 = np.zeros(num_classes)
 			confusion_matrix = np.zeros([num_classes, num_classes])
 
+			# classwise metrics w.r.t. each fold
 			for y_i, y_pred_i in zip(y, y_pred):
 				accuracy += metrics.accuracy_score(y_i, y_pred_i)
 				class_precision += metrics.precision_score(y_i, y_pred_i, average=None)
@@ -54,6 +62,7 @@ class ModelMetrics:
 				class_f1 += metrics.f1_score(y_i, y_pred_i, average=None)
 				confusion_matrix += metrics.confusion_matrix(y_i, y_pred_i)
 
+			# classwise metrics average over all folds
 			self.accuracy_ = np.around(accuracy / k, decimals=2)
 			class_precision = class_precision / k
 			class_recall = class_recall / k
@@ -71,9 +80,10 @@ class ModelMetrics:
 				
 				fpr[i] = np.unique(np.concatenate([fpr_i[j] for j in range(0, k)]))
 				tpr[i] = np.zeros_like(fpr[i])
-				recall[i] = np.unique(np.concatenate([recall_i[j] for j in range(0, k)]))
+				recall[i] = np.unique(np.concatenate([recall_i[j] for j in range(0, k)])) 	# all unique x-values
 				precision[i] = np.zeros_like(recall[i])
 
+				# interpolate y-values
 				for j in range(0, k):
 					tpr[i] += np.interp(fpr[i], fpr_i[j], tpr_i[j])
 					precision[i] += np.interp(recall[i], np.flip(recall_i[j], 0), np.flip(precision_i[j], 0))
@@ -83,6 +93,7 @@ class ModelMetrics:
 				auroc[labels[i]] = np.around(metrics.auc(fpr[i], tpr[i]), decimals=2)
 				auprc[labels[i]] = np.around(metrics.auc(recall[i], precision[i]), decimals=2)
 
+		# metrics averaged over all classes
 		self.avg_precision_ = np.around(np.mean(class_precision), decimals=2)
 		self.avg_recall_ = np.around(np.mean(class_recall), decimals=2)
 		self.avg_f1_ = np.around(np.mean(class_f1), decimals=2)

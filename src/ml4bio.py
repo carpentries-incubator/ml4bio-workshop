@@ -244,6 +244,7 @@ class App(QMainWindow):
         self.data.encode()
         self.data.split(test_size, stratify)
 
+        # when data is 2-D and continuous, plot decision regions
         if self.data.feature_type() == 'continuous' \
             and self.data.num_features() == 2 and self.data.num_classes() == 2:
             self.dataPlotRadioButton.setEnabled(True)
@@ -278,6 +279,7 @@ class App(QMainWindow):
         self.classNameLineEdit.clear()
         self.classCommentTextEdit.clear()
 
+        # if no data is held out for validation, only show metrics on training data
         if self.holdoutRadioButton.isChecked() and self.holdoutSpinBox.value() == 0:
             self.performanceComboBox.setCurrentIndex(1)
             self.performanceListView.setRowHidden(0, True)
@@ -684,6 +686,7 @@ class App(QMainWindow):
         elif index == 6:    model = self.svm()
         elif index == 7:    model = self.naive_bayes()
 
+        # training failed (e.g. invalid hyperparameters or model did not converge)
         if model is None:
             return
 
@@ -778,6 +781,8 @@ class App(QMainWindow):
                 if self.models_table.item(i, 0).text() == self.curr_model.name():
                     row = i
 
+            # if classifier has not been tested, clear model summary and plots
+            # (useful when user switches from train/validation metrics to test metrics)
             if self.models_table.isRowHidden(row):
                 self.model_summary_.clear()
                 self.canvas.figure.clear()
@@ -796,6 +801,7 @@ class App(QMainWindow):
         self.model_summary()
         self.plot()
 
+        # respond to mouse click when the classifier to be tested is user-picked
         if self.leftPanel.currentIndex() == 2 and self.userPickRadioButton.isChecked():
             self.selected_model = self.curr_model
             self.userPickLabel.setText(self.selected_model.name())
@@ -855,10 +861,12 @@ class App(QMainWindow):
 
     # test the selected classifier
     def test(self):
+        # when at least one classifier has been tested
         if self.tested:
             val = self.warn('test')
             if val == QMessageBox.Cancel:
                 return
+        # when no classifier has been tested
         else:
             msg = 'You cannot train more classifiers once you begin testing. '
             msg += 'Do you want to proceed?'

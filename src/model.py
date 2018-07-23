@@ -13,8 +13,17 @@ from matplotlib.colors import ListedColormap
 from model_metrics import ModelMetrics
 
 class Model:
-	counter = 0			# number of classifiers
+	counter = 0			# number of existing classifiers
 
+	# constructor:
+	#
+	# classifier:	classifier
+	# X:			training features
+	# y: 			training labels
+	# val_method:	validation method
+	# val_size: 	percent of validation data (only used when val_method='holdout')
+	# k:			number of folds (only used when val_method='cv')
+	# stratify:		stratify samples or not
 	def __init__(self, classifier, X, y, val_method, val_size, k, stratify):
 		Model.counter += 1
 
@@ -22,10 +31,11 @@ class Model:
 		self.X = X
 		self.y = y
 
+		# default name for the classifier
 		self.name_ = 'classifier_' + str(Model.counter)
 		self.type_ = ''
 		self.comment_ = ''
-		self.params_ = classifier.get_params()
+		self.params_ = classifier.get_params()	# hyperparameters of classifier
 
 		if val_method == 'holdout':
 			self.train_metrics, self.val_metrics = self.__hold_out_validation(\
@@ -40,6 +50,12 @@ class Model:
 		self.test_metrics = None
 
 	# validation using held-out data
+	#
+	# classifier:	classifier for validation
+	# X:			training features
+	# y: 			training labels
+	# val_size: 	percent of validation data
+	# stratify: 	stratify samples or not
 	def __hold_out_validation(self, classifier, X, y, val_size, stratify=True):
 		if not stratify or val_size == 0:
 			s = None
@@ -49,6 +65,7 @@ class Model:
 		X_train, X_val, y_train, y_val = model_selection.train_test_split(\
 			X, y, test_size=val_size, stratify=s, random_state=0)
 
+		# catch convergence warning
 		with warnings.catch_warnings():
 			warnings.filterwarnings('error', category=exceptions.ConvergenceWarning)
 			try:
@@ -56,8 +73,8 @@ class Model:
 			except exceptions.ConvergenceWarning:
 				raise
 
-		y_train_pred = classifier.predict(X_train)
-		y_train_prob = classifier.predict_proba(X_train)
+		y_train_pred = classifier.predict(X_train) 			# class prediction
+		y_train_prob = classifier.predict_proba(X_train)	# probability of each class
 
 		if X_val.shape[0] != 0:
 			y_val_pred = classifier.predict(X_val)
@@ -69,6 +86,12 @@ class Model:
 			return ModelMetrics(classifier, y_train, y_train_pred, y_train_prob, 'holdout'), None
 
 	# k-fold cross validation
+	#
+	# classifier: 	classifier for Validation
+	# X:			training features
+	# y:			training labels
+	# k: 			number of folds
+	# stratify: 	stratify samples or not
 	def __cross_validation(self, classifier, X, y, k, stratify=True):
 		if k == X.shape[0]:		# leave-one-out
 			kf = model_selection.KFold(n_splits=k)
@@ -78,6 +101,7 @@ class Model:
 			else:
 				kf = model_selection.KFold(n_splits=k, shuffle=True, random_state=0)
 
+		# training data and predictions for each fold
 		y_train_list = []
 		y_train_pred_list = []
 		y_train_prob_list = []
@@ -91,6 +115,7 @@ class Model:
 			y_train_list.append(y_train)
 			y_val_list.append(y_val)
 
+			# catch convergence warning
 			with warnings.catch_warnings():
 				warnings.filterwarnings('error', category=exceptions.ConvergenceWarning)
 				try:
@@ -115,13 +140,16 @@ class Model:
 				ModelMetrics(classifier, y_val_list, y_val_pred_list, y_val_prob_list, 'cv')
 
 	# test a classifier
+	#
+	# X: 	test features
+	# y: 	test labels
 	def test(self, X, y):
 		self.test_X = X
 		self.test_y = y
 
 		classifier = self.classifier.fit(self.X, self.y)
-		y_pred = classifier.predict(X)
-		y_prob = classifier.predict_proba(X)
+		y_pred = classifier.predict(X) 			# class prediction
+		y_prob = classifier.predict_proba(X)	# probability of each class
 		self.test_metrics =  ModelMetrics(classifier, y, y_pred, y_prob, 'holdout')
 
 	# use a classifier to make prediction
@@ -130,7 +158,7 @@ class Model:
 		y_pred = pd.DataFrame(classifier.predict(X), columns=['prediction'])
 		y_prob = pd.DataFrame(np.around(classifier.predict_proba(X), decimals=4), columns=classifier.classes_)
 		output = pd.concat([X, y_pred, y_prob], axis=1)
-		output.to_csv(path, sep=',', index=False)
+		output.to_csv(path, sep=',', index=False) 		# save to file
 
 	# set classifier name (str)
 	def set_name(self, name):
@@ -176,6 +204,7 @@ class Model:
 		params_item = QTreeWidgetItem(view)
 		params_item.setText(0, 'Parameters')
 		
+		# show classifier hyperparameters
 		params = self.params()
 		for param in params:
 			param_item = QTreeWidgetItem()
@@ -191,17 +220,20 @@ class Model:
 		metrics_item = QTreeWidgetItem(view)
 		metrics_item.setText(0, 'Performance')
 
+		# show metrics on training data
 		train_metrics_item = QTreeWidgetItem(metrics_item)
 		train_metrics_item.setText(0, 'Training')
 		train_metrics = self.metrics('train')
 		train_metrics.summary(train_metrics_item)
 
+		# show metrics on validation data
 		val_metrics_item = QTreeWidgetItem(metrics_item)
 		val_metrics_item.setText(0, 'Validation')
 		val_metrics = self.metrics('val')
 		if val_metrics is not None:
 			val_metrics.summary(val_metrics_item)
 
+		# show metrics on test data
 		test_metrics = self.metrics('test')
 		if test_metrics is not None:
 			test_metrics_item = QTreeWidgetItem(metrics_item)
@@ -233,12 +265,12 @@ class Model:
 		cm_bkgd = plt.cm.RdBu
 		cm_pts = ListedColormap(['#FF0000', '#0000FF'])
 
-		d1 = X.iloc[:, 0]
-		d2 = X.iloc[:, 1]
+		d1 = X.iloc[:, 0] 	# x-axis
+		d2 = X.iloc[:, 1]	# y-axis
 		d1_slack = (d1.max() - d1.min()) * 0.1
 		d2_slack = (d2.max() - d2.min()) * 0.1
-		d1_min, d1_max = d1.min() - d1_slack, d1.max() + d1_slack
-		d2_min, d2_max = d2.min() - d2_slack, d2.max() + d2_slack
+		d1_min, d1_max = d1.min() - d1_slack, d1.max() + d1_slack 	# x-axis range
+		d2_min, d2_max = d2.min() - d2_slack, d2.max() + d2_slack	# y-axis range
 		md1, md2 = np.meshgrid(np.arange(d1_min, d1_max, 0.01), np.arange(d2_min, d2_max, 0.01))
 
 		rcParams.update({'font.size': 6})

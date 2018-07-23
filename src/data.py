@@ -5,9 +5,12 @@ from sklearn import preprocessing, model_selection
 from PyQt5.QtWidgets import QTreeWidgetItem
 
 class Data:
+	# constructor
+	#
+	# path: 	file path of labeled data
 	def __init__(self, path):
 		self.labeled_data = pd.read_csv(path, sep=None)
-		self.unlabeled_data = None
+		self.unlabeled_data = None 		# unlabeled data is optional
 		self.labeled_name = os.path.basename(path)
 		self.labeled_num_samples = self.labeled_data.shape[0]
 
@@ -16,6 +19,7 @@ class Data:
 		num_continuous_features = 0
 		num_discrete_features = 0
 		
+		# determine feature types
 		self.individual_feature_type = dict()
 		for f in feature_names:
 			dtype = self.labeled_data.dtypes[f]
@@ -33,6 +37,7 @@ class Data:
 				num_continuous_features += 1
 				self.individual_feature_type[f] = 'continuous'
 
+		# determine global feature type
 		if num_continuous_features > 0 and num_discrete_features == 0:
 			self.global_feature_type = 'continuous'
 		elif num_continuous_features == 0 and num_discrete_features > 0:
@@ -44,6 +49,7 @@ class Data:
 		classes = list(set(label_col))
 		self.num_classes_ = len(classes)
 		
+		# count number of samples that belong to each class
 		self.class_num_samples = dict()
 		for c in classes:
 			self.class_num_samples[c] = 0
@@ -51,6 +57,8 @@ class Data:
 			self.class_num_samples[l] += 1
 
 	# add unlabeled data for prediction
+	#
+	# path: 	file path of unlabeled data
 	def add_unlabeled_data(self, path):
 		try:
 			self.unlabeled_data = pd.read_csv(path, sep=',')
@@ -105,6 +113,9 @@ class Data:
 			self.one_hot_encoded_unlabeled_data = one_hot_encoded_data[self.num_samples('labeled'): ]
 
 	# split data into training and test sets
+	#
+	# test_size: 	percent of test data
+	# stratify: 	whether or not to stratify samples
 	def split(self, test_size, stratify):
 		integer_encoded_X = self.integer_encoded_labeled_data
 		one_hot_encoded_X = self.one_hot_encoded_labeled_data
@@ -160,6 +171,7 @@ class Data:
 		labeled_samples_item.setText(0, 'labeled')
 		labeled_samples_item.setText(1, str(self.num_samples()))
 		
+		# show number of samples that belong to each class
 		class_num_samples = self.num_samples('classwise')
 		for c in class_num_samples:
 			class_samples_item = QTreeWidgetItem(labeled_samples_item)
@@ -176,6 +188,7 @@ class Data:
 		features_item.setText(0, 'Features')
 		features_item.setText(1, str(self.num_features()))
 		
+		# show type of each feature
 		feature_type = self.feature_type(option='individual')
 		for f in feature_type:
 			feature_type_item = QTreeWidgetItem(features_item)
