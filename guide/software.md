@@ -21,7 +21,7 @@ Here is what the left panel looks like before we start. In this stage, we will p
 
 ---
 
-##### Step 1: load data
+#### Step 1: load data
 
 <img align="left" width="350" src="../screenshots/load_1.png">
 
@@ -42,7 +42,7 @@ You may unfold the bullets in the summary to see more details.
 
 ---
 
-##### Step 2: split data
+#### Step 2: split data
 
 <img align="left" width="350" src="../screenshots/train_test_split.png">
 
@@ -52,12 +52,14 @@ We reserve 20% of the labeled dataset for testing.
 
 ---
 
-##### Step 3: choose a validation method
+#### Step 3: choose a validation method
 
 <img align="left" width="350" src="../screenshots/validation.png">
 
 Choose from one of the three supported validation strategies. 
 We use 5-fold cross-validation with stratified sampling.
+
+---
 
 <img align="left" width="350" src="../screenshots/p1_after.png">
 
@@ -72,7 +74,7 @@ and evaluate them based on the validation method you chose.
 
 ---
 
-##### Step 4: choose classifier type
+#### Step 4: choose classifier type
 
 <img align="left" width="350" src="../screenshots/classifier_type.png">
 
@@ -81,15 +83,17 @@ We select SVM (i.e. support vector machine).
 
 ---
 
-##### Step 5: set classifier hyperparameters and train
+#### Step 5: set classifier hyperparameters and train
 
-<img align="left" width="350" src="../screenshots/svm_params.png">
+<img align="left" width="350" src="../screenshots/svm_param.png">
 
 A list of hyperparameters for an SVM shows up.
 We first train an SVM using the default hyperparameter values.
 You may give your classifier a name and add some comment at your own discretion.
 
-<img align="left" width="350" src="../screenshots/p2_after.png">
+---
+
+<img align="left" width="350" src="../screenshots/before_train.png">
 
 Now we are ready to train the classifier. 
 If you want to start over, click on <b>Reset</b> and all values will be back to default. 
