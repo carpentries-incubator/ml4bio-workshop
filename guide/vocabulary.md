@@ -226,13 +226,20 @@ The precise meaning can often be inferred from the context.
 We construct an <b>objective function</b> (a.k.a. loss function, cost function) 
 to quantify what we mean by <i>best</i>. 
 The objective function contains a <b>loss term</b> and sometimes a <b>regularization term</b>. 
-A loss term represents the price paid for inaccuracy, 
-and is often the number of mistakes made in classification. 
-It suffices to know that a regularization term encourages generalization 
-(i.e. how well a classifier performs on unseen data).
-The <i>best</i> classifier is the one that minimizes the objective function. 
+
+<p align="center">
+<img width='300' src="../figures/cost.gif">
+</p>
+
+The loss term represents the price paid for inaccuracy, 
+and is often the number of mistakes made by the classifier. 
+It suffices to know that the regularization term encourages generalization 
+(i.e. how well a classifier performs on future data).
+The constant <img src="../figures/lambda.gif"> is 
+for adjusting the relative importance of the two terms.
+The <i>best</i> classifier is the one that minimizes the cost. 
 <i>In essence, a learning algorithm solves a minimization problem over the space of parameters.</i>
-It keeps minimizing the objective function until it <b>converges</b>, 
+It keeps minimizing the cost until it <b>converges</b>, 
 i.e. when no further improvement can be made.
 
 Finally, we note that some type of classifiers are not defined by a fixed number of parameters. 
@@ -240,6 +247,10 @@ Their structure is more flexible and depends on training data.
 Decision tree is one such example.
 However, it remains true that training is the process of 
 finding the classifier that minimizes some objective function. 
+We also point out that solving the minimization problem is often not trivial. 
+Sometimes we can find a <i>good</i> solution in the sense that 
+the cost is low compared to the adjacent solutions, 
+but it may not be the one that leads to the lowest cost.  
 
 #### Validation
 
@@ -249,7 +260,8 @@ However, we are often not satisfied with a single classifier.
 We may want to
 
 - <b>train classifiers of different types.</b> 
-For example, we trained a decision tree, but also want an SVM, hoping that it may be better suited for our data.
+For example, we trained a decision tree, but also want an SVM, 
+hoping that it may be better suited for our data.
 
 - <b>train classifiers of the same type, but with different hyperparameters</b>. 
 By tuning hyperparameters, we explore different subsets of classifiers defined by its type. 
