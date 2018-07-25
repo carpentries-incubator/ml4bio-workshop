@@ -16,7 +16,7 @@ Edit later...
 
 ### A quick tour
 
-Once you open the software, it looks as below.
+Once you open the software, you will see the following interface.
 
 <p align="center">
 <img  src="../screenshots/window.png">
@@ -229,7 +229,7 @@ The best one is a k-nearest neighbor classifier that achieves 91% accuracy on th
 Let's say we are happy about the k-nearest neighbor classifier. 
 Click on <b>Next</b> to proceed to the next page.
 However, if you want to change, say, the validation method, 
-you may click on <b>Back</b>, which will bring to the previous page. 
+you may click on <b>Back</b>, which will bring you to the previous page. 
 <i>Be careful, because all trained classfiers will be lost if you do so.</i>
 
 #### Step 6: Test a classifier

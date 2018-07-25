@@ -13,7 +13,6 @@
 
 ### A gentle introduction to machine learning
 
-`Tony: We can switch to one sentence per line.  This makes it easier to visualize the diff in git.`
 Imagine you are sitting in a botany class and your professor is teaching plant taxonomy. 
 She just described how to visually distinguish between the various families under <i>Sapindales</i> through a three-step procedure 
 that includes examining the arrangement of leaves, counting the number of sepals and checking whether fruits open at maturity. 
@@ -26,6 +25,7 @@ because you as a human can notice in a second the distinguishing features hidden
 and later apply the implicitly learned classification rules to a new example presented in the quiz.
 
 The example above demonstrates two learning approaches.
+
 - <b>Learning by remembering a procedure.</b> 
 A procedure is a set of explicit instructions on how you should navigate through a task. 
 For example, your botany professor taught you the steps you should take when you do plant classification; 
@@ -51,7 +51,7 @@ Machine learning comes to the rescue.
 At a high level, machine learning refers to a class of algorithms 
 that can discover useful knowledge from examples, or simply data, and apply the knowledge to scenarios beyond the data it has previously seen. 
 Machine learning resembles the way humans learn from examples, but a key advantage is its scalability with respect to data size and system complexity. 
-That is, it can sift through volumes of data to find complex patterns or structures.  
+That is, it can sift through volumes of data to find complex patterns or structures. 
 Depending on what type of knowledge an algorithm extracts, machine-learning algorithms can be roughly divided into two categories:
 
 - <b>Supervised learning.</b> 
@@ -92,7 +92,7 @@ ALT+ and ALT- cancer cells exhibit distinct gene expression profiles and thus re
 Researchers trained a <i>random forest</i> to classify cancer cells as ALT+ or ALT- based on telomere repeat content. 
 The algorithm extracts the sequence content that are unique to ALT+ and ALT- cells after seeing a collection of labeled examples. 
 It achieves an accuracy of over 90%, thus having potential in guiding basic research as well as clinical therapy. 
-([Lee et.al. <i>Nucleic Acid Research</i>(2018)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6007693/))
+([Lee et.al. <i>Nucleic Acid Research</i> (2018)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6007693/))
 
 - <b>Deep learning to predict epigenetic impact of noncoding variants.</b> 
 Noncoding sequences play a pivotal role in the regulation of transcription factor (TF) binding, DNA methylation and histone modification, 
@@ -101,7 +101,7 @@ Variations in noncoding regions constitute the majority of disease and other tra
 but characterizing their functional effects remains a challenge. 
 Researchers developed DeepSEA, a fully sequence-based <i>convolutional neural network</i>, for predicting the effects of noncoding variants. 
 Given a sequence with mutations, the model outputs the predicted epigenetic profiles including TF binding, DNase I sensitivity and histone marks. 
-As the researcher pointed out, DeepSEA would "help unveil the regulatory information in the vast and currently poorly understood noncoding genomic regions 
+As the researchers pointed out, DeepSEA would "help unveil the regulatory information in the vast and currently poorly understood noncoding genomic regions 
 and contribute to understanding the potential functions of complex disease or trait-associated SNPs". 
 ([Zhou et.al. <i>Nature Methods</i> (2015)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4768299/))
 
