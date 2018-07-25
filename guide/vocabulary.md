@@ -158,18 +158,14 @@ Improper use of test set may cause <b>overfitting</b>.
 In plain words, the algorithm cheated and reported overoptimistic performance. 
 We will illustrate the concept of overfitting when we practice on the software.
 
-Now we are done with the preprocessing step. 
-The key idea of Steps 2 through 4 are summarized in the figure below. 
-
-<p align="center">
-<img width="500" src="../figures/classification.png">
-</p>
-
 ### Step 2: Learning
 
-This step corresponds to the vertical axis in the figure above. 
 The central component of the learning step is learning algorithms. 
 Given a training set, a learning algorithm outputs a predictive model, which in our case is a classifier. 
+
+<p align="center">
+<img width="300" src="../figures/train.png">
+</p>
 
 We may further divide learning into three steps: training, validation and selection. 
 
@@ -324,11 +320,24 @@ because they reveal the critical features in decision-making.
 
 ### Step 3: Evaluation
 
-Given the selected classifier, now it is time for testing it. But before that, a common practice is to retrain this classifier on the combination of training and validation data. The testing procedure is the same as validation except that we now use the test set. Given the feature vectors in the test set, the classifier produces the predicted labels. Compare them with the true labels to estimate the performance of the classifier. Since the test set has never been touched before, it is reasonable to believe that the metrics on the test set are unbiased and thus are indicative of the classifier's performance on future data.
+Given the selected classifier, now it is time for testing it. 
+But before that, a common practice is to retrain this classifier 
+on the combination of training and validation data. 
+The testing procedure is the same as validation except that we now use the test set. 
+Given the feature vectors in the test set, the classifier produces the predicted labels. 
+Compare them with the true labels to estimate the performance of the classifier. 
+Since the test set has never been touched before, 
+it is reasonable to believe that the metrics on the test set are unbiased 
+and thus are indicative of the classifier's performance on future data.
 
 ### Step 4: Prediction
 
-The main purpose of ML is to generate a classifier for production. Instead of labeling new data manually, we can now let the classifier predict the labels for us.
+The main purpose of ML is to generate a classifier for production. 
+Instead of labeling new data manually, we can now let the classifier predict the labels for us.
+
+<p align="center">
+<img width="500" src="../figures/predict.png">
+</p>
 
 
 > #### Reference
