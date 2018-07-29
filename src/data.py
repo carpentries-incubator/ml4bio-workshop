@@ -9,7 +9,7 @@ class Data:
 	#
 	# path: 	file path of labeled data
 	def __init__(self, path):
-		self.labeled_data = pd.read_csv(path, sep=None)
+		self.labeled_data = pd.read_csv(path, sep=None, engine='python')
 		self.unlabeled_data = None 		# unlabeled data is optional
 		self.labeled_name = os.path.basename(path)
 		self.labeled_num_samples = self.labeled_data.shape[0]
