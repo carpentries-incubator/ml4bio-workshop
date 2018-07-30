@@ -61,7 +61,7 @@ class Data:
 	# path: 	file path of unlabeled data
 	def add_unlabeled_data(self, path):
 		try:
-			self.unlabeled_data = pd.read_csv(path, sep=',')
+			self.unlabeled_data = pd.read_csv(path, sep=None, engine='python')
 		except:
 			raise
 		
