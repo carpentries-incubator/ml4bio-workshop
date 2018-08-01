@@ -111,10 +111,10 @@ For example, if your application is cancer screening and a miss has serious cons
 then recall is more important to you compared to precision.
 `Tony: this works but let's think of a different domain, cancer screening sensitivity is a debated topic`
 On the other hand, if your application is to screen for potential gene hits
-that you will verify experimentally later,
-and the experiments are extremely expensive and time-consuming,
-then you do not want to be played by the classifier too often,
-so precision is more important than recall.
+that you will verify experimentally later
+and the validation experiments are extremely expensive and time-consuming,
+then you do not want to be misled by the classifier too often.
+Precision is more important than recall.
 
 We note that although we treated the positive class as the interesting one
 and defined metrics with respect to it,
@@ -129,34 +129,34 @@ For each class, we consider the samples that belong to this class as positive,
 and all other samples as negative.
 In this way, we can compute, say precision, with respect to each class.
 
-### Plots
+### Performance evaluation plots
 
 Instead of directly making predictions on class labels,
 many algorithms do <i>soft</i> classification
 by outputting a probability for each class given a feature vector.
 For example, suppose the task is to predict drug toxicity according to gene expression levels.
-A classifier may tell you that the probability of a drug being untoxic is 0.9,
+A classifier may tell you that the probability of a drug being nontoxic is 0.9,
 but there is still 10% chance that the drug is toxic.
 By introducing uncertainty into prediction,
-the classifier leaves room for the human user to tweek the decision threshold.
+the classifier leaves room for the human user to tweak the decision threshold.
 Notice that <i>different thresholds lead to different class predictions,
-hence change in classifier performance.</i>
+hence change the classifier performance.</i>
 Therefore, decision threshold is a hyperparameter of the classifier.
 
 A natural decision threshold is 0.5, but it does not have to be the case.
 In drug toxicity prediction, setting the threshold for calling a drug toxic to be 0.1
-provides better guarantee on the safety of drugs predicted to be untoxic.
+provides a better guarantee on the safety of drugs predicted to be nontoxic.
 
 The ideas of probability estimation and thresholding are explored
-by the two most popular performance plots, <b>ROC curves</b> and <b>precision-recall curves</b>.
-We begin by considering plotting these curves for binary classification problems,
+by the two most popular performance plots, <b>receiver operating characteristic curve (ROC) curves</b> and <b>precision-recall curves</b>.
+We begin by plotting these curves for binary classification problems
 and later briefly comment on their generalization in multi-class problems and how to pick a reasonable decision threshold according to the plots.
 
 #### ROC curves
 
 We first define two more metrics.
 
-- <b>True positive rate (TPR)</b> is literally the same as recall (or sensitivity).
+- <b>True positive rate (TPR)</b> the same as recall (or sensitivity).
 It is the percent of truly positive samples
 that are correctly predicted to be positive. Mathematically,
 
@@ -186,6 +186,8 @@ The figure below shows an example ROC curve.
 <img width="500" src="../figures/roc.png">
 </p>
 
+`Tony: having two sources for the images gives us even more reason to link each to the original source`
+
 As with the metrics, we can plot an ROC curve with respect to each class.
 We may use a micro- or macro-average ROC curve
 to quantify the average behavior of a classifier on all classes.
@@ -199,17 +201,17 @@ For simplicity, the software only plots the classwise curves and their macro-ave
 
 A few comments on ROC curves:
 
-- In a perfect sceneraio, the ROC curve will go straight up the Y axis and then along the X axis. The curve of a classifier that makes random guesses will lie on the diagonal. Generally, a curve falls somewhere in between.
+- In a perfect scenario, the ROC curve will go straight up the Y axis and then along the X axis. The curve of a classifier that makes random guesses will lie on the diagonal. Generally, a curve falls somewhere in between.
 
 - The most straightforward measure for assessing an ROC curve is to compute the area under the ROC curve (AUROC). In the plot above, the curve with respect to class 0 has the largest AUROC, thus the classifier is best at predicting class 0. The AUROC for a perfect curve is 1, while the curve of a classifier that makes random guesses has AUROC equal to 0.5. Generally, the larger AUROC is, the better the classifier is with respect to that class.
 
-- As stated above, you may want to pick a decision threshold in some application such as cancer and gene screening. ROC curves can help in such situations. Again, assume a binary classification problem. <i>The best cutoff depends on the relative costs of misclassifications.</i>
+- As stated above, you may want to pick a decision threshold in applications such as cancer and gene screening. ROC curves can help in such situations. Again, assume a binary classification problem. <i>The best cutoff depends on the relative costs of misclassifications.</i>
 
   - <b>The two classes have equal weight.</b>
   In other words, the cost of misclassifying positives and negatives are roughly equal.
   The best cutoff can be determined as follows.
   The slope of the black line is 1.
-  The desired cutoff corresponds to where the line tangents to the ROC curve.
+  The desired cutoff corresponds to where the line is tangent to the ROC curve.
 
 	<p align="center">
 	<img width="500" src="../figures/roc3.png">
@@ -217,12 +219,12 @@ A few comments on ROC curves:
 
   - <b>FN costs more than FP.</b>
   In other words, misclassifying a positive sample as negative
-  has more serious concequence than the other way around.
+  has more serious consequence than the other way around.
   Consider cancer diagnosis, where someone who has cancer is a positive sample.
   We are prepared to waste time on ten healthy patients in exchange for identifying one cancer patient.
   The best cutoff can be determined as follows.
   The slope of the black line is 0.1.
-  The desired cutoff corresponds to where the line tangents to the ROC curve.
+  The desired cutoff corresponds to where the line is tangent to the ROC curve.
 
 	<p align="center">
 	<img width="500" src="../figures/roc4.png">
@@ -232,10 +234,10 @@ A few comments on ROC curves:
   In other words, misclassifying a negative sample as positive
   has more serious consequence than the other way around.
   Consider forward gene screening, where a hit is a gene responsible for the phenotype of interest.
-  We are willing to miss ten hits in exchange for avoiding one artifect.
+  We are willing to miss ten hits in exchange for avoiding one artifact.
   The best cutoff can be determined as follows.
   The slope of the black line is 10.
-  The desired cutoff corresponds to where the line tangents to the ROC curve.
+  The desired cutoff corresponds to where the line is tangent to the ROC curve.
 
 	<p align="center">
 	<img width="500" src="../figures/roc5.png">
@@ -255,4 +257,5 @@ A few comments on ROC curves:
 > #### Further readings
 > `Tony: I like http://doi.org/10.1038/nmeth.3945 as a reference`
 
-`Tony: should we name some other metrics that may appear in the literature like Matthews correlation coefficient?  Maybe that is distracting and it is better to describe only the metrics we compute in the software.`
+`Tony: should we name some other metrics that may appear in the literature like Matthews correlation coefficient?
+That is probably too distracting and it is better to describe only the metrics we compute in the software.`
