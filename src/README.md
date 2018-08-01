@@ -18,3 +18,6 @@ The full Anaconda installation also provides all required dependencies.
 ## Running
 
 `python3 ml4bio.py` or if you installed the `ml4bio` conda environment use `python ml4bio.py`.
+
+`ml4bio_conda.bat` is a Windows batch file.
+If Anaconda and the `ml4bio` conda environment are already installed, the GUI can be launched by double-clicking the batch file.
