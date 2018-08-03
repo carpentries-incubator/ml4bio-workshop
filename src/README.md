@@ -21,5 +21,4 @@ The full Anaconda installation also provides all required dependencies.
 
 `ml4bio_conda.bat` is a Windows batch file.
 If Anaconda is already installed, the GUI can be launched by double-clicking the batch file.
-If the `ml4bio` environment does not exist, the batch file creates it.
-This requires running it with administrator privileges if Anaconda is installed to a system directory.
+If the `ml4bio` environment does not exist, the batch file creates it and installs the required Python packages.
