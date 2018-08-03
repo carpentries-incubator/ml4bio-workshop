@@ -13,7 +13,7 @@
 > 2.   Present an overview of a typical ML workflow.
 
 As discussed in a previous lesson,
-machine learning (ML) is about <i>learning</i> some properties of a dataset
+machine learning (ML) is about _learning_ some properties of a dataset
 and applying them to previously unseen data.
 In this lesson, we address what precisely learning is.
 
@@ -30,10 +30,10 @@ We start by introducing the workflow at a high level, and then dive into each st
 
 A typical ML pipeline for classification consists of four steps:
 
-- <b>Preprocessing.</b> Transform raw data into datasets that can be fed into an ML algorithm.
-- <b>Learning.</b> Train a set of classifiers using the training set and select the best one.
-- <b>Evaluation.</b> Evaluate the best classifier on the test set.
-- <b>Prediction.</b> Apply the classifier to produce labels for new data.
+- **Preprocessing.** Transform raw data into datasets that can be fed into an ML algorithm.
+- **Learning.** Train a set of classifiers using the training set and select the best one.
+- **Evaluation.** Evaluate the best classifier on the test set.
+- **Prediction.** Apply the classifier to produce labels for new data.
 
 It is completely fine if some of the terms are unfamiliar to you.
 We will encounter them again when we discuss each step in depth.
@@ -57,12 +57,15 @@ Hence, they should be removed prior to learning.
 For example, RNA-seq data contains values for thousands of genes,
 and most of them are not differentially expressed across conditions.
 
+- Measurements are affected by many technical sources of variation 
+including instruments, reagents, protocols and experimenters 
+that vary from experiment to experiment.
+Such confounding factors, collectively known as batch effects, can complicate data analysis.
+
 - Data is often a mixture of textual strings and numerical values.
 Many algorithms can only handle numerical features.
 Even if the features are all numerical, they may live in vastly different scales,
 which has a huge (and often negative) impact on the performance of some algorithms.
-
-`Tony: should we include technical batch effects?`
 
 Data preprocessing for ML is a robust research area.
 Techniques for addressing the issues above include, but are not limited to,
@@ -85,19 +88,19 @@ A dataset can be regarded as a table, where a row corresponds to a sample
 and a column, except for the last one, corresponds to a feature.
 The last column contains labels and is usually called the label column.
 
-- A <b>sample</b> is a data point. It is comprised of a <b>feature vector</b> and a label.
+- A **sample** is a data point. It is comprised of a **feature vector** and a label.
 The samples are assumed to be independently drawn from an underlying distribution, or a population.
 The iris dataset contains 150 samples.
 In the first sample, the feature vector is [5.1, 3.5, 1.4, 0.2], and the label is Setosa.
 
-- A <b>feature</b> captures one aspect of the population.
+- A **feature** captures one aspect of the population.
 It can be real-valued as in the iris dataset.
 In other cases, a feature may be integer- or string-valued.
 There are four features in the iris dataset,
 namely sepal length, sepal width, petal length and petal width.
 
-- A <b>label</b> is the property we want to predict from the features.
-For classification tasks, a label takes a value from a finite (and typically small) set of <b>classes</b>.
+- A **label** is the property we want to predict from the features.
+For classification tasks, a label takes a value from a finite (and typically small) set of **classes**.
 Each sample in the iris dataset belongs to one of the three classes,
 namely Setota, Versicolor and Virginica.
 
@@ -109,30 +112,29 @@ Labels, classes and targets may be used interchangeably.
 #### Data encoding
 
 When some features are categorical (i.e. have string values),
-it is often necessary to <b>encode</b> data using one of the following techniques
+it is often necessary to **encode** data using one of the following techniques
 such that it can be understood by algorithms that only deal with numerical values.
 
-- <b>Integer encoding.</b>
+- **Integer encoding.**
 Feature values are replaced by integers.
 The same value is mapped to the same integer.
-For example, if blood pressure is a feature that has values <i>low</i>, <i>medium</i> and <i>high</i>,
-one possibility is to map <i>low</i> to <i>0</i>, <i>medium</i> to <i>1</i>,
-and <i>high</i> to <i>2</i>.
+For example, if blood pressure is a feature that has values _low_, _medium_ and _high_,
+one possibility is to map _low_ to _0_, _medium_ to _1_, and _high_ to _2_.
 Notice the mapping makes sense because it preserves the natural ordering.
 Integer encoding is used when there exists intrinsic ordering in feature values
 and you want to preserve it in the encoded values.
 If the original values are not ordinal,
 integer encoding is only appropriate for classification algorithms that are insensitive to ordering.
 
-- <b>One-hot encoding.</b>
+- **One-hot encoding.**
 Feature values are transformed into indicator vectors.
 An indicator vector has all but one entries equal to 0.
 The remaining entry equals 1.
 In this way, we create new features, each of which corresponds to one original feature value.
 In the same blood pressure example, one-hot encoding turns this feature into three new features
 corresponding to low, medium and high pressure, respectively.
-If a value is originally <i>low</i>, it gets transformed into the indicator vector [1, 0, 0].
-Similarly, <i>medium</i> gets [0, 1, 0], and <i>high</i> gets [0, 0, 1].
+If a value is originally _low_, it gets transformed into the indicator vector [1, 0, 0].
+Similarly, _medium_ gets [0, 1, 0], and _high_ gets [0, 0, 1].
 One-hot encoding does not introduce arbitrary ordering,
 but may cause loss of information when there is indeed some ordering in the original feature.
 
@@ -146,7 +148,7 @@ that encoding is an important step in preprocessing and makes a real impact in s
 
 Assume we have a dataset that is compatible with most classification algorithms.
 Before getting into the learning step, we split this dataset into two subsets,
-one for <b>training</b> and the other for <b>testing</b>.
+one for **training** and the other for **testing**.
 In practice, people reserve 20% to 30% of the full dataset for testing.
 
 <p align="center">
@@ -155,9 +157,10 @@ In practice, people reserve 20% to 30% of the full dataset for testing.
 
 The training set is used in the process of obtaining a classifier.
 The classifier is then evaluated on the test set
-so that an <i>unbiased</i> estimate of accuracy and other performance metrics are computed.
-The test set should be completely hidden from the learning algorithm until it is time for evaluation and only used for evaluation one time.
-Improper use of test set may cause <b>overfitting</b>.
+so that an _unbiased_ estimate of accuracy and other performance metrics are computed.
+The test set should be completely hidden from the learning algorithm 
+until it is time for evaluation and only used for evaluation one time.
+Improper use of test set may cause **overfitting**.
 In plain words, the algorithm cheated and reported overoptimistic performance.
 We will illustrate the concept of overfitting when we practice on the software.
 
@@ -174,7 +177,7 @@ We may further divide learning into three steps: training, validation and select
 
 #### Training
 
-We start from an example of <b>training</b>.
+We start from an example of **training**.
 Suppose there is a collection of labeled samples in a two-dimensional space,
 and we want to find a straight line that separates the positive samples from the negative samples.
 The problem setting is illustrated in the left figure.
@@ -193,43 +196,38 @@ They have the form
 <img src="../figures/equation.gif">
 </p>
 
-where <img src="../figures/x1.gif"> and <img src="../figures/x2.gif"> are features,
-and <img src="../figures/a.gif"> and <img src="../figures/b.gif"> are <b>parameters</b>.
+where ![](../figures/x1.gif) and ![](../figures/x2.gif) are features,
+and ![](../figures/a.gif) and ![](../figures/b.gif) are **parameters**.
 Any straight line classifier is uniquely determined by the two parameters.
-Intuitively, the <i>best</i> line separates all negative samples from all positive samples.
+Intuitively, the _best_ line separates all negative samples from all positive samples.
 Fortunately, there exist many such lines, and one of them is shown in the right figure.
-Finding a <i>best</i> line is equivalent to finding the parameters that define it.
-A learning algorithm attempts to find a <i>best</i> line through parameter search.
+Finding a _best_ line is equivalent to finding the parameters that define it.
+A learning algorithm attempts to find a _best_ line through parameter search.
 For each set of parameters, it checks how many mistakes the corresponding classifier makes.
 It stops when all samples are classified correctly, and reports the current classifier as the best one.
 
 In practice, most types of classifiers are more complex than straight lines.
-Many of them have <b>hyperparameters</b>,
-which are different from parameters in that they are tuned by human users, not learned from labeled examples.
+Many of them have **hyperparameters**, which are different from parameters 
+in that they are tuned by human users, not learned from labeled examples.
 In general, training takes three steps:
 
-- <b>Choose classifier type.</b>
+- **Choose classifier type.**
 This restricts us to a specific set of classifiers in the universe of all possible classifiers.
 In the example above, we are interested in straight lines, a set of linear classifiers.
 Random forests, neural networks, SVMs, etc. that we will cover later are all popular types of classifiers.
 
-- <b>Set hyperparameters</b> (if applicable).
+- **Set hyperparameters** (if applicable).
 This further restricts us to a subset of the set of classifiers determined in the previous step.
 The straight lines, given its simplicity, have no hyperparameters.
 Number of trees in a random forest, number of hidden nodes in a neural network
 and type of kernel in an SVM are all tunable hyperparameters.
 
-- <b>Apply a learning algorithm.</b>
-The algorithm searches for the <i>best</i> classifier within the subset determined in the previous step.
-It is worth noting that people usually do not distinguish between
-a learning algorithm and the classifier it produces.
-For example, decision tree can either mean the algorithm for building a tree or the tree itself.
-`Tony: I'm not sure about this distinction between classifiers and learning algorithms.  For this audience that is true, but ML specialists do make this distinction.  Maybe the point is that sometimes the name (e.g. decision tree) is informally used to refer to both.`
-The precise meaning can often be inferred from the context.
+- **Apply a learning algorithm.**
+The algorithm searches for the _best_ classifier within the subset determined in the previous step.
 
-We construct an <b>objective function</b> (a.k.a. loss function or cost function)
-to quantify what we mean by <i>best</i>.
-The objective function contains a <b>loss term</b> and sometimes a <b>regularization term</b>.
+We construct an **objective function** (a.k.a. loss function or cost function)
+to quantify what we mean by _best_.
+The objective function contains a **loss term** and sometimes a **regularization term**.
 
 <p align="center">
 <img width='300' src="../figures/cost.gif">
@@ -239,24 +237,33 @@ The loss term represents the price paid for inaccuracy,
 and is often the number of mistakes made by the classifier.
 It suffices to know that the regularization term combats overfitting and encourages generalization
 (i.e. how well a classifier performs on future data).
-The constant <img src="../figures/lambda.gif"> is
+The constant ![](../figures/lambda.gif) is
 for adjusting the relative importance of the two terms.
-The <i>best</i> classifier is the one that minimizes the cost.
-<i>In essence, a learning algorithm solves a minimization problem over the space of parameters.</i>
-It keeps minimizing the cost until it <b>converges</b>,
-i.e. when no further improvement can be made.
+The _best_ classifier is the one that minimizes the cost.
+_In essence, a learning algorithm solves a minimization problem over the space of parameters._
+It minimizing the cost iteratively until it **converges**, i.e. when no further improvement can be made.
 
-`Tony: do we need an intuitive high-level example of one learning algorithm, such as stochastic gradient descent?`
+As an example, here is how graident descent, a commonly used learning algorithm, 
+solves a (trivial) minimization problem.
+The parameter space is the 2D X-Y plane, and the Z-axis represents objective function value.
+In 3D, the objective function is a parabola.
+The function value is one step closer to the minimum after each iteration of the algorithm.
+
+<p align="center">
+<img width='500' src="../figures/gd.gif">
+</p>
+
+(Image source: [Gradient Descent in a Nutshell](https://towardsdatascience.com/gradient-descent-in-a-nutshell-eaf8c18212f0))
 
 Finally, we note that some type of classifiers are not defined by a fixed number of parameters.
 Their structure is more flexible and depends on training data.
 A decision tree is one such example.
 However, it remains true that training is the process of
 finding the classifier that minimizes some objective function.
-We also point out that solving the minimization problem is often not trivial.
-Sometimes we can find a <i>good</i> solution in the sense that
+We also point out that minimizing an objective function is often not trivial as in the example above.
+Sometimes we can find a _good_ solution in the sense that
 the cost is low compared to the adjacent solutions,
-but it may not be the one that leads to the lowest cost.  
+but it may not be the one that leads to the lowest cost.
 
 #### Validation
 
@@ -265,10 +272,11 @@ If that is all we want, we will proceed to the evaluation step.
 However, we are often not satisfied with a single classifier.
 We may want to
 
-- <b>train classifiers of different types.</b>
-For example, we trained a decision tree, but also want an SVM to assess whether it may be better suited for our data.
+- **train classifiers of different types.**
+For example, we trained a decision tree, 
+but also want an SVM to assess whether it may be better suited for our data.
 
-- <b>train classifiers of the same type, but with different hyperparameters</b>.
+- **train classifiers of the same type, but with different hyperparameters**.
 By tuning hyperparameters, we explore different subsets of classifiers defined by its type.
 For example, a neural network with ten hidden units supports richer structure
 compared to one with only two hidden units.
@@ -277,7 +285,7 @@ In order to compare multiple classifiers with respect to different types or hype
 we need some data that has not been used for training.
 The test set sounds like a good option, but we are not ready for it yet.
 If we were to use the test data, we would not be able to evaluate the classifier we eventually select.
-The basic solution is to allocate a small portion of the training set as the <b>validation set</b>.
+The basic solution is to allocate a small portion of the training set as the **validation set**.
 The figure below illustrates the idea.
 
 <p align="center">
@@ -287,29 +295,36 @@ The figure below illustrates the idea.
 Validation is the same as evaluation except that it is performed on the validation set, not the test set.
 The classifiers take feature vectors in the validation set as input and output predicted labels.
 An estimate of accuracy is computed by comparing the predicted and true labels.
-There are other commonly used performance metrics besides accuracy, but we postpone the discussion until a subsequent lesson.
+There are other commonly used performance metrics besides accuracy, 
+but we postpone the discussion until a subsequent lesson.
 
 There are three popular validation methods:
 
-- <b>Holdout validation.</b>
+- **Holdout validation.**
 This scheme is shown in the figure above.
 We hold out a small fraction of the initial training data as our validation set.
 The rest of the training data becomes the actual training set.
 Classifiers are trained on the new training set and validated on the validation set.
+Holdout validation is computationally cheap, 
+but the number of samples used for learning is drastically reduced, 
+and the random nature of the split results in high variance in the performance estimates.
 
-- <b>K-fold cross-validation.</b>
-The initial training set is divided into k subsets or <b>folds</b>.
-We iterate through all folds, use the current fold as the validation set and the remaining k-1 folds as the training set.
+- **K-fold cross-validation.**
+The initial training set is divided into k subsets or **folds**.
+We iterate through all folds, use the current fold as the validation set 
+and the remaining k-1 folds as the training set.
 We average over the metrics on each fold to form overall metrics.
 This is summarized in the figure below.
-K-fold cross validation makes more efficient use of data.
-`Tony: explain "efficient"`
+K-fold cross validation is computational expensive, but its advantage is that
+all samples are used for both training and validation,
+and each sample is used for validation exactly once.
+Furthermore, the averaged metrics have reduced variance and hence are more informative.
 
 <p align="center">
 <img width='500' src="../figures/cv.png">
 </p>
 
-- <b>Leave-one-out validation.</b>
+- **Leave-one-out validation.**
 This is a special case of K-fold cross validation, where k equals the number of samples.
 Each time, all but one samples are use for training and the remaining sample is for validation.
 Leave-one-out validation is often used when data size is small.
@@ -322,19 +337,19 @@ The purpose of validation is to produce unbiased, comparable metrics for model s
 Now, we can set up our own criteria for selecting a final classifier.
 We may take the following measures into account.
 
-- <b>Performance.</b>
+- **Performance.**
 For example, we may select the classifier with the highest accuracy.
 Other metrics exist and will be introduced later.
 
-- <b>Complexity.</b>
+- **Complexity.**
 For two classifiers that exhibit comparable performance, we may prefer the one with simpler structure.
 This is because overcomplicated classifiers are more vulnerable to overfitting.
 This is especially true for high-dimensional data.
 
-- <b>Interpretability.</b>
+- **Interpretability.**
 In many biological applications, we care about understanding the system.
-Some classifiers, such as decision trees or logistic regression classifiers, are more informative than others
-because they reveal the critical features in decision-making.
+Some classifiers, such as decision trees or logistic regression classifiers, 
+are more informative than others because they reveal the critical features in decision-making.
 
 ### Step 3: Evaluation
 
@@ -360,10 +375,11 @@ Instead of labeling new data manually, we can now let the classifier predict the
 
 > #### Reference
 >
-> All images in this lesson are adapted from [Raschka, Sebastian, and Vahid Mirjalili. Python Machine Learning, 2nd Ed. Packt Publishing, 2017.](https://github.com/rasbt/python-machine-learning-book-2nd-edition)
+> Unless otherwise noted, images in this lesson are adapted from [Raschka, Sebastian, and Vahid Mirjalili. Python Machine Learning, 2nd Ed. Packt Publishing, 2017.](https://github.com/rasbt/python-machine-learning-book-2nd-edition)
 >
 > #### Further readings
 >
 > 1.   We scratched the surface of data preprocessing. Here are some tutorials on this topic. [Feature selection](http://scikit-learn.org/stable/modules/feature_selection.html#feature-selection), [Preprocessing](http://scikit-learn.org/stable/modules/preprocessing.html), [Dimentionality reduction](http://scikit-learn.org/stable/modules/unsupervised_reduction.html)
 > 2.   Feature engineering is very problem specific. Unfortunately, there is no comprehensive review on this topic. Here are some recent papers on feature engineering in selected domains. [Epigenomics](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4402699/), [Proteomics](https://academic.oup.com/bioinformatics/article/31/21/3429/194375), [Microbiomes](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-018-2205-3)
 > 3.	A [cheatsheet](http://scikit-learn.org/stable/tutorial/machine_learning_map/index.html) on choosing the right ML models for your data.
+> 4. 	A light introduction to [gradient descent algorithm and its variants](https://towardsdatascience.com/gradient-descent-algorithm-and-its-variants-10f652806a3).
