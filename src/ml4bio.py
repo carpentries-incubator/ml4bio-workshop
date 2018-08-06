@@ -1,4 +1,4 @@
-import os, sys, warnings
+import os, sys, warnings, webbrowser
 import pandas as pd
 from pandas import errors
 import numpy as np
@@ -23,6 +23,16 @@ class App(QMainWindow):
         self.leftPanel = QStackedWidget(self)
         self.rightPanel = QGroupBox(self)
         self.initUI()
+
+    # return a page title
+    def page_title(self, str, parent):
+        label = QLabel(str, parent)
+        font = QFont()
+        font.setPointSize(13)
+        font.setBold(True)
+        label.setFont(font)
+        label.setAlignment(Qt.AlignCenter)
+        return label
 
     # return a title
     def title(self, str, parent):
@@ -209,11 +219,13 @@ class App(QMainWindow):
         # discrete features: use multinomial NB
         if self.data.feature_type() == 'discrete':
             self.nbDistributionLabel.setText('multinomial')
+            self.nbDoc.setText("<a href=\"http://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.MultinomialNB.html\">Documentation</a>")
         # continuous features: use gaussian NB
         elif self.data.feature_type() == 'continuous':
             self.nbDistributionLabel.setText('gaussian')
             self.nbAddSmoothDoubleSpinBox.setDisabled(True)
             self.nbFitPriorCheckBox.setDisabled(True)
+            self.nbDoc.setText("<a href=\"http://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.GaussianNB.html\">Documentation</a>")
         # mixed features: DO NOT use NB
         else:
             self.classTypeListView.setRowHidden(7, True)
@@ -320,6 +332,7 @@ class App(QMainWindow):
             self.dataPlotRadioButton.setDisabled(True)
             self.confusionMatrixRadioButton.setChecked(True)
             self.leftPanel.setCurrentIndex(0)
+            Model.clear()
         elif option == 'test':
             self.selected_model = None
             self.bestPerformRadioButton.setChecked(True)
@@ -1024,6 +1037,12 @@ class App(QMainWindow):
         self.dataPage = QWidget()
         self.openIcon = QIcon('icons/open.png')
         self.dataPageLayout = QVBoxLayout(self.dataPage)
+        self.dataPageTitle = self.page_title('Step 1: Select Data', self.dataPage)
+        self.dataPageLayout.addWidget(self.dataPageTitle)
+        self.dataPageLine = QFrame(self.dataPage)
+        self.dataPageLine.setFrameShape(QFrame.HLine)
+        self.dataPageLine.setFrameShadow(QFrame.Sunken)
+        self.dataPageLayout.addWidget(self.dataPageLine)
 
         ### load labeled data
         self.labeledDataLabel = self.title('Labeled Data (.csv):', self.dataPage)
@@ -1172,6 +1191,12 @@ class App(QMainWindow):
 
         self.modelPage = QWidget()
         self.modelPageLayout = QVBoxLayout(self.modelPage)
+        self.modelPageTitle = self.page_title('Step 2: Train Classifiers', self.modelPage)
+        self.modelPageLayout.addWidget(self.modelPageTitle)
+        self.modelPageLine = QFrame(self.modelPage)
+        self.modelPageLine.setFrameShape(QFrame.HLine)
+        self.modelPageLine.setFrameShadow(QFrame.Sunken)
+        self.modelPageLayout.addWidget(self.modelPageLine)
 
         ### classifier type
         self.classTypeLabel = self.title('Classifier Type:', self.modelPage)
@@ -1210,6 +1235,10 @@ class App(QMainWindow):
         self.dtClassWeightComboBox.addItem('uniform')
         self.dtClassWeightComboBox.addItem('balanced')
 
+        self.dtDoc = QLabel("<a href=\"http://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html\">Documentation</a>")
+        self.dtDoc.setAlignment(Qt.AlignRight)
+        self.dtDoc.setOpenExternalLinks(True)
+
         # layout
         self.dtLayout = QFormLayout()
         self.dtLayout.addRow('criterion:', self.dtCriterionComboBox)
@@ -1220,6 +1249,10 @@ class App(QMainWindow):
 
         self.dtPageLayout = QVBoxLayout(self.dtPage)
         self.dtPageLayout.addLayout(self.dtLayout)
+
+        self.dtSpacer = QSpacerItem(40, 20, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        self.dtPageLayout.addItem(self.dtSpacer)
+        self.dtPageLayout.addWidget(self.dtDoc)
 
         ## Random forest
         self.rfIcon = QIcon('icons/rf.png')
@@ -1245,6 +1278,10 @@ class App(QMainWindow):
         self.rfClassWeightComboBox.addItem('uniform')
         self.rfClassWeightComboBox.addItem('balanced')
 
+        self.rfDoc = QLabel("<a href=\"http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html\">Documentation</a>")
+        self.rfDoc.setAlignment(Qt.AlignRight)
+        self.rfDoc.setOpenExternalLinks(True)
+
         # layout
         self.rfLayout = QFormLayout()
         self.rfLayout.addRow('criterion:', self.rfCriterionComboBox)
@@ -1258,6 +1295,10 @@ class App(QMainWindow):
 
         self.rfPageLayout = QVBoxLayout(self.rfPage)
         self.rfPageLayout.addLayout(self.rfLayout)
+
+        self.rfSpacer = QSpacerItem(40, 20, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        self.rfPageLayout.addItem(self.rfSpacer)
+        self.rfPageLayout.addWidget(self.rfDoc)
 
         ## K-nearest neighbors
         self.knnIcon = QIcon('icons/knn.png')
@@ -1276,6 +1317,12 @@ class App(QMainWindow):
         self.knnMetricComboBox.addItem('manhattan') # DO NOT change order
         self.knnMetricComboBox.addItem('hamming')   #
 
+        
+
+        self.knnDoc = QLabel("<a href=\"http://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html\">Documentation</a>")
+        self.knnDoc.setAlignment(Qt.AlignRight)
+        self.knnDoc.setOpenExternalLinks(True)
+
         # layout
         self.knnLayout = QFormLayout()
         self.knnLayout.addRow('n_neighbors:', self.knnNumNeighborsSpinBox)
@@ -1284,6 +1331,10 @@ class App(QMainWindow):
 
         self.knnPageLayout = QVBoxLayout(self.knnPage)
         self.knnPageLayout.addLayout(self.knnLayout)
+
+        self.knnSpacer = QSpacerItem(40, 20, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        self.knnPageLayout.addItem(self.knnSpacer)
+        self.knnPageLayout.addWidget(self.knnDoc)
 
         ## Logistic regression
         self.lrIcon = QIcon('icons/lr.png')
@@ -1322,6 +1373,10 @@ class App(QMainWindow):
         self.lrMaxIterLabel.setMinimumWidth(60)
         self.lrMaxIterLineEdit = QLineEdit('100', self.lrPage)
 
+        self.lrDoc = QLabel("<a href=\"http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html\">Documentation</a>")
+        self.lrDoc.setAlignment(Qt.AlignRight)
+        self.lrDoc.setOpenExternalLinks(True)
+
         # layout
         self.lrLayout = QFormLayout()
         self.lrLayout.addRow('penalty_type:', self.lrRegularizationComboBox)
@@ -1345,6 +1400,8 @@ class App(QMainWindow):
         self.lrPageLayout.addItem(self.lrSpacer)
         self.lrPageLayout.addWidget(self.lrStopLabel)
         self.lrPageLayout.addLayout(self.lrStopLayout)
+
+        self.lrPageLayout.addWidget(self.lrDoc)
 
         ## Neural Network
         self.nnIcon = QIcon('icons/nn.png')
@@ -1380,6 +1437,10 @@ class App(QMainWindow):
         self.nnMaxIterLabel.setMinimumWidth(60)
         self.nnMaxIterLineEdit = QLineEdit('200', self.nnPage)
 
+        self.nnDoc = QLabel("<a href=\"http://scikit-learn.org/stable/modules/generated/sklearn.neural_network.MLPClassifier.html\">Documentation</a>")
+        self.nnDoc.setAlignment(Qt.AlignRight)
+        self.nnDoc.setOpenExternalLinks(True)
+
         # layout
         self.nnLayout = QFormLayout()
         self.nnLayout.addRow('num_hidden_units:', self.nnNumHiddenUnitsSpinBox)
@@ -1404,6 +1465,8 @@ class App(QMainWindow):
         self.nnPageLayout.addItem(self.nnSpacer)
         self.nnPageLayout.addWidget(self.nnStopLabel)
         self.nnPageLayout.addLayout(self.nnStopLayout)
+
+        self.nnPageLayout.addWidget(self.nnDoc)
 
         ## SVM
         self.svmIcon = QIcon('icons/svm.png')
@@ -1434,6 +1497,10 @@ class App(QMainWindow):
         self.svmMaxIterLabel.setMinimumWidth(60)
         self.svmMaxIterLineEdit = QLineEdit('200', self.svmPage)
 
+        self.svmDoc = QLabel("<a href=\"http://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html\">Documentation</a>")
+        self.svmDoc.setAlignment(Qt.AlignRight)
+        self.svmDoc.setOpenExternalLinks(True)
+
         # layout
         self.svmLayout = QFormLayout()
         self.svmLayout.addRow('penalty:', self.svmPenaltyLineEdit)
@@ -1457,6 +1524,8 @@ class App(QMainWindow):
         self.svmPageLayout.addWidget(self.svmStopLabel)
         self.svmPageLayout.addLayout(self.svmStopLayout)
 
+        self.svmPageLayout.addWidget(self.svmDoc)
+
         ## Naive bayes
         self.nbIcon = QIcon('icons/nb.png')
         self.classTypeComboBox.addItem(self.nbIcon, 'Naive Bayes')
@@ -1470,6 +1539,10 @@ class App(QMainWindow):
         self.nbFitPriorCheckBox.setChecked(True)
         self.nbClassPriorLineEdit = QLineEdit('None', self.nbPage)
 
+        self.nbDoc = QLabel("<a href=\"http://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.GaussianNB.html\">Documentation</a>")
+        self.nbDoc.setAlignment(Qt.AlignRight)
+        self.nbDoc.setOpenExternalLinks(True)
+
         # layout
         self.nbLayout = QFormLayout()
         self.nbLayout.addRow('distributon:', self.nbDistributionLabel)
@@ -1482,6 +1555,8 @@ class App(QMainWindow):
         self.nbPageLayout = QVBoxLayout(self.nbPage)
         self.nbPageLayout.addLayout(self.nbLayout)
         self.nbPageLayout.addItem(self.nbSpacer)
+
+        self.nbPageLayout.addWidget(self.nbDoc)
 
         ### classifier name
         self.classNameLabel = self.title('Classifier Name:', self.modelPage)
@@ -1510,8 +1585,10 @@ class App(QMainWindow):
         self.classTrainPushButton.setMinimumWidth(90)
         self.classTrainPushButton.setDefault(True)
         self.classTrainPushButton.setDisabled(True)
+        self.trainStatusLabel = QLabel()
 
         self.classResetTrainLayout = QHBoxLayout()
+        self.classResetTrainLayout.addWidget(self.trainStatusLabel)
         self.classResetTrainLayout.addItem(self.classResetTrainSpacer)
         self.classResetTrainLayout.addWidget(self.classResetPushButton)
         self.classResetTrainLayout.addWidget(self.classTrainPushButton)
@@ -1567,6 +1644,12 @@ class App(QMainWindow):
         ########## 3rd page: model selection and testing ##########
         self.testPage = QWidget()
         self.testPageLayout = QVBoxLayout(self.testPage)
+        self.testPageTitle = self.page_title('Step 3: Test and Predict', self.testPage)
+        self.testPageLayout.addWidget(self.testPageTitle)
+        self.testPageLine = QFrame(self.testPage)
+        self.testPageLine.setFrameShape(QFrame.HLine)
+        self.testPageLine.setFrameShadow(QFrame.Sunken)
+        self.testPageLayout.addWidget(self.testPageLine)
 
         ### classifier selection
         self.classSelectLabel = self.title('Classifier Selection:', self.testPage)

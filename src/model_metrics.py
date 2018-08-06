@@ -31,7 +31,7 @@ class ModelMetrics:
 		auprc = dict()
 
 		if option in ['holdout', 'loo']:
-			self.accuracy_ = np.around(metrics.accuracy_score(y, y_pred), decimals=2)
+			self.accuracy_ = np.around(metrics.accuracy_score(y, y_pred), decimals=3)
 			class_precision = metrics.precision_score(y, y_pred, average=None)
 			class_recall = metrics.recall_score(y, y_pred, average=None)
 			class_f1 = metrics.f1_score(y, y_pred, average=None)
@@ -39,12 +39,12 @@ class ModelMetrics:
 
 			for i in range(0, num_classes):
 				fpr[i], tpr[i], _ = metrics.roc_curve(y, y_prob[:, i], pos_label=labels[i])
-				auroc[labels[i]] = np.around(metrics.auc(fpr[i], tpr[i]), decimals=2)
+				auroc[labels[i]] = np.around(metrics.auc(fpr[i], tpr[i]), decimals=3)
 
 				precision[i], recall[i], _ = metrics.precision_recall_curve(y, y_prob[:, i], pos_label=labels[i])
 				precision[i] = np.flip(precision[i], 0)
 				recall[i] = np.flip(recall[i], 0)
-				auprc[labels[i]] = np.around(metrics.auc(recall[i], precision[i]), decimals=2)
+				auprc[labels[i]] = np.around(metrics.auc(recall[i], precision[i]), decimals=3)
 
 		elif option == 'cv':
 			k = len(y)
@@ -63,7 +63,7 @@ class ModelMetrics:
 				confusion_matrix += metrics.confusion_matrix(y_i, y_pred_i)
 
 			# classwise metrics average over all folds
-			self.accuracy_ = np.around(accuracy / k, decimals=2)
+			self.accuracy_ = np.around(accuracy / k, decimals=3)
 			class_precision = class_precision / k
 			class_recall = class_recall / k
 			class_f1 = class_f1 / k
@@ -90,20 +90,20 @@ class ModelMetrics:
 				
 				tpr[i] /= k
 				precision[i] /= k
-				auroc[labels[i]] = np.around(metrics.auc(fpr[i], tpr[i]), decimals=2)
-				auprc[labels[i]] = np.around(metrics.auc(recall[i], precision[i]), decimals=2)
+				auroc[labels[i]] = np.around(metrics.auc(fpr[i], tpr[i]), decimals=3)
+				auprc[labels[i]] = np.around(metrics.auc(recall[i], precision[i]), decimals=3)
 
 		# metrics averaged over all classes
-		self.avg_precision_ = np.around(np.mean(class_precision), decimals=2)
-		self.avg_recall_ = np.around(np.mean(class_recall), decimals=2)
-		self.avg_f1_ = np.around(np.mean(class_f1), decimals=2)
+		self.avg_precision_ = np.around(np.mean(class_precision), decimals=3)
+		self.avg_recall_ = np.around(np.mean(class_recall), decimals=3)
+		self.avg_f1_ = np.around(np.mean(class_f1), decimals=3)
 
-		self.class_precision_ = dict(zip(labels, np.around(class_precision, decimals=2)))
-		self.class_recall_ = dict(zip(labels, np.around(class_recall, decimals=2)))
-		self.class_f1_ = dict(zip(labels, np.around(class_f1, decimals=2)))
+		self.class_precision_ = dict(zip(labels, np.around(class_precision, decimals=3)))
+		self.class_recall_ = dict(zip(labels, np.around(class_recall, decimals=3)))
+		self.class_f1_ = dict(zip(labels, np.around(class_f1, decimals=3)))
 
 		confusion_matrix = confusion_matrix / np.sum(confusion_matrix, axis=1)
-		self.confusion_matrix_ = np.around(confusion_matrix, decimals=2)
+		self.confusion_matrix_ = np.around(confusion_matrix, decimals=3)
 		
 		all_fpr = np.unique(np.concatenate([fpr[i] for i in range(0, num_classes)]))
 		all_recall = np.unique(np.concatenate([recall[i] for i in range(0, num_classes)]))
@@ -119,11 +119,11 @@ class ModelMetrics:
 
 		fpr['avg'] = all_fpr
 		tpr['avg'] = mean_tpr
-		self.avg_auroc_ = np.around(metrics.auc(fpr['avg'], tpr['avg']), decimals=2)
+		self.avg_auroc_ = np.around(metrics.auc(fpr['avg'], tpr['avg']), decimals=3)
 
 		precision['avg'] = mean_precision
 		recall['avg'] = all_recall
-		self.avg_auprc_ = np.around(metrics.auc(recall['avg'], precision['avg']), decimals=2)
+		self.avg_auprc_ = np.around(metrics.auc(recall['avg'], precision['avg']), decimals=3)
 
 		self.fpr_ = fpr
 		self.tpr_ = tpr
@@ -217,7 +217,7 @@ class ModelMetrics:
 		labels = self.labels_
 		num_classes = self.num_classes_
 
-		rcParams.update({'font.size': 6})
+		rcParams.update({'font.size': 7})
 		canvas.figure.clear()
 		ax = canvas.figure.subplots()
 
@@ -250,7 +250,7 @@ class ModelMetrics:
 		labels = self.labels_
 		num_classes = self.num_classes_
 
-		rcParams.update({'font.size': 6})
+		rcParams.update({'font.size': 7})
 		canvas.figure.clear()
 		ax = canvas.figure.subplots()
 
@@ -290,7 +290,7 @@ class ModelMetrics:
 		num_classes = self.num_classes_
 		cm = self.confusion_matrix_
 
-		rcParams.update({'font.size': 6})
+		rcParams.update({'font.size': 7})
 		canvas.figure.clear()
 		ax = canvas.figure.subplots()
 		tick_marks = np.arange(num_classes)

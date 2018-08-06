@@ -273,7 +273,7 @@ class Model:
 		d2_min, d2_max = d2.min() - d2_slack, d2.max() + d2_slack	# y-axis range
 		md1, md2 = np.meshgrid(np.arange(d1_min, d1_max, 0.01), np.arange(d2_min, d2_max, 0.01))
 
-		rcParams.update({'font.size': 6})
+		rcParams.update({'font.size': 7})
 		canvas.figure.clear()
 		ax = canvas.figure.subplots()
 		Z = classifier.predict_proba(np.c_[md1.ravel(), md2.ravel()])[:, 1]
@@ -288,6 +288,9 @@ class Model:
 
 		canvas.figure.tight_layout()
 		canvas.draw()
+
+	def clear():
+		Model.counter = 0
 
 class DecisionTree(Model):
 	def __init__(self, classifier, X, y, val_method, val_size, k, stratify):
