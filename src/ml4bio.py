@@ -5,7 +5,8 @@ import numpy as np
 from sklearn import tree, ensemble, neighbors, linear_model, neural_network, svm, naive_bayes, exceptions
 from matplotlib.backends.backend_qt5agg import FigureCanvas
 from matplotlib.figure import Figure
-from PyQt5.QtCore import QSize, Qt
+from PyQt5 import QtCore
+from PyQt5.QtCore import QSize, Qt, QThread
 from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QFileDialog, QMessageBox
 from PyQt5.QtWidgets import QPushButton, QRadioButton
 from PyQt5.QtWidgets import QComboBox, QSpinBox, QDoubleSpinBox, QCheckBox, QLineEdit, QTextEdit, QLabel
@@ -16,6 +17,32 @@ from PyQt5.QtGui import QFont, QIcon, QPixmap
 from data import Data
 from model import Model, DecisionTree, RandomForest, KNearestNeighbors, LogisticRegression, NeuralNetwork, SVM, NaiveBayes
 from model_metrics import ModelMetrics
+
+class Training_thread(QThread):
+    finished = QtCore.pyqtSignal(object)
+
+    def __init__(self, app, end):
+        super().__init__()
+        self.app = app
+        self.finished.connect(end)
+
+    def __del__(self):
+        self.wait()
+
+    def _train(self):
+        index = self.app.paramStack.currentIndex()
+        if index == 1:      model = self.app.decision_tree()
+        elif index == 2:    model = self.app.random_forest()
+        elif index == 3:    model = self.app.k_nearest_neighbors()
+        elif index == 4:    model = self.app.logistic_regression()
+        elif index == 5:    model = self.app.neural_network()
+        elif index == 6:    model = self.app.svm()
+        elif index == 7:    model = self.app.naive_bayes()
+        
+        self.finished.emit(model)
+
+    def run(self):
+        self._train()
 
 class App(QMainWindow):
     def __init__(self):
@@ -690,15 +717,21 @@ class App(QMainWindow):
 
     # train a classifier and push it into the model table
     def train(self):
-        index = self.paramStack.currentIndex()
-        if index == 1:      model = self.decision_tree()
-        elif index == 2:    model = self.random_forest()
-        elif index == 3:    model = self.k_nearest_neighbors()
-        elif index == 4:    model = self.logistic_regression()
-        elif index == 5:    model = self.neural_network()
-        elif index == 6:    model = self.svm()
-        elif index == 7:    model = self.naive_bayes()
+        self.thread = Training_thread(self, self.finish_train)
+        self.thread.started.connect(self.start_train)
+        self.thread.start()
 
+    def start_train(self):
+        self.trainStatusLabel.setText('Training in progress...')
+        self.classResetPushButton.setDisabled(True)
+        self.classTrainPushButton.setDisabled(True)
+        self.classNameLineEdit.setDisabled(True)
+        self.classCommentTextEdit.setDisabled(True)
+        self.classBackPushButton.setDisabled(True)
+        self.classTypeComboBox.setDisabled(True)
+        self.paramStack.setDisabled(True)
+
+    def finish_train(self, model):
         # training failed (e.g. invalid hyperparameters or model did not converge)
         if model is None:
             return
@@ -720,7 +753,15 @@ class App(QMainWindow):
         else:
             self.push(model, 'train')
 
+        self.trainStatusLabel.setText('Training completed.')
+        self.classResetPushButton.setEnabled(True)
+        self.classTrainPushButton.setEnabled(True)
+        self.classNameLineEdit.setEnabled(True)
+        self.classCommentTextEdit.setEnabled(True)
+        self.classBackPushButton.setEnabled(True)
         self.classNextPushButton.setEnabled(True)
+        self.classTypeComboBox.setEnabled(True)
+        self.paramStack.setEnabled(True)
 
     # enter a classifier into the table
     def push(self, model, option):
@@ -1317,8 +1358,6 @@ class App(QMainWindow):
         self.knnMetricComboBox.addItem('manhattan') # DO NOT change order
         self.knnMetricComboBox.addItem('hamming')   #
 
-        
-
         self.knnDoc = QLabel("<a href=\"http://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html\">Documentation</a>")
         self.knnDoc.setAlignment(Qt.AlignRight)
         self.knnDoc.setOpenExternalLinks(True)
@@ -1570,13 +1609,19 @@ class App(QMainWindow):
         ### comment
         self.classCommentLabel = self.title('Comment (no more than 30 characters):', self.modelPage)
         self.classCommentTextEdit = QTextEdit(self.modelPage)
-        self.classCommentTextEdit.setMaximumHeight(50)
+        self.classCommentTextEdit.setMaximumHeight(30)
         self.classCommentTextEdit.setDisabled(True)
 
         self.modelPageLayout.addWidget(self.classCommentLabel)
         self.modelPageLayout.addWidget(self.classCommentTextEdit)
 
-        ### reset and train buttons
+        ### training status
+        self.trainStatusLabel = QLabel()
+        self.trainStatusLabel.setAlignment(Qt.AlignRight)
+        self.trainStatusLabel.setStyleSheet("color: red")
+        self.modelPageLayout.addWidget(self.trainStatusLabel)
+
+        ### reset, stop and train buttons
         self.classResetTrainSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
         self.classResetPushButton = QPushButton('Reset', self.modelPage)
         self.classResetPushButton.setMinimumWidth(90)
@@ -1585,10 +1630,8 @@ class App(QMainWindow):
         self.classTrainPushButton.setMinimumWidth(90)
         self.classTrainPushButton.setDefault(True)
         self.classTrainPushButton.setDisabled(True)
-        self.trainStatusLabel = QLabel()
 
         self.classResetTrainLayout = QHBoxLayout()
-        self.classResetTrainLayout.addWidget(self.trainStatusLabel)
         self.classResetTrainLayout.addItem(self.classResetTrainSpacer)
         self.classResetTrainLayout.addWidget(self.classResetPushButton)
         self.classResetTrainLayout.addWidget(self.classTrainPushButton)
