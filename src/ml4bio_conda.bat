@@ -2,7 +2,7 @@
 CALL activate.bat
 
 @REM check whether the user already installed the ml4bio conda environment
-@REM by trying to active the environment
+@REM by trying to activate the environment
 @REM if the environment does not exist conda will return a CondaEnvironmentNotFoundError
 CALL activate ml4bio
 
