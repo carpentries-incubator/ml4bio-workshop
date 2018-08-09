@@ -12,6 +12,8 @@ if [ $? -ne 0 ]; then
   source activate ml4bio
 fi
 
+# display the activated conda environment and where it is installed
+# to help with troubleshooting
 conda info --envs
 
 # launch the GUI
