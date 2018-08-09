@@ -1,12 +1,12 @@
 # Random Forest
 
-###Representation
+### Representation
 
 <p align="center">
 <img src="../figures/random_forest/rep_fig.jpg">
 </p>
 
-###Learning
+### Learning
 
 Given the full training data ![](../figures/random_forest/D.gif) 
 and the feature set ![](../figures/random_forest/F.gif), we train ![](../figures/random_forest/T.gif) randomized decision tree.
@@ -22,12 +22,12 @@ The intuition is that each randomized tree has increasing _bias_ compared to a t
 
 As with decision tree learning, we can regularize the randomized trees by limiting their maximum depth, the minimum number of samples at a leaf, the total number of leaves, etc.
 
-###Inference
+### Inference
 
 Given a new sample ![](../figures/random_forest/x.gif), feed it to the trees in the forest.
 Each tree will produce a class label for ![](../figures/random_forest/x.gif), and the final label is determined by a majority vote. Sometimes (as in sklearn), each tree will produce a probability for each class instead of a concrete label. In such case, we average over the predicted probabilities for each class across all trees. The final label is the class with highest average probability.
 
-###Example
+### Example
 
 > #### Further readings
 > 1. sklearn [tutorial](http://scikit-learn.org/stable/modules/ensemble.html) on Ensemble methods (including Random Forest).

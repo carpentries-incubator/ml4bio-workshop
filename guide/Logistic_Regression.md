@@ -1,6 +1,6 @@
 # Logistic Regression
 
-###Representation
+### Representation
 
 <p align="center">
 <img src="../figures/logistic_regression/binary_rep.jpg">
@@ -10,7 +10,7 @@
 <img src="../figures/logistic_regression/multiclass_rep.jpg">
 </p>
 
-###Inference
+### Inference
 
 Given a new sample, we denote it by
 
@@ -64,7 +64,7 @@ where the first element is the **bias** term and the others are the feature valu
 	<img src="../figures/logistic_regression/inference_eq_6.gif">
 	</p>
 
-###Learning
+### Learning
 
 - **Binary problem**
 
@@ -84,7 +84,7 @@ In both cases, ![](../figures/logistic_regression/W.gif) is a vector containing 
 and ![](../figures/logistic_regression/alpha.gif) is a constant 
 that determines the strength of regularization.
 
-###Example
+### Example
 
 > #### Further readings
 > 1. sklearn [tutorial](http://scikit-learn.org/stable/modules/linear_model.html) on linear models (including Logistic Regression).

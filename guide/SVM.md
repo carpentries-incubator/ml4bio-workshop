@@ -1,6 +1,6 @@
 # Support Vector Machine (SVM)
 
-###Representation
+### Representation
 
 We consider the scenario where training points belong to one of the two classes {-1, 1}.
 
@@ -35,7 +35,7 @@ Kernel SVM defines such mappings implicitly using **kernels**.
 <img src="../figures/svm/kernels.jpg">
 </p>	
 
-###Learning
+### Learning
 
 - **Linear SVM**
 
@@ -83,7 +83,7 @@ for linear SVM, and
 
 for kernel SVM.
 
-###Inference
+### Inference
 
 - **Linear SVM**
 
@@ -132,7 +132,7 @@ for kernel SVM.
 	<img src="../figures/svm/kernel_svm_inference_eq_4.gif">
 	</p>
 
-###Example
+### Example
 
 > #### Further readings
 > 1. sklearn [tutorial](http://scikit-learn.org/stable/modules/svm.html) on SVM.

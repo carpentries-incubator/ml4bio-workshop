@@ -1,6 +1,6 @@
 # Naïve Bayes
 
-###Representation
+### Representation
 
 <p align="center">
 <img src="../figures/naive_bayes/rep_fig.jpg">
@@ -13,7 +13,7 @@
 
 
 
-###Learning
+### Learning
 
 Denote the set of features by ![](../figures/naive_bayes/features.gif), 
 and the set of classes by ![](../figures/naive_bayes/classes.gif).
@@ -48,7 +48,7 @@ are estimated by maximum likelihood estimation.
 <img src="../figures/naive_bayes/learning_eq_4.gif">
 </p>
 
-###Inference
+### Inference
 
 <p align="center">
 <img src="../figures/naive_bayes/inference_eq_1.gif">
@@ -60,7 +60,7 @@ For numerical stability, you may instead compute
 <img src="../figures/naive_bayes/inference_eq_2.gif">
 </p>
 
-###Example
+### Example
 
 > #### Further readings
 > 1. sklearn [tutorial](http://scikit-learn.org/stable/modules/naive_bayes.html) on Naïve Bayes.

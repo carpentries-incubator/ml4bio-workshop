@@ -1,6 +1,6 @@
 # Neural Networks
 
-###Representation
+### Representation
 
 <p align="center">
 <img src="../figures/neural_network/binary_rep.jpg">
@@ -10,7 +10,7 @@
 <img src="../figures/neural_network/multiclass_rep.jpg">
 </p>
 
-###Inference
+### Inference
 
 Given a new sample, we denote it by
 
@@ -111,7 +111,7 @@ where the first element is the **bias** term and the others are the feature valu
 	<img src="../figures/neural_network/activation_fig.jpg">
 	</p>
 
-###Learning
+### Learning
 
 - **Binary problem**
 
@@ -130,7 +130,7 @@ In both cases, ![](../figures/neural_network/W.gif) is a vector containing all w
 and ![](../figures/neural_network/alpha.gif) is a constant 
 that determines the strength of regularization.
 
-###Example
+### Example
 
 > #### Further readings
 > 1. sklearn [tutorial](http://scikit-learn.org/stable/modules/neural_networks_supervised.html) on neural networks.

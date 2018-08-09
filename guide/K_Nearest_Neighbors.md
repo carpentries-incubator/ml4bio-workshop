@@ -1,16 +1,16 @@
 # K-Nearest Neighbors
 
-###Representation
+### Representation
 
 <p align="center">
 <img src="../figures/k_nearest_neighbors/rep_fig.jpg">
 </p>
 
-###Learning
+### Learning
 
 None.
 
-###Inference
+### Inference
 
 Given a new point ![](../figures/k_nearest_neighbors/x.gif), find ![](../figures/k_nearest_neighbors/K.gif) training points 
 
@@ -47,7 +47,7 @@ In the weighted version, the neighbors are weighted by their distance to the new
 <img src="../figures/k_nearest_neighbors/weighted_inference_eq.gif">
 </p>
 
-###Example
+### Example
 
 > #### Further readings
 > 1. sklearn [tutorial](http://scikit-learn.org/stable/modules/neighbors.html) on Nearest Neighbors.

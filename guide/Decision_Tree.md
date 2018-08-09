@@ -1,12 +1,12 @@
 # Decision Tree
 
-###Representation
+### Representation
 
 <p align="center">
 <img src="../figures/decision_tree/rep.jpg">
 </p>
 
-###Learning
+### Learning
 
 Denote the set of features by ![](../figures/decision_tree/features.gif)
 and the set of classes by ![](../figures/decision_tree/classes.gif).
@@ -71,13 +71,13 @@ To avoid overfitting, we may tune the following hyperparameters to regularize de
 - the minimum decrease in uncertainty required for learning to continue
 - the minumum uncertainty required for splitting a node
 
-###Inference
+### Inference
 
 Given a new sample ![](../figures/decision_tree/x.gif), 
 move down the tree by choosing the right path at each split.
 Finally, you end up in a leaf node that tells you which class the sample belongs to.
 
-###Example
+### Example
 
 > #### Further readings
 > 1. sklearn [tutorial](http://scikit-learn.org/stable/modules/tree.html) on Decision Trees.
