@@ -1,0 +1,512 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>model.py &#8212; Machine Learning Workshop for Biologists 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="model_metrics.py" href="model_metrics.html" />
+    <link rel="prev" title="data.py" href="data.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-model">
+<span id="model-py"></span><h1>model.py<a class="headerlink" href="#module-model" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="model.Model">
+<em class="property">class </em><code class="descclassname">model.</code><code class="descname">Model</code><span class="sig-paren">(</span><em>classifier</em>, <em>X</em>, <em>y</em>, <em>val_method</em>, <em>val_size</em>, <em>k</em>, <em>stratify</em><span class="sig-paren">)</span><a class="headerlink" href="#model.Model" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of this class stores information about a trained classifier.
+In particular, it contains:</p>
+<blockquote>
+<div><ul class="simple">
+<li>data for training and evaluation</li>
+<li>classifier object</li>
+<li>classifier’s hyperparameters</li>
+<li>classifier’s name</li>
+<li>user’s comment on the classifier</li>
+<li>performance metrics on training data</li>
+<li>performance metrics on validation data</li>
+<li>performance metrics on test data (if the classifier has been tested)</li>
+</ul>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><strong>counter</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – number of existing classifiers, used in default classifier names.</li>
+<li><strong>classifier</strong> (<em>sklearn classifier object</em>) – the classifier object, see sklearn documentation for details.</li>
+<li><strong>X</strong> (<em>pandas dataframe</em>) – feature values of training data (including training and validation sets)</li>
+<li><strong>y</strong> (<em>pandas series</em>) – labels of training data</li>
+<li><strong>name_</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – name of the classifier</li>
+<li><strong>type_</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – type of the classifier (defined in child classes)</li>
+<li><strong>comment_</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – user comment on the classifier</li>
+<li><strong>params_</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – hyperparameters of the classifier (see sklearn classifier documentation for details)</li>
+<li><strong>train_metrics</strong> (<a class="reference internal" href="model_metrics.html#model_metrics.ModelMetrics" title="model_metrics.ModelMetrics"><em>ModelMetrics</em></a>) – performance metrics of the classifier on training data</li>
+<li><strong>val_metrics</strong> (<a class="reference internal" href="model_metrics.html#model_metrics.ModelMetrics" title="model_metrics.ModelMetrics"><em>ModelMetrics</em></a>) – performance metrics of the classifier on validation data</li>
+<li><strong>test_metrics</strong> (<a class="reference internal" href="model_metrics.html#model_metrics.ModelMetrics" title="model_metrics.ModelMetrics"><em>ModelMetrics</em></a>) – performance metrics of the classifier on test data</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="model.Model._Model__cross_validation">
+<code class="descname">_Model__cross_validation</code><span class="sig-paren">(</span><em>classifier</em>, <em>X</em>, <em>y</em>, <em>k</em>, <em>stratify=True</em><span class="sig-paren">)</span><a class="headerlink" href="#model.Model._Model__cross_validation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs classifier validation through cross-validation.
+This function is also used by leave-one-out validation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>classifier</strong> (<em>sklearn classifier object</em>) – classifier for validation</li>
+<li><strong>X</strong> (<em>pandas dataframe</em>) – feature values of training data (including training and validation sets)</li>
+<li><strong>y</strong> (<em>pandas series</em>) – labels of training data</li>
+<li><strong>k</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – number of folds</li>
+<li><strong>stratify</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – draw samples according to class proportions or not</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">performance metrics on training and validation data</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.Model._Model__hold_out_validation">
+<code class="descname">_Model__hold_out_validation</code><span class="sig-paren">(</span><em>classifier</em>, <em>X</em>, <em>y</em>, <em>val_size</em>, <em>stratify=True</em><span class="sig-paren">)</span><a class="headerlink" href="#model.Model._Model__hold_out_validation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs classifier validation using held-out data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>classifier</strong> (<em>sklearn classifier object</em>) – classifier for validation</li>
+<li><strong>X</strong> (<em>pandas dataframe</em>) – feature values of training data (including training and validation sets)</li>
+<li><strong>y</strong> (<em>pandas series</em>) – labels of training data</li>
+<li><strong>val_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – percent of validation data</li>
+<li><strong>stratify</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – draw samples according to class proportions or not</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">performance metrics on training and validation data</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.Model.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>classifier</em>, <em>X</em>, <em>y</em>, <em>val_method</em>, <em>val_size</em>, <em>k</em>, <em>stratify</em><span class="sig-paren">)</span><a class="headerlink" href="#model.Model.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs a new instance of the class.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>classifier</strong> (<em>sklearn classifier object</em>) – the classifier object, see sklearn documentation for details.</li>
+<li><strong>X</strong> (<em>pandas dataframe</em>) – feature values of training data (including training and validation sets)</li>
+<li><strong>y</strong> (<em>pandas series</em>) – labels of training data</li>
+<li><strong>val_method</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – validation method (‘holdout’, ‘cv’, ‘loo’)</li>
+<li><strong>val_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – percent of validation data (only used when val_method=’holdout’)</li>
+<li><strong>k</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – number of folds (only used when val_method=’cv’)</li>
+<li><strong>stratify</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – draw samples according to class proportions or not</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="model.Model.__weakref__">
+<code class="descname">__weakref__</code><a class="headerlink" href="#model.Model.__weakref__" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of weak references to the object (if defined)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.Model.clear">
+<code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.Model.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts the counter from zero.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.Model.comment">
+<code class="descname">comment</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.Model.comment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns comment on the classifier.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">comment on the classifier</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.Model.metrics">
+<code class="descname">metrics</code><span class="sig-paren">(</span><em>option</em><span class="sig-paren">)</span><a class="headerlink" href="#model.Model.metrics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns performance metrics on the specified data.</p>
+<blockquote>
+<div><ul class="simple">
+<li>option=’train’: metrics on training data</li>
+<li>option=’val’: metrics on validation data</li>
+<li>option=’test’: metrics on test data</li>
+</ul>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>option</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – ‘train’, ‘val’ or ‘test’</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">performance metrics on the specified data</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.Model.name">
+<code class="descname">name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.Model.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns name of the classifier.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">name of the classifier</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.Model.params">
+<code class="descname">params</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.Model.params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns hyperparameters of the classifier.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">hyperparameters of the classifier</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.Model.plot_decision_regions">
+<code class="descname">plot_decision_regions</code><span class="sig-paren">(</span><em>option</em>, <em>canvas</em><span class="sig-paren">)</span><a class="headerlink" href="#model.Model.plot_decision_regions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots data with decision regions.
+This is only enabled for data with 2D continuous features.</p>
+<dl class="docutils">
+<dt>Reference:</dt>
+<dd><a class="reference external" href="http://scikit-learn.org/stable/auto_examples/classification/plot_classifier_comparison.html">http://scikit-learn.org/stable/auto_examples/classification/plot_classifier_comparison.html</a></dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>option</strong> (<em>pandas dataframe</em>) – ‘train’ or ‘test’</li>
+<li><strong>canvas</strong> (<em>FigureCanva</em>) – the canvas where the plot is drawn</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.Model.predict">
+<code class="descname">predict</code><span class="sig-paren">(</span><em>X</em>, <em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#model.Model.predict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Predicts labels for new data using the classifier.
+Saves the prediction in a new file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>X</strong> (<em>pandas dataframe</em>) – features values of new data</li>
+<li><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – where the prediction is saved</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.Model.set_comment">
+<code class="descname">set_comment</code><span class="sig-paren">(</span><em>comment</em><span class="sig-paren">)</span><a class="headerlink" href="#model.Model.set_comment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets comment on the classifier.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>comment</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – user-supplied comment</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.Model.set_name">
+<code class="descname">set_name</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#model.Model.set_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets name of the classifier.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – user-supplied classifier name</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.Model.summary">
+<code class="descname">summary</code><span class="sig-paren">(</span><em>view</em><span class="sig-paren">)</span><a class="headerlink" href="#model.Model.summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Displays a summary of classifier performance. 
+The summary is organized in a tree structure.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>view</strong> (<em>QTreeWidget</em>) – the widget where the summary is displayed</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.Model.test">
+<code class="descname">test</code><span class="sig-paren">(</span><em>X</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#model.Model.test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tests a classifier.
+This function adds performance metrics on test data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>X</strong> (<em>pandas dataframe</em>) – feature values for test data</li>
+<li><strong>y</strong> (<em>pandas series</em>) – labels for test data</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.Model.type">
+<code class="descname">type</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.Model.type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns type of the classifier.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">type of the classifier</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="model.DecisionTree">
+<em class="property">class </em><code class="descclassname">model.</code><code class="descname">DecisionTree</code><span class="sig-paren">(</span><em>classifier</em>, <em>X</em>, <em>y</em>, <em>val_method</em>, <em>val_size</em>, <em>k</em>, <em>stratify</em><span class="sig-paren">)</span><a class="headerlink" href="#model.DecisionTree" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of this class stores information about a trained decision tree classifier.
+It inherits the <strong>Model</strong> class.</p>
+<dl class="method">
+<dt id="model.DecisionTree.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>classifier</em>, <em>X</em>, <em>y</em>, <em>val_method</em>, <em>val_size</em>, <em>k</em>, <em>stratify</em><span class="sig-paren">)</span><a class="headerlink" href="#model.DecisionTree.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>See <strong>Model</strong> class.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="model.RandomForest">
+<em class="property">class </em><code class="descclassname">model.</code><code class="descname">RandomForest</code><span class="sig-paren">(</span><em>classifier</em>, <em>X</em>, <em>y</em>, <em>val_method</em>, <em>val_size</em>, <em>k</em>, <em>stratify</em><span class="sig-paren">)</span><a class="headerlink" href="#model.RandomForest" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of this class stores information about a trained random forest classifier.
+It inherits the <strong>Model</strong> class.</p>
+<dl class="method">
+<dt id="model.RandomForest.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>classifier</em>, <em>X</em>, <em>y</em>, <em>val_method</em>, <em>val_size</em>, <em>k</em>, <em>stratify</em><span class="sig-paren">)</span><a class="headerlink" href="#model.RandomForest.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>See <strong>Model</strong> class.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="model.KNearestNeighbors">
+<em class="property">class </em><code class="descclassname">model.</code><code class="descname">KNearestNeighbors</code><span class="sig-paren">(</span><em>classifier</em>, <em>X</em>, <em>y</em>, <em>val_method</em>, <em>val_size</em>, <em>k</em>, <em>stratify</em><span class="sig-paren">)</span><a class="headerlink" href="#model.KNearestNeighbors" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of this class stores information about a trained K-nearest neighbors classifier.
+It inherits the <strong>Model</strong> class.</p>
+<dl class="method">
+<dt id="model.KNearestNeighbors.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>classifier</em>, <em>X</em>, <em>y</em>, <em>val_method</em>, <em>val_size</em>, <em>k</em>, <em>stratify</em><span class="sig-paren">)</span><a class="headerlink" href="#model.KNearestNeighbors.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>See <strong>Model</strong> class.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="model.LogisticRegression">
+<em class="property">class </em><code class="descclassname">model.</code><code class="descname">LogisticRegression</code><span class="sig-paren">(</span><em>classifier</em>, <em>X</em>, <em>y</em>, <em>val_method</em>, <em>val_size</em>, <em>k</em>, <em>stratify</em><span class="sig-paren">)</span><a class="headerlink" href="#model.LogisticRegression" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of this class stores information about a trained logistic regression classifier.
+It inherits the <strong>Model</strong> class.</p>
+<dl class="method">
+<dt id="model.LogisticRegression.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>classifier</em>, <em>X</em>, <em>y</em>, <em>val_method</em>, <em>val_size</em>, <em>k</em>, <em>stratify</em><span class="sig-paren">)</span><a class="headerlink" href="#model.LogisticRegression.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>See <strong>Model</strong> class.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="model.NeuralNetwork">
+<em class="property">class </em><code class="descclassname">model.</code><code class="descname">NeuralNetwork</code><span class="sig-paren">(</span><em>classifier</em>, <em>X</em>, <em>y</em>, <em>val_method</em>, <em>val_size</em>, <em>k</em>, <em>stratify</em><span class="sig-paren">)</span><a class="headerlink" href="#model.NeuralNetwork" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of this class stores information about a trained neural network classifier.
+It inherits the <strong>Model</strong> class.</p>
+<dl class="method">
+<dt id="model.NeuralNetwork.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>classifier</em>, <em>X</em>, <em>y</em>, <em>val_method</em>, <em>val_size</em>, <em>k</em>, <em>stratify</em><span class="sig-paren">)</span><a class="headerlink" href="#model.NeuralNetwork.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>See <strong>Model</strong> class.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="model.SVM">
+<em class="property">class </em><code class="descclassname">model.</code><code class="descname">SVM</code><span class="sig-paren">(</span><em>classifier</em>, <em>X</em>, <em>y</em>, <em>val_method</em>, <em>val_size</em>, <em>k</em>, <em>stratify</em><span class="sig-paren">)</span><a class="headerlink" href="#model.SVM" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of this class stores information about a trained SVM classifier.
+It inherits the <strong>Model</strong> class.</p>
+<dl class="method">
+<dt id="model.SVM.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>classifier</em>, <em>X</em>, <em>y</em>, <em>val_method</em>, <em>val_size</em>, <em>k</em>, <em>stratify</em><span class="sig-paren">)</span><a class="headerlink" href="#model.SVM.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>See <strong>Model</strong> class.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="model.NaiveBayes">
+<em class="property">class </em><code class="descclassname">model.</code><code class="descname">NaiveBayes</code><span class="sig-paren">(</span><em>classifier</em>, <em>X</em>, <em>y</em>, <em>val_method</em>, <em>val_size</em>, <em>k</em>, <em>stratify</em>, <em>mode</em><span class="sig-paren">)</span><a class="headerlink" href="#model.NaiveBayes" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of this class stores information about a trained naive bayes classifier.
+It inherits the <strong>Model</strong> class.</p>
+<dl class="method">
+<dt id="model.NaiveBayes.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>classifier</em>, <em>X</em>, <em>y</em>, <em>val_method</em>, <em>val_size</em>, <em>k</em>, <em>stratify</em>, <em>mode</em><span class="sig-paren">)</span><a class="headerlink" href="#model.NaiveBayes.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>See <strong>Model</strong> class. The extra parameter <em>mode</em> indicates gaussian or multinomial NB.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – ‘gaussian’ or ‘multinomial’</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Machine Learning Workshop for Biologists</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="ml4bio.html">ml4bio.py</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data.html">data.py</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">model.py</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model_metrics.html">model_metrics.py</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="data.html" title="previous chapter">data.py</a></li>
+      <li>Next: <a href="model_metrics.html" title="next chapter">model_metrics.py</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      
+      |
+      <a href="_sources/model.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

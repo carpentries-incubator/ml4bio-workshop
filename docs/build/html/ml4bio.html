@@ -1,0 +1,698 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>ml4bio.py &#8212; Machine Learning Workshop for Biologists 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="data.py" href="data.html" />
+    <link rel="prev" title="Software Documentation" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-ml4bio">
+<span id="ml4bio-py"></span><h1>ml4bio.py<a class="headerlink" href="#module-ml4bio" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="ml4bio.Training_thread">
+<em class="property">class </em><code class="descclassname">ml4bio.</code><code class="descname">Training_thread</code><span class="sig-paren">(</span><em>app</em>, <em>end</em><span class="sig-paren">)</span><a class="headerlink" href="#ml4bio.Training_thread" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of this class is a thread for training classifiers.
+It is different than the main thread in which the main window is run.
+By creating a new thread for training, the main window is not frozen.
+The user may inspect existing classifiers when training is in progress.
+This class inherits <strong>QThread</strong>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><strong>app</strong> (<a class="reference internal" href="#ml4bio.App" title="ml4bio.App"><em>App</em></a>) – main window of the software (an instance of class <em>App</em>)</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="ml4bio.Training_thread.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>app</em>, <em>end</em><span class="sig-paren">)</span><a class="headerlink" href="#ml4bio.Training_thread.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs a new thread for training.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>app</strong> (<a class="reference internal" href="#ml4bio.App" title="ml4bio.App"><em>App</em></a>) – main window of the software (an instance of class <em>App</em>)</li>
+<li><strong>end</strong> (<em>func</em>) – function to be called once the thread emits a finish signal</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ml4bio.Training_thread._train">
+<code class="descname">_train</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ml4bio.Training_thread._train" title="Permalink to this definition">¶</a></dt>
+<dd><p>Trains a classifier and returns the classifier to the main thread.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ml4bio.Training_thread.run">
+<code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ml4bio.Training_thread.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the behavior of the new thread once created.
+Here, training starts immediately in the new thread.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="ml4bio.App">
+<em class="property">class </em><code class="descclassname">ml4bio.</code><code class="descname">App</code><a class="headerlink" href="#ml4bio.App" title="Permalink to this definition">¶</a></dt>
+<dd><p>Main window of the software.
+It inherits <strong>QMainWindow</strong>.</p>
+<dl class="method">
+<dt id="ml4bio.App.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ml4bio.App.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes the GUI.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ml4bio.App.clear">
+<code class="descname">clear</code><span class="sig-paren">(</span><em>option</em><span class="sig-paren">)</span><a class="headerlink" href="#ml4bio.App.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clears up changes made by user.</p>
+<blockquote>
+<div><ul class="simple">
+<li>If option=’all’, the system is back to initial state.
+This is called by clicking on the finish button on the 3rd page.</li>
+<li>If option=’train’, trained classifiers will be cleared.
+This is called by clicking on the return button on the 2nd page.</li>
+<li>If option=’test’, the classifier selected for testing is no longer selected.
+This is called by clicking on the return button on the 3rd page.</li>
+</ul>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Params option:</th><td class="field-body">‘all’, ‘train’ or ‘test’</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ml4bio.App.data_summary">
+<code class="descname">data_summary</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ml4bio.App.data_summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Displays a summary of the loaded data.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ml4bio.App.decision_tree">
+<code class="descname">decision_tree</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ml4bio.App.decision_tree" title="Permalink to this definition">¶</a></dt>
+<dd><p>Trains and returns a decision tree classifier.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ml4bio.App.double_spin_box">
+<code class="descname">double_spin_box</code><span class="sig-paren">(</span><em>val</em>, <em>min</em>, <em>max</em>, <em>stepsize</em>, <em>prec</em>, <em>parent</em><span class="sig-paren">)</span><a class="headerlink" href="#ml4bio.App.double_spin_box" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a double spin box.
+This spin box allows double values.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>val</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – initial value</li>
+<li><strong>min</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – minimum possible value</li>
+<li><strong>max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – maximum possible value</li>
+<li><strong>stepsize</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – gap between neighboring values</li>
+<li><strong>prec</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – precision (number of decimal points)</li>
+<li><strong>parent</strong> (<em>QWidget</em>) – parent widget</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">a spin box (QDoubleSpinBox)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ml4bio.App.error">
+<code class="descname">error</code><span class="sig-paren">(</span><em>flag</em><span class="sig-paren">)</span><a class="headerlink" href="#ml4bio.App.error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shows error messages in a message box.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>flag</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – indicates the event that triggers the error.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ml4bio.App.error_message">
+<code class="descname">error_message</code><span class="sig-paren">(</span><em>flag</em><span class="sig-paren">)</span><a class="headerlink" href="#ml4bio.App.error_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs error messages.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>flag</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – indicates the event that triggers the error.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ml4bio.App.finish">
+<code class="descname">finish</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ml4bio.App.finish" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finishs analyzing the current datasets.
+Asks user for future action (quit or start a new analysis).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ml4bio.App.finish_train">
+<code class="descname">finish_train</code><span class="sig-paren">(</span><em>model</em><span class="sig-paren">)</span><a class="headerlink" href="#ml4bio.App.finish_train" title="Permalink to this definition">¶</a></dt>
+<dd><p>Receives the trained classifier from the training thread 
+and pushs the new classifier into the model table in the 
+right panel.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>model</strong> (<em>sklearn classifier object</em>) – trained classifier</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ml4bio.App.info">
+<code class="descname">info</code><span class="sig-paren">(</span><em>flag</em><span class="sig-paren">)</span><a class="headerlink" href="#ml4bio.App.info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shows reminders in a message box.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>flag</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – indicates the event that triggers the reminder.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ml4bio.App.initUI">
+<code class="descname">initUI</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ml4bio.App.initUI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets up the GUI.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ml4bio.App.k_nearest_neighbors">
+<code class="descname">k_nearest_neighbors</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ml4bio.App.k_nearest_neighbors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Trains and returns a k-nearest neighbors classifier.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ml4bio.App.load">
+<code class="descname">load</code><span class="sig-paren">(</span><em>labeled</em><span class="sig-paren">)</span><a class="headerlink" href="#ml4bio.App.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load a data file. Process the data and show a summary of it.
+It checks the data format and raises an exception if the data is 
+in wrong format. Only .csv file with a header that contains 
+feature names are accepted.</p>
+<p>If the data is labeled, the label column must be the last column, 
+and there must be at least 20 samples. An exception will be raised 
+if fewer than 20 samples are present.</p>
+<p>If the data is unlabeled, the feature names must match those of the 
+labeled data. Extra white spaces are not allowed. An exception will
+be raised if the features do not match.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>labeled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – indicates whether the data is labeled or not</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ml4bio.App.logistic_regression">
+<code class="descname">logistic_regression</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ml4bio.App.logistic_regression" title="Permalink to this definition">¶</a></dt>
+<dd><p>Trains and returns a logistic regression classifier.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ml4bio.App.model_summary">
+<code class="descname">model_summary</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ml4bio.App.model_summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Displays a summary of the currently highlighted classifier.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ml4bio.App.naive_bayes">
+<code class="descname">naive_bayes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ml4bio.App.naive_bayes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Trains and returns a naive bayes classifier.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ml4bio.App.neural_network">
+<code class="descname">neural_network</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ml4bio.App.neural_network" title="Permalink to this definition">¶</a></dt>
+<dd><p>Trains and returns a neural network classifier.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ml4bio.App.page_title">
+<code class="descname">page_title</code><span class="sig-paren">(</span><em>str</em>, <em>parent</em><span class="sig-paren">)</span><a class="headerlink" href="#ml4bio.App.page_title" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a page title such as <strong>Step 1: Select data</strong>.
+Such a title appears at the top of each page in the left panel.
+It shows at which step the user is in the training process.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>str</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – a page title</li>
+<li><strong>parent</strong> (<em>QWidget</em>) – parent widget (current page in the left panel)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">a page title (QLabel)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ml4bio.App.plot">
+<code class="descname">plot</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ml4bio.App.plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shows plots of the currently highlighted classifier.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ml4bio.App.predict">
+<code class="descname">predict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ml4bio.App.predict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Makes prediction on new data using the selected classifier.
+Saves the prediction to a new file.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ml4bio.App.push">
+<code class="descname">push</code><span class="sig-paren">(</span><em>model</em>, <em>option</em><span class="sig-paren">)</span><a class="headerlink" href="#ml4bio.App.push" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enters a classifier into the model table. Its performance metrics
+are added to the entry. Depending on _option_, it populates the 
+entry with appropriate performance metrics.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>model</strong> (<em>sklearn classifier object</em>) – trained classifier</li>
+<li><strong>option</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – ‘train’ or ‘val’</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ml4bio.App.random_forest">
+<code class="descname">random_forest</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ml4bio.App.random_forest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Trains and returns a random forest classifier.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ml4bio.App.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ml4bio.App.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resets hyperparameters of currently selected classifier type to default.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ml4bio.App.select">
+<code class="descname">select</code><span class="sig-paren">(</span><em>option</em><span class="sig-paren">)</span><a class="headerlink" href="#ml4bio.App.select" title="Permalink to this definition">¶</a></dt>
+<dd><p>Selects a classifier for testing.</p>
+<blockquote>
+<div><ul class="simple">
+<li>If option=’best’, select the best-performing classifier based 
+on the selected metric.</li>
+<li>If option=’user’, select the classifier highlighted by user.</li>
+</ul>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>option</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – ‘best’ or ‘user’</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ml4bio.App.set">
+<code class="descname">set</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ml4bio.App.set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepares data for training. This includes the following steps:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Encode data (integer and one-hot encoding).</li>
+<li>Generate train/test split.</li>
+<li>Decide validation method (holdout, cv or loo).</li>
+<li>Set classifier hyperparameters according to data.</li>
+</ul>
+</div></blockquote>
+<p>After this function is called, the software proceeds to the 2nd step 
+in training (i.e. train classifiers).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ml4bio.App.set_decision_tree">
+<code class="descname">set_decision_tree</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ml4bio.App.set_decision_tree" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets hyperparameters of decision tree to default.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ml4bio.App.set_k_nearest_neighbors">
+<code class="descname">set_k_nearest_neighbors</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ml4bio.App.set_k_nearest_neighbors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets hyperparameters of k-nearest neighbors to default.
+The types of distances available depend on feature types.
+If the data has a mixture of discrete and continuous features,
+the user cannot train a k-nearest neighbors classifier.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ml4bio.App.set_logistic_regression">
+<code class="descname">set_logistic_regression</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ml4bio.App.set_logistic_regression" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets hyperparameters of logistic regression to default.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ml4bio.App.set_metrics">
+<code class="descname">set_metrics</code><span class="sig-paren">(</span><em>row</em>, <em>metrics</em><span class="sig-paren">)</span><a class="headerlink" href="#ml4bio.App.set_metrics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enters the metrics in an entry.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>row</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – index of the entry</li>
+<li><strong>metrics</strong> (<a class="reference internal" href="model_metrics.html#model_metrics.ModelMetrics" title="model_metrics.ModelMetrics"><em>ModelMetrics</em></a>) – the collection of metrics to be entered</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ml4bio.App.set_naive_bayes">
+<code class="descname">set_naive_bayes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ml4bio.App.set_naive_bayes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets hyperparameters of naive bayes to default.
+The type of distribution used depends on feature types.
+If the data has a mixture of discrete and continuous features,
+the user cannot train a naive bayes classifier.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ml4bio.App.set_neural_network">
+<code class="descname">set_neural_network</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ml4bio.App.set_neural_network" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets hyperparameters of neural network to default.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ml4bio.App.set_random_forest">
+<code class="descname">set_random_forest</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ml4bio.App.set_random_forest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets hyperparameter of random forest to default.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ml4bio.App.set_svm">
+<code class="descname">set_svm</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ml4bio.App.set_svm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets hyperparameters of SVM to default.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ml4bio.App.sort">
+<code class="descname">sort</code><span class="sig-paren">(</span><em>col</em><span class="sig-paren">)</span><a class="headerlink" href="#ml4bio.App.sort" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sorts classifiers in descending order with respect to the selected 
+metric.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>col</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – index of the selected metric</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ml4bio.App.spin_box">
+<code class="descname">spin_box</code><span class="sig-paren">(</span><em>val</em>, <em>min</em>, <em>max</em>, <em>stepsize</em>, <em>parent</em><span class="sig-paren">)</span><a class="headerlink" href="#ml4bio.App.spin_box" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a spin box. 
+This spin box only allows integer values.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>val</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – initial value</li>
+<li><strong>min</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – minimum possible value</li>
+<li><strong>max</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – maximum possible value</li>
+<li><strong>stepsize</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – gap between neighboring values</li>
+<li><strong>parent</strong> (<em>QWidget</em>) – parent widget</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">a spin box (QSpinBox)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ml4bio.App.start_train">
+<code class="descname">start_train</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ml4bio.App.start_train" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts training by freezing the 2nd page so that user cannot 
+alter the hyperparameters when training is in progress.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ml4bio.App.svm">
+<code class="descname">svm</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ml4bio.App.svm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Trains and returns an SVM classifier.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ml4bio.App.switch_metrics">
+<code class="descname">switch_metrics</code><span class="sig-paren">(</span><em>index</em><span class="sig-paren">)</span><a class="headerlink" href="#ml4bio.App.switch_metrics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Switchs among metrics on training, validation and test data.
+The metric values in all table entries change accordingly.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>index</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – which set of metrics to display</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ml4bio.App.switch_model">
+<code class="descname">switch_model</code><span class="sig-paren">(</span><em>row</em>, <em>col</em><span class="sig-paren">)</span><a class="headerlink" href="#ml4bio.App.switch_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Switchs among different classifiers in the table.
+A classifier summary and the plots for the newly highlighted classifier
+are generated.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>row</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – index of the selected entry</li>
+<li><strong>col</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – needed for parameter passing but not used</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ml4bio.App.test">
+<code class="descname">test</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ml4bio.App.test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tests the selected classifier. Computes metrics on test data and 
+show them in the classifier’s entry.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ml4bio.App.title">
+<code class="descname">title</code><span class="sig-paren">(</span><em>str</em>, <em>parent</em><span class="sig-paren">)</span><a class="headerlink" href="#ml4bio.App.title" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns bolded titles in each page of the left panel.
+Such a title appears at the top of each section in a page.
+It highlights what the user is intended to do.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>str</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – a section title</li>
+<li><strong>parent</strong> (<em>QWidget</em>) – parent widget (current page in the left panel)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">a section title (QLabel)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ml4bio.App.train">
+<code class="descname">train</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ml4bio.App.train" title="Permalink to this definition">¶</a></dt>
+<dd><p>Trains a classifier in a new thread.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ml4bio.App.update_logistic_regression">
+<code class="descname">update_logistic_regression</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ml4bio.App.update_logistic_regression" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets hyperparameters of logistic regression according to 
+the selected solver. Some options are enabled/disabled.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ml4bio.App.update_neural_network">
+<code class="descname">update_neural_network</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ml4bio.App.update_neural_network" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set hyperparameters of neural network according to 
+the selected solver. Some options are enabled/disabled.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ml4bio.App.update_svm">
+<code class="descname">update_svm</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ml4bio.App.update_svm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set hyperparameters of neural network according to 
+the selected kernel. Some options are enabled/disabled.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ml4bio.App.warn">
+<code class="descname">warn</code><span class="sig-paren">(</span><em>flag</em><span class="sig-paren">)</span><a class="headerlink" href="#ml4bio.App.warn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shows warning messages in a message box.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>flag</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – indicates the event that triggers the warning.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="ml4bio.App.warn_message">
+<code class="descname">warn_message</code><span class="sig-paren">(</span><em>flag</em><span class="sig-paren">)</span><a class="headerlink" href="#ml4bio.App.warn_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs warning messages.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>flag</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – indicates the event that triggers the warning.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Machine Learning Workshop for Biologists</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">ml4bio.py</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data.html">data.py</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model.html">model.py</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model_metrics.html">model_metrics.py</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Software Documentation</a></li>
+      <li>Next: <a href="data.html" title="next chapter">data.py</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      
+      |
+      <a href="_sources/ml4bio.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

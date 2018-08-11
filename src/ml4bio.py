@@ -19,9 +19,30 @@ from model import Model, DecisionTree, RandomForest, KNearestNeighbors, Logistic
 from model_metrics import ModelMetrics
 
 class Training_thread(QThread):
+    """
+    An instance of this class is a thread for training classifiers.
+    It is different than the main thread in which the main window is run.
+    By creating a new thread for training, the main window is not frozen.
+    The user may inspect existing classifiers when training is in progress.
+    This class inherits **QThread**.
+
+    :ivar app: main window of the software (an instance of class *App*)
+    :vartype app: App
+    """
+
+    # a signal that notifies the main thread that training has finished.
+    # this overrides the default "finished" signal in QThread.
     finished = QtCore.pyqtSignal(object)
 
     def __init__(self, app, end):
+        """
+        Constructs a new thread for training.
+
+        :param app: main window of the software (an instance of class *App*)
+        :type app: App
+        :param end: function to be called once the thread emits a finish signal
+        :type end: func
+        """
         super().__init__()
         self.app = app
         self.finished.connect(end)
@@ -30,6 +51,9 @@ class Training_thread(QThread):
         self.wait()
 
     def _train(self):
+        """
+        Trains a classifier and returns the classifier to the main thread.
+        """
         index = self.app.paramStack.currentIndex()
         if index == 1:      model = self.app.decision_tree()
         elif index == 2:    model = self.app.random_forest()
@@ -39,20 +63,42 @@ class Training_thread(QThread):
         elif index == 6:    model = self.app.svm()
         elif index == 7:    model = self.app.naive_bayes()
         
-        self.finished.emit(model)
+        self.finished.emit(model)   # passes the classifier to the main thread.
 
     def run(self):
+        """
+        Defines the behavior of the new thread once created.
+        Here, training starts immediately in the new thread.
+        """
         self._train()
 
 class App(QMainWindow):
+    """
+    Main window of the software.
+    It inherits **QMainWindow**.
+    """
     def __init__(self):
+        """
+        Initializes the GUI.
+        """
         super().__init__()
         self.leftPanel = QStackedWidget(self)
         self.rightPanel = QGroupBox(self)
         self.initUI()
 
-    # return a page title
     def page_title(self, str, parent):
+        """
+        Returns a page title such as **Step 1: Select data**.
+        Such a title appears at the top of each page in the left panel.
+        It shows at which step the user is in the training process.
+
+        :param str: a page title
+        :type str: str
+        :param parent: parent widget (current page in the left panel)
+        :type parent: QWidget
+
+        :returns: a page title (QLabel)
+        """
         label = QLabel(str, parent)
         font = QFont()
         font.setPointSize(13)
@@ -61,16 +107,43 @@ class App(QMainWindow):
         label.setAlignment(Qt.AlignCenter)
         return label
 
-    # return a title
     def title(self, str, parent):
+        """
+        Returns bolded titles in each page of the left panel.
+        Such a title appears at the top of each section in a page.
+        It highlights what the user is intended to do.
+
+        :param str: a section title
+        :type str: str
+        :param parent: parent widget (current page in the left panel)
+        :type parent: QWidget
+
+        :returns: a section title (QLabel)
+        """
         label = QLabel(str, parent)
         font = QFont()
         font.setBold(True)
         label.setFont(font)
         return label
 
-    # return a spin box
     def spin_box(self, val, min, max, stepsize, parent):
+        """
+        Return a spin box. 
+        This spin box only allows integer values.
+
+        :param val: initial value
+        :type val: int
+        :param min: minimum possible value
+        :type min: int
+        :param max: maximum possible value
+        :type max: int
+        :param stepsize: gap between neighboring values
+        :type stepsize: int
+        :param parent: parent widget
+        :type parent: QWidget
+
+        :returns: a spin box (QSpinBox)
+        """
         box = QSpinBox(parent)
         box.setMinimum(min)
         box.setMaximum(max)
@@ -80,6 +153,25 @@ class App(QMainWindow):
 
     # return a double spin box
     def double_spin_box(self, val, min, max, stepsize, prec, parent):
+        """
+        Return a double spin box.
+        This spin box allows double values. 
+
+        :param val: initial value
+        :type val: float
+        :param min: minimum possible value
+        :type min: float
+        :param max: maximum possible value
+        :type max: float
+        :param stepsize: gap between neighboring values
+        :type stepsize: float
+        :param prec: precision (number of decimal points)
+        :type prec: int
+        :param parent: parent widget
+        :type parent: QWidget
+
+        :returns: a spin box (QDoubleSpinBox)
+        """
         box = QDoubleSpinBox(parent)
         box.setMinimum(min)
         box.setMaximum(max)
@@ -88,10 +180,27 @@ class App(QMainWindow):
         box.setDecimals(prec)
         return box
 
-    # load file
     def load(self, labeled):
+        """
+        Load a data file. Process the data and show a summary of it.
+        It checks the data format and raises an exception if the data is 
+        in wrong format. Only .csv file with a header that contains 
+        feature names are accepted. 
+
+        If the data is labeled, the label column must be the last column, 
+        and there must be at least 20 samples. An exception will be raised 
+        if fewer than 20 samples are present. 
+
+        If the data is unlabeled, the feature names must match those of the 
+        labeled data. Extra white spaces are not allowed. An exception will
+        be raised if the features do not match.
+
+        :param labeled: indicates whether the data is labeled or not
+        :type labeled: bool
+        """
         path = QFileDialog.getOpenFileName(self.dataPage)[0]
         if path != '':
+            # add labeled data.
             if labeled:
                 try:
                     self.data = Data(path)
@@ -99,16 +208,20 @@ class App(QMainWindow):
                 except:
                     self.error('format')
                     return
-                # exception: too few samples
+                # exception: too few samples (cutoff: 20)
                 if self.data.num_samples() < 20:
                     self.error('num_samples')
                     return
 
+                # once labeled data is successfully imported, 
+                # enable subsequent operations.
                 self.labeledFileDisplay.setText(self.data.name('labeled'))
-                self.unlabeledFilePushButton.setEnabled(True)
-                self.splitFrame.setEnabled(True)
-                self.validationFrame.setEnabled(True)
-                self.dataNextPushButton.setEnabled(True)
+                self.unlabeledFilePushButton.setEnabled(True)   # allow user to upload unlabeled data.
+                self.splitFrame.setEnabled(True)                # allow user to split labeled data into training and test sets.
+                self.validationFrame.setEnabled(True)           # allow user to select validation method.
+                self.dataNextPushButton.setEnabled(True)        # allow user to proceed to next step (i.e. train classifiers).
+            
+            # add unlabeled data (optional).
             else:
                 try:
                     self.data.add_unlabeled_data(path)
@@ -122,24 +235,30 @@ class App(QMainWindow):
                     return
 
                 self.unlabeledFileDisplay.setText(self.data.name('unlabeled'))
-                self.predictionPushButton.setEnabled(True)
+                self.predictionPushButton.setEnabled(True)      # allow user to make predictions on the unlabeled data.
 
             self.data_summary()
 
-    # show summary of data
     def data_summary(self):
+        """
+        Displays a summary of the loaded data.
+        """
         self.data.summary(self.data_summary_)
 
-    # set decision tree hyperparameters
     def set_decision_tree(self):
+        """
+        Sets hyperparameters of decision tree to default.
+        """
         self.dtCriterionComboBox.setCurrentIndex(0)
         self.dtMaxDepthLineEdit.setText('None')
         self.dtMinSamplesSplitSpinBox.setValue(2)
         self.dtMinSamplesLeafSpinBox.setValue(1)
         self.dtClassWeightComboBox.setCurrentIndex(0)
 
-    # set random forest hyperparameters
     def set_random_forest(self):
+        """
+        Sets hyperparameter of random forest to default.
+        """
         self.rfCriterionComboBox.setCurrentIndex(0)
         self.rfNumEstimatorsSpinBox.setValue(10)
         self.rfMaxFeaturesComboBox.setCurrentIndex(0)
@@ -149,8 +268,13 @@ class App(QMainWindow):
         self.rfBootstrapCheckBox.setChecked(True)
         self.rfClassWeightComboBox.setCurrentIndex(0)
 
-    # k-nearest neighbors hyperparameters
     def set_k_nearest_neighbors(self):
+        """
+        Sets hyperparameters of k-nearest neighbors to default.
+        The types of distances available depend on feature types.
+        If the data has a mixture of discrete and continuous features,
+        the user cannot train a k-nearest neighbors classifier.
+        """
         self.knnNumNeighborsSpinBox.setValue(5)
         self.knnWeightsComboBox.setCurrentIndex(0)
 
@@ -166,8 +290,10 @@ class App(QMainWindow):
         else:
             self.classTypeListView.setRowHidden(3, True)
 
-    # set logistic regression hyperparameters
     def set_logistic_regression(self):
+        """
+        Sets hyperparameters of logistic regression to default.
+        """
         self.lrRegularizationComboBox.setCurrentIndex(0)
         self.lrRglrStrengthLineEdit.setText('1.0')
         self.lrFitInterceptCheckBox.setChecked(True)
@@ -179,6 +305,10 @@ class App(QMainWindow):
         self.lrMaxIterLineEdit.setText('100')
 
     def update_logistic_regression(self):
+        """
+        Sets hyperparameters of logistic regression according to 
+        the selected solver. Some options are enabled/disabled.
+        """
         if self.lrSolverComboBox.currentIndex() in [1, 2, 4]:
             self.lrRegularizationListView.setRowHidden(1, True)
             self.lrRegularizationComboBox.setCurrentIndex(0)
@@ -190,8 +320,10 @@ class App(QMainWindow):
         else:
             self.lrMultiClassListView.setRowHidden(1, False)
 
-    # set neural network hyperparameters
     def set_neural_network(self):
+        """
+        Sets hyperparameters of neural network to default.
+        """
         self.nnNumHiddenUnitsSpinBox.setValue(100)
         self.nnActivationComboBox.setCurrentIndex(0)
         self.nnSolverComboBox.setCurrentIndex(0)
@@ -204,6 +336,10 @@ class App(QMainWindow):
         self.nnMaxIterLineEdit.setText('200')
 
     def update_neural_network(self):
+        """
+        Set hyperparameters of neural network according to 
+        the selected solver. Some options are enabled/disabled.
+        """
         if self.nnSolverComboBox.currentIndex() == 2:
             self.nnLearningRateComboBox.setEnabled(True)
         else:
@@ -215,8 +351,10 @@ class App(QMainWindow):
             self.nnLearningRateInitLineEdit.setEnabled(True)
             self.nnEarlyStoppingCheckBox.setEnabled(True)
 
-    # set svm hyperparameters
     def set_svm(self):
+        """
+        Sets hyperparameters of SVM to default.
+        """
         self.svmPenaltyLineEdit.setText('1.0')
         self.svmKernelComboBox.setCurrentIndex(0)
         self.svmDegreeSpinBox.setValue(3)
@@ -228,6 +366,10 @@ class App(QMainWindow):
         self.svmMaxIterLineEdit.setText('200')
 
     def update_svm(self):
+        """
+        Set hyperparameters of neural network according to 
+        the selected kernel. Some options are enabled/disabled.
+        """
         if self.svmKernelComboBox.currentIndex() == 2:
             self.svmDegreeSpinBox.setEnabled(True)
         else:
@@ -241,8 +383,13 @@ class App(QMainWindow):
         else:
             self.svmCoefLineEdit.setEnabled(True)
 
-    # set naive bayes hyperparameters
     def set_naive_bayes(self):
+        """
+        Sets hyperparameters of naive bayes to default.
+        The type of distribution used depends on feature types.
+        If the data has a mixture of discrete and continuous features,
+        the user cannot train a naive bayes classifier.
+        """
         # discrete features: use multinomial NB
         if self.data.feature_type() == 'discrete':
             self.nbDistributionLabel.setText('multinomial')
@@ -261,8 +408,10 @@ class App(QMainWindow):
         self.nbFitPriorCheckBox.setChecked(True)
         self.nbClassPriorLineEdit.setText('None')
 
-    # reset hyperparameters of current classifier to default
     def reset(self):
+        """
+        Resets hyperparameters of currently selected classifier type to default.
+        """
         index = self.paramStack.currentIndex()
         if index == 1:      self.set_decision_tree()
         elif index == 2:    self.set_random_forest()
@@ -275,20 +424,31 @@ class App(QMainWindow):
         self.classNameLineEdit.clear()
         self.classCommentTextEdit.clear()
 
-    # set up the system for training
     def set(self):
-        # train/test split
+        """
+        Prepares data for training. This includes the following steps:
+
+            - Encode data (integer and one-hot encoding).
+            - Generate train/test split.
+            - Decide validation method (holdout, cv or loo). 
+            - Set classifier hyperparameters according to data.
+
+        After this function is called, the software proceeds to the 2nd step 
+        in training (i.e. train classifiers).
+        """
+        self.data.encode()  # encode data.
+
+        # generate train/test split.
         test_size = self.splitSpinBox.value() / 100
         stratify = self.splitCheckBox.isChecked()
-        self.data.encode()
         self.data.split(test_size, stratify)
 
-        # when data is 2-D and continuous, plot decision regions
+        # when data is 2D and continuous, allow plotting of data with decision regions.
         if self.data.feature_type() == 'continuous' \
             and self.data.num_features() == 2 and self.data.num_classes() == 2:
             self.dataPlotRadioButton.setEnabled(True)
 
-        # validation method
+        # decide validation method.
         val = 0
         if self.holdoutRadioButton.isChecked(): 
             self.val_method = 'holdout'
@@ -306,7 +466,7 @@ class App(QMainWindow):
         if val == QMessageBox.Close:
             return
 
-        # classifier hyperparameters
+        # set classifier hyperparameters according to data.
         self.classTypeComboBox.setCurrentIndex(0)
         self.set_decision_tree()
         self.set_random_forest()
@@ -318,15 +478,33 @@ class App(QMainWindow):
         self.classNameLineEdit.clear()
         self.classCommentTextEdit.clear()
 
-        # if no data is held out for validation, only show metrics on training data
+        # if no data is held out for validation, only show metrics on training data.
+        # this is for illustrating the importance of validation and should not be 
+        # activated under other circumstances.
         if self.holdoutRadioButton.isChecked() and self.holdoutSpinBox.value() == 0:
             self.performanceComboBox.setCurrentIndex(1)
             self.performanceListView.setRowHidden(0, True)
 
-        self.leftPanel.setCurrentIndex(1)
+        self.leftPanel.setCurrentIndex(1)   # proceed to the 2nd page.
 
-    # back to default
     def clear(self, option):
+        """
+        Clears up changes made by user.
+
+            - If option='all', the system is back to initial state.
+              This is called by clicking on the finish button on the 3rd page.
+
+            - If option='train', trained classifiers will be cleared.
+              This is called by clicking on the return button on the 2nd page.
+        
+            - If option='test', the classifier selected for testing is no longer selected.
+              This is called by clicking on the return button on the 3rd page.
+
+        :params option: 'all', 'train' or 'test'
+        :type params: str
+        """
+
+        # reset the software to initial state
         if option == 'all':
             self.clear('test')
             self.clear('train')
@@ -346,6 +524,8 @@ class App(QMainWindow):
             self.cvRadioButton.setChecked(True)
             self.cvSpinBox.setValue(5)
             self.validationCheckBox.setChecked(True)
+
+        # remove trained classifiers
         if option == 'train':
             self.curr_model = None
             self.models.clear()
@@ -360,14 +540,18 @@ class App(QMainWindow):
             self.confusionMatrixRadioButton.setChecked(True)
             self.leftPanel.setCurrentIndex(0)
             Model.clear()
+
+        # deselect classifier for testing
         elif option == 'test':
             self.selected_model = None
             self.bestPerformRadioButton.setChecked(True)
             self.metricComboBox.setCurrentIndex(0)
             self.leftPanel.setCurrentIndex(1)
 
-    # train and return a decision tree classifier
     def decision_tree(self):
+        """
+        Trains and returns a decision tree classifier.
+        """
         data = self.data.train('integer')
         num_features = self.data.num_features('integer')
         X = data.iloc[:, 0: num_features]
@@ -404,8 +588,10 @@ class App(QMainWindow):
                 k = self.cvSpinBox.value(), \
                 stratify=self.validationCheckBox.isChecked())
 
-    # train and return a random forest classifier
     def random_forest(self):
+        """
+        Trains and returns a random forest classifier.
+        """
         data = self.data.train('integer')
         num_features = self.data.num_features('integer')
         X = data.iloc[:, 0: num_features]
@@ -449,8 +635,10 @@ class App(QMainWindow):
                 k = self.cvSpinBox.value(), \
                 stratify=self.validationCheckBox.isChecked())
 
-    # train and return a k-nearest neighbors classifier
     def k_nearest_neighbors(self):
+        """
+        Trains and returns a k-nearest neighbors classifier.
+        """
         data = self.data.train('integer')
         num_features = self.data.num_features('integer')
         X = data.iloc[:, 0: num_features]
@@ -467,8 +655,10 @@ class App(QMainWindow):
                 k = self.cvSpinBox.value(), \
                 stratify=self.validationCheckBox.isChecked())
 
-    # train and return a logistic regression classifier
     def logistic_regression(self):
+        """
+        Trains and returns a logistic regression classifier.
+        """
         data = self.data.train('one-hot')
         num_features = self.data.num_features('one-hot')
         X = data.iloc[:, 0: num_features]
@@ -532,8 +722,10 @@ class App(QMainWindow):
 
         return model
 
-    # train and return a neural network classifier
     def neural_network(self):
+        """
+        Trains and returns a neural network classifier.
+        """
         data = self.data.train('one-hot')
         num_features = self.data.num_features('one-hot')
         X = data.iloc[:, 0: num_features]
@@ -605,8 +797,10 @@ class App(QMainWindow):
 
         return model
 
-    # train and return a svm classifier
     def svm(self):
+        """
+        Trains and returns an SVM classifier.
+        """
         data = self.data.train('one-hot')
         num_features = self.data.num_features('one-hot')
         X = data.iloc[:, 0: num_features]
@@ -678,8 +872,10 @@ class App(QMainWindow):
 
         return model
 
-    # train and return a naive bayes classifier
     def naive_bayes(self):
+        """
+        Trains and returns a naive bayes classifier.
+        """
         data = self.data.train('integer')
         num_features = self.data.num_features('integer')
         X = data.iloc[:, 0: num_features]
@@ -715,13 +911,19 @@ class App(QMainWindow):
                 stratify=self.validationCheckBox.isChecked(), \
                 mode=mode)
 
-    # train a classifier and push it into the model table
     def train(self):
+        """
+        Trains a classifier in a new thread.
+        """
         self.thread = Training_thread(self, self.finish_train)
         self.thread.started.connect(self.start_train)
         self.thread.start()
 
     def start_train(self):
+        """
+        Starts training by freezing the 2nd page so that user cannot 
+        alter the hyperparameters when training is in progress.
+        """
         self.trainStatusLabel.setText('Training in progress...')
         self.classResetPushButton.setDisabled(True)
         self.classTrainPushButton.setDisabled(True)
@@ -732,10 +934,19 @@ class App(QMainWindow):
         self.paramStack.setDisabled(True)
 
     def finish_train(self, model):
+        """
+        Receives the trained classifier from the training thread 
+        and pushs the new classifier into the model table in the 
+        right panel.
+
+        :param model: trained classifier
+        :type model: sklearn classifier object
+        """
         # training failed (e.g. invalid hyperparameters or model did not converge)
         if model is None:
             return
 
+        # set user-supplied classifier name.
         name = self.classNameLineEdit.text().strip()
         if name != '':
             if name in self.models:
@@ -743,16 +954,21 @@ class App(QMainWindow):
                 return
             model.set_name(name)
 
+        # set user-supplied cooment on classifier.
         model.set_comment(self.classCommentTextEdit.toPlainText().strip())
+
         self.classNameLineEdit.clear()
         self.classCommentTextEdit.clear()
 
-        self.models[model.name()] = model   # add to the collection of classifiers
+        self.models[model.name()] = model   # add to the collection of classifiers.
+
+        # show performance metrics with respect to the currently chosen data type.
         if self.performanceComboBox.currentIndex() == 0:
             self.push(model, 'val')
         else:
             self.push(model, 'train')
 
+        # activate the 2nd page so that user can train new classifiers.
         self.trainStatusLabel.setText('Training completed.')
         self.classResetPushButton.setEnabled(True)
         self.classTrainPushButton.setEnabled(True)
@@ -763,8 +979,17 @@ class App(QMainWindow):
         self.classTypeComboBox.setEnabled(True)
         self.paramStack.setEnabled(True)
 
-    # enter a classifier into the table
     def push(self, model, option):
+        """
+        Enters a classifier into the model table. Its performance metrics
+        are added to the entry. Depending on _option_, it populates the 
+        entry with appropriate performance metrics.
+
+        :param model: trained classifier
+        :type model: sklearn classifier object
+        :param option: 'train' or 'val'
+        :type option: str
+        """
         if option == 'train':
             metrics = model.metrics('train')
         else:
@@ -805,8 +1030,15 @@ class App(QMainWindow):
         self.set_metrics(row, metrics)
         self.switch_model(row, 0)    # mark the new classifier as selected
 
-    # set metrics of a classifier in the table
     def set_metrics(self, row, metrics):
+        """
+        Enters the metrics in an entry.
+
+        :param row: index of the entry
+        :type row: int
+        :param metrics: the collection of metrics to be entered
+        :type metrics: ModelMetrics
+        """
         self.models_table.item(row, 2).setText(str(metrics.accuracy()))
         self.models_table.item(row, 3).setText(str(metrics.precision()))
         self.models_table.item(row, 4).setText(str(metrics.recall()))
@@ -814,8 +1046,14 @@ class App(QMainWindow):
         self.models_table.item(row, 6).setText(str(metrics.auroc()))
         self.models_table.item(row, 7).setText(str(metrics.auprc()))
 
-    # switch between metrics on training and validation data
     def switch_metrics(self, index):
+        """
+        Switchs among metrics on training, validation and test data.
+        The metric values in all table entries change accordingly.
+
+        :param index: which set of metrics to display
+        :type index: int
+        """
         if index == 0:      option = 'val'
         elif index == 1:    option = 'train'
         else:               option = 'test'
@@ -848,8 +1086,17 @@ class App(QMainWindow):
             self.select('best')
             self.select('user')
 
-    # switch classifier, show summary and plots
     def switch_model(self, row, col):
+        """
+        Switchs among different classifiers in the table.
+        A classifier summary and the plots for the newly highlighted classifier
+        are generated.
+
+        :param row: index of the selected entry
+        :type row: int
+        :param col: needed for parameter passing but not used
+        :type col: int
+        """
         self.models_table.setCurrentCell(row, 0)
         self.curr_model = self.models[self.models_table.item(row, 0).text()]
         self.model_summary()
@@ -861,12 +1108,16 @@ class App(QMainWindow):
             self.userPickLabel.setText(self.selected_model.name())
             self.testPushButton.setEnabled(True)
 
-    # show summary of classifier
     def model_summary(self):
-            self.curr_model.summary(self.model_summary_)
+        """
+        Displays a summary of the currently highlighted classifier.
+        """
+        self.curr_model.summary(self.model_summary_)
 
-    # show plots
     def plot(self):
+        """
+        Shows plots of the currently highlighted classifier.
+        """
         if self.curr_model is not None:
             index = self.performanceComboBox.currentIndex()
             if  index == 0:
@@ -888,12 +1139,28 @@ class App(QMainWindow):
             elif self.dataPlotRadioButton.isChecked():
                 self.curr_model.plot_decision_regions(option, self.canvas)
 
-    # sort classifiers in descending order w.r.t. the selected metric
     def sort(self, col):
+        """
+        Sorts classifiers in descending order with respect to the selected 
+        metric.
+
+        :param col: index of the selected metric
+        :type col: int
+        """
         self.models_table.sortItems(col, Qt.DescendingOrder)
 
-    # select a model for testing
     def select(self, option):
+        """
+        Selects a classifier for testing.
+
+            - If option='best', select the best-performing classifier based 
+              on the selected metric.
+
+            - If option='user', select the classifier highlighted by user.
+
+        :param option: 'best' or 'user'
+        :type option: str
+        """
         if option == 'best' and self.bestPerformRadioButton.isChecked():
             index = self.metricComboBox.currentIndex()
             if index == 0:
@@ -913,8 +1180,11 @@ class App(QMainWindow):
             self.userPickLabel.setText(self.selected_model.name())
             self.testPushButton.setEnabled(True)
 
-    # test the selected classifier
     def test(self):
+        """
+        Tests the selected classifier. Computes metrics on test data and 
+        show them in the classifier's entry.
+        """
         # when at least one classifier has been tested
         if self.tested:
             val = self.warn('test')
@@ -956,8 +1226,11 @@ class App(QMainWindow):
         self.testBackPushButton.setDisabled(True)
         self.testFinishPushButton.setEnabled(True)
 
-    # use the selected classifier to make prediction
     def predict(self):
+        """
+        Makes prediction on new data using the selected classifier.
+        Saves the prediction to a new file.
+        """
         if self.curr_model.type() in ['decision tree', 'random forest', \
             'k-nearest neighbors', 'naive bayes']:
             data = self.data.prediction('integer')
@@ -967,8 +1240,11 @@ class App(QMainWindow):
         path = QFileDialog.getSaveFileName(self.testPage)[0]
         self.curr_model.predict(data, path)
 
-    # finish analyzing the dataset
     def finish(self):
+        """
+        Finishs analyzing the current datasets.
+        Asks user for future action (quit or start a new analysis).
+        """
         msg = 'Do you want to analyze more data?'
         self.finish_box.setText(msg)
         val = self.finish_box.exec_()
@@ -977,26 +1253,46 @@ class App(QMainWindow):
         elif val == QMessageBox.No:
             QApplication.instance().quit()
 
-    # show reminders
     def info(self, flag):
+        """
+        Shows reminders in a message box.
+
+        :param flag: indicates the event that triggers the reminder.
+        :type flag: str
+        """
         if flag == 'converge':
             msg = 'Maximum iterations reached and the classifier has not converged yet. '
             msg += 'Consider increasing max_iter.'
         self.info_box.setText(msg)
         self.info_box.exec_()
 
-    # show warning messages
     def warn(self, flag):
+        """
+        Shows warning messages in a message box.
+
+        :param flag: indicates the event that triggers the warning.
+        :type flag: str
+        """
         self.warn_message(flag)
         return self.warn_box.exec_()
 
-    # show error messages
     def error(self, flag):
+        """
+        Shows error messages in a message box.
+
+        :param flag: indicates the event that triggers the error.
+        :type flag: str
+        """
         self.error_message(flag)
         return self.err_box.exec_()
 
-    # construct warning messages
     def warn_message(self, flag):
+        """
+        Constructs warning messages.
+
+        :param flag: indicates the event that triggers the warning.
+        :type flag: str
+        """
         if flag == 'holdout':
             msg = 'No validation data is allocated. Classifiers may overfit.'
         elif flag == 'cv':
@@ -1009,8 +1305,13 @@ class App(QMainWindow):
             msg = 'Model selection on test data may lead to an overfit model.'
         self.warn_box.setText(msg)
 
-    # construct error messages
     def error_message(self, flag):
+        """
+        Constructs error messages.
+
+        :param flag: indicates the event that triggers the error.
+        :type flag: str
+        """
         if flag == 'format':
             msg = 'Wrong data format. Only .csv is accepted.'
         elif flag == 'num_samples':
@@ -1044,6 +1345,9 @@ class App(QMainWindow):
         self.err_box.setText(msg)
 
     def initUI(self):
+        """
+        Sets up the GUI.
+        """
         self.data = None
         self.val_method = 'cv'
         self.models = dict()

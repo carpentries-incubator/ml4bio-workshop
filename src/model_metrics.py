@@ -8,18 +8,85 @@ from matplotlib.figure import Figure
 from matplotlib import pyplot as plt
 from matplotlib import rcParams
 
+
 class ModelMetrics:
-	# constructor
-	#
-	# classifier: 	classifier for evaluation
-	# y:			true labels
-	# y_pred:		predicted labels
-	# y_prob:		probability of each class
-	# option:		metrics on which dataset (training/validation/test)
+	"""
+	An instance of this class stores information about a classifier's 
+	performance metrics with respect to training, validation or test set.
+	Stored metrics include:
+
+		- accuracy
+		- precision (average and classwise)
+		- recall (average and classwise)
+		- f1 score (average and classwise)
+		- AUROC (average and classwise)
+		- AUPRC (average and classwise)
+		- confusion matrix
+
+	:ivar classes\_: valid classes for the classification problem
+	:vartype classes\_: list
+	:ivar num_classes\_: total number of valid classes
+	:vartype num_classes\_: int
+	:ivar accuracy\_: accuracy of the classifier
+	:vartype accuracy\_: float
+	:ivar avg_precision\_: average precision over all classes
+	:vartype avg_precision\_: float
+	:ivar avg_recall\_: average recall over all classes
+	:vartype avg_recall\_: float
+	:ivar avg_f1\_: average f1 score over all classes
+	:vartype avg_f1\_: float
+	:ivar avg_auroc\_: average AUROC over all classes
+	:vartype avg_auroc\_: float
+	:ivar avg_auprc\_: average AUPRC over all classes
+	:vartype avg_auprc\_: float
+	:ivar confusion_matrix\_: confusion matrix in percents
+	:vartype confusion_matrix\_: 2D array
+
+	The dictionaries below use class names as keys.
+	Each value in the dictionaries is a floating-point number.
+
+	:ivar class_precision\_: classwise precisions
+	:vartype class_precision\_: dict
+	:ivar class_recall\_: classwise recalls
+	:vartype class_recall\_: dict
+	:ivar class_f1\_: classwise f1 scores
+	:vartype class_f1\_: dict
+	:ivar class_auroc\_: classwise AUROCs
+	:vartype class_auroc\_: dict
+	:ivar class_auprc\_: classwise AUPRCs
+	:vartype class_auprc\_: dict
+
+	The dictionaries below use class names and 'avg' as keys.
+	Each value in the dictionaries is a list of metric values at different decision threshold.
+
+	:ivar fpr\_: FPRs for plotting all ROC curves
+	:vartype fpr\_: dict
+	:ivar tpr\_: TPRs for plotting all ROC curves
+	:vartype tpr\_: dict
+	:ivar precision\_: precisions for plotting all PR curves
+	:vartype precision\_: dict
+	:ivar recall\_: recalls for plotting all PR curves
+	:vartype recall\_: dict
+	"""
+
 	def __init__(self, classifier, y, y_pred, y_prob, option):
-		labels = classifier.classes_
-		num_classes = len(labels)
-		self.labels_ = labels
+		"""
+		Constructs a new instance of the class.
+
+		:param classifier: classifier for evaluation
+		:type classifier: sklearn classifier object
+		:param y: true labels
+		:type y: pandas series
+		:param y_pred: predicted labels
+		:type y_pred: pandas series
+		:param y_prob: classwise probabilities
+		:type y_prob: pandas dataframe
+		:param option: specification of evaluation method ("holdout", "cv" or "loo")
+		:type option: str
+		"""
+		classes = classifier.classes_
+		num_classes = len(classes)
+		self.classes_ = classes
 		self.num_classes_ = num_classes
 
 		fpr = dict()
@@ -38,13 +105,13 @@ class ModelMetrics:
 			confusion_matrix = metrics.confusion_matrix(y, y_pred)
 
 			for i in range(0, num_classes):
-				fpr[i], tpr[i], _ = metrics.roc_curve(y, y_prob[:, i], pos_label=labels[i])
-				auroc[labels[i]] = np.around(metrics.auc(fpr[i], tpr[i]), decimals=3)
+				fpr[i], tpr[i], _ = metrics.roc_curve(y, y_prob[:, i], pos_label=classes[i])
+				auroc[classes[i]] = np.around(metrics.auc(fpr[i], tpr[i]), decimals=3)
 
-				precision[i], recall[i], _ = metrics.precision_recall_curve(y, y_prob[:, i], pos_label=labels[i])
+				precision[i], recall[i], _ = metrics.precision_recall_curve(y, y_prob[:, i], pos_label=classes[i])
 				precision[i] = np.flip(precision[i], 0)
 				recall[i] = np.flip(recall[i], 0)
-				auprc[labels[i]] = np.around(metrics.auc(recall[i], precision[i]), decimals=3)
+				auprc[classes[i]] = np.around(metrics.auc(recall[i], precision[i]), decimals=3)
 
 		elif option == 'cv':
 			k = len(y)
@@ -75,8 +142,8 @@ class ModelMetrics:
 				recall_i = dict()
 
 				for j in range(0, k):
-					fpr_i[j], tpr_i[j], _ = metrics.roc_curve(y[j], y_prob[j][:, i], pos_label=labels[i])
-					precision_i[j], recall_i[j], _ = metrics.precision_recall_curve(y[j], y_prob[j][:, i], pos_label=labels[i])
+					fpr_i[j], tpr_i[j], _ = metrics.roc_curve(y[j], y_prob[j][:, i], pos_label=classes[i])
+					precision_i[j], recall_i[j], _ = metrics.precision_recall_curve(y[j], y_prob[j][:, i], pos_label=classes[i])
 				
 				fpr[i] = np.unique(np.concatenate([fpr_i[j] for j in range(0, k)]))
 				tpr[i] = np.zeros_like(fpr[i])
@@ -90,17 +157,17 @@ class ModelMetrics:
 				
 				tpr[i] /= k
 				precision[i] /= k
-				auroc[labels[i]] = np.around(metrics.auc(fpr[i], tpr[i]), decimals=3)
-				auprc[labels[i]] = np.around(metrics.auc(recall[i], precision[i]), decimals=3)
+				auroc[classes[i]] = np.around(metrics.auc(fpr[i], tpr[i]), decimals=3)
+				auprc[classes[i]] = np.around(metrics.auc(recall[i], precision[i]), decimals=3)
 
 		# metrics averaged over all classes
 		self.avg_precision_ = np.around(np.mean(class_precision), decimals=3)
 		self.avg_recall_ = np.around(np.mean(class_recall), decimals=3)
 		self.avg_f1_ = np.around(np.mean(class_f1), decimals=3)
 
-		self.class_precision_ = dict(zip(labels, np.around(class_precision, decimals=3)))
-		self.class_recall_ = dict(zip(labels, np.around(class_recall, decimals=3)))
-		self.class_f1_ = dict(zip(labels, np.around(class_f1, decimals=3)))
+		self.class_precision_ = dict(zip(classes, np.around(class_precision, decimals=3)))
+		self.class_recall_ = dict(zip(classes, np.around(class_recall, decimals=3)))
+		self.class_f1_ = dict(zip(classes, np.around(class_f1, decimals=3)))
 
 		confusion_matrix = confusion_matrix / np.sum(confusion_matrix, axis=1)
 		self.confusion_matrix_ = np.around(confusion_matrix, decimals=3)
@@ -133,37 +200,85 @@ class ModelMetrics:
 		self.recall_ = recall
 		self.class_auprc_ = auprc
 
-	# return accuracy of classifier
 	def accuracy(self):
+		"""
+		Returns accuracy of the classifier.
+		"""
 		return self.accuracy_
 
-	# return precision of classifier
 	def precision(self, option='average'):
+		"""
+		Returns precision of the classifier.
+
+			- option='average': average precision
+			- option='classwise': classwise precision
+
+		:param option: 'average' or 'classwise'
+		:type option: str
+		"""
 		if option == 'classwise':	return self.class_precision_
 		elif option == 'average':	return self.avg_precision_
 
-	# return recall of classifier
 	def recall(self, option='average'):
+		"""
+		Returns recall of the classifier.
+
+			- option='average': average recall
+			- option='classwise': classwise recall
+
+		:param option: 'average' or 'classwise'
+		:type option: str
+		"""
 		if option == 'classwise':	return self.class_recall_
 		elif option == 'average':	return self.avg_recall_
 
-	# return f1-socre of classifier
 	def f1(self, option='average'):
+		"""
+		Returns f1 score of the classifier.
+
+			- option='average': average f1 score
+			- option='classwise': classwise f1 score
+
+		:param option: 'average' or 'classwise'
+		:type option: str
+		"""
 		if option == 'classwise':	return self.class_f1_
 		elif option == 'average':	return self.avg_f1_
 
-	# return AUROC of classifier
 	def auroc(self, option='average'):
+		"""
+		Returns AUROC of the classifier.
+
+			- option='average': average AUROC
+			- option='classwise': classwise AUROC
+
+		:param option: 'average' or 'classwise'
+		:type option: str
+		"""
 		if option == 'classwise':	return self.class_auroc_
 		elif option == 'average':	return self.avg_auroc_
 
-	# return AUPRC of classifier
 	def auprc(self, option='average'):
+		"""
+		Returns AUPRC of the classifier.
+
+			- option='average': average AUPRC
+			- option='classwise': classwise AUPRC
+
+		:param option: 'average' or 'classwise'
+		:type option: str
+		"""
 		if option == 'classwise':	return self.class_auprc_
 		elif option == 'average':	return self.avg_auprc_
 
-	# return summary of metrics
 	def summary(self, parent):
+		"""
+		Displays a summary of performance metrics.
+		The summary is organized in a tree structure.
+
+		:param parent: the parent item in the model summary
+		:type parent: QTreeWidgetItem
+		"""
 		accuracy_item = QTreeWidgetItem(parent)
 		accuracy_item.setText(0, 'Accuracy')
 		accuracy_item.setText(1, str(self.accuracy()))
@@ -198,23 +313,35 @@ class ModelMetrics:
 		class_auprc = self.auprc('classwise')
 		self.class_summary(auprc_item, class_auprc)
 
-	# return summary of metrics w.r.t. individual classes
 	def class_summary(self, parent, class_metric):
+		"""
+		Returns a summary of metrics with respect of each class.
+
+		:param parent: the parent node in the tree view
+		:type parent: QTreeWidgetItem
+		:param class_metric: the classwise values of a particular metric
+		:type class_metric: dict
+		"""
 		for c in class_metric:
 			class_metric_item = QTreeWidgetItem(parent)
 			class_metric_item.setText(0, str(c))
 			class_metric_item.setToolTip(0, str(c))
 			class_metric_item.setText(1, str(class_metric[c]))
 
-	# plot ROC curves
-	#
-	# reference:
-	# http://scikit-learn.org/stable/auto_examples/model_selection/plot_roc.html
 	def plot_ROC(self, canvas):
+		"""
+		Plots ROC curves. This includes all classwise curves and a macro-averaged curve.
+
+		Reference:
+			http://scikit-learn.org/stable/auto_examples/model_selection/plot_roc.html
+
+		:param canvas: the canvas where the plot is drawn
+		:type canvas: FigureCanvas
+		"""
 		fpr = self.fpr_
 		tpr = self.tpr_
 		auc = self.class_auroc_
-		labels = self.labels_
+		classes = self.classes_
 		num_classes = self.num_classes_
 
 		rcParams.update({'font.size': 7})
@@ -226,7 +353,7 @@ class ModelMetrics:
 
 		colors = cycle(['red', 'green', 'orange', 'blue', 'yellow', 'purple', 'cyan'])
 		for i, color in zip(range(0, num_classes), colors):
-			ax.plot(fpr[i], tpr[i], label='{0} (area={1})'.format(labels[i], auc[labels[i]]), \
+			ax.plot(fpr[i], tpr[i], label='{0} (area={1})'.format(classes[i], auc[classes[i]]), \
 				color=color, linewidth=1)
 
 		ax.plot([0 ,1], [0, 1], color='lightgray', linewidth=1, linestyle='--')
@@ -239,15 +366,20 @@ class ModelMetrics:
 		canvas.figure.tight_layout()
 		canvas.draw()
 
-	# plot precision-recall curves
-	#
-	# reference:
-	# http://scikit-learn.org/stable/auto_examples/model_selection/plot_precision_recall.html
 	def plot_precision_recall(self, canvas):
+		"""
+		Plots precision-recall curves. This includes all classwise curves and a macro-averaged curve.
+
+		Reference:
+			http://scikit-learn.org/stable/auto_examples/model_selection/plot_precision_recall.html
+
+		:param canvas: the canvas where the plot is drawn
+		:type canvas: FigureCanva
+		"""
 		precision = self.precision_
 		recall = self.recall_
 		auc = self.class_auprc_
-		labels = self.labels_
+		classes = self.classes_
 		num_classes = self.num_classes_
 
 		rcParams.update({'font.size': 7})
@@ -259,7 +391,7 @@ class ModelMetrics:
 
 		colors = cycle(['red', 'green', 'orange', 'blue', 'yellow', 'purple', 'cyan'])
 		for i, color in zip(range(0, num_classes), colors):
-			ax.plot(recall[i], precision[i], label='{0} (area={1})'.format(labels[i], auc[labels[i]]), \
+			ax.plot(recall[i], precision[i], label='{0} (area={1})'.format(classes[i], auc[classes[i]]), \
 				color=color, linewidth=1)
 
 		# plot iso-f1 curves
@@ -281,12 +413,17 @@ class ModelMetrics:
 		canvas.figure.tight_layout()
 		canvas.draw()
 
-	# plot confusion matrix
-	#
-	# reference:
-	# http://scikit-learn.org/stable/auto_examples/model_selection/plot_confusion_matrix.html
 	def plot_confusion_matrix(self, canvas):
-		labels = self.labels_
+		"""
+		Plots confusion matrix. The entries are normalized to lie between 0 and 1.
+
+		Reference:
+			http://scikit-learn.org/stable/auto_examples/model_selection/plot_confusion_matrix.html
+
+		:param canvas: the canvas where the plot is drawn
+		:type canvas: FigureCanva
+		"""
+		classes = self.classes_
 		num_classes = self.num_classes_
 		cm = self.confusion_matrix_
 
@@ -298,8 +435,8 @@ class ModelMetrics:
 		ax.imshow(cm, interpolation='nearest', cmap=plt.cm.Blues)
 		ax.set_xticks(tick_marks)
 		ax.set_yticks(tick_marks)
-		ax.set_xticklabels(labels, rotation=45)
-		ax.set_yticklabels(labels, rotation=45)
+		ax.set_xticklabels(classes, rotation=45)
+		ax.set_yticklabels(classes, rotation=45)
 
 		for i in range(0, cm.shape[0]):
 			for j in range(0, cm.shape[1]):

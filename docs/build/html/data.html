@@ -1,0 +1,403 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>data.py &#8212; Machine Learning Workshop for Biologists 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="model.py" href="model.html" />
+    <link rel="prev" title="ml4bio.py" href="ml4bio.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-data">
+<span id="data-py"></span><h1>data.py<a class="headerlink" href="#module-data" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="data.Data">
+<em class="property">class </em><code class="descclassname">data.</code><code class="descname">Data</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#data.Data" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of this class stores the data used for learning and prediction.
+The stored information includes:</p>
+<blockquote>
+<div><ul class="simple">
+<li>labeled data</li>
+<li>unlabeled data (if uploaded)</li>
+<li>labeled file name</li>
+<li>unlabeled file name (if uploaded)</li>
+<li>number of samples in labeled data</li>
+<li>number of samples in unlabeled data (if uploaded)</li>
+<li>number of features</li>
+<li>type of features (individual and overall)</li>
+<li>number of valid classes</li>
+<li>number of samples per class</li>
+<li>encoded data (integer and one-hot encoding)</li>
+</ul>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><strong>labeled_data</strong> (<em>pandas dataframe</em>) – labeled data for learning classifiers</li>
+<li><strong>unlabeled_data</strong> (<em>pandas dataframe</em>) – unlabeled data for prediction</li>
+<li><strong>labeled_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – name of the labeled dataset</li>
+<li><strong>unlabeled_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – name of the unlabeled dataset</li>
+<li><strong>labeled_num_samples</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – number of samples in the labeled dataset</li>
+<li><strong>unlabeled_num_samples</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – number of samples in the unlabeled dataset</li>
+<li><strong>num_features_</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – number of features</li>
+<li><strong>individual_feature_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – type of each feature in a dictionary whose keys are feature names</li>
+<li><strong>global_feature_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – an overall summary of feature types (‘continuous’, ‘discrete’, ‘mixed’)</li>
+<li><strong>num_classes_</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – number of valid classes</li>
+<li><strong>class_num_samples</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – number of samples per class in a dictionary whose keys are class names</li>
+<li><strong>integer_encoded_labeled_data</strong> (<em>pandas dataframe</em>) – integer-encoded labeled data</li>
+<li><strong>integer_encoded_unlabeled_data</strong> (<em>pandas dataframe</em>) – integer-encoded unlabeled data</li>
+<li><strong>one_hot_encoded_labeled_data</strong> (<em>pandas dataframe</em>) – one-hot-encoded labeled data</li>
+<li><strong>one_hot_encoded_unlabeled_data</strong> (<em>pandas dataframe</em>) – one-hot-encoded unlabeled data</li>
+<li><strong>num_one_hot_encoded_features</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – number of features after one-hot encoding</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="data.Data.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#data.Data.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs a new instance of the class.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – file path of the labeled data</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="data.Data.__weakref__">
+<code class="descname">__weakref__</code><a class="headerlink" href="#data.Data.__weakref__" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of weak references to the object (if defined)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="data.Data.add_unlabeled_data">
+<code class="descname">add_unlabeled_data</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#data.Data.add_unlabeled_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds unlabeled data for prediction.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – file path of the unlabeled data</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="data.Data.encode">
+<code class="descname">encode</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#data.Data.encode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encodes the data using integer and one-hot encoders.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="data.Data.feature_type">
+<code class="descname">feature_type</code><span class="sig-paren">(</span><em>option='global'</em><span class="sig-paren">)</span><a class="headerlink" href="#data.Data.feature_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns summary of feature types.</p>
+<blockquote>
+<div><ul class="simple">
+<li>option=’individual’: type of each feature</li>
+<li>option=’global’: overall summary of feature types</li>
+</ul>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>option</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – ‘individual’ or ‘global’</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">summary of feature types</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="data.Data.name">
+<code class="descname">name</code><span class="sig-paren">(</span><em>option='labeled'</em><span class="sig-paren">)</span><a class="headerlink" href="#data.Data.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns name of the dataset.</p>
+<blockquote>
+<div><ul class="simple">
+<li>option=’labeled’: name of labeled data</li>
+<li>option=’unlabeled’: name of unlabeled data</li>
+</ul>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>option</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – ‘labeled’ or ‘unlabeled’</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">name of the dataset</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="data.Data.num_classes">
+<code class="descname">num_classes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#data.Data.num_classes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns number of valid classes.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">number of valid classes</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="data.Data.num_features">
+<code class="descname">num_features</code><span class="sig-paren">(</span><em>option='raw'</em><span class="sig-paren">)</span><a class="headerlink" href="#data.Data.num_features" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns number of features.</p>
+<blockquote>
+<div><ul class="simple">
+<li>option=’raw’: number of raw features (raw and integer-encoded data)</li>
+<li>option=’one-hot’: number of features after one-hot encoding</li>
+</ul>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>option</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – ‘raw’,’integer’ or ‘one-hot’</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">number of features</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="data.Data.num_samples">
+<code class="descname">num_samples</code><span class="sig-paren">(</span><em>option='labeled'</em><span class="sig-paren">)</span><a class="headerlink" href="#data.Data.num_samples" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns number of samples.</p>
+<blockquote>
+<div><ul class="simple">
+<li>option=’labeled’: total number of samples in labeled data</li>
+<li>option=’unlabeled’: total number of samples in unlabeled data</li>
+<li>option=’classwise’: number of samples that belong to each class</li>
+</ul>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>option</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – ‘labeled’, ‘unlabeled’ or ‘classwise’</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">number of samples</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="data.Data.prediction">
+<code class="descname">prediction</code><span class="sig-paren">(</span><em>option</em><span class="sig-paren">)</span><a class="headerlink" href="#data.Data.prediction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns encoded unlabeled data for prediction.</p>
+<blockquote>
+<div><ul class="simple">
+<li>option=’integer’: integer-encoded data</li>
+<li>option=’one-hot’: one-hot-encoded data</li>
+</ul>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>option</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – ‘integer’ or ‘one-hot’</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">encoded unlabeled data</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="data.Data.split">
+<code class="descname">split</code><span class="sig-paren">(</span><em>test_size</em>, <em>stratify</em><span class="sig-paren">)</span><a class="headerlink" href="#data.Data.split" title="Permalink to this definition">¶</a></dt>
+<dd><p>Splits labeled data into training and test sets.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>test_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – percent of test data</li>
+<li><strong>stratify</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – draw samples according to class proportions or not</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="data.Data.summary">
+<code class="descname">summary</code><span class="sig-paren">(</span><em>view</em><span class="sig-paren">)</span><a class="headerlink" href="#data.Data.summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Displays a summary of the loaded data. This includes</p>
+<blockquote>
+<div><ul class="simple">
+<li>number of samples (total and classwise)</li>
+<li>number of features</li>
+<li>feature types (individual and global)</li>
+</ul>
+</div></blockquote>
+<p>The summary is organized in a tree structure.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>view</strong> (<em>QTreeWidget</em>) – the widget where the summary is displayed</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="data.Data.test">
+<code class="descname">test</code><span class="sig-paren">(</span><em>option</em><span class="sig-paren">)</span><a class="headerlink" href="#data.Data.test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns encoded test data.</p>
+<blockquote>
+<div><ul class="simple">
+<li>option=’integer’: integer-encoded data</li>
+<li>option=’one-hot’: one-hot-encoded data</li>
+</ul>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>option</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – ‘integer’ or ‘one-hot’</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">encoded test data</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="data.Data.train">
+<code class="descname">train</code><span class="sig-paren">(</span><em>option</em><span class="sig-paren">)</span><a class="headerlink" href="#data.Data.train" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns encoded training data.</p>
+<blockquote>
+<div><ul class="simple">
+<li>option=’integer’: integer-encoded data</li>
+<li>option=’one-hot’: one-hot-encoded data</li>
+</ul>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>option</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – ‘integer’ or ‘one-hot’</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">encoded training data</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Machine Learning Workshop for Biologists</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="ml4bio.html">ml4bio.py</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">data.py</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model.html">model.py</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model_metrics.html">model_metrics.py</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="ml4bio.html" title="previous chapter">ml4bio.py</a></li>
+      <li>Next: <a href="model.html" title="next chapter">model.py</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      
+      |
+      <a href="_sources/data.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

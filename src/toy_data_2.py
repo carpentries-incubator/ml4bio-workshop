@@ -8,7 +8,7 @@ X, y = data
 X = pd.DataFrame(X, columns=['x', 'y'])
 y = pd.DataFrame(y, columns=['labels'])
 data = pd.concat([X, y], axis=1)
-data.to_csv('toy_data_2.csv', sep=',', index=False)
+data.to_csv('toy_data_2_unlabeled.csv', sep=',', index=False)
 
 plt.figure()
 plt.scatter(X['x'], X['y'], c=y['labels'], cmap=plt.cm.RdBu)

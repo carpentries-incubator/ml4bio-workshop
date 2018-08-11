@@ -5,10 +5,63 @@ from sklearn import preprocessing, model_selection
 from PyQt5.QtWidgets import QTreeWidgetItem
 
 class Data:
-	# constructor
-	#
-	# path: 	file path of labeled data
+	"""
+	An instance of this class stores the data used for learning and prediction.
+	The stored information includes:
+
+		- labeled data
+		- unlabeled data (if uploaded)
+		- labeled file name
+		- unlabeled file name (if uploaded)
+		- number of samples in labeled data
+		- number of samples in unlabeled data (if uploaded)
+		- number of features
+		- type of features (individual and overall)
+		- number of valid classes
+		- number of samples per class
+		- encoded data (integer and one-hot encoding)
+
+	:ivar labeled_data: labeled data for learning classifiers
+	:vartype labeled_data: pandas dataframe
+	:ivar unlabeled_data: unlabeled data for prediction
+	:vartype unlabeled_data: pandas dataframe
+	:ivar labeled_name: name of the labeled dataset
+	:vartype labeled_name: str
+	:ivar unlabeled_name: name of the unlabeled dataset
+	:vartype unlabeled_name: str
+	:ivar labeled_num_samples: number of samples in the labeled dataset
+	:vartype labeled_num_samples: int
+	:ivar unlabeled_num_samples: number of samples in the unlabeled dataset
+	:vartype unlabeled_num_samples: int
+	:ivar num_features\_: number of features
+	:vartype num_features\_: int
+	:ivar individual_feature_type: type of each feature in a dictionary whose keys are feature names
+	:vartype individual_feature_type: dict
+	:ivar global_feature_type: an overall summary of feature types ('continuous', 'discrete', 'mixed')
+	:vartype global_feature_type: str
+	:ivar num_classes\_: number of valid classes
+	:vartype num_classes\_: int
+	:ivar class_num_samples: number of samples per class in a dictionary whose keys are class names
+	:vartype class_num_samples: dict
+	:ivar integer_encoded_labeled_data: integer-encoded labeled data
+	:vartype integer_encoded_labeled_data: pandas dataframe
+	:ivar integer_encoded_unlabeled_data: integer-encoded unlabeled data
+	:vartype integer_encoded_unlabeled_data: pandas dataframe
+	:ivar one_hot_encoded_labeled_data: one-hot-encoded labeled data
+	:vartype one_hot_encoded_labeled_data: pandas dataframe
+	:ivar one_hot_encoded_unlabeled_data: one-hot-encoded unlabeled data
+	:vartype one_hot_encoded_unlabeled_data: pandas dataframe
+	:ivar num_one_hot_encoded_features: number of features after one-hot encoding
+	:vartype num_one_hot_encoded_features: int
+	"""
+
 	def __init__(self, path):
+		"""
+		Constructs a new instance of the class.
+
+		:param path: file path of the labeled data
+		:type path: str
+		"""
 		self.labeled_data = pd.read_csv(path, sep=None, engine='python')
 		self.unlabeled_data = None 		# unlabeled data is optional
 		self.labeled_name = os.path.basename(path)
@@ -56,10 +109,13 @@ class Data:
 		for l in label_col:
 			self.class_num_samples[l] += 1
 
-	# add unlabeled data for prediction
-	#
-	# path: 	file path of unlabeled data
 	def add_unlabeled_data(self, path):
+		"""
+		Adds unlabeled data for prediction.
+
+		:param path: file path of the unlabeled data
+		:type path: str
+		"""
 		try:
 			self.unlabeled_data = pd.read_csv(path, sep=None, engine='python')
 		except:
@@ -74,8 +130,10 @@ class Data:
 		self.unlabeled_name = os.path.basename(path)
 		self.unlabeled_num_samples = self.unlabeled_data.shape[0]
 
-	# encode data (integer encoding + one-hot encoding)
 	def encode(self):
+		"""
+		Encodes the data using integer and one-hot encoders.
+		"""
 		raw_data = self.labeled_data.iloc[:, 0: self.num_features()]
 		if self.unlabeled_data is not None:
 			raw_data = pd.concat([raw_data, self.unlabeled_data], axis=0)
@@ -112,11 +170,15 @@ class Data:
 			self.integer_encoded_unlabeled_data = integer_encoded_data[self.num_samples('labeled'): ]
 			self.one_hot_encoded_unlabeled_data = one_hot_encoded_data[self.num_samples('labeled'): ]
 
-	# split data into training and test sets
-	#
-	# test_size: 	percent of test data
-	# stratify: 	whether or not to stratify samples
 	def split(self, test_size, stratify):
+		"""
+		Splits labeled data into training and test sets.
+
+		:param test_size: percent of test data
+		:type test_size: float
+		:param stratify: draw samples according to class proportions or not
+		:type stratify: bool
+		"""
 		integer_encoded_X = self.integer_encoded_labeled_data
 		one_hot_encoded_X = self.one_hot_encoded_labeled_data
 		y = self.labeled_data.iloc[:, self.num_features()]
@@ -136,33 +198,89 @@ class Data:
 		self.one_hot_encoded_train = pd.concat([one_hot_encoded_X_train, one_hot_encoded_y_train], axis=1)
 		self.one_hot_encoded_test = pd.concat([one_hot_encoded_X_test, one_hot_encoded_y_test], axis=1)
 
-	# return name of dataset
 	def name(self, option='labeled'):
+		"""
+		Returns name of the dataset.
+
+			- option='labeled': name of labeled data
+			- option='unlabeled': name of unlabeled data
+
+		:param option: 'labeled' or 'unlabeled'
+		:type option: str
+
+		:returns: name of the dataset
+		"""
 		if option == 'labeled':		return self.labeled_name
 		elif option == 'unlabeled':	return self.unlabeled_name
 
-	# return number of samples
 	def num_samples(self, option='labeled'):
+		"""
+		Returns number of samples.
+
+			- option='labeled': total number of samples in labeled data
+			- option='unlabeled': total number of samples in unlabeled data
+			- option='classwise': number of samples that belong to each class
+
+		:param option: 'labeled', 'unlabeled' or 'classwise'
+		:type option: str
+
+		:returns: number of samples
+		"""
 		if option == 'labeled':		return self.labeled_num_samples
 		elif option == 'unlabeled':	return self.unlabeled_num_samples
 		elif option == 'classwise':	return self.class_num_samples
 
-	# return number of features
 	def num_features(self, option='raw'):
+		"""
+		Returns number of features.
+
+			- option='raw': number of raw features (raw and integer-encoded data)
+			- option='one-hot': number of features after one-hot encoding
+
+		:param option: 'raw','integer' or 'one-hot'
+		:type option: str
+
+		:returns: number of features
+		"""
 		if option in ['raw', 'integer']:	return self.num_features_
 		elif option == 'one-hot':			return self.num_one_hot_encoded_features
 
-	# return features types
 	def feature_type(self, option='global'):
+		"""
+		Returns summary of feature types.
+
+			- option='individual': type of each feature
+			- option='global': overall summary of feature types
+
+		:param option: 'individual' or 'global'
+		:type option: str
+
+		:returns: summary of feature types
+		"""
 		if option == 'individual':	return self.individual_feature_type
 		elif option == 'global':	return self.global_feature_type
 
-	# return number of classes
 	def num_classes(self):
+		"""
+		Returns number of valid classes.
+
+		:returns: number of valid classes
+		"""
 		return self.num_classes_
 
-	# show summary of data
 	def summary(self, view):
+		"""
+		Displays a summary of the loaded data. This includes 
+
+			- number of samples (total and classwise)
+			- number of features
+			- feature types (individual and global)
+
+		The summary is organized in a tree structure.
+
+		:param view: the widget where the summary is displayed
+		:type view: QTreeWidget
+		"""
 		view.clear()
 
 		samples_item = QTreeWidgetItem(view)
@@ -196,17 +314,47 @@ class Data:
 			feature_type_item.setText(1, feature_type[f])
 			feature_type_item.setToolTip(0, f)
 
-	# return training data
 	def train(self, option):
+		"""
+		Returns encoded training data.
+
+			- option='integer': integer-encoded data
+			- option='one-hot': one-hot-encoded data
+
+		:param option: 'integer' or 'one-hot'
+		:type option: str
+
+		:returns: encoded training data
+		"""
 		if option == 'integer':		return self.integer_encoded_train
 		elif option == 'one-hot':	return self.one_hot_encoded_train
 
-	# return test data
 	def test(self, option):
+		"""
+		Returns encoded test data.
+
+			- option='integer': integer-encoded data
+			- option='one-hot': one-hot-encoded data	
+
+		:param option: 'integer' or 'one-hot'
+		:type option: str
+
+		:returns: encoded test data
+		"""
 		if option == 'integer':		return self.integer_encoded_test
 		elif option == 'one-hot':	return self.one_hot_encoded_test
 
-	# return unlabeled data for prediction
 	def prediction(self, option):
+		"""
+		Returns encoded unlabeled data for prediction.
+
+			- option='integer': integer-encoded data
+			- option='one-hot': one-hot-encoded data
+
+		:param option: 'integer' or 'one-hot'
+		:type option: str
+
+		:returns: encoded unlabeled data
+		"""
 		if option == 'integer':		return self.integer_encoded_unlabeled_data
 		elif option == 'one-hot':	return self.one_hot_encoded_unlabeled_data
