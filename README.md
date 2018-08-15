@@ -1,6 +1,9 @@
 # Machine Learning (ML) for Biologists Workshop
 
-Recent advances in high-throughput technologies have led to rapid growth in the amount of omics data. These massive datasets, accompanied by numerous data points enriched over the past decades, are extremely valuable in the discovery of complex biological structures, but also present big challenges in various aspects of data analysis. This workshop introduces biologists to machine learning, a powerful set of models for drawing inference from big data.  Upon completion of the workshop, attendees will gain expertise in building simple predictive models and become more comfortable to collaborate with computational experts on more complicated data analysis tasks.
+Recent advances in high-throughput technologies have led to rapid growth in the amount of omics data.
+These massive datasets, accompanied by numerous data points enriched over the past decades, are extremely valuable in the discovery of complex biological structures, but also present big challenges in various aspects of data analysis.
+This workshop introduces biologists to machine learning, a powerful set of models for drawing inference from big data. 
+Upon completion of the workshop, attendees will gain expertise in building simple predictive models and become more comfortable to collaborate with computational experts on more complicated data analysis tasks.
 
 ## Guideline
 
