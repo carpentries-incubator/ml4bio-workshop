@@ -80,7 +80,7 @@ The only possibly needed preprocessing step is encoding, which we will briefly d
 We use the famous iris dataset to introduce the basic language for describing a dataset.
 
 <p align="center">
-<img width="600" src="../figures/data.png">
+<img width="600" src="../figures/data.png" title="Image adapted from https://github.com/rasbt/python-machine-learning-book-2nd-edition">
 </p>
 
 Most datasets for ML are organized in a similar fashion.
