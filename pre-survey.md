@@ -1,20 +1,20 @@
 ## Pre-workshop survey questions
 
-1. How much do you know about machine learning? (0-5)
-  - 0: None
+1. How much do you know about machine learning? (1-5)
+  - 1: None
   - 5: I have formally taken a machine learning course and/or have formal project experience.
-1. Do you have coding experience? (0-5)
-  - 0: None
+1. Do you have coding experience? (1-5)
+  - 1: None
   - 5: I have written a nontrivial program (1000 or more lines of code).
-1. How comfortable are you with coding? (0-5)
-  - 0: Intimidating
+1. How comfortable are you with coding? (1-5)
+  - 1: Intimidating
   - 5: Enjoyable
 1. Do you have experience with the command line interface on your computer? (Yes/No)
 1. Have you taken a calculus course? (Yes/No)
 1. Have you taken a probability and statistics course? (Yes/No)
 1. Do you encounter large datasets in your research (too large to navigate in a spreadsheet)? (Yes/No)
-1. How would you like to split your research effort in the future? (0-5)
-  - 0: 100% bench work, no computation.
+1. How would you like to split your research effort in the future? (1-5)
+  - 1: 100% bench work, no computation.
   - 5: 100% computation, no bench work.
 1. What is your career stage? (graduate student, postdoc, scientist, etc.)
 1. Briefly describe your current research. (1-2 sentences)
