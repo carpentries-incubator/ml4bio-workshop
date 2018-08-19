@@ -640,11 +640,17 @@ class App(QMainWindow):
 
         # discrete features: use hamming distance
         if self.data.feature_type() == 'discrete':
+            self.classTypeListView.setRowHidden(3, False)
             self.knnMetricComboBox.setCurrentIndex(2)
             self.knnMetricListView.setRowHidden(0, True)
             self.knnMetricListView.setRowHidden(1, True)
+            self.knnMetricListView.setRowHidden(2, False)
         # continuous features: use euclidean or manhatten distance
         elif self.data.feature_type() == 'continuous':
+            self.classTypeListView.setRowHidden(3, False)
+            self.knnMetricComboBox.setCurrentIndex(0)
+            self.knnMetricListView.setRowHidden(0, False)
+            self.knnMetricListView.setRowHidden(1, False)
             self.knnMetricListView.setRowHidden(2, True)
         # mixed features: DO NOT use KNN
         else:
@@ -752,10 +758,14 @@ class App(QMainWindow):
         """
         # discrete features: use multinomial NB
         if self.data.feature_type() == 'discrete':
+            self.classTypeListView.setRowHidden(7, False)
             self.nbDistributionLabel.setText('multinomial')
+            self.nbAddSmoothDoubleSpinBox.setDisabled(False)
+            self.nbFitPriorCheckBox.setDisabled(False)
             self.nbDoc.setText("<a href=\"http://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.MultinomialNB.html\">Documentation</a>")
         # continuous features: use gaussian NB
         elif self.data.feature_type() == 'continuous':
+            self.classTypeListView.setRowHidden(7, False)
             self.nbDistributionLabel.setText('gaussian')
             self.nbAddSmoothDoubleSpinBox.setDisabled(True)
             self.nbFitPriorCheckBox.setDisabled(True)
