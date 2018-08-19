@@ -169,7 +169,7 @@ class ModelMetrics:
 		self.class_recall_ = dict(zip(classes, np.around(class_recall, decimals=3)))
 		self.class_f1_ = dict(zip(classes, np.around(class_f1, decimals=3)))
 
-		confusion_matrix = confusion_matrix / np.sum(confusion_matrix, axis=1)
+		#confusion_matrix = confusion_matrix / np.sum(confusion_matrix, axis=1)
 		self.confusion_matrix_ = np.around(confusion_matrix, decimals=3)
 		
 		all_fpr = np.unique(np.concatenate([fpr[i] for i in range(0, num_classes)]))
@@ -438,10 +438,12 @@ class ModelMetrics:
 		ax.set_xticklabels(classes, rotation=45)
 		ax.set_yticklabels(classes, rotation=45)
 
+		cutoff = cm.max() / 2
+
 		for i in range(0, cm.shape[0]):
 			for j in range(0, cm.shape[1]):
 				ax.text(j, i, cm[i, j], horizontalalignment='center', \
-					color='white' if cm[i, j] > 0.5 else 'black')
+					color='white' if cm[i, j] > cutoff else 'black')
 
 		ax.set_xlabel('Predicted class')
 		ax.set_ylabel('True class')

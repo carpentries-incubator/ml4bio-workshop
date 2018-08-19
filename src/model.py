@@ -126,6 +126,7 @@ class Model:
 			try:
 				classifier = classifier.fit(X_train, y_train)
 			except exceptions.ConvergenceWarning:
+				Model.counter -= 1
 				raise
 
 		y_train_pred = classifier.predict(X_train) 			# class prediction
@@ -186,6 +187,7 @@ class Model:
 				try:
 					classifier = classifier.fit(X_train, y_train)
 				except exceptions.ConvergenceWarning:
+					Model.counter -= 1
 					raise
 
 			y_train_pred_list.append(classifier.predict(X_train))

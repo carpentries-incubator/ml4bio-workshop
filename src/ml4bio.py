@@ -6,7 +6,7 @@ from sklearn import tree, ensemble, neighbors, linear_model, neural_network, svm
 from matplotlib.backends.backend_qt5agg import FigureCanvas
 from matplotlib.figure import Figure
 from PyQt5 import QtCore
-from PyQt5.QtCore import QSize, Qt, QThread
+from PyQt5.QtCore import QSize, Qt, QThread, pyqtSignal
 from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QFileDialog, QMessageBox
 from PyQt5.QtWidgets import QPushButton, QRadioButton
 from PyQt5.QtWidgets import QComboBox, QSpinBox, QDoubleSpinBox, QCheckBox, QLineEdit, QTextEdit, QLabel
@@ -30,22 +30,19 @@ class Training_thread(QThread):
     :vartype app: App
     """
 
-    # a signal that notifies the main thread that training has finished.
-    # this overrides the default "finished" signal in QThread.
-    finished = QtCore.pyqtSignal(object)
+    finished = pyqtSignal(object)   # SIGNAL: training done
+    error = pyqtSignal(str)         # SIGNAL: show error message
+    info = pyqtSignal(str)          # SIGNAL: show info message
 
-    def __init__(self, app, end):
+    def __init__(self, app):
         """
         Constructs a new thread for training.
 
         :param app: main window of the software (an instance of class *App*)
         :type app: App
-        :param end: function to be called once the thread emits a finish signal
-        :type end: func
         """
         super().__init__()
         self.app = app
-        self.finished.connect(end)
 
     def __del__(self):
         self.wait()
@@ -55,13 +52,13 @@ class Training_thread(QThread):
         Trains a classifier and returns the classifier to the main thread.
         """
         index = self.app.paramStack.currentIndex()
-        if index == 1:      model = self.app.decision_tree()
-        elif index == 2:    model = self.app.random_forest()
-        elif index == 3:    model = self.app.k_nearest_neighbors()
-        elif index == 4:    model = self.app.logistic_regression()
-        elif index == 5:    model = self.app.neural_network()
-        elif index == 6:    model = self.app.svm()
-        elif index == 7:    model = self.app.naive_bayes()
+        if index == 1:      model = self.decision_tree()
+        elif index == 2:    model = self.random_forest()
+        elif index == 3:    model = self.k_nearest_neighbors()
+        elif index == 4:    model = self.logistic_regression()
+        elif index == 5:    model = self.neural_network()
+        elif index == 6:    model = self.svm()
+        elif index == 7:    model = self.naive_bayes()
         
         self.finished.emit(model)   # passes the classifier to the main thread.
 
@@ -71,6 +68,369 @@ class Training_thread(QThread):
         Here, training starts immediately in the new thread.
         """
         self._train()
+
+    def decision_tree(self):
+        """
+        Trains and returns a decision tree classifier.
+        """
+        data = self.app.data.train('integer')
+        num_features = self.app.data.num_features('integer')
+        X = data.iloc[:, 0: num_features]
+        y = data.iloc[:, num_features]
+
+        max_depth = self.app.dtMaxDepthLineEdit.text()
+        if max_depth == 'None':
+            max_depth = None
+        else:
+            try:
+                max_depth = int(max_depth)
+            except:
+                self.error.emit('max_depth')
+                return
+            
+            if max_depth <= 0 or float(self.app.dtMaxDepthLineEdit.text()) - max_depth != 0:
+                self.error.emit('max_depth')
+                return
+
+        class_weight = self.app.dtClassWeightComboBox.currentText()
+        if class_weight == 'uniform':
+            class_weight = None
+
+        dt = tree.DecisionTreeClassifier(\
+            criterion = self.app.dtCriterionComboBox.currentText(), \
+            max_depth = max_depth, \
+            min_samples_split = self.app.dtMinSamplesSplitSpinBox.value(), \
+            min_samples_leaf = self.app.dtMinSamplesLeafSpinBox.value(), \
+            class_weight = class_weight, \
+            random_state = 0)
+
+        return DecisionTree(dt, X, y, val_method=self.app.val_method, \
+                val_size=self.app.holdoutSpinBox.value() / 100, \
+                k = self.app.cvSpinBox.value(), \
+                stratify=self.app.validationCheckBox.isChecked())
+
+    def random_forest(self):
+        """
+        Trains and returns a random forest classifier.
+        """
+        data = self.app.data.train('integer')
+        num_features = self.app.data.num_features('integer')
+        X = data.iloc[:, 0: num_features]
+        y = data.iloc[:, num_features]
+
+        max_depth = self.app.rfMaxDepthLineEdit.text()
+        if max_depth == 'None':
+            max_depth = None
+        else:
+            try:
+                max_depth = int(max_depth)
+            except:
+                self.error.emit('max_depth')
+                return
+            
+            if max_depth <= 0 or float(self.app.rfMaxDepthLineEdit.text()) - max_depth != 0:
+                self.error.emit('max_depth')
+                return
+
+        max_features = self.app.rfMaxFeaturesComboBox.currentText()
+        if max_features == 'all':
+            max_features = None
+
+        class_weight = self.app.rfClassWeightComboBox.currentText()
+        if class_weight == 'uniform':
+            class_weight = None
+
+        rf = ensemble.RandomForestClassifier(\
+            n_estimators = self.app.rfNumEstimatorsSpinBox.value(), \
+            criterion = self.app.rfCriterionComboBox.currentText(), \
+            max_depth = max_depth, \
+            min_samples_split = self.app.rfMinSamplesSplitSpinBox.value(), \
+            min_samples_leaf = self.app.rfMinSamplesLeafSpinBox.value(), \
+            max_features = max_features, \
+            bootstrap = self.app.rfBootstrapCheckBox.isChecked(), \
+            class_weight = class_weight, \
+            random_state = 0)
+        
+        return RandomForest(rf, X, y, val_method=self.app.val_method, \
+                val_size=self.app.holdoutSpinBox.value() / 100, \
+                k = self.app.cvSpinBox.value(), \
+                stratify=self.app.validationCheckBox.isChecked())
+
+    def k_nearest_neighbors(self):
+        """
+        Trains and returns a k-nearest neighbors classifier.
+        """
+        data = self.app.data.train('integer')
+        num_features = self.app.data.num_features('integer')
+        X = data.iloc[:, 0: num_features]
+        y = data.iloc[:, num_features]
+
+        knn = neighbors.KNeighborsClassifier(\
+            n_neighbors = self.app.knnNumNeighborsSpinBox.value(), \
+            weights = self.app.knnWeightsComboBox.currentText(), \
+            metric = self.app.knnMetricComboBox.currentText(), \
+            algorithm = 'auto')
+        
+        return KNearestNeighbors(knn, X, y, val_method=self.app.val_method, \
+                val_size=self.app.holdoutSpinBox.value() / 100, \
+                k = self.app.cvSpinBox.value(), \
+                stratify=self.app.validationCheckBox.isChecked())
+
+    def logistic_regression(self):
+        """
+        Trains and returns a logistic regression classifier.
+        """
+        data = self.app.data.train('one-hot')
+        num_features = self.app.data.num_features('one-hot')
+        X = data.iloc[:, 0: num_features]
+        y = data.iloc[:, num_features]
+
+        try:
+            penalty = float(self.app.lrRglrStrengthLineEdit.text())
+        except:
+            self.error.emit('penalty')
+            return
+        try:
+            intercept_scaling = float(self.app.lrInterceptScalingLineEdit.text())
+        except:
+            self.error.emit('intercept_scaling')
+            return
+        try:
+            tol = float(self.app.lrTolLineEdit.text())
+        except:
+            self.error.emit('tol')
+            return
+        try:
+            max_iter = int(self.app.lrMaxIterLineEdit.text())
+        except:
+            self.error.emit('max_iter')
+            return
+
+        if penalty <= 0:
+            self.error.emit('penalty')
+            return
+        if tol <= 0:
+            self.error.emit('tol')
+            return
+        if max_iter <= 0 or float(self.app.lrMaxIterLineEdit.text()) - max_iter != 0:
+            self.error.emit('max_iter')
+            return
+
+        class_weight = self.app.lrClassWeightComboBox.currentText()
+        if class_weight == 'uniform':
+            class_weight = None
+
+        lr = linear_model.LogisticRegression(\
+            penalty = self.app.lrRegularizationComboBox.currentText(), \
+            tol = tol, \
+            C = penalty, \
+            fit_intercept = self.app.lrFitInterceptCheckBox.isChecked(), \
+            intercept_scaling = intercept_scaling, \
+            class_weight = class_weight, \
+            solver = 'saga', \
+            max_iter = max_iter, \
+            multi_class = self.app.lrMultiClassComboBox.currentText(), \
+            random_state = 0)
+        
+        try:
+            model =  LogisticRegression(lr, X, y, val_method=self.app.val_method, \
+                val_size=self.app.holdoutSpinBox.value() / 100, \
+                k = self.app.cvSpinBox.value(), \
+                stratify=self.app.validationCheckBox.isChecked())
+        except exceptions.ConvergenceWarning:
+            self.info.emit('converge')
+            return
+
+        return model
+
+    def neural_network(self):
+        """
+        Trains and returns a neural network classifier.
+        """
+        data = self.app.data.train('one-hot')
+        num_features = self.app.data.num_features('one-hot')
+        X = data.iloc[:, 0: num_features]
+        y = data.iloc[:, num_features]
+
+        try:
+            penalty = float(self.app.nnAlphaLineEdit.text())
+        except:
+            self.error.emit('penalty')
+            return
+        try:
+            batch_size = int(self.app.nnBatchSizeLineEdit.text())
+        except:
+            self.error.emit('batch_size')
+            return
+        try:
+            learning_rate_init = float(self.app.nnLearningRateInitLineEdit.text())
+        except:
+            self.error.emit('learning_rate_init')
+            return
+        try:
+            tol = float(self.app.nnTolLineEdit.text())
+        except:
+            self.error.emit('tol')
+            return
+        try:
+            max_iter = int(self.app.nnMaxIterLineEdit.text())
+        except:
+            self.error.emit('max_iter')
+            return
+
+        if penalty <= 0:
+            self.error.emit('penalty')
+            return
+        if batch_size <= 0 or float(self.app.nnBatchSizeLineEdit.text()) - batch_size != 0:
+            self.error.emit('batch_size')
+            return
+        if learning_rate_init <= 0:
+            self.error.emit('learning_rate_init')
+            return
+        if tol <= 0:
+            self.error.emit('tol')
+            return
+        if max_iter <= 0 or float(self.app.nnMaxIterLineEdit.text()) - max_iter != 0:
+            self.error.emit('max_iter')
+            return
+
+        nn = neural_network.MLPClassifier(\
+            hidden_layer_sizes = self.app.nnNumHiddenUnitsSpinBox.value(), \
+            activation = self.app.nnActivationComboBox.currentText(), \
+            solver = self.app.nnSolverComboBox.currentText(), \
+            alpha = penalty, \
+            batch_size = batch_size, \
+            learning_rate = self.app.nnLearningRateComboBox.currentText(), \
+            learning_rate_init = learning_rate_init, \
+            max_iter = max_iter, \
+            tol = tol, \
+            early_stopping = self.app.nnEarlyStoppingCheckBox.isChecked(), \
+            random_state = 0)
+
+        try:
+            model = NeuralNetwork(nn, X, y, val_method=self.app.val_method, \
+                val_size=self.app.holdoutSpinBox.value() / 100, \
+                k = self.app.cvSpinBox.value(), \
+                stratify=self.app.validationCheckBox.isChecked())
+        except exceptions.ConvergenceWarning:
+            self.info.emit('converge')
+            return
+
+        return model
+
+    def svm(self):
+        """
+        Trains and returns an SVM classifier.
+        """
+        data = self.app.data.train('one-hot')
+        num_features = self.app.data.num_features('one-hot')
+        X = data.iloc[:, 0: num_features]
+        y = data.iloc[:, num_features]
+
+        try:
+            penalty = float(self.app.svmPenaltyLineEdit.text())
+        except:
+            self.error.emit('penalty')
+            return
+        try:
+            gamma = float(self.app.svmGammaLineEdit.text())
+        except:
+            self.error.emit('kernel_coef')
+            return
+        try:
+            coef0 = float(self.app.svmCoefLineEdit.text())
+        except:
+            self.error.emit('indenpendent_term')
+            return
+        try:
+            tol = float(self.app.svmTolLineEdit.text())
+        except:
+            self.error.emit('tol')
+            return
+        try:
+            max_iter = int(self.app.svmMaxIterLineEdit.text())
+        except:
+            self.error.emit('max_iter')
+            return
+
+        if penalty <= 0:
+            self.error.emit('penalty')
+            return
+        if gamma <= 0:
+            self.error.emit('kernel_coef')
+            return
+        if tol <= 0:
+            self.error.emit('tol')
+            return
+        if max_iter <= 0 or float(self.app.svmMaxIterLineEdit.text()) - max_iter != 0:
+            self.error.emit('max_iter')
+            return
+
+        class_weight = self.app.svmClassWeightComboBox.currentText()
+        if class_weight == 'uniform':
+            class_weight = None
+
+        svc = svm.SVC(\
+            C = penalty, \
+            kernel = self.app.svmKernelComboBox.currentText(), \
+            degree = self.app.svmDegreeSpinBox.value(), \
+            gamma = gamma, \
+            coef0 = coef0, \
+            probability = True, \
+            tol = tol, \
+            class_weight = class_weight, \
+            max_iter = max_iter, \
+            random_state = 0)
+           
+        try: 
+            model = SVM(svc, X, y, val_method=self.app.val_method, \
+                val_size=self.app.holdoutSpinBox.value() / 100, \
+                k = self.app.cvSpinBox.value(), \
+                stratify=self.app.validationCheckBox.isChecked())
+        except exceptions.ConvergenceWarning:
+            self.info.emit('converge')
+            return
+
+        return model
+
+    def naive_bayes(self):
+        """
+        Trains and returns a naive bayes classifier.
+        """
+        data = self.app.data.train('integer')
+        num_features = self.app.data.num_features('integer')
+        X = data.iloc[:, 0: num_features]
+        y = data.iloc[:, num_features]
+
+        class_prior = self.app.nbClassPriorLineEdit.text()
+        if class_prior == 'None':
+            class_prior = None
+        else:
+            try:
+                class_prior = [float(i.strip()) for i in class_prior.split(',')]
+            except:
+                self.error.emit('class_prior')
+                return
+
+            if len(class_prior) != self.app.data.num_classes() or sum(class_prior) != 1:
+                self.error.emit('class_prior')
+                return
+
+        if self.app.nbDistributionLabel.text() == 'multinomial':
+            nb = naive_bayes.MultinomialNB(\
+                alpha = self.app.nbAddSmoothDoubleSpinBox.value(), \
+                fit_prior = self.app.nbFitPriorCheckBox.isChecked(), \
+                class_prior = class_prior)
+            mode = 'multinomial'
+        elif self.app.nbDistributionLabel.text() == 'gaussian':
+            nb = naive_bayes.GaussianNB(priors = class_prior)
+            mode = 'gaussian'
+        
+        return NaiveBayes(nb, X, y, val_method=self.app.val_method, \
+                val_size=self.app.holdoutSpinBox.value() / 100, \
+                k = self.app.cvSpinBox.value(), \
+                stratify=self.app.validationCheckBox.isChecked(), \
+                mode=mode)
 
 class App(QMainWindow):
     """
@@ -548,375 +908,15 @@ class App(QMainWindow):
             self.metricComboBox.setCurrentIndex(0)
             self.leftPanel.setCurrentIndex(1)
 
-    def decision_tree(self):
-        """
-        Trains and returns a decision tree classifier.
-        """
-        data = self.data.train('integer')
-        num_features = self.data.num_features('integer')
-        X = data.iloc[:, 0: num_features]
-        y = data.iloc[:, num_features]
-
-        max_depth = self.dtMaxDepthLineEdit.text()
-        if max_depth == 'None':
-            max_depth = None
-        else:
-            try:
-                max_depth = int(max_depth)
-            except:
-                self.error('max_depth')
-                return
-            
-            if max_depth <= 0 or float(self.dtMaxDepthLineEdit.text()) - max_depth != 0:
-                self.error('max_depth')
-                return
-
-        class_weight = self.dtClassWeightComboBox.currentText()
-        if class_weight == 'uniform':
-            class_weight = None
-
-        dt = tree.DecisionTreeClassifier(\
-            criterion = self.dtCriterionComboBox.currentText(), \
-            max_depth = max_depth, \
-            min_samples_split = self.dtMinSamplesSplitSpinBox.value(), \
-            min_samples_leaf = self.dtMinSamplesLeafSpinBox.value(), \
-            class_weight = class_weight, \
-            random_state = 0)
-
-        return DecisionTree(dt, X, y, val_method=self.val_method, \
-                val_size=self.holdoutSpinBox.value() / 100, \
-                k = self.cvSpinBox.value(), \
-                stratify=self.validationCheckBox.isChecked())
-
-    def random_forest(self):
-        """
-        Trains and returns a random forest classifier.
-        """
-        data = self.data.train('integer')
-        num_features = self.data.num_features('integer')
-        X = data.iloc[:, 0: num_features]
-        y = data.iloc[:, num_features]
-
-        max_depth = self.rfMaxDepthLineEdit.text()
-        if max_depth == 'None':
-            max_depth = None
-        else:
-            try:
-                max_depth = int(max_depth)
-            except:
-                self.error('max_depth')
-                return
-            
-            if max_depth <= 0 or float(self.rfMaxDepthLineEdit.text()) - max_depth != 0:
-                self.error('max_depth')
-                return
-
-        max_features = self.rfMaxFeaturesComboBox.currentText()
-        if max_features == 'all':
-            max_features = None
-
-        class_weight = self.rfClassWeightComboBox.currentText()
-        if class_weight == 'uniform':
-            class_weight = None
-
-        rf = ensemble.RandomForestClassifier(\
-            n_estimators = self.rfNumEstimatorsSpinBox.value(), \
-            criterion = self.rfCriterionComboBox.currentText(), \
-            max_depth = max_depth, \
-            min_samples_split = self.rfMinSamplesSplitSpinBox.value(), \
-            min_samples_leaf = self.rfMinSamplesLeafSpinBox.value(), \
-            max_features = max_features, \
-            bootstrap = self.rfBootstrapCheckBox.isChecked(), \
-            class_weight = class_weight, \
-            random_state = 0)
-        
-        return RandomForest(rf, X, y, val_method=self.val_method, \
-                val_size=self.holdoutSpinBox.value() / 100, \
-                k = self.cvSpinBox.value(), \
-                stratify=self.validationCheckBox.isChecked())
-
-    def k_nearest_neighbors(self):
-        """
-        Trains and returns a k-nearest neighbors classifier.
-        """
-        data = self.data.train('integer')
-        num_features = self.data.num_features('integer')
-        X = data.iloc[:, 0: num_features]
-        y = data.iloc[:, num_features]
-
-        knn = neighbors.KNeighborsClassifier(\
-            n_neighbors = self.knnNumNeighborsSpinBox.value(), \
-            weights = self.knnWeightsComboBox.currentText(), \
-            metric = self.knnMetricComboBox.currentText(), \
-            algorithm = 'auto')
-        
-        return KNearestNeighbors(knn, X, y, val_method=self.val_method, \
-                val_size=self.holdoutSpinBox.value() / 100, \
-                k = self.cvSpinBox.value(), \
-                stratify=self.validationCheckBox.isChecked())
-
-    def logistic_regression(self):
-        """
-        Trains and returns a logistic regression classifier.
-        """
-        data = self.data.train('one-hot')
-        num_features = self.data.num_features('one-hot')
-        X = data.iloc[:, 0: num_features]
-        y = data.iloc[:, num_features]
-
-        try:
-            penalty = float(self.lrRglrStrengthLineEdit.text())
-        except:
-            self.error('penalty')
-            return
-        try:
-            intercept_scaling = float(self.lrInterceptScalingLineEdit.text())
-        except:
-            self.error('intercept_scaling')
-            return
-        try:
-            tol = float(self.lrTolLineEdit.text())
-        except:
-            self.error('tol')
-            return
-        try:
-            max_iter = int(self.lrMaxIterLineEdit.text())
-        except:
-            self.error('max_iter')
-            return
-
-        if penalty <= 0:
-            self.error('penalty')
-            return
-        if tol <= 0:
-            self.error('tol')
-            return
-        if max_iter <= 0 or float(self.lrMaxIterLineEdit.text()) - max_iter != 0:
-            self.error('max_iter')
-            return
-
-        class_weight = self.lrClassWeightComboBox.currentText()
-        if class_weight == 'uniform':
-            class_weight = None
-
-        lr = linear_model.LogisticRegression(\
-            penalty = self.lrRegularizationComboBox.currentText(), \
-            tol = tol, \
-            C = penalty, \
-            fit_intercept = self.lrFitInterceptCheckBox.isChecked(), \
-            intercept_scaling = intercept_scaling, \
-            class_weight = class_weight, \
-            solver = 'saga', \
-            max_iter = max_iter, \
-            multi_class = self.lrMultiClassComboBox.currentText(), \
-            random_state = 0)
-        
-        try:
-            model =  LogisticRegression(lr, X, y, val_method=self.val_method, \
-                val_size=self.holdoutSpinBox.value() / 100, \
-                k = self.cvSpinBox.value(), \
-                stratify=self.validationCheckBox.isChecked())
-        except exceptions.ConvergenceWarning:
-            self.info('converge')
-            return
-
-        return model
-
-    def neural_network(self):
-        """
-        Trains and returns a neural network classifier.
-        """
-        data = self.data.train('one-hot')
-        num_features = self.data.num_features('one-hot')
-        X = data.iloc[:, 0: num_features]
-        y = data.iloc[:, num_features]
-
-        try:
-            penalty = float(self.nnAlphaLineEdit.text())
-        except:
-            self.error('penalty')
-            return
-        try:
-            batch_size = int(self.nnBatchSizeLineEdit.text())
-        except:
-            self.error('batch_size')
-            return
-        try:
-            learning_rate_init = float(self.nnLearningRateInitLineEdit.text())
-        except:
-            self.error('learning_rate_init')
-            return
-        try:
-            tol = float(self.nnTolLineEdit.text())
-        except:
-            self.error('tol')
-            return
-        try:
-            max_iter = int(self.nnMaxIterLineEdit.text())
-        except:
-            self.error('max_iter')
-            return
-
-        if penalty <= 0:
-            self.error('penalty')
-            return
-        if batch_size <= 0 or float(self.nnBatchSizeLineEdit.text()) - batch_size != 0:
-            self.error('batch_size')
-            return
-        if learning_rate_init <= 0:
-            self.error('learning_rate_init')
-            return
-        if tol <= 0:
-            self.error('tol')
-            return
-        if max_iter <= 0 or float(self.nnMaxIterLineEdit.text()) - max_iter != 0:
-            self.error('max_iter')
-            return
-
-        nn = neural_network.MLPClassifier(\
-            hidden_layer_sizes = self.nnNumHiddenUnitsSpinBox.value(), \
-            activation = self.nnActivationComboBox.currentText(), \
-            solver = self.nnSolverComboBox.currentText(), \
-            alpha = penalty, \
-            batch_size = batch_size, \
-            learning_rate = self.nnLearningRateComboBox.currentText(), \
-            learning_rate_init = learning_rate_init, \
-            max_iter = max_iter, \
-            tol = tol, \
-            early_stopping = self.nnEarlyStoppingCheckBox.isChecked(), \
-            random_state = 0)
-
-        try:
-            model = NeuralNetwork(nn, X, y, val_method=self.val_method, \
-                val_size=self.holdoutSpinBox.value() / 100, \
-                k = self.cvSpinBox.value(), \
-                stratify=self.validationCheckBox.isChecked())
-        except exceptions.ConvergenceWarning:
-            self.info('converge')
-            return
-
-        return model
-
-    def svm(self):
-        """
-        Trains and returns an SVM classifier.
-        """
-        data = self.data.train('one-hot')
-        num_features = self.data.num_features('one-hot')
-        X = data.iloc[:, 0: num_features]
-        y = data.iloc[:, num_features]
-
-        try:
-            penalty = float(self.svmPenaltyLineEdit.text())
-        except:
-            self.error('penalty')
-            return
-        try:
-            gamma = float(self.svmGammaLineEdit.text())
-        except:
-            self.error('kernel_coef')
-            return
-        try:
-            coef0 = float(self.svmCoefLineEdit.text())
-        except:
-            self.error('indenpendent_term')
-            return
-        try:
-            tol = float(self.svmTolLineEdit.text())
-        except:
-            self.error('tol')
-            return
-        try:
-            max_iter = int(self.svmMaxIterLineEdit.text())
-        except:
-            self.error('max_iter')
-            return
-
-        if penalty <= 0:
-            self.error('penalty')
-            return
-        if gamma <= 0:
-            self.error('kernel_coef')
-            return
-        if tol <= 0:
-            self.error('tol')
-            return
-        if max_iter <= 0 or float(self.svmMaxIterLineEdit.text()) - max_iter != 0:
-            self.error('max_iter')
-            return
-
-        class_weight = self.svmClassWeightComboBox.currentText()
-        if class_weight == 'uniform':
-            class_weight = None
-
-        svc = svm.SVC(\
-            C = penalty, \
-            kernel = self.svmKernelComboBox.currentText(), \
-            degree = self.svmDegreeSpinBox.value(), \
-            gamma = gamma, \
-            coef0 = coef0, \
-            probability = True, \
-            tol = tol, \
-            class_weight = class_weight, \
-            max_iter = max_iter, \
-            random_state = 0)
-           
-        try: 
-            model = SVM(svc, X, y, val_method=self.val_method, \
-                val_size=self.holdoutSpinBox.value() / 100, \
-                k = self.cvSpinBox.value(), \
-                stratify=self.validationCheckBox.isChecked())
-        except exceptions.ConvergenceWarning:
-            self.info('converge')
-            return
-
-        return model
-
-    def naive_bayes(self):
-        """
-        Trains and returns a naive bayes classifier.
-        """
-        data = self.data.train('integer')
-        num_features = self.data.num_features('integer')
-        X = data.iloc[:, 0: num_features]
-        y = data.iloc[:, num_features]
-
-        class_prior = self.nbClassPriorLineEdit.text()
-        if class_prior == 'None':
-            class_prior = None
-        else:
-            try:
-                class_prior = [float(i.strip()) for i in class_prior.split(',')]
-            except:
-                self.error('class_prior')
-                return
-
-            if len(class_prior) != self.data.num_classes() or sum(class_prior) != 1:
-                self.error('class_prior')
-                return
-
-        if self.nbDistributionLabel.text() == 'multinomial':
-            nb = naive_bayes.MultinomialNB(\
-                alpha = self.nbAddSmoothDoubleSpinBox.value(), \
-                fit_prior = self.nbFitPriorCheckBox.isChecked(), \
-                class_prior = class_prior)
-            mode = 'multinomial'
-        elif self.nbDistributionLabel.text() == 'gaussian':
-            nb = naive_bayes.GaussianNB(priors = class_prior)
-            mode = 'gaussian'
-        
-        return NaiveBayes(nb, X, y, val_method=self.val_method, \
-                val_size=self.holdoutSpinBox.value() / 100, \
-                k = self.cvSpinBox.value(), \
-                stratify=self.validationCheckBox.isChecked(), \
-                mode=mode)
-
     def train(self):
         """
         Trains a classifier in a new thread.
         """
-        self.thread = Training_thread(self, self.finish_train)
+        self.thread = Training_thread(self)
         self.thread.started.connect(self.start_train)
+        self.thread.finished.connect(self.finish_train)
+        self.thread.error.connect(self.error)
+        self.thread.info.connect(self.info)
         self.thread.start()
 
     def start_train(self):
@@ -944,32 +944,34 @@ class App(QMainWindow):
         """
         # training failed (e.g. invalid hyperparameters or model did not converge)
         if model is None:
-            return
+            self.trainStatusLabel.setText('Training failed.')
 
-        # set user-supplied classifier name.
-        name = self.classNameLineEdit.text().strip()
-        if name != '':
-            if name in self.models:
-                self.error('name')
-                return
-            model.set_name(name)
-
-        # set user-supplied cooment on classifier.
-        model.set_comment(self.classCommentTextEdit.toPlainText().strip())
-
-        self.classNameLineEdit.clear()
-        self.classCommentTextEdit.clear()
-
-        self.models[model.name()] = model   # add to the collection of classifiers.
-
-        # show performance metrics with respect to the currently chosen data type.
-        if self.performanceComboBox.currentIndex() == 0:
-            self.push(model, 'val')
         else:
-            self.push(model, 'train')
+            self.trainStatusLabel.setText('Training completed.')
+            
+            # set user-supplied classifier name.
+            name = self.classNameLineEdit.text().strip()
+            if name != '':
+                if name in self.models:
+                    self.error('name')
+                    return
+                model.set_name(name)
+
+            # set user-supplied cooment on classifier.
+            model.set_comment(self.classCommentTextEdit.toPlainText().strip())
+
+            self.classNameLineEdit.clear()
+            self.classCommentTextEdit.clear()
+
+            self.models[model.name()] = model   # add to the collection of classifiers.
+
+            # show performance metrics with respect to the currently chosen data type.
+            if self.performanceComboBox.currentIndex() == 0:
+                self.push(model, 'val')
+            else:
+                self.push(model, 'train')
 
         # activate the 2nd page so that user can train new classifiers.
-        self.trainStatusLabel.setText('Training completed.')
         self.classResetPushButton.setEnabled(True)
         self.classTrainPushButton.setEnabled(True)
         self.classNameLineEdit.setEnabled(True)
