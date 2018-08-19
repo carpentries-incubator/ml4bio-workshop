@@ -77,7 +77,21 @@ Given a new sample ![](../figures/decision_tree/x.gif),
 move down the tree by choosing the right path at each split.
 Finally, you end up in a leaf node that tells you which class the sample belongs to.
 
-### Example
+### Software
+
+<p align="center">
+<img src="../figures/decision_tree/hyperparameters.png">
+</p>
+
+- **criterion**: the measure of uncertainty (_gini_ or _entropy_)
+- **max_depth**: the maximum depth of the tree (_None_ if no restriction)
+- **min\_samples\_split**: the minimum number of samples required to create a split
+- **min\_samples\_leaf**: the minimum number of samples required at a leaf node
+- **class_weight**: weights associated with the classes
+	- _uniform_: every class receives the same weight.
+	- _balanced_: class weights are inversely proportional to class frequencies.
+
+Check out the documentation listed below to view the attributes that are available in sklearn but not exposed to the user in the software.
 
 > #### Further readings
 > 1. sklearn [tutorial](http://scikit-learn.org/stable/modules/tree.html) on Decision Trees.

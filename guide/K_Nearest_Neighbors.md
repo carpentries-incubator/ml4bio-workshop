@@ -47,7 +47,23 @@ In the weighted version, the neighbors are weighted by their distance to the new
 <img src="../figures/k_nearest_neighbors/weighted_inference_eq.gif">
 </p>
 
-### Example
+### Software
+
+<p align="center">
+<img src="../figures/k_nearest_neighbors/hyperparameters.png">
+</p>
+
+- **n_neighbors**: the number of neighbors considered in a query
+- **weights**: weights associated with the neighbors
+	- _uniform_: every neighbor receives the same weight.
+	- _distance_: weights are inversely proportional to the neighbors' distances (i.e. closer samples are more influential)
+- **metric**: the distance metric used
+	- _euclidean_: euclidean distance
+	- _manhattan_: manhattan distance
+	- _hamming_: hamming distance
+
+Check out the documentation listed below to view the attributes that are available in sklearn but not exposed to the user in the software.
+
 
 > #### Further readings
 > 1. sklearn [tutorial](http://scikit-learn.org/stable/modules/neighbors.html) on Nearest Neighbors.

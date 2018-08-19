@@ -130,7 +130,30 @@ In both cases, ![](../figures/neural_network/W.gif) is a vector containing all w
 and ![](../figures/neural_network/alpha.gif) is a constant 
 that determines the strength of regularization.
 
-### Example
+### Software
+
+<p align="center">
+<img src="../figures/neural_network/hyperparameters.png">
+</p>
+
+- **num\_hidden\_units**: the number of units in the hidden layer
+- **activation**: the activation function for the hidden layer
+- **solver**: learning algorithm used to optimize the loss function
+- **penalty**: regularization strength ![](../figures/neural_network/alpha.gif) (i.e. larger values lead to stronger regularization.)
+- **batch_size**: the number of samples in each batch used in stochastic optimization
+- **learning_rate**: learning rate schedule for weight updates
+	- _constant_: uses constant rate given by **learning\_rate\_init**.
+	- _invscaling_: the learning rate gradually decreases from the initial rate given by **learning\_rate\_init**.
+	- _adaptive_: the learning rate is divided by 5 only when two consecutive iterations fail to decrease the loss. The initial rate is given by **learning\_rate\_init**.
+- **learning\_rate\_init**: the initial learning rate
+- **early_stopping**: whether to terminate learning if validation score fails to improve
+
+Stopping criteria:
+
+- **tol**: minimum reduction in loss required for optimization to continue.
+- **max_iter**: maximum number of iterations allowed for the learning algorithm to converge. 
+
+Check out the documentation listed below to view the attributes that are available in sklearn but not exposed to the user in the software.
 
 > #### Further readings
 > 1. sklearn [tutorial](http://scikit-learn.org/stable/modules/neural_networks_supervised.html) on neural networks.

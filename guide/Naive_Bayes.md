@@ -60,7 +60,18 @@ For numerical stability, you may instead compute
 <img src="../figures/naive_bayes/inference_eq_2.gif">
 </p>
 
-### Example
+### Software
+
+<p align="center">
+<img src="../figures/naive_bayes/hyperparameters.png">
+</p>
+
+- **distribution**: the form of distribution for ![](../figures/naive_bayes/cond_dist.gif)
+- **smoothing**: additive smoothing parameter
+- **fit_prior**: whether to learn class prior probabilities from data
+- **class_prior**: user-specified prior probabilities of the classes
+
+Check out the documentation listed below to view the attributes that are available in sklearn but not exposed to the user in the software.
 
 > #### Further readings
 > 1. sklearn [tutorial](http://scikit-learn.org/stable/modules/naive_bayes.html) on Naïve Bayes.

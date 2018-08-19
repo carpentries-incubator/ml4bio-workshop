@@ -26,7 +26,8 @@ and find a hyperplane that separates the points in the new space.
 Kernel SVM defines such mappings implicitly using **kernels**.
 	 
 <p align="center">
-<img src="../figures/svm/kernel_svm_rep_fig.jpg">
+<img src="../figures/svm/kernel_svm_rep_fig.jpg"
+title="Image from https://upload.wikimedia.org/wikipedia/commons/1/1b/Kernel_Machine.png">
 </p>
 	
 (Figure from [Wikipedia](https://en.wikipedia.org/wiki/Support_vector_machine))
@@ -132,7 +133,27 @@ for kernel SVM.
 	<img src="../figures/svm/kernel_svm_inference_eq_4.gif">
 	</p>
 
-### Example
+### Software
+
+<p align="center">
+<img src="../figures/svm/hyperparameters.png">
+</p>
+
+- **penalty**: slack penalty strength ![](../figures/svm/C.gif) (i.e. larger values lead to fewer misclassifications.)
+- **kernel**: the type of kernel used (_rbf_, _linear_, _poly_ or _sigmoid_)
+- **degree**: the degree of polynomial in polynomial kernel
+- **kernel_coef**: the cofficient ![](../figures/svm/gamma.gif) used in RBF, polynomial and sigmoid kernels
+- **independent_term**: the independent term ![](../figures/svm/r.gif) in polynomial and sigmoid kernels
+- **class_weight**: weights associated with the classes
+	- _uniform_: every class receives the same weight.
+	- _balanced_: class weights are inversely proportional to class frequencies.
+
+Stopping criteria:
+
+- **tol**: minimum reduction in loss required for optimization to continue.
+- **max_iter**: maximum number of iterations allowed for the learning algorithm to converge. 
+
+Check out the documentation listed below to view the attributes that are available in sklearn but not exposed to the user in the software.
 
 > #### Further readings
 > 1. sklearn [tutorial](http://scikit-learn.org/stable/modules/svm.html) on SVM.
