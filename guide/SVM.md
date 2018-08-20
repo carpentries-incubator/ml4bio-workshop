@@ -26,11 +26,8 @@ and find a hyperplane that separates the points in the new space.
 Kernel SVM defines such mappings implicitly using **kernels**.
 	 
 <p align="center">
-<img src="../figures/svm/kernel_svm_rep_fig.jpg"
-title="Image from https://upload.wikimedia.org/wikipedia/commons/1/1b/Kernel_Machine.png">
+<img src="../figures/svm/kernel_svm_rep_fig.png">
 </p>
-	
-(Figure from [Wikipedia](https://en.wikipedia.org/wiki/Support_vector_machine))
 	
 <p align="center">
 <img src="../figures/svm/kernels.jpg">
