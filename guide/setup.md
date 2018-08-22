@@ -35,5 +35,5 @@ This can take several 5-10 minutes.
 For Windows, launch the `ml4bio_conda.bat` script.
 For Mac OS or Linux, launch the `ml4bio_conda.sh` script.
 
-Advanced users who already have Python installed can install the [required packages](../src/readme.md) through pip.
+Advanced users who already have Python installed can install the [required packages](../../src/readme.md) through pip.
 Then launch ML4Bio from the command line by executing `python ml4bio.py` from the `src` directory.
