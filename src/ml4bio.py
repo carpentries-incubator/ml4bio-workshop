@@ -847,6 +847,7 @@ class App(QMainWindow):
         self.set_naive_bayes()
         self.classNameLineEdit.clear()
         self.classCommentTextEdit.clear()
+        self.trainStatusLabel.setText('')
 
         # if no data is held out for validation, only show metrics on training data.
         # this is for illustrating the importance of validation and should not be 
