@@ -184,8 +184,6 @@ The figure below shows an example ROC curve.
 <img width="500" src="http://scikit-learn.org/stable/_images/sphx_glr_plot_roc_001.png">
 </p>
 
-`Tony: having two sources for the images gives us even more reason to link each to the original source`
-
 As with the metrics, we can plot an ROC curve with respect to each class.
 We may use a micro- or macro-average ROC curve
 to quantify the average behavior of a classifier on all classes.
@@ -297,12 +295,9 @@ It is clear from the figure below that the classifier is best at predicting clas
 >
 > Images in this lesson are adapted from
 >
-> [Raschka, Sebastian, and Vahid Mirjalili. Python Machine Learning, 2nd Ed. Packt Publishing, 2017.](https://github.com/rasbt/python-machine-learning-book-2nd-edition)
+> [https://github.com/rasbt/python-machine-learning-book-2nd-edition](https://github.com/rasbt/python-machine-learning-book-2nd-edition) Raschka and V. Mirjalili, Python Machine Learning (2nd Ed.)
 >
 > [sklearn ROC curve example](http://scikit-learn.org/stable/auto_examples/model_selection/plot_roc.html)
 >
 > #### Further readings
 > A great Nature Methods article on [classification evaluation](http://doi.org/10.1038/nmeth.3945).
-
-`Tony: should we name some other metrics that may appear in the literature like Matthews correlation coefficient?
-That is probably too distracting and it is better to describe only the metrics we compute in the software.`
