@@ -26,6 +26,10 @@ The easiest way to install Python and the correct version of these packages is t
 If you do not have Anaconda installed, please visit <https://www.anaconda.com/download/> to download and install the Python 3.6 version.
 If Anaconda will be your primary Python distribution, we recommend letting the Anaconda installer add Anaconda to your computer's `PATH` environment variable so that it is accessible from the command line.
 
+If you did not add Anaconda to your `PATH` during installation and would like to, follow these instructions for Windows 10:
+- Start -> Type "Path" -> Edit environment variables for your account
+- Path -> Edit -> New -> Browse -> Browse to the location where Anaconda was installed and select the Scripts subdirectory -> OK -> OK
+
 ### Launch the software
 
 After you install Anaconda, return to the `ml-bio-workshop-master` directory and open the `src` subdirectory.
