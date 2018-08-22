@@ -351,7 +351,7 @@ class ModelMetrics:
 		ax.plot(fpr['avg'], tpr['avg'], label='avg (area={0})'.format(self.avg_auroc_), \
 			color = 'black', linewidth=2, linestyle='--')
 
-		colors = cycle(['red', 'green', 'orange', 'blue', 'yellow', 'purple', 'cyan'])
+		colors = cycle(['blue', 'orange', 'green', 'red', 'yellow', 'purple', 'cyan'])
 		for i, color in zip(range(0, num_classes), colors):
 			ax.plot(fpr[i], tpr[i], label='{0} (area={1})'.format(classes[i], auc[classes[i]]), \
 				color=color, linewidth=1)
@@ -389,7 +389,7 @@ class ModelMetrics:
 		ax.plot(recall['avg'], precision['avg'], label='avg (area={0})'.format(self.avg_auprc_), \
 			color = 'black', linewidth=2, linestyle='--')
 
-		colors = cycle(['red', 'green', 'orange', 'blue', 'yellow', 'purple', 'cyan'])
+		colors = cycle(['blue', 'orange', 'green', 'red', 'yellow', 'purple', 'cyan'])
 		for i, color in zip(range(0, num_classes), colors):
 			ax.plot(recall[i], precision[i], label='{0} (area={1})'.format(classes[i], auc[classes[i]]), \
 				color=color, linewidth=1)
