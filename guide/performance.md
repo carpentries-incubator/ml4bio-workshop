@@ -31,11 +31,9 @@ If a sample is an FP or FN, we know the classifier made a mistake.
 Given the definitions above, we can summarize the samples in a **confusion matrix**.
 
 <p align="center">
-<img width="300" src="https://github.com/rasbt/python-machine-learning-book-2nd-edition/blob/master/code/ch06/images/06_08.png?raw=true">
+<img width="300" src="../figures/confusion_matrix.png"
+title="Image from https://github.com/rasbt/python-machine-learning-book-2nd-edition/blob/master/code/ch06/images/06_08.png">
 </p>
-
-`Tony: I'd like to have a more direct link or attribution for the images from the Python Machine Learning book.  I'll think more about specific options.`
-`Tony: I'll also think about whether we there is an advantage to Markdown image syntax versus HTML syntax`
 
 We count the number of TPs, TNs, FPs and FNs and populate the matrix.
 In practice, we may choose to convert the counts into percents by dividing each entry by the row sum.
@@ -186,8 +184,6 @@ The figure below shows an example ROC curve.
 <img width="500" src="http://scikit-learn.org/stable/_images/sphx_glr_plot_roc_001.png">
 </p>
 
-`Tony: having two sources for the images gives us even more reason to link each to the original source`
-
 As with the metrics, we can plot an ROC curve with respect to each class.
 We may use a micro- or macro-average ROC curve
 to quantify the average behavior of a classifier on all classes.
@@ -299,12 +295,9 @@ It is clear from the figure below that the classifier is best at predicting clas
 >
 > Images in this lesson are adapted from
 >
-> [Raschka, Sebastian, and Vahid Mirjalili. Python Machine Learning, 2nd Ed. Packt Publishing, 2017.](https://github.com/rasbt/python-machine-learning-book-2nd-edition)
+> [https://github.com/rasbt/python-machine-learning-book-2nd-edition](https://github.com/rasbt/python-machine-learning-book-2nd-edition) Raschka and V. Mirjalili, Python Machine Learning (2nd Ed.)
 >
 > [sklearn ROC curve example](http://scikit-learn.org/stable/auto_examples/model_selection/plot_roc.html)
 >
 > #### Further readings
 > A great Nature Methods article on [classification evaluation](http://doi.org/10.1038/nmeth.3945).
-
-`Tony: should we name some other metrics that may appear in the literature like Matthews correlation coefficient?
-That is probably too distracting and it is better to describe only the metrics we compute in the software.`

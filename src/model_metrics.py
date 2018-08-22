@@ -438,7 +438,7 @@ class ModelMetrics:
 		ax.set_xticklabels(classes, rotation=45)
 		ax.set_yticklabels(classes, rotation=45)
 
-		cutoff = cm.max() / 2
+		cutoff = cm.min() + (cm.max()-cm.min()) / 2
 
 		for i in range(0, cm.shape[0]):
 			for j in range(0, cm.shape[1]):
