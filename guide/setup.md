@@ -22,7 +22,7 @@ You are now ready to install the Python dependencies needed to run ML4Bio.
 
 ### Install Python
 ML4Bio requires Python and several Python packages.
-The easiest way to install Python and the correct version of these packages is through [Anaconda](https://anaconda.org/), a Python distribution.
+The easiest way to install Python and the correct version of these packages is through [Anaconda](https://anaconda.com/), a Python distribution.
 If you do not have Anaconda installed, please visit <https://www.anaconda.com/download/> to download and install the Python 3.6 version.
 The default installation will add Anaconda to your computer's `PATH` environment variable so that it is accessible from the command line.
 
