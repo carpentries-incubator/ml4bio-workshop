@@ -815,7 +815,7 @@ class App(QMainWindow):
 
         # when data is 2D and continuous, allow plotting of data with decision regions.
         if self.data.feature_type() == 'continuous' \
-            and self.data.num_features() == 2 and self.data.num_classes() == 2:
+            and self.data.num_features() == 2 and self.data.num_classes() in [2, 3]:
             self.dataPlotRadioButton.setEnabled(True)
 
         # decide validation method.

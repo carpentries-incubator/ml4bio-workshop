@@ -385,6 +385,8 @@ class Model:
 		le = preprocessing.LabelEncoder()		# integer encoder
 		le.fit(self.y)
 		classifier = self.classifier.fit(self.X, le.transform(self.y))
+		classes = classifier.classes_
+		num_classes = len(classes)
 
 		if option == 'train':
 			X = self.X
@@ -393,23 +395,48 @@ class Model:
 			X = self.test_X
 			y = self.test_y
 
-		cm_bkgd = plt.cm.RdBu
-		cm_pts = ListedColormap(['#FF0000', '#0000FF'])
-
 		d1 = X.iloc[:, 0] 	# x-axis
 		d2 = X.iloc[:, 1]	# y-axis
 		d1_slack = (d1.max() - d1.min()) * 0.1
 		d2_slack = (d2.max() - d2.min()) * 0.1
 		d1_min, d1_max = d1.min() - d1_slack, d1.max() + d1_slack 	# x-axis range
 		d2_min, d2_max = d2.min() - d2_slack, d2.max() + d2_slack	# y-axis range
-		md1, md2 = np.meshgrid(np.arange(d1_min, d1_max, 0.01), np.arange(d2_min, d2_max, 0.01))
+		step_1 = (d1_max - d1_min) / 200
+		step_2 = (d2_max - d2_min) / 200
+		md1, md2 = np.meshgrid(np.arange(d1_min, d1_max, step_1), np.arange(d2_min, d2_max, step_2))
 
 		rcParams.update({'font.size': 7})
 		canvas.figure.clear()
 		ax = canvas.figure.subplots()
-		Z = classifier.predict_proba(np.c_[md1.ravel(), md2.ravel()])[:, 1]
-		Z = Z.reshape(md1.shape)
-		out = ax.contourf(md1, md2, Z, cmap=cm_bkgd, alpha=0.8)
+		levels = np.arange(-0.19, 1, 0.2) + 0.2
+
+		if num_classes == 2:
+			cm_bkgd = plt.cm.RdBu
+			cm_pts = ListedColormap(['#FF0000', '#0000FF'])
+			Z = classifier.predict_proba(np.c_[md1.ravel(), md2.ravel()])[:, 1]
+			Z = Z.reshape(md1.shape)
+			ax.contourf(md1, md2, Z, cmap=cm_bkgd, alpha=0.8)
+		
+		elif num_classes == 3:
+			cm_bkgd_1 = plt.cm.Reds
+			cm_bkgd_2 = plt.cm.Greens
+			cm_bkgd_3 = plt.cm.Blues
+			cm_pts = cm_pts = ListedColormap(['#FF0000', '#00FF00', '#0000FF'])
+			Z = classifier.predict_proba(np.c_[md1.ravel(), md2.ravel()])
+			Z1 = Z[:, 0]
+			Z2 = Z[:, 1]
+			Z3 = Z[:, 2]
+
+			P1 = np.maximum(0, Z1 - np.maximum(Z2, Z3))
+			P2 = np.maximum(0, Z2 - np.maximum(Z1, Z3))
+			P3 = np.maximum(0, Z3 - np.maximum(Z1, Z2))
+			P1 = P1.reshape(md1.shape)
+			P2 = P2.reshape(md1.shape)
+			P3 = P3.reshape(md1.shape)
+
+			ax.contourf(md1, md2, P1, levels, cmap=cm_bkgd_1, alpha=0.8)
+			ax.contourf(md1, md2, P2, levels, cmap=cm_bkgd_2, alpha=0.8)
+			ax.contourf(md1, md2, P3, levels, cmap=cm_bkgd_3, alpha=0.8)
 
 		ax.scatter(d1, d2, c=le.transform(y), cmap=cm_pts, alpha=0.6, edgecolors='k')
 		ax.set_xlim(md1.min(), md1.max())
