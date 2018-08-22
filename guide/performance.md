@@ -31,11 +31,9 @@ If a sample is an FP or FN, we know the classifier made a mistake.
 Given the definitions above, we can summarize the samples in a **confusion matrix**.
 
 <p align="center">
-<img width="300" src="https://github.com/rasbt/python-machine-learning-book-2nd-edition/blob/master/code/ch06/images/06_08.png?raw=true">
+<img width="300" src="../figures/confusion_matrix.png"
+title="Image from https://github.com/rasbt/python-machine-learning-book-2nd-edition/blob/master/code/ch06/images/06_08.png">
 </p>
-
-`Tony: I'd like to have a more direct link or attribution for the images from the Python Machine Learning book.  I'll think more about specific options.`
-`Tony: I'll also think about whether we there is an advantage to Markdown image syntax versus HTML syntax`
 
 We count the number of TPs, TNs, FPs and FNs and populate the matrix.
 In practice, we may choose to convert the counts into percents by dividing each entry by the row sum.
