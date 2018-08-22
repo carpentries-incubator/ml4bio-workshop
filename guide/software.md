@@ -1,27 +1,19 @@
-# Software setup and a quick tour
+# Software overview
 
 > #### Questions
 >
-> 1.   What do I need for running the software?
-> 2.   What can I do with the software?
+> 1.   What can I do with the software?
 >
 > #### Objectives
 >
-> 1.   Provide instructions on installation of the software.
-> 2.   Explain how the software works through an example.
+> 1.   Explain how the software works through an example.
 
-### Install the ML4Bio software
-`Tony: could write the typical case here (new Anaconda install) and link to custom installations for a users who already has Anaconda or already has a base Python installation`
-
-`Tony: we should confirm that ML4Bio is the branding we want to use before it becomes too embedded`
-
-### Launch the software
-
-Edit later...
+### Setup and launch the ML4Bio software
+See the [setup](setup.md) instructions for a guide on downloading and installing the ML4Bio software and its dependencies.
 
 ### A quick tour
 
-Once you open the software, you will see the following interface.
+Once you open the ML4Bio software, you will see the following interface.
 
 <p align="center">
 <img  src="../screenshots/window.png">
@@ -83,8 +75,8 @@ After a valid labeled dataset is loaded, the file name will be shown next to **S
 </p>
 
 You may optionally load an unlabeled dataset that pairs up with the labeled one.
-The two datasets _must_ have the same column names 
-except that the label column is missing in the unlabeled data. 
+The two datasets _must_ have the same column names
+except that the label column is missing in the unlabeled data.
 After you trained a classifier, you may make predictions on the unlabeled data.
 
 A summary of the dataset(s) is displayed in a tree structure.
