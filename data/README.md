@@ -8,6 +8,7 @@ The following data were from UCI ML Repository:
 - [Iris data](https://archive.ics.uci.edu/ml/datasets/iris)
 - [Mushroom data](https://archive.ics.uci.edu/ml/datasets/mushroom)
 - [Credit approval](http://archive.ics.uci.edu/ml/datasets/credit+approval)
+- [Breast cancer Wisconsin](https://archive.ics.uci.edu/ml/datasets/Breast+Cancer+Wisconsin+%28Diagnostic%29)
 
 Citation information:
 
