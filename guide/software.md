@@ -22,7 +22,6 @@ Once you open the ML4Bio software, you will see the following interface.
 The interface can be divided into three areas:
 
 - **Red area.**
-`Tony: should we start using Markdown annotations for bold (**), italic (_), etc?  It may make it easier to convert to multiple formats (HTML, PDF, etc.) if we need to later.`
 This is the main area you operate on.
 It consists of three pages.
 The first page allows you to load data, split data and choose a validation method (steps 1,2 and 3).
