@@ -2,17 +2,22 @@
 
 > #### Questions
 >
-> 1.   What do I need for running the software?
+> 1.   What do I need to run the software?
 >
 > #### Objectives
 >
-> 1.   Provide instructions on installation of the software.
+> 1.   Provide instructions on installing the software.
+
+### Download the ML4Bio software
+Currently <https://github.com/gitter-lab/ml-bio-workshop/> but will move in the future.
+
+<p align="center">
+<img width="350" src="../figures/download_button.png">
+</p>
 
 ### Install the ML4Bio software
 `Tony: could write the typical case here (new Anaconda install) and link to custom installations for a users who already has Anaconda or already has a base Python installation`
 
-`Tony: we should confirm that ML4Bio is the branding we want to use before it becomes too embedded`
-
 ### Launch the software
 
-Edit later...
+`Tony: describe launch scripts`
