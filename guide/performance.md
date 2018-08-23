@@ -31,7 +31,7 @@ If a sample is an FP or FN, we know the classifier made a mistake.
 Given the definitions above, we can summarize the samples in a **confusion matrix**.
 
 <p align="center">
-<img width="300" src="../figures/third_party_figures/confusion_matrix.png"
+<img width="300" src="../figures/third_party_figures/Python_Machine_Learning/confusion_matrix.png"
 title="Image from https://github.com/rasbt/python-machine-learning-book-2nd-edition/blob/master/code/ch06/images/06_08.png">
 </p>
 
@@ -180,7 +180,7 @@ Finally, we connect the points and obtain the ROC curve.
 The figure below shows an example ROC curve.
 
 <p align="center">
-<img width="500" src="../figures/third_party_figures/roc1.png"
+<img width="500" src="../figures/third_party_figures/sklearn_doc/roc1.png"
 title="Image from http://scikit-learn.org/stable/auto_examples/model_selection/plot_roc.html">
 </p>
 
@@ -192,7 +192,7 @@ but a macro-average curve does not.
 For simplicity, the software only plots the classwise curves and their macro-average curve.
 
 <p align="center">
-<img width="500" src="../figures/third_party_figures/roc2.png"
+<img width="500" src="../figures/third_party_figures/sklearn_doc/roc2.png"
 title="Image from http://scikit-learn.org/stable/auto_examples/model_selection/plot_roc.html">
 </p>
 
@@ -221,7 +221,7 @@ _The best cutoff depends on the relative costs of misclassifications._
   The desired cutoff corresponds to where the line is tangent to the ROC curve.
 
 	<p align="center">
-	<img width="500" src="../figures/third_party_figures/roc3.png"
+	<img width="500" src="../figures/third_party_figures/sklearn_doc/roc3.png"
 	title="Image adapted from http://scikit-learn.org/stable/auto_examples/model_selection/plot_roc.html">
 	</p>
 
@@ -235,7 +235,7 @@ _The best cutoff depends on the relative costs of misclassifications._
   The desired cutoff corresponds to where the line is tangent to the ROC curve.
 
 	<p align="center">
-	<img width="500" src="../figures/third_party_figures/roc4.png"
+	<img width="500" src="../figures/third_party_figures/sklearn_doc/roc4.png"
 	title="Image adapted from http://scikit-learn.org/stable/auto_examples/model_selection/plot_roc.html">
 	</p>
 
@@ -249,7 +249,7 @@ _The best cutoff depends on the relative costs of misclassifications._
   The desired cutoff corresponds to where the line is tangent to the ROC curve.
 
 	<p align="center">
-	<img width="500" src="../figures/third_party_figures/roc5.png"
+	<img width="500" src="../figures/third_party_figures/sklearn_doc/roc5.png"
 	title="Image adapted from http://scikit-learn.org/stable/auto_examples/model_selection/plot_roc.html">
 	</p>
 
@@ -281,7 +281,7 @@ Finally, we connect the points and obtain the PR curve.
 The figure below shows an example PR curve.
 
 <p align="center">
-<img width="500" src="../figures/third_party_figures/pr1.png"
+<img width="500" src="../figures/third_party_figures/sklearn_doc/pr1.png"
 title="Image from http://ogrisel.github.io/scikit-learn.org/sklearn-tutorial/auto_examples/plot_precision_recall.html">
 </p>
 
@@ -293,7 +293,7 @@ The larger AUPRC is, the better the PR curve is.
 It is clear from the figure below that the classifier is best at predicting class 0.
 
 <p align="center">
-<img width="500" src="../figures/third_party_figures/pr2.png"
+<img width="500" src="../figures/third_party_figures/sklearn_doc/pr2.png"
 title="Image from http://ogrisel.github.io/scikit-learn.org/sklearn-tutorial/auto_examples/plot_precision_recall.html">
 </p>
 

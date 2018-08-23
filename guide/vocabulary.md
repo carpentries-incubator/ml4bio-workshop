@@ -25,7 +25,7 @@ We start by introducing the workflow at a high level, and then dive into each st
 ### ML workflow: an overview
 
 <p align="center">
-<img width="600" src="../figures/third_party_figures/workflow.png"
+<img width="600" src="../figures/third_party_figures/Python_Machine_Learning/workflow.png"
 title="Image from https://github.com/rasbt/python-machine-learning-book-2nd-edition/blob/master/code/ch01/images/01_09.png">
 </p>
 
@@ -81,7 +81,7 @@ The only possibly needed preprocessing step is encoding, which we will briefly d
 We use the famous iris dataset to introduce the basic language for describing a dataset.
 
 <p align="center">
-<img width="600" src="../figures/third_party_figures/data.png"
+<img width="600" src="../figures/third_party_figures/Python_Machine_Learning/data.png"
 title="Image from https://github.com/rasbt/python-machine-learning-book-2nd-edition/blob/master/code/ch01/images/01_08.png">
 </p>
 
@@ -153,7 +153,7 @@ one for **training** and the other for **testing**.
 In practice, people reserve 20% to 30% of the full dataset for testing.
 
 <p align="center">
-<img width="500" src="../figures/third_party_figures/split.png"
+<img width="500" src="../figures/third_party_figures/Python_Machine_Learning/split.png"
 title="Image adapted from https://github.com/rasbt/python-machine-learning-book-2nd-edition/blob/master/code/ch06/images/06_02.png">
 </p>
 
@@ -172,7 +172,7 @@ The central component of the learning step is learning algorithms.
 Given a training set, a learning algorithm outputs a predictive model, which in our case is a classifier.
 
 <p align="center">
-<img width="300" src="../figures/third_party_figures/train.png"
+<img width="300" src="../figures/third_party_figures/Python_Machine_Learning/train.png"
 title="Image adapted from https://github.com/rasbt/python-machine-learning-book-2nd-edition/blob/master/code/ch01/images/01_02.png">
 </p>
 
@@ -186,9 +186,9 @@ and we want to find a straight line that separates the positive samples from the
 The problem setting is illustrated in the left figure.
 
 <p align="center">
-<img width="300" src="../figures/third_party_figures/train_1.png"
+<img width="300" src="../figures/third_party_figures/Python_Machine_Learning/train_1.png"
 title="Image adapted from https://github.com/rasbt/python-machine-learning-book-2nd-edition/blob/master/code/ch02/images/02_03.png">
-<img width="300" src="../figures/third_party_figures/train_2.png"
+<img width="300" src="../figures/third_party_figures/Python_Machine_Learning/train_2.png"
 title="Image adapted from https://github.com/rasbt/python-machine-learning-book-2nd-edition/blob/master/code/ch02/images/02_03.png">
 </p>
 
@@ -295,7 +295,7 @@ The basic solution is to allocate a small portion of the training set as the **v
 The figure below illustrates the idea.
 
 <p align="center">
-<img width='500' src="../figures/third_party_figures/holdout.png"
+<img width='500' src="../figures/third_party_figures/Python_Machine_Learning/holdout.png"
 title="Image from https://github.com/rasbt/python-machine-learning-book-2nd-edition/blob/master/code/ch06/images/06_02.png">
 </p>
 
@@ -328,7 +328,7 @@ and each sample is used for validation exactly once.
 Furthermore, the averaged metrics have reduced variance and hence are more informative.
 
 <p align="center">
-<img width='500' src="../figures/third_party_figures/cv.png"
+<img width='500' src="../figures/third_party_figures/Python_Machine_Learning/cv.png"
 title="Image from https://github.com/rasbt/python-machine-learning-book-2nd-edition/blob/master/code/ch06/images/06_03.png">
 </p>
 
@@ -377,7 +377,7 @@ The main purpose of ML is to generate a classifier for production.
 Instead of labeling new data manually, we can now let the classifier predict the labels for us.
 
 <p align="center">
-<img width="500" src="../figures/third_party_figures/predict.png"
+<img width="500" src="../figures/third_party_figures/Python_Machine_Learning/predict.png"
 title="Image adapted from https://github.com/rasbt/python-machine-learning-book-2nd-edition/blob/master/code/ch01/images/01_02.png">
 </p>
 
