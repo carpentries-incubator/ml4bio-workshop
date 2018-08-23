@@ -31,7 +31,7 @@ If a sample is an FP or FN, we know the classifier made a mistake.
 Given the definitions above, we can summarize the samples in a **confusion matrix**.
 
 <p align="center">
-<img width="300" src="../figures/confusion_matrix.png"
+<img width="300" src="../figures/third_party_figures/confusion_matrix.png"
 title="Image from https://github.com/rasbt/python-machine-learning-book-2nd-edition/blob/master/code/ch06/images/06_08.png">
 </p>
 
@@ -46,11 +46,11 @@ Now that we have defined some terms, we can use them to introduce some useful me
 Using the notations above, we write
 
 <p align="center">
-<img src="../figures/accuracy.gif">
+<img src="../figures/performance/accuracy.gif">
 </p>
 
 In other words, it is the number of correctly predicted samples divided by the total number of samples.
-Sometimes, people talk about **error rate**, which is ![](../figures/error.gif).
+Sometimes, people talk about **error rate**, which is ![](../figures/performance/error.gif).
 
 Accuracy gains its popularity because of its simplicity,
 but it is less useful when the classes are _imbalanced_,
@@ -66,7 +66,7 @@ _Out of the samples predicted to be positive, how many of them are truly positiv
 Mathematically,
 
 <p align="center">
-<img src="../figures/precision.gif">
+<img src="../figures/performance/precision.gif">
 </p>
 
 It measures how strongly we can believe the classifier's calls.
@@ -80,7 +80,7 @@ _How many of the truly positive samples can the classifier discover (or recall)?
 Mathematically,
 
 <p align="center">
-<img src="../figures/recall.gif">
+<img src="../figures/performance/recall.gif">
 </p>
 
 It measures how sensitive the classifier is to interesting information.
@@ -94,7 +94,7 @@ F1 score takes both precision and recall into account.
 Mathematically,
 
 <p align="center">
-<img src="../figures/f1.gif">
+<img src="../figures/performance/f1.gif">
 </p>
 
 For a conservative classifier, F1 score is dominated by recall.
@@ -159,19 +159,19 @@ It is the percent of truly positive samples
 that are correctly predicted to be positive. Mathematically,
 
 <p align="center">
-<img src="../figures/tpr.gif">
+<img src="../figures/performance/tpr.gif">
 </p>
 
 - **False positive rate (FPR)** is the percent of truly negative samples
 that are falsely predicted to be positive. Mathematically,
 
 <p align="center">
-<img src="../figures/fpr.gif">
+<img src="../figures/performance/fpr.gif">
 </p>
 
 In statistics, the counterpart of TPR for negative samples is called **specificity**
 (i.e. the percent of truly negative samples that are correctly predicted to be negative),
-and FPR is simply ![](../figures/fpr2.gif).
+and FPR is simply ![](../figures/performance/fpr2.gif).
 
 An ROC curve is created by plotting TPR against FPR at various thresholds.
 Starting from 0, we increase the threshold until it reaches 1. 
@@ -181,7 +181,8 @@ Finally, we connect the points and obtain the ROC curve.
 The figure below shows an example ROC curve.
 
 <p align="center">
-<img width="500" src="http://scikit-learn.org/stable/_images/sphx_glr_plot_roc_001.png">
+<img width="500" src="../figures/third_party_figures/roc1.png"
+title="Image from http://scikit-learn.org/stable/auto_examples/model_selection/plot_roc.html">
 </p>
 
 As with the metrics, we can plot an ROC curve with respect to each class.
@@ -192,7 +193,8 @@ but a macro-average curve does not.
 For simplicity, the software only plots the classwise curves and their macro-average curve.
 
 <p align="center">
-<img width="500" src="http://scikit-learn.org/stable/_images/sphx_glr_plot_roc_002.png">
+<img width="500" src="../figures/third_party_figures/roc2.png"
+title="Image from http://scikit-learn.org/stable/auto_examples/model_selection/plot_roc.html">
 </p>
 
 A few comments on ROC curves:
@@ -220,7 +222,8 @@ _The best cutoff depends on the relative costs of misclassifications._
   The desired cutoff corresponds to where the line is tangent to the ROC curve.
 
 	<p align="center">
-	<img width="500" src="../figures/roc3.png">
+	<img width="500" src="../figures/third_party_figures/roc3.png"
+	title="Image adapted from http://scikit-learn.org/stable/auto_examples/model_selection/plot_roc.html">
 	</p>
 
   - **FN costs more than FP.**
@@ -233,7 +236,8 @@ _The best cutoff depends on the relative costs of misclassifications._
   The desired cutoff corresponds to where the line is tangent to the ROC curve.
 
 	<p align="center">
-	<img width="500" src="../figures/roc4.png">
+	<img width="500" src="../figures/third_party_figures/roc4.png"
+	title="Image adapted from http://scikit-learn.org/stable/auto_examples/model_selection/plot_roc.html">
 	</p>
 
   - **FP costs more than FN.**
@@ -246,7 +250,8 @@ _The best cutoff depends on the relative costs of misclassifications._
   The desired cutoff corresponds to where the line is tangent to the ROC curve.
 
 	<p align="center">
-	<img width="500" src="../figures/roc5.png">
+	<img width="500" src="../figures/third_party_figures/roc5.png"
+	title="Image adapted from http://scikit-learn.org/stable/auto_examples/model_selection/plot_roc.html">
 	</p>
 
 ROC curves suffer from the same limitation as accuracy when class imbalance exists.
@@ -257,7 +262,7 @@ However, this does not mean the number of FPs remains small _relative to the tot
 Note that
 
 <p align="center">
-<img src="../figures/pr.gif">
+<img src="../figures/performance/pr.gif">
 </p>
 
 When there are a lot more negatives than positives, TP is no larger than a small number,
@@ -277,7 +282,8 @@ Finally, we connect the points and obtain the PR curve.
 The figure below shows an example PR curve.
 
 <p align="center">
-<img width="500" src="http://ogrisel.github.io/scikit-learn.org/sklearn-tutorial/_images/plot_precision_recall_1.png">
+<img width="500" src="../figures/third_party_figures/pr1.png"
+title="Image from http://ogrisel.github.io/scikit-learn.org/sklearn-tutorial/auto_examples/plot_precision_recall.html">
 </p>
 
 As with ROC curve, we can plot a PR curve with respect to each class, 
@@ -288,7 +294,8 @@ The larger AUPRC is, the better the PR curve is.
 It is clear from the figure below that the classifier is best at predicting class 0.
 
 <p align="center">
-<img width="500" src="https://archive.is/MtZ13/30ea5cd3ec411ce60608069af66028393db854d5.png">
+<img width="500" src="../figures/third_party_figures/pr2.png"
+title="Image from http://ogrisel.github.io/scikit-learn.org/sklearn-tutorial/auto_examples/plot_precision_recall.html">
 </p>
 
 > #### Reference
@@ -298,6 +305,8 @@ It is clear from the figure below that the classifier is best at predicting clas
 > [https://github.com/rasbt/python-machine-learning-book-2nd-edition](https://github.com/rasbt/python-machine-learning-book-2nd-edition) Raschka and V. Mirjalili, Python Machine Learning (2nd Ed.)
 >
 > [sklearn ROC curve example](http://scikit-learn.org/stable/auto_examples/model_selection/plot_roc.html)
+> 
+> [sklearn PR curve example](http://ogrisel.github.io/scikit-learn.org/sklearn-tutorial/auto_examples/plot_precision_recall.html)
 >
 > #### Further readings
 > A great Nature Methods article on [classification evaluation](http://doi.org/10.1038/nmeth.3945).

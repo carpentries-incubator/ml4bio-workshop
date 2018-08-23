@@ -13,7 +13,7 @@ To download the ML4Bio software, visit <https://github.com/gitter-lab/ml-bio-wor
 Click the `Clone or download` button followed by `Download ZIP`.
 
 <p align="center">
-<img width="350" src="../figures/download_button.png">
+<img width="350" src="../figures/setup/download_button.png">
 </p>
 
 Save the file `ml-bio-workshop-master.zip` and then open that location on your computer.

@@ -25,7 +25,7 @@ We start by introducing the workflow at a high level, and then dive into each st
 ### ML workflow: an overview
 
 <p align="center">
-<img width="600" src="../figures/workflow.png"
+<img width="600" src="../figures/third_party_figures/workflow.png"
 title="Image from https://github.com/rasbt/python-machine-learning-book-2nd-edition/blob/master/code/ch01/images/01_09.png">
 </p>
 
@@ -81,7 +81,7 @@ The only possibly needed preprocessing step is encoding, which we will briefly d
 We use the famous iris dataset to introduce the basic language for describing a dataset.
 
 <p align="center">
-<img width="600" src="../figures/data.png" 
+<img width="600" src="../figures/third_party_figures/data.png" 
 title="Image from https://github.com/rasbt/python-machine-learning-book-2nd-edition/blob/master/code/ch01/images/01_08.png">
 </p>
 
@@ -154,7 +154,7 @@ one for **training** and the other for **testing**.
 In practice, people reserve 20% to 30% of the full dataset for testing.
 
 <p align="center">
-<img width="500" src="../figures/split.png"
+<img width="500" src="../figures/third_party_figures/split.png"
 title="Image adapted from https://github.com/rasbt/python-machine-learning-book-2nd-edition/blob/master/code/ch06/images/06_02.png">
 </p>
 
@@ -173,7 +173,7 @@ The central component of the learning step is learning algorithms.
 Given a training set, a learning algorithm outputs a predictive model, which in our case is a classifier.
 
 <p align="center">
-<img width="300" src="../figures/train.png"
+<img width="300" src="../figures/third_party_figures/train.png"
 title="Image adapted from https://github.com/rasbt/python-machine-learning-book-2nd-edition/blob/master/code/ch01/images/01_02.png">
 </p>
 
@@ -187,9 +187,9 @@ and we want to find a straight line that separates the positive samples from the
 The problem setting is illustrated in the left figure.
 
 <p align="center">
-<img width="300" src="../figures/train_1.png"
+<img width="300" src="../figures/third_party_figures/train_1.png"
 title="Image adapted from https://github.com/rasbt/python-machine-learning-book-2nd-edition/blob/master/code/ch02/images/02_03.png">
-<img width="300" src="../figures/train_2.png"
+<img width="300" src="../figures/third_party_figures/train_2.png"
 title="Image adapted from https://github.com/rasbt/python-machine-learning-book-2nd-edition/blob/master/code/ch02/images/02_03.png">
 </p>
 
@@ -199,11 +199,11 @@ Hence, straight lines can be considered as a set of classifiers.
 They have the form
 
 <p align="center">
-<img src="../figures/equation.gif">
+<img src="../figures/vocabulary/equation.gif">
 </p>
 
-where ![](../figures/x1.gif) and ![](../figures/x2.gif) are features,
-and ![](../figures/a.gif) and ![](../figures/b.gif) are **parameters**.
+where ![](../figures/vocabulary/x1.gif) and ![](../figures/vocabulary/x2.gif) are features,
+and ![](../figures/vocabulary/a.gif) and ![](../figures/vocabulary/b.gif) are **parameters**.
 Any straight line classifier is uniquely determined by the two parameters.
 Intuitively, the _best_ line separates all negative samples from all positive samples.
 Fortunately, there exist many such lines, and one of them is shown in the right figure.
@@ -236,14 +236,14 @@ to quantify what we mean by _best_.
 The objective function contains a **loss term** and sometimes a **regularization term**.
 
 <p align="center">
-<img width='300' src="../figures/cost.gif">
+<img width='300' src="../figures/vocabulary/cost.gif">
 </p>
 
 The loss term represents the price paid for inaccuracy,
 and is often the number of mistakes made by the classifier.
 It suffices to know that the regularization term combats overfitting and encourages generalization
 (i.e. how well a classifier performs on future data).
-The constant ![](../figures/lambda.gif) is
+The constant ![](../figures/vocabulary/lambda.gif) is
 for adjusting the relative importance of the two terms.
 The _best_ classifier is the one that minimizes the cost.
 _In essence, a learning algorithm solves a minimization problem over the space of parameters._
@@ -256,7 +256,7 @@ In 3D, the objective function is a parabola.
 The function value is one step closer to the minimum after each iteration of the algorithm.
 
 <p align="center">
-<img width='500' src="../figures/gd.gif"
+<img width='500' src="../figures/third_party_figures/gd.gif"
 title="Image from https://blog.paperspace.com/content/images/2018/05/68747470733a2f2f707669676965722e6769746875622e696f2f6d656469612f696d672f70617274312f6772616469656e745f64657363656e742e676966.gif">
 </p>
 
@@ -296,7 +296,7 @@ The basic solution is to allocate a small portion of the training set as the **v
 The figure below illustrates the idea.
 
 <p align="center">
-<img width='500' src="../figures/holdout.png"
+<img width='500' src="../figures/third_party_figures/holdout.png"
 title="Image from https://github.com/rasbt/python-machine-learning-book-2nd-edition/blob/master/code/ch06/images/06_02.png">
 </p>
 
@@ -329,7 +329,7 @@ and each sample is used for validation exactly once.
 Furthermore, the averaged metrics have reduced variance and hence are more informative.
 
 <p align="center">
-<img width='500' src="../figures/cv.png"
+<img width='500' src="../figures/third_party_figures/cv.png"
 title="Image from https://github.com/rasbt/python-machine-learning-book-2nd-edition/blob/master/code/ch06/images/06_03.png">
 </p>
 
@@ -378,10 +378,9 @@ The main purpose of ML is to generate a classifier for production.
 Instead of labeling new data manually, we can now let the classifier predict the labels for us.
 
 <p align="center">
-<img width="500" src="../figures/predict.png"
+<img width="500" src="../figures/third_party_figures/predict.png"
 title="Image adapted from https://github.com/rasbt/python-machine-learning-book-2nd-edition/blob/master/code/ch01/images/01_02.png">
 </p>
-
 
 > #### Reference
 >
