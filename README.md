@@ -2,8 +2,16 @@
 
 Recent advances in high-throughput technologies have led to rapid growth in the amount of omics data.
 These massive datasets, accompanied by numerous data points enriched over the past decades, are extremely valuable in the discovery of complex biological structures, but also present big challenges in various aspects of data analysis.
-This workshop introduces biologists to machine learning, a powerful set of models for drawing inference from big data. 
+This workshop introduces biologists to machine learning, a powerful set of models for drawing inference from big data.
 Upon completion of the workshop, attendees will gain expertise in building simple predictive models and become more comfortable to collaborate with computational experts on more complicated data analysis tasks.
+
+## Overview
+This repository contains the following subdirectories:
+- `data`: example datasets to use with the ML4Bio classification software, including both real and toy (illustrative simulated) datasets
+- `docs`: documentation for the ML4Bio source code, primarily for developers
+- `figures`: figures for the guides
+- `guide`: tutorials about the ML4Bio software, machine learning concepts, and various classifiers
+- `src`: the ML4Bio software
 
 ## Guideline
 
