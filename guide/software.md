@@ -186,7 +186,7 @@ The classifier's overall precision on the training data is 0.9.
 Three types of plots that reflect the classifier's performance are always available.
 The data plot is only available when the dataset contains exactly two continuous features.
 _Note that the plots are all with respect to the type of data
-shown at the top-right corner of the yellow area.__
+shown at the top-right corner of the yellow area._
 
 <p align="center">
 <img width='200' src="../figures/software/data_plot.png">
@@ -252,7 +252,6 @@ you have a chance to return to the previous page by clicking on **Back**.
 
 To select a classifier, you may let the software pick one for you by specifying a metric.
 In this case, the software will select the best classifier with respect to that metric.
-`Tony: how are ties broken?`
 Otherwise, you may pick a classifier on your own.
 We let the software select the classifier with the highest accuracy.
 
@@ -282,7 +281,6 @@ Although not recommended, you are allowed to test any of the other trained class
 Switch the type of data to either training or validation data
 and you will see the complete list of trained classifiers.
 Select a classifier and test it.
-`Tony: which instruction, selecting a classifier in the red panel?  Do we want to allow this?`
 
 <p align="center">
 <img src="../figures/software/test_more.png">

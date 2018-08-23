@@ -58,8 +58,8 @@ Hence, they should be removed prior to learning.
 For example, RNA-seq data contains values for thousands of genes,
 and most of them are not differentially expressed across conditions.
 
-- Measurements are affected by many technical sources of variation 
-including instruments, reagents, protocols and experimenters 
+- Measurements are affected by many technical sources of variation
+including instruments, reagents, protocols and experimenters
 that vary from experiment to experiment.
 Such confounding factors, collectively known as batch effects, can complicate data analysis.
 
@@ -81,7 +81,7 @@ The only possibly needed preprocessing step is encoding, which we will briefly d
 We use the famous iris dataset to introduce the basic language for describing a dataset.
 
 <p align="center">
-<img width="600" src="../figures/third_party_figures/data.png" 
+<img width="600" src="../figures/third_party_figures/data.png"
 title="Image from https://github.com/rasbt/python-machine-learning-book-2nd-edition/blob/master/code/ch01/images/01_08.png">
 </p>
 
@@ -142,7 +142,6 @@ but may cause loss of information when there is indeed some ordering in the orig
 
 In this workshop, you do not need to encode data on your own.
 The software does it for you.
-`Tony: does it always do one-hot?`
 However, it is important to keep in mind
 that encoding is an important step in preprocessing and makes a real impact in subsequent steps.
 
@@ -161,7 +160,7 @@ title="Image adapted from https://github.com/rasbt/python-machine-learning-book-
 The training set is used in the process of obtaining a classifier.
 The classifier is then evaluated on the test set
 so that an _unbiased_ estimate of accuracy and other performance metrics are computed.
-The test set should be completely hidden from the learning algorithm 
+The test set should be completely hidden from the learning algorithm
 until it is time for evaluation and only used for evaluation one time.
 Improper use of test set may cause **overfitting**.
 In plain words, the algorithm cheated and reported overoptimistic performance.
@@ -213,7 +212,7 @@ For each set of parameters, it checks how many mistakes the corresponding classi
 It stops when all samples are classified correctly, and reports the current classifier as the best one.
 
 In practice, most types of classifiers are more complex than straight lines.
-Many of them have **hyperparameters**, which are different from parameters 
+Many of them have **hyperparameters**, which are different from parameters
 in that they are tuned by human users, not learned from labeled examples.
 In general, training takes three steps:
 
@@ -249,7 +248,7 @@ The _best_ classifier is the one that minimizes the cost.
 _In essence, a learning algorithm solves a minimization problem over the space of parameters._
 It minimizing the cost iteratively until it **converges**, i.e. when no further improvement can be made.
 
-As an example, here is how graident descent, a commonly used learning algorithm, 
+As an example, here is how graident descent, a commonly used learning algorithm,
 solves a (trivial) minimization problem.
 The parameter space is the 2D X-Y plane, and the Z-axis represents objective function value.
 In 3D, the objective function is a parabola.
@@ -280,7 +279,7 @@ However, we are often not satisfied with a single classifier.
 We may want to
 
 - **train classifiers of different types.**
-For example, we trained a decision tree, 
+For example, we trained a decision tree,
 but also want an SVM to assess whether it may be better suited for our data.
 
 - **train classifiers of the same type, but with different hyperparameters**.
@@ -303,7 +302,7 @@ title="Image from https://github.com/rasbt/python-machine-learning-book-2nd-edit
 Validation is the same as evaluation except that it is performed on the validation set, not the test set.
 The classifiers take feature vectors in the validation set as input and output predicted labels.
 An estimate of accuracy is computed by comparing the predicted and true labels.
-There are other commonly used performance metrics besides accuracy, 
+There are other commonly used performance metrics besides accuracy,
 but we postpone the discussion until a subsequent lesson.
 
 There are three popular validation methods:
@@ -313,13 +312,13 @@ This scheme is shown in the figure above.
 We hold out a small fraction of the initial training data as our validation set.
 The rest of the training data becomes the actual training set.
 Classifiers are trained on the new training set and validated on the validation set.
-Holdout validation is computationally cheap, 
-but the number of samples used for learning is drastically reduced, 
+Holdout validation is computationally cheap,
+but the number of samples used for learning is drastically reduced,
 and the random nature of the split results in high variance in the performance estimates.
 
 - **K-fold cross-validation.**
 The initial training set is divided into k subsets or **folds**.
-We iterate through all folds, use the current fold as the validation set 
+We iterate through all folds, use the current fold as the validation set
 and the remaining k-1 folds as the training set.
 We average over the metrics on each fold to form overall metrics.
 This is summarized in the figure below.
@@ -357,7 +356,7 @@ This is especially true for high-dimensional data.
 
 - **Interpretability.**
 In many biological applications, we care about understanding the system.
-Some classifiers, such as decision trees or logistic regression classifiers, 
+Some classifiers, such as decision trees or logistic regression classifiers,
 are more informative than others because they reveal the critical features in decision-making.
 
 ### Step 3: Evaluation
@@ -384,7 +383,7 @@ title="Image adapted from https://github.com/rasbt/python-machine-learning-book-
 
 > #### Reference
 >
-> Unless otherwise noted, images in this lesson are adapted from 
+> Unless otherwise noted, images in this lesson are adapted from
 > [https://github.com/rasbt/python-machine-learning-book-2nd-edition](https://github.com/rasbt/python-machine-learning-book-2nd-edition) Raschka and V. Mirjalili, Python Machine Learning (2nd Ed.)
 >
 > #### Further readings

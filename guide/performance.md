@@ -86,7 +86,6 @@ Mathematically,
 It measures how sensitive the classifier is to interesting information.
 Recall is high for an aggressive classifier but low for a conservative classifier.
 Recall is also known as **sensitivity** in statistics.
-`Tony: this terminology mapping between domains is great, we should think of other examples`
 
 #### F1 score
 
@@ -110,7 +109,7 @@ that you will verify experimentally later
 and the validation experiments are extremely expensive and time-consuming,
 then you do not want to be misled by the classifier too often.
 Precision is more important than recall.
-Once you settled for a classifier with high precision, 
+Once you settled for a classifier with high precision,
 you may further want to recover as many hits as possible.
 Now you should consider boosting recall without losing too much precision.
 
@@ -174,7 +173,7 @@ In statistics, the counterpart of TPR for negative samples is called **specifici
 and FPR is simply ![](../figures/performance/fpr2.gif).
 
 An ROC curve is created by plotting TPR against FPR at various thresholds.
-Starting from 0, we increase the threshold until it reaches 1. 
+Starting from 0, we increase the threshold until it reaches 1.
 At a given threshold, we compute TPR and FPR based on the class predictions,
 and add a point whose coordinate is (FPR, TPR) to the plot.
 Finally, we connect the points and obtain the ROC curve.
@@ -199,20 +198,20 @@ title="Image from http://scikit-learn.org/stable/auto_examples/model_selection/p
 
 A few comments on ROC curves:
 
-- In a perfect scenario, the ROC curve will go straight up the Y axis and then along the X axis. 
-The curve of a classifier that makes random guesses will lie on the diagonal. 
+- In a perfect scenario, the ROC curve will go straight up the Y axis and then along the X axis.
+The curve of a classifier that makes random guesses will lie on the diagonal.
 Generally, a curve falls somewhere in between.
 
-- The most straightforward measure for assessing an ROC curve 
-is to compute the **area under the ROC curve (AUROC)**. 
-In the plot above, the curve with respect to class 0 has the largest AUROC, 
-thus the classifier is best at predicting class 0. 
-The AUROC for a perfect curve is 1, 
-while the curve of a classifier that makes random guesses has AUROC equal to 0.5. 
+- The most straightforward measure for assessing an ROC curve
+is to compute the **area under the ROC curve (AUROC)**.
+In the plot above, the curve with respect to class 0 has the largest AUROC,
+thus the classifier is best at predicting class 0.
+The AUROC for a perfect curve is 1,
+while the curve of a classifier that makes random guesses has AUROC equal to 0.5.
 Generally, the larger AUROC is, the better the classifier is with respect to that class.
 
-- As stated above, you may want to pick a decision threshold in applications such as gene screening. 
-ROC curves can help in such situations. Again, assume a binary classification problem. 
+- As stated above, you may want to pick a decision threshold in applications such as gene screening.
+ROC curves can help in such situations. Again, assume a binary classification problem.
 _The best cutoff depends on the relative costs of misclassifications._
 
   - **The two classes have equal weight.**
@@ -256,7 +255,7 @@ _The best cutoff depends on the relative costs of misclassifications._
 
 ROC curves suffer from the same limitation as accuracy when class imbalance exists.
 To see why, think of ROC curve as measuring how fast FPR increases as TPR increases.
-For a good ROC curve, the number of FPs remains small _relative to the total number of negatives_ 
+For a good ROC curve, the number of FPs remains small _relative to the total number of negatives_
 by definition until TPR approaches 1.
 However, this does not mean the number of FPs remains small _relative to the total number of positives_.
 Note that
@@ -275,7 +274,7 @@ This is undesired for many applications.
 
 PR curve complements ROC curves because it takes better care of class imbalance.
 As its name suggests, a PR curve is created by plotting precision against recall at various thresholds.
-Starting from 0, we increase the threshold until it reaches 1. 
+Starting from 0, we increase the threshold until it reaches 1.
 At a given threshold, we compute precision and recall based on the class predictions,
 and add a point whose coordinate is (recall, precision) to the plot.
 Finally, we connect the points and obtain the PR curve.
@@ -286,7 +285,7 @@ The figure below shows an example PR curve.
 title="Image from http://ogrisel.github.io/scikit-learn.org/sklearn-tutorial/auto_examples/plot_precision_recall.html">
 </p>
 
-As with ROC curve, we can plot a PR curve with respect to each class, 
+As with ROC curve, we can plot a PR curve with respect to each class,
 and average over the classwise curves to obtain a micro- or macro-averaged curve.
 For simplicity, the software only plots the classwise curves and their macro-average curve.
 Similar to AUROC, **area of the PR curve (AUPRC)** quantifies the quality of a PR curve.
@@ -305,7 +304,7 @@ title="Image from http://ogrisel.github.io/scikit-learn.org/sklearn-tutorial/aut
 > [https://github.com/rasbt/python-machine-learning-book-2nd-edition](https://github.com/rasbt/python-machine-learning-book-2nd-edition) Raschka and V. Mirjalili, Python Machine Learning (2nd Ed.)
 >
 > [sklearn ROC curve example](http://scikit-learn.org/stable/auto_examples/model_selection/plot_roc.html)
-> 
+>
 > [sklearn PR curve example](http://ogrisel.github.io/scikit-learn.org/sklearn-tutorial/auto_examples/plot_precision_recall.html)
 >
 > #### Further readings
