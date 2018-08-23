@@ -16,7 +16,7 @@ See the [setup](setup.md) instructions for a guide on downloading and installing
 Once you open the ML4Bio software, you will see the following interface.
 
 <p align="center">
-<img  src="../screenshots/window.png">
+<img  src="../figures/software/window.png">
 </p>
 
 The interface can be divided into three areas:
