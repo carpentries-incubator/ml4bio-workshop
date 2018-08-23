@@ -667,8 +667,8 @@ class App(QMainWindow):
         self.lrSolverComboBox.setCurrentIndex(0)
         self.lrMultiClassComboBox.setCurrentIndex(0)
         self.lrClassWeightComboBox.setCurrentIndex(0)
-        self.lrTolLineEdit.setText('1e-4')
-        self.lrMaxIterLineEdit.setText('100')
+        self.lrTolLineEdit.setText('1e-3')
+        self.lrMaxIterLineEdit.setText('500')
 
     def update_logistic_regression(self):
         """
@@ -698,8 +698,8 @@ class App(QMainWindow):
         self.nnLearningRateComboBox.setCurrentIndex(0)
         self.nnLearningRateInitLineEdit.setText('0.001')
         self.nnEarlyStoppingCheckBox.setChecked(False)
-        self.nnTolLineEdit.setText('1e-4')
-        self.nnMaxIterLineEdit.setText('200')
+        self.nnTolLineEdit.setText('1e-3')
+        self.nnMaxIterLineEdit.setText('500')
 
     def update_neural_network(self):
         """
@@ -1724,10 +1724,10 @@ class App(QMainWindow):
         self.lrStopLabel = QLabel('Stopping Criteria:', self.lrPage)
         self.lrTolLabel = QLabel('tol:', self.lrPage)
         self.lrTolLabel.setMinimumWidth(60)
-        self.lrTolLineEdit = QLineEdit('1e-4', self.lrPage)
+        self.lrTolLineEdit = QLineEdit('1e-3', self.lrPage)
         self.lrMaxIterLabel = QLabel('max_iter:', self.lrPage)
         self.lrMaxIterLabel.setMinimumWidth(60)
-        self.lrMaxIterLineEdit = QLineEdit('100', self.lrPage)
+        self.lrMaxIterLineEdit = QLineEdit('500', self.lrPage)
 
         self.lrDoc = QLabel("<a href=\"http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html\">Documentation</a>")
         self.lrDoc.setAlignment(Qt.AlignRight)
@@ -1791,7 +1791,7 @@ class App(QMainWindow):
         self.nnTolLineEdit = QLineEdit('1e-3', self.nnPage)
         self.nnMaxIterLabel = QLabel('max_iter:', self.nnPage)
         self.nnMaxIterLabel.setMinimumWidth(60)
-        self.nnMaxIterLineEdit = QLineEdit('200', self.nnPage)
+        self.nnMaxIterLineEdit = QLineEdit('500', self.nnPage)
 
         self.nnDoc = QLabel("<a href=\"http://scikit-learn.org/stable/modules/generated/sklearn.neural_network.MLPClassifier.html\">Documentation</a>")
         self.nnDoc.setAlignment(Qt.AlignRight)
