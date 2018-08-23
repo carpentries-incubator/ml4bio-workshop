@@ -6,12 +6,14 @@ This workshop introduces biologists to machine learning, a powerful set of model
 Upon completion of the workshop, attendees will gain expertise in building simple predictive models and become more comfortable to collaborate with computational experts on more complicated data analysis tasks.
 
 ## Overview
-This repository contains the following subdirectories:
-- `data`: example datasets to use with the ML4Bio classification software, including both real and toy (illustrative simulated) datasets
-- `docs`: documentation for the ML4Bio source code, primarily for developers
-- `figures`: figures for the guides
-- `guide`: tutorials about the ML4Bio software, machine learning concepts, and various classifiers
-- `src`: the ML4Bio software
+This repository contains the following files and subdirectories:
+- [`data`](data): example datasets to use with the ML4Bio classification software, including both real and toy (illustrative simulated) datasets
+- [`docs`](docs): documentation for the ML4Bio source code, primarily for developers
+- [`figures`](figures): figures for the guides
+- [`guide`](guide): tutorials about the ML4Bio software, machine learning concepts, and various classifiers
+- [`src`](src): the ML4Bio software
+- [`illustration.ipynb`](illustration.ipynb): a Jupyter notebook the demonstrates the machine learned workshop in Python code
+- `workshop_slides.pptx`: slides for the machine learning for biology workshop
 
 ## Guideline
 
