@@ -81,5 +81,5 @@ to be continued...
 ## License
 
 The workshop guides created in this repository are licensed under the Creative Commons Attribution 4.0 International Public License.
-However, the guides also contain images from third-party sources, as noted in the image links and guide references.
+However, the guides also contain [images from third-party sources](figures/third_party_figures), as noted in the image links and guide references.
 See the linked original image sources for their licenses and terms of reuse.
