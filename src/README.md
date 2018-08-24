@@ -24,3 +24,10 @@ If Anaconda is already installed, the GUI can be launched by double-clicking the
 If the `ml4bio` environment does not exist, the batch file creates it and installs the required Python packages.
 
 `ml4bio_conda.sh` is a bash shell script for Linux and Mac OS, but it has not been tested.
+
+## Third party materials
+The icons in the `icons` directory were downloaded from http://thenounproject.com under the Creative Commons license.
+Instructions on how to give credit to the creators: [link](https://thenounproject.zendesk.com/hc/en-us/articles/200509928-How-do-I-give-creators-credit-in-my-work-)
+
+Add this attribution where appropriate:
+Created by sachin modgekar from Noun Project.
