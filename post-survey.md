@@ -2,7 +2,7 @@
 
 1. Do you expect to use the ML4Bio software again for learning more about classification?
 1. Do you expect to use the ML4Bio software again for research?
-1. How well did the workshop meet your expectations?
+1. Did the workshop meet your expectations?
 1. How comfortable would you be training classifiers for a research project?
 1. How was the pace?
 1. Please rate the amount of time spent:
