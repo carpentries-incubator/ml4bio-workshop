@@ -12,6 +12,7 @@
 1. How would you like to split your research effort in the future? (1-5)
   - 1: 100% bench work, no computation
   - 5: 100% computation, no bench work
+1. How comfortable would you be training classifiers for a research project? (1-3)
 1. Do you have experience with the command line interface on your computer? (Yes/No)
 1. Have you taken a calculus course? (Yes/No)
 1. Have you taken a probability and statistics course? (Yes/No)
