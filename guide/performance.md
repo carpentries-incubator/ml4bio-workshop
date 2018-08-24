@@ -301,7 +301,7 @@ title="Image from http://ogrisel.github.io/scikit-learn.org/sklearn-tutorial/aut
 >
 > Images in this lesson are adapted from
 >
-> [https://github.com/rasbt/python-machine-learning-book-2nd-edition](https://github.com/rasbt/python-machine-learning-book-2nd-edition) Raschka and V. Mirjalili, Python Machine Learning (2nd Ed.)
+> <https://github.com/rasbt/python-machine-learning-book-2nd-edition> S. Raschka and V. Mirjalili, Python Machine Learning (2nd Ed.)
 >
 > [sklearn ROC curve example](http://scikit-learn.org/stable/auto_examples/model_selection/plot_roc.html)
 >
