@@ -4,6 +4,6 @@ dependencies:
 - pandas
 - numpy
 - scikit-learn=0.19
-- matplotlib
+- matplotlib=2.1
 - pyqt=5
 - scipy
