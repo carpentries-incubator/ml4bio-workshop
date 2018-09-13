@@ -1,4 +1,5 @@
 # Machine Learning (ML) for Biologists Workshop
+[![Build Status](https://travis-ci.org/gitter-lab/ml-bio-workshop.svg?branch=master)](https://travis-ci.org/gitter-lab/ml-bio-workshop)
 
 Recent advances in high-throughput technologies have led to rapid growth in the amount of omics data.
 These massive datasets, accompanied by numerous data points enriched over the past decades, are extremely valuable in the discovery of complex biological structures, but also present big challenges in various aspects of data analysis.
