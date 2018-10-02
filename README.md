@@ -11,7 +11,7 @@ This repository contains the following files and subdirectories:
 - [`data`](data): example datasets to use with the ML4Bio classification software, including both real and toy (illustrative simulated) datasets
 - [`figures`](figures): figures for the guides
 - [`guide`](guide): tutorials about the ML4Bio software, machine learning concepts, and various classifiers
-- [`src`](src): ML4Bio installation scripts
+- [`scripts`](scripts): ML4Bio installation scripts
 - [`illustration.ipynb`](illustration.ipynb): a Jupyter notebook the demonstrates the machine learned workshop in Python code
 - `workshop_slides.pptx`: slides for the machine learning for biology workshop
 
