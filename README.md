@@ -16,6 +16,8 @@ This repository contains the following files and subdirectories:
 - [`illustration.ipynb`](illustration.ipynb): a Jupyter notebook the demonstrates the machine learned workshop in Python code
 - `workshop_slides.pptx`: slides for the machine learning for biology workshop
 
+The [ml4bio repository](https://github.com/gitter-lab/ml4bio) contains the Python software.
+
 ## Guideline
 
 ### Fundamentals of ML
