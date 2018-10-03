@@ -17,4 +17,4 @@ fi
 conda info --envs
 
 # launch the GUI
-python ml4bio.py
+ml4bio

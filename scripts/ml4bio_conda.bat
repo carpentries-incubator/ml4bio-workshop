@@ -13,4 +13,4 @@ IF %ERRORLEVEL% NEQ 0 (
 )
 
 @REM launch the GUI
-python ml4bio.py
+ml4bio
