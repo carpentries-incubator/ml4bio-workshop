@@ -6,6 +6,9 @@ These massive datasets, accompanied by numerous data points enriched over the pa
 This workshop introduces biologists to machine learning, a powerful set of models for drawing inference from big data.
 Upon completion of the workshop, attendees will gain expertise in building simple predictive models and become more comfortable to collaborate with computational experts on more complicated data analysis tasks.
 
+## Getting started
+Visit the [software setup guide](guide/setup.md) for instructions on installing the ML4Bio software and downloading the example datasets, guides, and slides contained in this repository.
+
 ## Overview
 This repository contains the following files and subdirectories:
 - [`data`](data): example datasets to use with the ML4Bio classification software, including both real and toy (illustrative simulated) datasets
