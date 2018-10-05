@@ -33,12 +33,13 @@ If you did not add Anaconda to your `PATH` during installation and would like to
 
 ### Launch the software
 
-After you install Anaconda, return to the `ml-bio-workshop-master` directory and open the `src` subdirectory.
+After you install Anaconda, return to the `ml-bio-workshop-master` directory and open the `scripts` subdirectory.
 There are wrapper scripts that will run ML4Bio inside a conda environment, which is a collection of specific versions of Python packages.
 If the environment does not already exist, it will be created.
 This can take several 5-10 minutes.
-For Windows, launch the `ml4bio_conda.bat` script.
-For Mac OS or Linux, launch the `ml4bio_conda.sh` script.
+For Windows, launch the `install_launch_windows.bat` script.
+For Mac OS, launch the `install_launch_mac.command` script.
+For Linux, launch the `install_launch_linux.sh` script.
 
-Advanced users who already have Python installed can install the [required packages](../src/README.md) through pip.
-Then launch ML4Bio from the command line by executing `python ml4bio.py` from the `src` directory.
+Advanced users who already have Python installed can install the [required packages](../scripts/README.md) through pip.
+Then launch ML4Bio from the command line by executing `ml4bio` from the `src` directory.
