@@ -19,14 +19,15 @@ The full Anaconda installation also provides all required Python dependencies.
 
 ## Running
 
+If Anaconda is already installed and on the system path, the ml4bio package can be installed and launched by double-clicking the appropriate script.
+If the `ml4bio` environment does not already exist, the script creates it and installs the required Python packages, including ml4bio.
+There are different scripts for each operating system:
+- `install_launch_linux.sh` is a bash shell script for Linux.
+- `install_launch_mac.command` is a bash shell script for Mac OS, but it has not been tested.
+- `install_launch_windows.bat` is a batch file for Windows.
+
+If the Python environment has already been configured externally, the scripts are not required.
 Type `ml4bio` from the command line to launch the GUI.
-
-`ml4bio_conda.bat` is a Windows batch file.
-If Anaconda is already installed, the GUI can be launched by double-clicking the batch file.
-If the `ml4bio` environment does not exist, the batch file creates it and installs the required Python packages.
-
-`ml4bio_conda.sh` is a bash shell script for Linux.
-`ml4bio_conda.command` is a bash shell script for Mac OS, but it has not been tested.
 
 ## Third party materials
 The icons in the `icons` directory were downloaded from http://thenounproject.com under the Creative Commons license.
