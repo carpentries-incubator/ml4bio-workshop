@@ -8,6 +8,7 @@ Requires:
 - matplotlib
 - pyqt 5
 - scipy
+- [ml4bio](https://github.com/gitter-lab/ml4bio)
 - git (for installing ml4bio from GitHub)
 
 See `conda_env.yml` for one set of compatible package versions.
