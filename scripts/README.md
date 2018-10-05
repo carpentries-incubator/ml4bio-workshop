@@ -28,10 +28,3 @@ There are different scripts for each operating system:
 
 If the Python environment has already been configured externally, the scripts are not required.
 Type `ml4bio` from the command line to launch the GUI.
-
-## Third party materials
-The icons in the `icons` directory were downloaded from http://thenounproject.com under the Creative Commons license.
-Instructions on how to give credit to the creators: [link](https://thenounproject.zendesk.com/hc/en-us/articles/200509928-How-do-I-give-creators-credit-in-my-work-)
-
-Add this attribution where appropriate:
-Created by sachin modgekar from Noun Project.
