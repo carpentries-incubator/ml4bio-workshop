@@ -21,10 +21,11 @@ Extract the zip file and open the folder `ml-bio-workshop-master` with the same 
 You are now ready to install the Python dependencies needed to run ML4Bio.
 
 ### Install Python
-ML4Bio requires Python and several Python packages.
+ML4Bio requires Python and several other Python packages.
 The easiest way to install Python and the correct version of these packages is through [Anaconda](https://anaconda.com/), a Python distribution.
 If you do not have Anaconda installed, please visit <https://www.anaconda.com/download/> to download and install the Python 3.6 version.
 If Anaconda will be your primary Python distribution, we recommend letting the Anaconda installer add Anaconda to your computer's `PATH` environment variable so that it is accessible from the command line.
+See the [Carpentries Anaconda installation instructions](http://carpentries.github.io/workshop-template/#python) for a step-by-step guide and video on how to install Anaconda for your operating system.
 
 If you did not add Anaconda to your `PATH` during installation and would like to, follow these instructions for Windows 10:
 - Start -> Type "Path" -> Edit environment variables for your account
