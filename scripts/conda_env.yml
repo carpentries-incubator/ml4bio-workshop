@@ -7,6 +7,5 @@ dependencies:
   - matplotlib=2.1
   - pyqt=5
   - scipy
-  - git
   - pip:
-    - git+https://github.com/gitter-lab/ml4bio@8b77d33537ecae9271ac6a11ab4a6124b56313dd
+    - ml4bio

@@ -9,7 +9,6 @@ Requires:
 - pyqt 5
 - scipy
 - [ml4bio](https://github.com/gitter-lab/ml4bio)
-- git (for installing ml4bio from GitHub)
 
 See `conda_env.yml` for one set of compatible package versions.
 Create the `ml4bio` [conda environment](https://conda.io/docs/user-guide/tasks/manage-environments.html) with the command `conda env create -f conda_env.yml`.
