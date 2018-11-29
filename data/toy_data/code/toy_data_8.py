@@ -1,7 +1,7 @@
 '''
 toy data 8:
 	- continuous values
-	- three-way classificarion
+	- three-way classification
 	- XOR pattern
 	- balanced data
 '''
