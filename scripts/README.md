@@ -15,7 +15,7 @@ Create the `ml4bio` [conda environment](https://conda.io/docs/user-guide/tasks/m
 On Linux, activate the environment with `source activate ml4bio`.
 On Windows, activate the environment with `activate ml4bio`.
 
-The full Anaconda installation also provides all required Python dependencies.
+The full Anaconda installation also provides all required Python dependencies except for ml4bio, which is available from [PyPI](https://pypi.org/project/ml4bio/).
 
 ## Running
 
@@ -28,3 +28,12 @@ There are different scripts for each operating system:
 
 If the Python environment has already been configured externally, the scripts are not required.
 Type `ml4bio` from the command line to launch the GUI.
+
+## Warnings
+
+The following warning appears for some combinations of the required Python packages.
+It does not affect the ml4bio software:
+```
+DeprecationWarning: numpy.core.umath_tests is an internal NumPy module and should not be imported. It will be removed in a future NumPy release.
+  from numpy.core.umath_tests import inner1d
+```
