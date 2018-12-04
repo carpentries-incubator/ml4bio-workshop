@@ -11,6 +11,8 @@
  - Interacting with the workshop organizers
  - Discussing math and computational background
  - Presenting biological motivation and examples
+ - Presenting the machine learning workflow (pre-processing, cross-validation, etc.)
+ - Presenting specific classifiers
 1. What questions about machine learning do you have that were not addressed during the workshop?
 1. Please describe any problems you had installing and running the ML4Bio software.
 1. Please share any other suggestions for improving the workshop, ML4Bio software, guides, or other materials.
