@@ -12,6 +12,7 @@
  - Discussing math and computational background
  - Presenting biological motivation and examples
 1. What questions about machine learning do you have that were not addressed during the workshop?
+1. Please describe any problems you had installing and running the ML4Bio software.
 1. Please share any other suggestions for improving the workshop, ML4Bio software, guides, or other materials.
 
 When distributing the survey link, we will also ask for a non-anonymous email response if they are willing to help test future versions of the software or guides.
