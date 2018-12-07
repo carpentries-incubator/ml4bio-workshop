@@ -45,3 +45,5 @@ For Linux, launch the `install_launch_linux.sh` script.
 
 Advanced users who already have Python installed can install the [required packages](../scripts/README.md) through pip.
 Then launch ML4Bio from the command line with the command `ml4bio`.
+
+Visit the [software guide](software.md) to learn more about the ML4Bio software functionality.
