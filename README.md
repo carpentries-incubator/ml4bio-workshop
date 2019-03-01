@@ -1,5 +1,6 @@
 # Machine Learning (ML) for Biologists Workshop
 [![Build Status](https://travis-ci.org/gitter-lab/ml-bio-workshop.svg?branch=master)](https://travis-ci.org/gitter-lab/ml-bio-workshop)
+[![Binder](http://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/gitter-lab/ml-bio-workshop/master?filepath=illustration.ipynb)
 
 Recent advances in high-throughput technologies have led to rapid growth in the amount of omics data.
 These massive datasets, accompanied by numerous data points enriched over the past decades, are extremely valuable in the discovery of complex biological structures, but also present big challenges in various aspects of data analysis.
@@ -11,6 +12,7 @@ Visit the [software setup guide](guide/setup.md) for instructions on installing 
 
 ## Overview
 This repository contains the following files and subdirectories:
+- [`binder`](binder): a configuration file to enable running the `illustration.ipynb` notebook interactively using [Binder](https://mybinder.org/)
 - [`data`](data): example datasets to use with the ML4Bio classification software, including both real and toy (illustrative simulated) datasets
 - [`figures`](figures): figures for the guides
 - [`guide`](guide): tutorials about the ML4Bio software, machine learning concepts, and various classifiers
