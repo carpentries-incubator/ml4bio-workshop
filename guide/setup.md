@@ -8,6 +8,16 @@
 > #### Objectives
 >
 > 1.   Provide instructions for installing the ML4Bio software.
+> 2.   Explain the ML4Bio software environment
+
+### Overview
+There are three main steps to prepare for the ML4Bio workshop:
+1. [Download the workshop materials](#download-the-ml4bio-materials)
+2. [Install the Anaconda Python environment](#install-python)
+3. [Install the ML4Bio software](#launch-the-ml4bio-software)
+
+See the [troubleshooting](#troubleshooting) if you run into problems during the installation.
+If you already have Python installed, download the ML4Bio materials and proceed to the [advanced](#advanced-users) instructions.
 
 ### Download the ML4Bio materials
 To download the ML4Bio materials, visit <https://github.com/gitter-lab/ml-bio-workshop/>.
@@ -33,8 +43,7 @@ If you did not add Anaconda to your `PATH` during installation and would like to
 - Start -> Type "Path" -> Edit environment variables for your account
 - Path -> Edit -> New -> Browse -> Browse to the location where Anaconda was installed and select the Scripts subdirectory -> OK -> OK
 
-### Launch the software
-
+### Launch the ML4Bio software
 After you install Anaconda, return to the `ml-bio-workshop-master` directory and open the `scripts` subdirectory.
 There are wrapper scripts that will run ML4Bio inside a conda environment, which is a collection of specific versions of Python packages.
 If the environment does not already exist, it will be created.
@@ -43,7 +52,13 @@ For Windows, launch the `install_launch_windows.bat` script.
 For Mac OS, launch the `install_launch_mac.command` script.
 For Linux, launch the `install_launch_linux.sh` script.
 
+Visit the [software guide](software.md) to learn more about the ML4Bio software functionality.
+See the [software environment details](#software-environment-details) for more information about how the ML4Bio software works.
+
+### Troubleshooting
+
+### Software environment details
+
+### Advanced users
 Advanced users who already have Python installed can install the [required packages](../scripts/README.md) through pip.
 Then launch ML4Bio from the command line with the command `ml4bio`.
-
-Visit the [software guide](software.md) to learn more about the ML4Bio software functionality.
