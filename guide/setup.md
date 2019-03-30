@@ -13,11 +13,11 @@
 ### Overview
 There are three main steps to prepare for the ML4Bio workshop:
 1. [Download the workshop materials](#download-the-ml4bio-materials)
-2. [Install the Anaconda Python environment](#install-python)
+2. [Install the Anaconda Python distribution](#install-python)
 3. [Install the ML4Bio software](#launch-the-ml4bio-software)
 
 See the [troubleshooting](#troubleshooting) if you run into problems during the installation.
-If you already have Python installed, download the ML4Bio materials and proceed to the [advanced](#advanced-users) instructions.
+If you already have Python installed and do not want to use Anaconda, download the ML4Bio materials and proceed to the [advanced](#advanced-users) instructions.
 
 ### Download the ML4Bio materials
 To download the ML4Bio materials, visit <https://github.com/gitter-lab/ml-bio-workshop/>.
@@ -34,7 +34,7 @@ You are now ready to install the Python dependencies needed to run the ML4Bio so
 ### Install Python
 ML4Bio requires Python and several other Python packages.
 The easiest way to install Python and the correct version of these packages is through [Anaconda](https://anaconda.com/), a Python distribution.
-If you do not have Anaconda installed, please visit <https://www.anaconda.com/download/> to download and install the Python 3.6 version.
+If you do not have Anaconda installed, please visit <https://www.anaconda.com/download/> to download and install the Python 3.x version (for example, 3.7).
 **We recommend letting the Anaconda installer add Anaconda to your computer's `PATH` environment variable so that it is easily accessible from the command line.**
 This will also make Anaconda your primary Python distribution.
 See the [Carpentries Anaconda installation instructions](http://carpentries.github.io/workshop-template/#python) for a step-by-step guide and video on how to install Anaconda for your operating system.
@@ -51,7 +51,7 @@ This can take 5-10 minutes and requires internet connectivity to download the Py
 If you have trouble launching the script, try running it from the command line.
 For Windows, launch the Anaconda Prompt (formerly Anaconda Command Prompt) and then run the script:
 - Start -> Type "Anaconda" -> Anaconda Prompt
-- Navigate to the `ml-bio-workshop-master\scripts` directory
+- Navigate to the `ml-bio-workshop-master\scripts` directory from the command line
 - Type `install_launch_windows.bat` -> Enter
 
 For Linux or Mac OS, open the terminal and navigate to the `ml-bio-workshop-master/scripts` directory.
@@ -73,14 +73,16 @@ If you did not add Anaconda to your `PATH` during installation and would like to
 See also known [software warnings](../scripts/README.md#warnings) that can be safely ignored.
 
 ### Software environment details
-Anaconda includes software that enables you to run Python programs as well as additional tools for managing software environments, programming in Python, and integrating code with textual descriptions and results.
+Anaconda includes software that enables you to run Python programs as well as additional tools for managing software environments, programming in Python, and integrating code with textual descriptions and results in Jupyter notebooks.
 The software environments are managed by conda, one of the tools included with Anaconda.
 An environment is a collection of specific versions of Python packages.
-These are all stored in a directory that conda manages, and having multiple environments allows you to use different versions of the same package for different projects.
+These are all stored in a directory that conda manages.
+Having multiple environments allows you to use different versions of the same package for different projects.
 
 The ML4Bio install scripts create a new conda environment.
 This environment, which is named `ml4bio`, contains the latest version of the `ml4bio` Python package as well as suitable versions of other Python packages that it requires.
-The `ml4bio` code may be incompatible with older or newer versions of the Python packages it uses, and the environment makes it easy for you use a collection of Python packages that work together.
+The `ml4bio` code may be incompatible with older or newer versions of the Python packages it uses.
+The environment makes it easy for you use a collection of Python packages that work together.
 
 The most important required Python package that ML4Bio uses is called [scikit-learn](http://scikit-learn.org/).
 This is a popular general purpose machine learning package.
