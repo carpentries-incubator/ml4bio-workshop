@@ -72,7 +72,7 @@ If you did not add Anaconda to your `PATH` during installation and would like to
 
 See also known [software warnings](../scripts/README.md#warnings) that can be safely ignored.
 
-### Updating ml4bio
+### Updating ML4Bio
 New versions of the ML4Bio software will be periodically released through [PyPI](https://pypi.org/project/ml4bio/).
 The [release notes](https://github.com/gitter-lab/ml4bio/releases) describe the changes in each new version.
 To install the latest version of ML4Bio, run the appropriate update script for your operating system:
