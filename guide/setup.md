@@ -72,6 +72,16 @@ If you did not add Anaconda to your `PATH` during installation and would like to
 
 See also known [software warnings](../scripts/README.md#warnings) that can be safely ignored.
 
+### Updating ML4Bio
+New versions of the ML4Bio software will be periodically released through [PyPI](https://pypi.org/project/ml4bio/).
+The [release notes](https://github.com/gitter-lab/ml4bio/releases) describe the changes in each new version.
+To install the latest version of ML4Bio, run the appropriate update script for your operating system:
+- `update_ml4bio_windows.bat`
+- `update_ml4bio_mac.command`
+- `update_ml4bio_linux.sh`
+
+Run these scripts in the same manner as the install scripts above.
+
 ### Software environment details
 Anaconda includes software that enables you to run Python programs as well as additional tools for managing software environments, programming in Python, and integrating code with textual descriptions and results in Jupyter notebooks.
 The software environments are managed by conda, one of the tools included with Anaconda.
