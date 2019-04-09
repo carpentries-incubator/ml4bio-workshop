@@ -50,6 +50,7 @@ There are wrapper scripts that will run ML4Bio inside a [conda environment](#sof
 If the environment does not already exist, it will be created.
 This can take 5-10 minutes and requires internet connectivity to download the Python packages.
 - For **Windows**, launch the `install_launch_windows.bat` script.
+You may need to run this script twice, once to install the software and again to launch it.
 - For **Mac OS**, launch the `install_launch_mac.command` script.
 - For **Linux**, launch the `install_launch_linux.sh` script.
 
@@ -74,6 +75,9 @@ Launching ML4Bio from the command line can resolve many common problems related 
 If you did not add Anaconda to your `PATH` during installation and would like to, follow these instructions for Windows 10:
 - Start -> Type "Path" -> Edit environment variables for your account
 - Path -> Edit -> New -> Browse -> Browse to the location where Anaconda was installed and select the Scripts subdirectory -> OK -> OK
+
+When running the `install_launch_windows.bat` install script, Windows may display a warning that the app is from an unknown publisher and may be unsafe to run.
+This warning can be ignored.
 
 See also known [software warnings](../scripts/README.md#warnings) that can be safely ignored.
 
