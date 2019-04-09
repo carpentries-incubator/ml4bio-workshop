@@ -36,6 +36,11 @@ ML4Bio requires Python and several other Python packages.
 The easiest way to install Python and the correct version of these packages is through [Anaconda](https://anaconda.com/), a Python distribution.
 If you do not have Anaconda installed, please visit <https://www.anaconda.com/download/> to download and install the Python 3.x version (for example, 3.7).
 **We recommend letting the Anaconda installer add Anaconda to your computer's `PATH` environment variable so that it is easily accessible from the command line.**
+
+<p align="center">
+<img width="350" src="../figures/setup/anaconda_path.png">
+</p>
+
 This will also make Anaconda your primary Python distribution.
 See the [Carpentries Anaconda installation instructions](http://carpentries.github.io/workshop-template/#python) for a step-by-step guide and video on how to install Anaconda for your operating system.
 
