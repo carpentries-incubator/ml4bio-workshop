@@ -5,9 +5,19 @@ matrix:
   include:
   # Configuration adapted from https://github.com/gitter-lab/t-cell-classification
   - language: minimal
-    os:
-      - linux
-      - osx
+    os: linux
+    before_install:
+      - |
+        if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+          echo Testing in Linux
+        fi
+      - |
+        if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+          echo Testing in osx
+        fi
+
+  - language: minimal
+    os: osx
     before_install:
       - |
         if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
