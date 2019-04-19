@@ -7,26 +7,22 @@ matrix:
   - language: minimal
     os: linux
     before_install:
-      - |
-        if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-          echo Testing in Linux
-        fi
-      - |
-        if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-          echo Testing in osx
-        fi
+      - wget https://repo.continuum.io/miniconda/Miniconda3-4.5.12-Linux-x86_64.sh -O miniconda.sh
+      - bash miniconda.sh -b -p $HOME/anaconda
+      - export PATH="$HOME/anaconda/bin:$PATH"
+    script:
+      - cd scripts
+      - ./install_launch_linux.sh
 
   - language: minimal
     os: osx
     before_install:
-      - |
-        if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-          echo Testing in Linux
-        fi
-      - |
-        if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-          echo Testing in osx
-        fi
+      - wget https://repo.continuum.io/miniconda/Miniconda3-4.5.12-MacOSX-x86_64.sh -O miniconda.sh
+      - bash miniconda.sh -b -p $HOME/anaconda
+      - export PATH="$HOME/anaconda/bin:$PATH"
+    script:
+      - cd scripts
+      - ./install_launch_mac.command
 
   # Configuration adapted from https://github.com/dkhamsing/awesome_bot
   - language: ruby
