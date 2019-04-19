@@ -5,6 +5,7 @@ matrix:
   include:
   # Configuration adapted from https://github.com/gitter-lab/t-cell-classification
   - language: minimal
+    name: Conda environment Linux
     os: linux
     before_install:
       - wget https://repo.continuum.io/miniconda/Miniconda3-4.5.12-Linux-x86_64.sh -O miniconda.sh
@@ -15,6 +16,7 @@ matrix:
       - ./install_launch_linux.sh
 
   - language: minimal
+    name: Conda environment macOS
     os: osx
     before_install:
       - wget https://repo.continuum.io/miniconda/Miniconda3-4.5.12-MacOSX-x86_64.sh -O miniconda.sh
@@ -26,6 +28,7 @@ matrix:
 
   # Configuration adapted from https://github.com/dkhamsing/awesome_bot
   - language: ruby
+    name: Check URLs
     rvm: 2.4.1
     before_script: gem install awesome_bot
     script: awesome_bot guide/*.md --allow-redirect --allow-dupe
