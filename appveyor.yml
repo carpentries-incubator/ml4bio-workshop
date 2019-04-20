@@ -1,0 +1,21 @@
+build: false
+
+# Do not build feature branch with open Pull Requests
+# Set this option because the tests are slow and run in serial
+skip_branch_with_pr: true
+
+environment:
+  # All available Miniconda versions https://www.appveyor.com/docs/windows-images-software/#miniconda
+  MINICONDA: C:\\Miniconda36-x64
+
+init:
+  - "ECHO Miniconda version: %MINICONDA%"
+
+install:
+  # Install GNU sed to edit the install script
+  - choco install sed
+  - cd scripts
+  - sed -i 's/^ml4bio$/python -c "import ml4bio; print(ml4bio.__version__)"/g' install_launch_windows.bat
+
+test_script:
+  - install_launch_windows.bat
