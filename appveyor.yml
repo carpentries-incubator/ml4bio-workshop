@@ -16,8 +16,8 @@ install:
   # Install GNU sed to edit the install script
   - choco install sed
   - cd scripts
-  - sed -i 's/^ml4bio$/python -c "import ml4bio; print(ml4bio.__version__)"/g' install_launch_windows.bat
-  - type install_launch_windows.bat
+  - sed 's/^ml4bio$/python -c "import ml4bio; print(ml4bio.__version__)"/g' install_launch_windows.bat > install_launch_windows_updated.bat
+  - type install_launch_windows_updated.bat
 
 test_script:
-  - install_launch_windows.bat
+  - install_launch_windows_updated.bat
