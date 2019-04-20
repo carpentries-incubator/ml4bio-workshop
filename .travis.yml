@@ -11,9 +11,10 @@ matrix:
       - wget https://repo.continuum.io/miniconda/Miniconda3-4.5.12-Linux-x86_64.sh -O miniconda.sh
       - bash miniconda.sh -b -p $HOME/anaconda
       - export PATH="$HOME/anaconda/bin:$PATH"
-    script:
       - cd scripts
+      # Avoid QXcbConnection error by confirming ml4bio can be imported instead of launching the GUI
       - sed -i 's/^ml4bio$/python -c "import ml4bio; print(ml4bio.__version__)"/g' install_launch_linux.sh
+    script:
       - ./install_launch_linux.sh
 
   - language: minimal
@@ -23,10 +24,13 @@ matrix:
       - wget https://repo.continuum.io/miniconda/Miniconda3-4.5.12-MacOSX-x86_64.sh -O miniconda.sh
       - bash miniconda.sh -b -p $HOME/anaconda
       - export PATH="$HOME/anaconda/bin:$PATH"
-    script:
       - cd scripts
+      # Avoid QXcbConnection error by confirming ml4bio can be imported instead of launching the GUI
+      # sed workaround needed because macOS does not use GNU sed
+      # Workaround from https://github.com/manubot/rootstock/blob/master/SETUP.md
       - sed 's/^ml4bio$/python -c "import ml4bio; print(ml4bio.__version__)"/g' install_launch_mac.command > tmp && mv -f tmp install_launch_mac.command
-      - cat install_launch_mac.command
+      - chmod u+x install_launch_mac.command
+    script:
       - ./install_launch_mac.command
 
   # Configuration adapted from https://github.com/dkhamsing/awesome_bot
