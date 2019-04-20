@@ -9,10 +9,10 @@ environment:
   MINICONDA: C:\\Miniconda36-x64
 
 init:
-  - ECHO Miniconda version: %MINICONDA%
+  - "ECHO Miniconda version: %MINICONDA%"
 
 install:
-  - set PATH=%MINICONDA%;%MINICONDA%\\Scripts;%PATH%
+  - "set PATH=%MINICONDA%;%MINICONDA%\\Scripts;%PATH%"
   # Install GNU sed to edit the install script
   - choco install sed
   - cd scripts
