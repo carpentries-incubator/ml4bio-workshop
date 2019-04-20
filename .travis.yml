@@ -13,6 +13,7 @@ matrix:
       - export PATH="$HOME/anaconda/bin:$PATH"
     script:
       - cd scripts
+      -  sed -i 's/^ml4bio$/python -c "import ml4bio; print(ml4bio.__version__)"/g' install_launch_linux.sh
       - ./install_launch_linux.sh
 
   - language: minimal
@@ -24,6 +25,7 @@ matrix:
       - export PATH="$HOME/anaconda/bin:$PATH"
     script:
       - cd scripts
+      -  sed -i 's/^ml4bio$/python -c "import ml4bio; print(ml4bio.__version__)"/g' install_launch_mac.command
       - ./install_launch_mac.command
 
   # Configuration adapted from https://github.com/dkhamsing/awesome_bot
