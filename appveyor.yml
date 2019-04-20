@@ -9,13 +9,15 @@ environment:
   MINICONDA: C:\\Miniconda36-x64
 
 init:
-  - "ECHO Miniconda version: %MINICONDA%"
+  - ECHO Miniconda version: %MINICONDA%
 
 install:
+  - set PATH=%MINICONDA%;%MINICONDA%\\Scripts;%PATH%
   # Install GNU sed to edit the install script
   - choco install sed
   - cd scripts
   - sed -i 's/^ml4bio$/python -c "import ml4bio; print(ml4bio.__version__)"/g' install_launch_windows.bat
+  - type install_launch_windows.bat
 
 test_script:
   - install_launch_windows.bat
