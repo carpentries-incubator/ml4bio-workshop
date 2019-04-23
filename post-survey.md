@@ -5,6 +5,7 @@
 1. Did the workshop meet your expectations?
 1. Which of your workshop expectations were not met?
 1. How comfortable would you be training classifiers for a research project?
+1. Which workshop topics would be difficult for you to explain to a friend at a high level?
 1. How was the pace?
 1. Please rate the amount of time spent:
  - Using the software
