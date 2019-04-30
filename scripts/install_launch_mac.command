@@ -7,7 +7,7 @@
 source activate ml4bio
 
 if [ $? -ne 0 ]; then
-	cd `dirname $0`
+  cd `dirname $0`
   echo creating ml4bio environment
   conda env create -f ./conda_env.yml
   source activate ml4bio
