@@ -1,6 +1,6 @@
 ## T Cell Image Data
 
-This directory contains extracted image features used in Gitter Lab's [T cell classification](https://github.com/gitter-lab/t-cell-classification)
+This directory contains extracted image features used in the Gitter Lab's [T cell classification](https://github.com/gitter-lab/t-cell-classification) 
 project. Each CSV file corresponds to one version of features used in the study.
 Features are extracted from 6 donors of [10% subsampled images](https://github.com/gitter-lab/t-cell-classification/tree/master/images).
 
@@ -11,7 +11,7 @@ Features are extracted from 6 donors of [10% subsampled images](https://github.c
 
 ## Notes
 
-- In this project, researchers are interested in classifying T cell's two
+- In this project, researchers are interested in classifying T cells' two
 activation states: activated (positive) and quiescent (negative).
 - There are image feature differences across 6 donors, therefore the donor ID is
 included as the first column of each CSV file.
@@ -21,4 +21,3 @@ are the same. For example, row 100 in both tables links to the same image.
 ## Citation
 
 Pre-print "Classifying T cell activity in autofluorescence intensity images with convolutional neural networks" by Zijie J. Wang, Alex J. Walsh, Melissa C. Skala, and Anthony Gitter coming soon.
-
