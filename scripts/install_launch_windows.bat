@@ -10,7 +10,11 @@ IF %ERRORLEVEL% NEQ 0 (
   ECHO creating ml4bio environment
   conda env create -f conda_env.yml
   CALL activate ml4bio
+  @REM launch the GUI
+  @REM this does not run as expected if it is placed outside the IF block
+  @REM so it is copied in the IF and ELSE block
+  ml4bio
+) ELSE (
+  @REM launch the GUI
+  ml4bio
 )
-
-@REM launch the GUI
-ml4bio
