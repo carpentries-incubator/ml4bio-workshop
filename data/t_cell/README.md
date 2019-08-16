@@ -20,4 +20,6 @@ are the same. For example, row 100 in both tables links to the same image.
 
 ## Citation
 
-Pre-print "Classifying T cell activity in autofluorescence intensity images with convolutional neural networks" by Zijie J. Wang, Alex J. Walsh, Melissa C. Skala, and Anthony Gitter coming soon.
+[Classifying T cell activity in autofluorescence intensity images with convolutional neural networks](https://doi.org/10.1101/737346).
+Zijie J Wang, Alex J Walsh, Melissa C Skala, Anthony Gitter.
+*bioRxiv* 2019. doi:10.1101/737346
