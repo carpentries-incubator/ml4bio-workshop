@@ -22,4 +22,7 @@ but also include a donor identifier feature.
 
 ## Citation
 
-Manuscript "Classifying T cell activity in autofluorescence intensity images with convolutional neural networks" by Zijie J. Wang, Alex J. Walsh, Melissa C. Skala, and Anthony Gitter coming soon.
+[Classifying T cell activity in autofluorescence intensity images with convolutional neural networks](https://doi.org/10.1101/737346).
+Zijie J Wang, Alex J Walsh, Melissa C Skala, Anthony Gitter.
+*bioRxiv* 2019. doi:10.1101/737346
+
