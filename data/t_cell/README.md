@@ -17,9 +17,12 @@ activation states: activated (positive) and quiescent (negative).
 included as the first column of each CSV file.
 - The row indices of `size_intensity_feature.csv` and `cellprofiler_feature.csv`
 are the same. For example, row 100 in both tables links to the same image.
+- The versions of the files with `_donors` contain the same features and labels
+but also include a donor identifier feature.
 
 ## Citation
 
 [Classifying T cell activity in autofluorescence intensity images with convolutional neural networks](https://doi.org/10.1101/737346).
 Zijie J Wang, Alex J Walsh, Melissa C Skala, Anthony Gitter.
 *bioRxiv* 2019. doi:10.1101/737346
+
