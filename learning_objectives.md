@@ -1,15 +1,13 @@
-# Learning Outcomes and Objectives for ML4bio workshop
+# Learning Objectives for ML4bio workshop1. Define machine learning
 
-| Learning Outcome | Learning Objective  |
-|:-:|:-:|
-| Identify the characteristics of machine learning and describe the ML fundamentals.| Define machine learning and conceptualize the core principles and classification. |
-| Read papers that apply ML to biological problems with comprehension.| Identify current problems in computational biology and recognize the benefits from machine learning techniques and the modern big data technologies.|
-| Comprehend how the datasets are preprocesses, what are samples, features and class labels, what is model in machine learning, what is training set, and hyperparameters, validation set, evaluation and prediction, and how do we perform model selection. | Explain and recognize the language used by computational biologists and be more comfortable to collaborate with them on the projects that use machine learning.|
-| Read papers that apply ML to biological problems and judge whether ML has been used appropriately and effectively. |  Compare and contrast strengths and weaknesses of many machine learning classifiers commonly used in biology and differentiate whether the process of looking at classifiers trained with different hypermarameters led to a bad model that fails on new data.|
-| Assess model selection and recognize that these methods don't necessarily work right out of the box. |  Evaluate ML models and understand their complexity and their limitations. Even simple models have multiple versions (hyperparameters) that needs to be tuned for those hyperparameters and the best version of a model needs to be chosed that will make accurate predictions on new data. |
-|Select and evaluate a model on a case-study dataset. | Demostrate understanding how to use a dataset to select and evaluate a model following the Ml workflow (cross-valudation or traing, validation  and test splitting).   |
-| Apply the model to new data. | Discuss what to do once the model has been trained and what to watch out for in appkying to future data.  |
-| specific models - logistic regression, decision trees, neural networks   |  |
-| Predicting cell, tissue, or organism properties from "omic" data (issues of sample size versus number of features), imaging (issues likely related to structured features and suitability for models like convolutional neural networks, which is out of our scope), genome annotation (issues related to training and evaluation on skewed datasets dominated by negative instances).  | Identify and investigate the unique issues in biological applications.  |
+1. Identify current problems in computational biology and recognize the benefits of machine learning techniques and modern big data technologies.
 
+2. Comprehend how the datasets are preprocessed, what are samples, features and class labels, what is a model in machine learning, what is training set, hyperparameters, validation set, evaluation and prediction, and how to perform model selection.
 
+3. Compare and contrast the strengths and weaknesses of machine learning classifiers commonly used in biology - logistic regression, decision trees, random forests, and neural networks. Assess model selection and recognize that these methods don't necessarily work right out of the box.
+
+4. Discuss what to do once the model has been trained and what to watch out for in the process with different hyperparameters applied to new data.
+
+5. Select and evaluate a model on a sample dataset. Understand the models' complexity and limitations.
+
+6. Read papers that apply ML to biological problems and judge whether ML has been used appropriately and effectively. Focus on the problems in biology that apply ML.
