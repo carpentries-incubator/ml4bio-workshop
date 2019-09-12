@@ -1,14 +1,13 @@
-# Learning Outcomes and Objectives for ML4bio workshop
+# Learning Objectives for ML4bio workshop
 
-| Learning Outcome | Learning Objective  |
-|:-:|:-:|
-| Identify the characteristics of machine learning and describe the ML fundamentals.| Define machine learning and conceptualize the core principles. |
-| Explain and recognize the language used by computational biologists and be more comfortable to collaborate with them.**(help needed)**| Identify current problems in computational biology and recognize the benefits from machine learning techniques and the modern big data technologies.|
-| Read papers with comprehension that apply ML to biological problems.|  Compare and contrast strengths and weaknesses of many machine learning classifiers commonly used in biology. |
-| Assess model selection. **(help needed)** | Evaluate ML algorithms and understand their complexity and their limitations.  |
-|Be prepared to explore opportunities of applying ML in your own projects.**(help needed here)***  |    |
-| understanding specific models? Which models?   |   |
-| understanding pipeline need to figure out how to word this  |   |
-| unique issues in biological applications?    |   |
+1. Identify current problems in computational biology and recognize the benefits of machine learning techniques.
 
+2. Comprehend how the datasets are preprocessed, what are samples, features and class labels, what is a model in machine learning, what is training set, hyperparameters, validation set, evaluation and prediction, and how to perform model selection.
 
+3. Compare and contrast the strengths and weaknesses of machine learning classifiers commonly used in biology - logistic regression, decision trees, random forests, and neural networks. Assess model selection and recognize that these methods don't necessarily work right out of the box.
+
+4. Discuss applying, updating, and evaluating a trained model on new data.
+
+5. Select and evaluate a model on a sample dataset. Understand the models' complexity and limitations.
+
+6. Read papers that apply ML to biological problems and judge whether ML has been used appropriately and effectively. Focus on the problems in biology that apply ML.
