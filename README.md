@@ -27,3 +27,6 @@ The [ml4bio repository](https://github.com/gitter-lab/ml4bio) contains the Pytho
 The workshop guides created in this repository are licensed under the Creative Commons Attribution 4.0 International Public License.
 However, the guides also contain [images from third-party sources](figures/third_party_figures), as noted in the image links and guide references.
 See the linked original image sources for their licenses and terms of reuse.
+
+The work-in-progress website on the `gh-pages` branch is derived from [The Carpentries template](https://github.com/carpentries/workshop-template).
+The template is Copyright © 2016–2019 [Software Carpentry](https://software-carpentry.org/) and [licensed CC-BY-4.0](https://github.com/carpentries/workshop-template/blob/gh-pages/LICENSE.md).
