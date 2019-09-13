@@ -28,5 +28,5 @@ The workshop guides created in this repository are licensed under the Creative C
 However, the guides also contain [images from third-party sources](figures/third_party_figures), as noted in the image links and guide references.
 See the linked original image sources for their licenses and terms of reuse.
 
-The work-in-progress website on the `gh-pages` branch is derived from [The Carpentries template](https://github.com/carpentries/workshop-template).
-The template is Copyright © 2016–2019 [Software Carpentry](https://software-carpentry.org/) and [licensed CC-BY-4.0](https://github.com/carpentries/workshop-template/blob/gh-pages/LICENSE.md).
+The work-in-progress website on the `gh-pages` branch is derived from [The Carpentries lesson template](https://github.com/carpentries/styles).
+The template is Copyright © 2018–2019 [The Carpentries](https://carpentries.org/) and [licensed CC BY 4.0](https://github.com/carpentries/styles/blob/gh-pages/LICENSE.md).
