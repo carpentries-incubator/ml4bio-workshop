@@ -21,3 +21,6 @@ install:
 script:
   - make lesson-check-all
   - make --always-make site
+
+notifications:
+  email: false
