@@ -17,10 +17,7 @@ About the workshop
 
 > ## Getting Started
 >
-> This lesson assumes that learners have no prior experience with the tools covered in the workshop. 
-> However, learners are expected to have some familiarity with biological concepts,
-> including the 
-> concept of genomic variation within a population. Participants should bring their own laptops and plan to participate actively. 
+> This lesson assumes that learners have no prior experience with the tools...
 > 
 > To get started, follow the directions in the [Setup](setup.html) tab to 
 > get access to the required software and data for this workshop.
