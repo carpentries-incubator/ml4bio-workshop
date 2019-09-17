@@ -6,13 +6,7 @@ permalink: index.html  # Is the only page that doesn't follow the pattern /:path
 ---
 ---
 
-Data Carpentry’s aim is to teach researchers basic concepts, skills, and tools for working
-with data so that they can get more done in less time, and with less pain. This workshop
-teaches data management and analysis for genomics research including: 
-best practices for organization of bioinformatics projects and data, use of command-line 
-utilities, use of command-line tools to analyze sequence quality and
-perform variant calling, and connecting to and using cloud computing. This workshop is designed to 
-be taught over two full days of instruction.
+About the workshop
 
 **Please note that workshop materials for ml-4-bio are still in testing. **
 
