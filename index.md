@@ -21,20 +21,5 @@ About the workshop
 > get access to the required software and data for this workshop.
 > 
 {: .prereq}
- 
-# Schedule
-
-## Day 1
-
-| Lesson    | Overview |
-| ------- | ---------- |
-| link to Intro | Intro|
-| Link to Lesson 1 |  T-cells1|
-|Link to lesson 2| T-cells 2 |
-|link to lesson 3 | t-cells 3|
-
-
-# Teaching Platform
-Software
 
 
