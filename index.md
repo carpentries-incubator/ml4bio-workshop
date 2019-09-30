@@ -3,7 +3,7 @@ layout: lesson
 root: .  # Is the only page that doesn't follow the pattern /:path/index.html
 permalink: index.html  # Is the only page that doesn't follow the pattern /:path/index.html
 ---
-
+---
 ## Learning Objectives for ML4bio workshop
 
 1. Identify current problems in computational biology and recognize the benefits of machine learning techniques.
