@@ -32,9 +32,15 @@ Machine learning is a set of methods that can automatically detect patterns in d
 
 ### Your first model
 
+> ## Key Questions
+>
+> 
+
 Let’s say you want to buy a house. For majority of us, the price is the main driver in our decision. The problem - after we see the house, how much money should we offer? Let's say that 
 
->What are some of the features that you would going to consider when buying a house?
+> ## Activity
+>
+> What are some of the features that you would going to consider when buying a house?
 {: .challenge}
 
 Note different types of features (text, number, category, etc)
