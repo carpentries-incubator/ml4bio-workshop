@@ -39,24 +39,27 @@ Let’s look at some examples of how machine learning is being used in biology r
 ### Your first model
 
 > ## Conceptual Questions
+>
 > What is the benefit of machine learning?
 > What are we trying to predict? 
 > What features do we have for those predictions?
 > What classifier did we use and why did we decide to use that one?
 {: .challenge}
 
-Let’s say you want to buy a house. For majority of us, the price is the main driver in our decision. The problem - after we see the house, how much money should we offer? Let's say that 
+Let’s say you want to buy a house. You follow the market for a few years. During those years you visit 20 different houses. And every time you visit a house you write down all the information you learn about the house. 
 
-> ## Activity
+> ## Question
 >
-> What are some of the features that you would going to consider when buying a house?
+> What are some of the features that you would consider when buying a house?
 {: .challenge}
 
-Note different types of features (text, number, category, etc)
+Note different types of features (text, number, category, etc). 
+![image](https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/IMG_0016.jpg)
 
-price = features * x
-
-**How do we call this model? Is there anything missing?**
+> ## Question
+>
+> What classifier did we use and why did we decide to use that one?
+{: .challenge}
 
 This is the simplest example of machine learning.
 
