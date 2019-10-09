@@ -62,7 +62,7 @@ We are finally ready to make an offer. We find our dream house that is not a par
 
 Sample answer
 
-![binary_class]https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/IMG_0017.jpg
+![binary_class](https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/IMG_0017.jpg)
 
 > ## Question
 >
