@@ -53,8 +53,16 @@ Let’s say you want to buy a house. You follow the market for a few years. Duri
 > What are some of the features that you would consider when buying a house?
 {: .challenge}
 
+Recreate the table and collect the data based on the participant's answers. After the data was collected, label the prices into 2 categories low or high. Our dataset has labeled data, so our classification is a supervised machine learning task. 
+
 Note different types of features (text, number, category, etc). 
-![image](https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/IMG_0016.jpg)
+![firstdataset](https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/IMG_0016.jpg)
+
+We are finally ready to make an offer. We find our dream house that is not a part of our already existing data set. This is new data, and we want to predict the class label. 
+
+Sample answer
+
+![binary_class]https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/IMG_0017.jpg
 
 > ## Question
 >
