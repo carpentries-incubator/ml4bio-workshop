@@ -3,20 +3,7 @@ layout: lesson
 root: .  # Is the only page that doesn't follow the pattern /:path/index.html
 ---
 
-
-Learning Objectives for ML4bio workshop
-
-- Identify current problems in computational biology and recognize the benefits of machine learning techniques.
-
-- Comprehend how the datasets are preprocessed, what are samples, features and class labels, what is a model in machine learning, what is training set, hyperparameters, validation set, evaluation and prediction, and how to perform model selection.
-
-- Compare and contrast the strengths and weaknesses of machine learning classifiers commonly used in biology - logistic regression, decision trees, random forests, and neural networks. Assess model selection and recognize that these methods don't necessarily work right out of the box.
-
-- Discuss applying, updating, and evaluating a trained model on new data.
-
-- Select and evaluate a model on a sample dataset. Understand the models' complexity and limitations.
-
-- Read papers that apply ML to biological problems and judge whether ML has been used appropriately and effectively. Focus on the problems in biology that apply ML.
+ML4bio is aimed at biologists with no previous machine learning experience. This is the conceptual workshop designed to teach machine learning literacy. As the outcome of the workshop, the participants will be able to define machine learning and have comprehensive knowledge about concepts like samples, features, machine learning workflow, the training set and validation set, evaluation and prediction, and how to perform model selection. The participants will be able to interactively develop an understanding of machine learning classifiers commonly used in biology like logistic regression, decision trees, random forests, and neural networks. The focus will be on problems in biology where machine learning is effectively used. 
 
 **Please note that workshop materials for ml-4-bio are still in testing. **
 
