@@ -39,8 +39,11 @@ Let’s look at some examples of how machine learning is being used in biology r
 > ## Conceptual Questions
 >
 > What is the benefit of machine learning?
+>
 > What are we trying to predict? 
+>
 > What features do we have for those predictions?
+>
 > What classifier did we use and why did we decide to use that one?
 {: .challenge}
 
