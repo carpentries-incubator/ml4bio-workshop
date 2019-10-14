@@ -5,7 +5,7 @@ questions:
 - " "
 objectives:
 - "Comprehend how the datasets are preprocessed, what are samples, features and class labels, what is a model in machine learning, what is training set, hyperparameters, validation set, evaluation and prediction, and how to perform model selection."
---
+---
 
 Immunotherapy is a type of cancer treatment that uses the body’s own immune cells to boost natural defenses against cancer, and T cells are a popular target for immunotherapies. To fully optimize the effect of immunotherapy, T cell activation must be assessed at a single-cell level. Melissa Skala's group developed a label-free and non-destructive autofluorescence imaging method to easily and quickly acquire T cell intensity images. Therefore, an activated/quiescent (inactive) T cell classifier that uses autofluorescence intensity images can contribute to the applications of immunotherapy.
 
