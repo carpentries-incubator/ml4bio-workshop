@@ -46,21 +46,21 @@ Let’s look at some examples of how machine learning is being used in biology r
 > What classifier did we use and why did we decide to use that one?
 {: .challenge}
 
-Let’s say you want to buy a house. You follow the market for a few years. During those years you visit 20 different houses. And every time you visit a house you write down all the information you learn about the house. 
+Let’s say you want to buy a house. You follow the market for a few years. During those years you visit 20 different homes. Every time you visit a house, you write down all the information you learned about the house. 
 
 > ## Question
 >
 > What are some of the features that you would consider when buying a house?
 {: .challenge}
 
-Recreate the table and collect the data based on the participant's answers. After the data was collected, label the prices into 2 categories low or high. Our dataset has labeled data, so our classification is a supervised machine learning task. 
+Recreate the table and collect the data based on the participant's answers. After the data was collected, label the prices into two categories low or high. Our dataset has labeled data, so our classification is a supervised machine learning task. 
 
 Note different types of features (text, number, category, etc). 
 ![firstdataset](https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/IMG_0016.jpg)
 
-We are finally ready to make an offer. We find our dream house that is not a part of our already existing data set. This is new data, and we want to predict the class label. 
+We find our dream home that is not a part of our already existing data set. This home is new data, and we want to predict whether the price will be high or low. Based on the features that we already know, we are trying to classify our future home in one of the two possible categories. 
 
-Sample answer
+**Sample answer**
 
 ![binary_class](https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/IMG_0017.jpg)
 
