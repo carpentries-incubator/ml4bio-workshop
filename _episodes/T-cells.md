@@ -51,9 +51,22 @@ The first step in machine learning would be to prepare our data. Preprocessing t
 > What features do we have for those predictions?
 {: .challenge}
 
-### Training set vs. Evaluation set (check the vocab we want to use)
+### Training set vs. Validation set vs. Test set 
 
+The preprocessed dataset is split into a training set and a test set. The training set is further split into a training set and a validation set. 
+![datasets](https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/datasets.jpg)
 
+#### Training set 
+
+The training set is a part of the original dataset that trains or fits the model. This is the data that the model uses to learn.
+
+#### Validation set
+
+Further, a part of the training set is used for validation of the fitted model. This is not the final evaluation of the model. This step is used to change hyperparameters and then train the model again.  We will be using the holdout validation method in the software. We will use the default 20% of the training set for the validation set.
+
+#### Test set
+
+ The test set checks how well the model works on the new data. The test set is used in the final phase of the workflow, and it evaluates the final model. 
 
 
 
