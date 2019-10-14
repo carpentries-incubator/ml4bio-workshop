@@ -6,8 +6,6 @@ questions:
 - What is machine learning?
 objectives:
 - Identify current problems in computational biology and recognize the benefits of machine learning techniques.
-keypoints:
-- "First key point. Brief Answer to questions. (FIXME)"
 ---
 
 > ## Think-Pair-Share
