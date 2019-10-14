@@ -64,9 +64,14 @@ The training set is a part of the original dataset that trains or fits the model
 
 Further, a part of the training set is used for validation of the fitted model. This is not the final evaluation of the model. This step is used to change hyperparameters and then train the model again.  We will be using the holdout validation method in the software. We will use the default 20% of the training set for the validation set.
 
+What is commonly done in practice is cross validation. One part of the training set is used for training, and another section for validation. Then the hyperparameters of the fitted models are changed, and the model has trained again with the new split between training data and the validation data. A good example to explain this process would be dealing the cards. Every time we deal with the cards, we shuffle them first. The same is done with the training dataset. Each time we repeat training and validating, we split the original training set into new training and validation datasets. 
+
+![datasets2](https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/datasets2.jpg)
+
 #### Test set
 
  The test set checks how well the model works on the new data. The test set is used in the final phase of the workflow, and it evaluates the final model. 
+
 
 
 
