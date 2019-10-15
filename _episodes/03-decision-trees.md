@@ -14,6 +14,6 @@ Outline:
 - How do we choose a classifier?
 - Loading the toydata set
 - Asking Conceptual questions
-- About Decision Trees
-- Visuazlie the data
+- About Decision Tree
+- Visualize the data
 - Application in biology
