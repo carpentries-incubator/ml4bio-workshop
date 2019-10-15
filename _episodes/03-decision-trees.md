@@ -1,5 +1,5 @@
 ---
-title: "Classifier 1"
+title: "Decision Trees"
 teaching: 0
 exercises: 0
 questions:
@@ -9,4 +9,11 @@ objectives:
 keypoints:
 - "First key point. Brief Answer to questions. (FIXME)"
 ---
-just adding some content 
+Outline:
+
+- How do we choose a classifier?
+- Loading the toydata set
+- Asking Conceptual questions
+- About Decision Trees
+- Visuazlie the data
+- Application in biology
