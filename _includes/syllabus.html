@@ -9,7 +9,7 @@
 
   {% assign lesson_number = 0 %}
   {% assign day = 0 %}
-  {% assign multiday = false %}
+  {% assign multiday = true %}
   {% for episode in site.episodes %}
     {% if episode.start %}{% assign multiday = true %}{% break %}{% endif %}
   {% endfor %}
