@@ -1,6 +1,6 @@
 ---
 title: "Decision Trees"
-teaching: 0
+teaching: 600
 exercises: 0
 questions:
 - "Key question (FIXME)"
