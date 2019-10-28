@@ -1,6 +1,6 @@
 ---
-title: "Classifier 2"
-teaching: 0
+title: "Random Forests"
+teaching: 30
 exercises: 0
 questions:
 - "Key question (FIXME)"
