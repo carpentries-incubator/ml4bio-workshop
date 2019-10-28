@@ -1,6 +1,6 @@
 ---
 title: "T-cells"
-teaching: 90
+teaching: 30
 questions:
 - " "
 objectives:
