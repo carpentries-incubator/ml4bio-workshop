@@ -63,7 +63,7 @@ We find our dream home that is not a part of our already existing data set. This
 
 **Sample answer**
 
-![binary_class](https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/IMG_0017.jpg)
+![binary_class](assets/78274.jpg)
 
 > ## Question
 >
