@@ -2,7 +2,7 @@
 title: "T-cells"
 teaching: 30
 questions:
-- " "
+- "What are we trying to predict?"
 objectives:
 - "Comprehend how the datasets are preprocessed, what are samples, features and class labels, what is a model in machine learning, what is training set, hyperparameters, validation set, evaluation and prediction, and how to perform model selection."
 ---
@@ -51,6 +51,18 @@ The first step in machine learning would be to prepare our data. Preprocessing t
 > What features do we have for those predictions?
 {: .challenge}
 
+## Step 1 Select Data
+
+### Data Summary
+
+Data Summary gives us an insight into Features and Samples for the dataset we selected. In this particular dataset, we can see that we have two features **cell_size** and **total_intensity**. We can also see that the total number of Samples is 843. 
+
+> ## Conceptual Questions
+>
+> How many quiescent samples are in the dataset? How many activated? 
+>Can we make any assumptions about the dataset based on the number of samples for each label?
+{: .challenge}
+
 ### Training set vs. Validation set vs. Test set 
 
 The preprocessed dataset is split into a training set and a test set. The training set is further split into a training set and a validation set. 
@@ -72,6 +84,26 @@ What is commonly done in practice is cross validation. One part of the training 
 
  The test set checks how well the model works on the new data. The test set is used in the final phase of the workflow, and it evaluates the final model. 
 
+In the GUI we will be using the default option and splitting are dataset to be 80% training set and 20% test set. 
+
+### Validation methodology
+
+#### Holdout Validation
+
+#### K-Fold Cross Validation
+
+#### Leave One-Out Validation
+
+#### Stratified Sampling check box
+
+## Step 2 Traing Classifiers
+
+We are given a dropdown menu of some of the most frequently used classifiers in biology. In this workshop, we will be further talking about Decision Tree, Random Forest, Logistic Regression and Neural Network. 
+
+> ## Play time
+>
+> Pick any classifier and not changing the default settings train the data. 
+{: .callout}
 
 
 
