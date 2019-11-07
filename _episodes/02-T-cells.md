@@ -32,7 +32,7 @@ The goal of this study is to develop a method to classify T cell activation stag
 
 ### ML4Bio software setup
 
-We will be using ML4 Bio software. Refer to the [Setup](https://gitter-lab.github.io/ml-bio-workshop/setup.html) for instructions on how to install and launch the software. 
+We will be using ML4 Bio software. Refer to the [Setup](https://gitter-lab.github.io/ml-bio-workshop/setup.html) for instructions on how to install and launch the software. To better understand the GUI environment, check out the [About GUI page in Extras](https://gitter-lab.github.io/ml-bio-workshop/about/index.html). All of the datasets that we will be using for this workshop have been engineered to fit the GUI requirements. If you want to experiement with your own data, make sure to follow the guidelines in the *About GUI* page.
 
 ## Machine Learning workflow (Make our own version of this)
 
@@ -96,14 +96,22 @@ In the GUI we will be using the default option and splitting are dataset to be 8
 
 #### Stratified Sampling check box
 
-## Step 2 Traing Classifiers
+## Step 2 Train Classifiers
 
 We are given a dropdown menu of some of the most frequently used classifiers in biology. In this workshop, we will be further talking about Decision Tree, Random Forest, Logistic Regression and Neural Network. 
 
 > ## Play time
 >
-> Pick any classifier and not changing the default settings train the data. 
+> Pick a few classifiers and without changing the default settings train the data.
 {: .callout}
+
+As you can see, you will be getting different performance metrics depending on the classifier. This reflects the real life situtation when you work with the real data. You will train many classifiers before you find the one that you are satisfied with.
+
+After you finish playing around, let's train Decision Tree, Random Forest, Logistic regression and Neural Network classifiers. 
+
+For this specific example, we will be working with the default hyperparameters. 
+
+## Step 3 Test and Predict
 
 
 
