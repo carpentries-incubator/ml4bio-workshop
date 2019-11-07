@@ -59,6 +59,7 @@ Recreate the table and collect the data based on the participant's answers. Afte
 Note different types of features (text, number, category, etc). 
 <p align="center">
 <img width="550" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/IMG_0016.jpg">
+</p>
 
 We find our dream home that is not a part of our already existing data set. This home is new data, and we want to predict whether the price will be high or low. Based on the features that we already know, we are trying to classify our future home in one of the two possible categories. 
 
@@ -66,6 +67,7 @@ We find our dream home that is not a part of our already existing data set. This
 
 <p align="center">
 <img width="450" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/78274.jpg">
+</p>
 
 > ## Question
 >
