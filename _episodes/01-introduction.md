@@ -65,7 +65,7 @@ We find our dream home that is not a part of our already existing data set. This
 **Sample answer**
 
 <p align="center">
-<img width="450" src="../assets/78274.jpg">
+<img width="450" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/78274.jpg">
 
 > ## Question
 >
