@@ -2,7 +2,9 @@
 title: About GUI
 ---
 {% include links.md %}
+
  ### Software environment details
+ 
 Anaconda includes software that enables you to run Python programs as well as additional tools for managing software environments, programming in Python, and integrating code with textual descriptions and results in Jupyter notebooks.
 The software environments are managed by conda, one of the tools included with Anaconda.
 An environment is a collection of specific versions of Python packages.
