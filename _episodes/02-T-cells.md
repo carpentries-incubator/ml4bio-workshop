@@ -36,8 +36,9 @@ We will be using ML4 Bio software. Refer to the [Setup](https://gitter-lab.githu
 
 ## Machine Learning workflow (Make our own version of this)
 
-![workflow](https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/workflow.png "Figure from 
-S. Raschka and V. Mirjalili, Python Machine Learning (2nd Ed.)")
+<p align="center">
+<img width="600" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/workflow.png">
+</p>
 
 ### Data Preprocessing 
 
@@ -66,7 +67,10 @@ Data Summary gives us an insight into Features and Samples for the dataset we se
 ### Training set vs. Validation set vs. Test set 
 
 The preprocessed dataset is split into a training set and a test set. The training set is further split into a training set and a validation set. 
-![datasets](https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/datasets.jpg)
+
+<p align="center">
+<img width="600" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/datasets.jpg">
+</p>
 
 #### Training set 
 
@@ -78,7 +82,10 @@ Further, a part of the training set is used for validation of the fitted model. 
 
 What is commonly done in practice is cross validation. One part of the training set is used for training, and another section for validation. Then the hyperparameters of the fitted models are changed, and the model has trained again with the new split between training data and the validation data. A good example to explain this process would be dealing the cards. Every time we deal with the cards, we shuffle them first. The same is done with the training dataset. Each time we repeat training and validating, we split the original training set into new training and validation datasets. 
 
-![datasets2](https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/datasets2.jpg)
+<p align="center">
+<img width="700" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/datasets2.jpg">
+</p>
+
 
 #### Test set
 
@@ -88,9 +95,13 @@ In the GUI we will be using the default option and splitting are dataset to be 8
 
 ### Validation methodology
 
+Now that we learned about the importance of splitting our dataset, let's brielfy mention some of the validation methodologies. 
+
 #### Holdout Validation
 
 #### K-Fold Cross Validation
+
+tried to write about this, but it is hard to be concise. Do we want this? Or just to tell them which one to use in the January workshop? 
 
 #### Leave One-Out Validation
 
