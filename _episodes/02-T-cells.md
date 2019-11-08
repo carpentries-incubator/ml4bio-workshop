@@ -124,21 +124,35 @@ For this specific example, we will be working with the default hyperparameters.
 
 ## Step 3 Test and Predict
 
-Our final step is model selection. After we trained multiple classifiers, changed some hyperparameters and and did cross-validation, we want to choose the best model. Model evaluation and selection is a vast topic, so we will be focusing on the metrics provided in the GUI. 
+Our final step is model selection. After we trained multiple classifiers, changed some hyperparameters and and did cross-validation, we want to choose the best model. Model evaluation and selection is a vast topic, so we will be focusing on the metrics provided in the software. 
 
-- Acuracy measures the fraction or the count of the correct predictions. In the GUI, let's look at the prediction metrics on the validation data. Remember, you can switch between the trainining set and validation set at any time in GUI. In the T-cells example, we want to predict whether a cell was quiescent or activated. The accuracy gives us the count of the cells that were correctly predicted. In this section of the GUI 
+- Acuracy measures the fraction or the count of the correct predictions. In T-cells dataset this will be the number of correctly predicted quiescent and activated cells compared to the total number of predictions made. In the software, let's look at the prediction metrics on the validation data. Remember, you can switch between the trainining set and validation set at any time in software. In the T-cells example, we want to predict whether a cell was quiescent or activated. The accuracy gives us the count of the cells that were correctly predicted. In this section of the software
 
 <p align="center">
-<img width="700" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/Screen%20Shot%202019-11-08%20at%2010.40.25%20AM.png">
+<img width="350" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/Screen%20Shot%202019-11-08%20at%2010.40.25%20AM.png">
 </p>
 
-there are a few visualization tools that can help further look into each classifier. The visualization is in in the *Confusion Matrix* 
-- Precision 
-- recall
-- F1
+there are a few visualization tools that can help with the model selection. The *Confusion Matrix* reflects the selected dataset(training or validation). The T-cells dataset has two labels, so the Confusion Matrix will be 2 x 2. The sum of all the predictions will be the total number of samples in the selected dataset(training or validation). 
+
+<p align="center">
+<img width="350" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/Screen%20Shot%202019-11-08%20at%2010.40.25%20AM.png">
+</p>
+
+> ## Conceptual Questions
+>
+> Explain the meaning of the Confusion Matrix to a partner for the classifier of your choice. 
+{: .challenge}
+
+- Precision is the proportion of the cells correctly predicted as activated compared to the total number of cells predicted as activated regardless if they were correctly predicted or not. 
+- Recall is the proportion of the cells correctly predicted as activated compared to the sum of those cells correctly predicted as activated and those incorrectly predicted as quiescent. Although Precision-Recall curve visialized these two metrics, we will not be going into details about it in this version of the workshop. 
+- F1 
 - AUROC
 - AUPRC
 
+
+### Test Data
+
+Once the model was selected based on the metric that we chose, we want to use the model for the prediction on the test data. Based on the same prediction metrics that we used on the validation set, we can make certain conclusions about our model. 
 
 
 
