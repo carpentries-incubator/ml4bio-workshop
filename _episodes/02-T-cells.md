@@ -124,6 +124,20 @@ For this specific example, we will be working with the default hyperparameters.
 
 ## Step 3 Test and Predict
 
+Our final step is model selection. After we trained multiple classifiers, changed some hyperparameters and and did cross-validation, we want to choose the best model. Model evaluation and selection is a vast topic, so we will be focusing on the metrics provided in the GUI. 
+
+- Acuracy measures the fraction or the count of the correct predictions. In the GUI, let's look at the prediction metrics on the validation data. Remember, you can switch between the trainining set and validation set at any time in GUI. In the T-cells example, we want to predict whether a cell was quiescent or activated. The accuracy gives us the count of the cells that were correctly predicted. In this section of the GUI 
+
+<p align="center">
+<img width="700" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/Screen%20Shot%202019-11-08%20at%2010.40.25%20AM.png">
+</p>
+
+there are a few visualization tools that can help further look into each classifier. The visualization is in in the *Confusion Matrix* 
+- Precision 
+- recall
+- F1
+- AUROC
+- AUPRC
 
 
 
