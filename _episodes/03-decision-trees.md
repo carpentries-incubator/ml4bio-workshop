@@ -9,14 +9,11 @@ objectives:
 - "Discuss applying, updating, and evaluating a trained model on new data."
 ---
 
-### What is the Decision Tree
-
 Decision trees are part of the CART(Classification and Regression Trees) algorithms. The decision trees are very intuitive and one of the benefits is that we can clearly see the path we took to get to the final answer. We can follow through the whole procedure. This is one of the most popular machine learning algorithms, and it is very intuitive. They are also used across many industries from finances to industrial engineering. For example, a doctor might use a decision tree to decide which medicine to prescribe. Or whether or not a customer qualifies for a credit card. Or in the case of T-cells, whether or not a cell is active or quescent.
 
 <p align="center">
 <img width="450" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/decision%20tree1.jpg">
 </p>
-
 
 ### About the Algorithm
 
@@ -42,14 +39,15 @@ Sample answer for the visual
 
 ### Step 2 Train Classifiers
 
-In the original T-cells example we left the hyperparameters settings as default. Now we will look further into some of the parameters. In this workshop not all of the hyperparameters will be covered. 
-- Max depth 
-- Max samples split/leaf counts of criteria that need to be met if we want to split new samples in the tree talk about
-- Class weight is important in biology. It is also used by ¾ classifiers so either introduce it here or come back to it. All it is doing - if there is a binary classification, expensive and inexpensive houses, if training set have 2 expensive and 98 inexpensive we don’t want to train the model that predicts all to be inexpensive. Basically put weight on 2 expensive. In biology we have imbalanced dataset with far more negative with positive instances, so training and evaluating appropriately is important!
+In the original T-cells example we left the hyperparameters settings as default. Now we will look further into some of the parameters. In this workshop not all of the hyperparameters from the software will be covered. Those that we don't cover, we will be using the default settings. 
+- Max_depth can be an integer or None. It is the maximum depth of the tree. If the max depth is set to None, the tree nodes are fully expanded or until they have less than min_samples_split samples.
+- Min_samples_split and min_samples_leaf represents the minimum number of samples required to split a node or to be at a leaf node. of criteria that needs to be met if we want to split new samples in the tree.
+- Class_weight is important in biology. If we had a training set and we are using binary classification, i.e. in the T-cells example, if 2 samples are labeled as active and 98 samples are labeled as quiescent, we don’t want to train the model that predicts all of the cells to be quiescent. Class_weight parameter would allow to put weight on 2 cells labeled as active. In biology, it is common to have an imbalanced training set more negative than positive instances, so training and evaluating appropriately is important!
 
 ###  Examples in biology
 
 [PgpRules: a decision tree based prediction server for P-glycoprotein substrates and inhibitors](https://doi.org/10.1093/bioinformatics/btz213)
+
 
 
 
