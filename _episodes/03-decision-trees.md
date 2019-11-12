@@ -42,9 +42,13 @@ Sample answer for the visual
 In the original T-cells example we left the hyperparameters settings as default. Now we will look further into some of the parameters. In this workshop not all of the hyperparameters from the software will be covered. Those that we don't cover, we will be using the default settings. 
 - Max_depth can be an integer or None. It is the maximum depth of the tree. If the max depth is set to None, the tree nodes are fully expanded or until they have less than min_samples_split samples.
 - Min_samples_split and min_samples_leaf represents the minimum number of samples required to split a node or to be at a leaf node. of criteria that needs to be met if we want to split new samples in the tree.
-- Class_weight is important in biology. If we had a training set and we are using binary classification, i.e. in the T-cells example, if 2 samples are labeled as active and 98 samples are labeled as quiescent, we don’t want to train the model that predicts all of the cells to be quiescent. Class_weight parameter would allow to put weight on 2 cells labeled as active. In biology, it is common to have an imbalanced training set more negative than positive instances, so training and evaluating appropriately is important!
+- Class_weight is important in biology. If we had a training set and we are using binary classification, i.e. in the T-cells example, if 2 samples are labeled as active and 98 samples are labeled as quiescent, we don’t want to train the model that predicts all of the cells to be quiescent. Class_weight parameter would allow to put weight on 2 cells labeled as active. In biology, it is common to have an imbalanced training set more negative than positive instances, so training and evaluating appropriately is important! The uniform mode gives all classes the weight one. The balanced mode adjusts the weights.
 
-###  Examples in biology
+### Step 3 Test and Predict
+
+**Finish once the dataset is done**
+
+###  Application in biology
 
 [PgpRules: a decision tree based prediction server for P-glycoprotein substrates and inhibitors](https://doi.org/10.1093/bioinformatics/btz213)
 
