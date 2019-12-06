@@ -15,7 +15,12 @@ Feedback is welcome in the [GitHub issues](https://github.com/gitter-lab/ml-bio-
 
 > ## Getting Started
 >
-> This is not a coding workshop. You will not be taught how to code. This is a conceptual beginners workshop in machine learning literacy that will help you understand machine learning concepts. The final goal of this workshop is to provide the participants with enough resources to enable them to engage in the conversation about machine learning, read articles and understand the research methodology, and finally, provide resources for further specializing in the topic. This is an applied workshop. It uses point-and-click software, without requiring any coding skills. This workshop will be focusing on supervised machine learning.
+> This is not a coding workshop.
+> You will not be taught how to code.
+> This is a conceptual beginners workshop in machine learning literacy that will help you understand machine learning concepts.
+> The final goal of this workshop is to provide the participants with enough resources to enable them to engage in the conversation about machine learning, read articles and understand the research methodology, and finally, provide resources for further specializing in the topic.
+> This is an applied workshop. It uses point-and-click software, without requiring any coding skills.
+> This workshop will be focusing on supervised machine learning.
 > 
 > To get started, follow the directions in the [Setup](setup.html) tab to 
 > get access to the required software and data for this workshop.
