@@ -15,14 +15,18 @@ objectives:
 
 ### What is machine learning?
 
-Machine learning is a set of methods that can automatically detect patterns in data and then use the uncovered patterns to predict future data, or to perform other kinds of decision making under uncertainty. 
+Machine learning is a set of methods that can automatically detect patterns in data and then use those patterns to predict future data, or to perform other kinds of decision making under uncertainty. 
 
 * Machine learning is a machine that gets better at the task when you show it examples. 
-* We try to accomplish this by designing tools that learn to solve problems from data. 
 
 
 ### What does it mean for biology? 
-- It is making computation more **sustainable**. Computers can **scale**. 
+- It is making computation more **sustainable**. Computers can **scale**. Training a biologist can take a very long time, and it is expensive. For a biologist to build a model manually can take a very long time. Replicating a machine learning model is fast and cheaper. 
+
+Let’s look at some examples of how machine learning is being used in biology research.
+
+### What does it mean for biology? 
+- It is making computation more **sustainable**. Computers can **scale**. Training a biologist can take a very long time and it is expensive. For a biologist to Replicating a machine learning model is fast and cheaper. 
 
 Let’s look at some examples of how machine learning is being used in biology research.
 * Fitness trackers.
@@ -38,13 +42,13 @@ Let’s look at some examples of how machine learning is being used in biology r
 
 > ## Conceptual Questions
 >
-> What is the benefit of machine learning?
+> What is the benefit of machine learning in this situation?
 >
 > What are we trying to predict? 
 >
 > What features do we have for those predictions?
 >
-> What classifier did we use and why did we decide to use that one?
+> What classifier did we use, and why did we decide to use that one?
 {: .challenge}
 
 Let’s say you want to buy a house. You follow the market for a few years. During those years you visit 20 different homes. Every time you visit a house, you write down all the information you learned about the house. 
@@ -54,7 +58,7 @@ Let’s say you want to buy a house. You follow the market for a few years. Duri
 > What are some of the features that you would consider when buying a house?
 {: .challenge}
 
-Recreate the table and collect the data based on the participant's answers. After the data was collected, label the prices into two categories low or high. Our dataset has labeled data, so our classification is a supervised machine learning task. 
+Recreate the table and collect the data. After the data was collected, label the prices into two categories low or high. Our dataset has labeled data, so our classification is a supervised machine learning task. 
 
 Note different types of features (text, number, category, etc). 
 <p align="center">
@@ -71,24 +75,24 @@ We find our dream home that is not a part of our already existing data set. This
 
 > ## Question
 >
-> What classifier did we use and why did we decide to use that one?
+> What classifier did we use, and why did we decide to use that one?
 {: .challenge}
 
-This is the simplest example of machine learning.
+This is a simple example of machine learning.
 
 
-### Evaluation part – 
+### Evaluation
 
 Is there anything else that you would want to do before using this to price a house?
 
 
 **Are the models reusable?**
-We use supervised learning to build our model, but the goal is to this be used in transfer learning – that someone else takes our model, and apply it to their own problem.
+We use supervised learning to build our model, but the goal is to this be used in transfer learning – that someone else takes our model, and apply it to their problem.
 
-**Machine learning algorithm vs. “normal” algorithm**
+### What is the difference between a machine learning algorithm and “normal” algorithm?
 Normal algorithm:
-Let’s say you are doing an experiment, and you need to mix up some solution. You have all the ingredients for the solution, you have the “recipe” or the proportions needed for the solution, so you follow the recipe, to get the solution. 
-However, in ML algorithm – you are given the ingredients and the final solution, but you don’t know the recipe. So, what you need to do it to find the “fitting” of the ingredients, that would result in your solution. 
+Let’s say you are doing an experiment, and you need to mix up some solutions. You have all the ingredients, you have the “recipe” or the proportions, and you follow the recipe to get a solution. 
+However, in ML algorithm – you are given the ingredients and the final solution, but you don’t know the recipe. So, what you need to do it to find the “fitting” of the ingredients, that would result in your solution.  
 
 
 {% include links.md %}
