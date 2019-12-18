@@ -21,14 +21,11 @@ Machine learning is a set of methods that can automatically detect patterns in d
 
 
 ### What does it mean for biology? 
+
 - It is making computation more **sustainable**. Computers can **scale**. Training a biologist can take a very long time, and it is expensive. For a biologist to build a model manually can take a very long time. Replicating a machine learning model is fast and cheaper. 
 
 Let’s look at some examples of how machine learning is being used in biology research.
-
-### What does it mean for biology? 
-- It is making computation more **sustainable**. Computers can **scale**. Training a biologist can take a very long time and it is expensive. For a biologist to Replicating a machine learning model is fast and cheaper. 
-
-Let’s look at some examples of how machine learning is being used in biology research.
+ 
 * Fitness trackers.
 * MonBaby tracks your baby’s breathing movements and sleep position, transmitting important alerts directly to your smartphone. Made to help prevent SIDS.
 * [Solid-state lithium ion batteries](https://tomkat.stanford.edu/research/designing-better-battery-machine-learning)  
@@ -51,6 +48,8 @@ Let’s look at some examples of how machine learning is being used in biology r
 > What classifier did we use, and why did we decide to use that one?
 {: .challenge}
 
+This about these questions and return to them to answer. 
+
 Let’s say you want to buy a house. You follow the market for a few years. During those years you visit 20 different homes. Every time you visit a house, you write down all the information you learned about the house. 
 
 > ## Question
@@ -58,7 +57,7 @@ Let’s say you want to buy a house. You follow the market for a few years. Duri
 > What are some of the features that you would consider when buying a house?
 {: .challenge}
 
-Recreate the table and collect the data. After the data was collected, label the prices into two categories low or high. Our dataset has labeled data, so our classification is a supervised machine learning task. 
+Recreate the table and collect the data. After the data was collected, label the prices into two categories low or high. Our dataset has labeled data, so our classification is a supervised machine learning task. There are different types of machine learning algorithms - supervised learning, unsupervised learning, and reinforcement learning. In this workshop, we will be focusing on supervised learning algorithms. 
 
 Note different types of features (text, number, category, etc). 
 <p align="center">
@@ -85,14 +84,15 @@ This is a simple example of machine learning.
 
 Is there anything else that you would want to do before using this to price a house?
 
-
 **Are the models reusable?**
 We use supervised learning to build our model, but the goal is to this be used in transfer learning – that someone else takes our model, and apply it to their problem.
 
 ### What is the difference between a machine learning algorithm and “normal” algorithm?
+
 Normal algorithm:
 Let’s say you are doing an experiment, and you need to mix up some solutions. You have all the ingredients, you have the “recipe” or the proportions, and you follow the recipe to get a solution. 
-However, in ML algorithm – you are given the ingredients and the final solution, but you don’t know the recipe. So, what you need to do it to find the “fitting” of the ingredients, that would result in your solution.  
+ML algorithm: 
+You are given the ingredients and the final solution, but you don’t know the recipe. So, what you need to do it to find the “fitting” of the ingredients, that would result in your solution.  
 
 
 {% include links.md %}
