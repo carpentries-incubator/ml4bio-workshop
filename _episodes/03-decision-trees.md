@@ -1,7 +1,6 @@
 ---
 title: "Decision Trees"
 teaching: 15
-exercises: 0
 questions:
 - "What is the decision rule?"
 objectives:
@@ -25,7 +24,7 @@ Pros:
 
 ### Step 1 Select Data
 
-Let's load a T-cells #2 data set into our software. This dataset is engineered specifically for the decision tree classifier. Please note, that the prediction metrix for this dataset would rarely reflect the real-world data. 
+Let's load a T-cells #2 data set into the software. This dataset is engineered specifically for the decision tree classifier. Please note that the prediction matrix for this dataset would rarely reflect the real-world data. 
 
 > ## Conceptual Questions
 >
@@ -39,14 +38,14 @@ Sample answer for the visual
 
 ### Step 2 Train Classifiers
 
-In the original T-cells example we left the hyperparameters settings as default. Now we will look further into some of the parameters. In this workshop not all of the hyperparameters from the software will be covered. Those that we don't cover, we will be using the default settings. 
+In the original T-cells example, we left the hyperparameters settings as default. Now we will look further into some of the parameters. In this workshop, not all of the hyperparameters from the software will be covered. Those that we don't cover, we will be using the default settings. 
 - Max_depth can be an integer or None. It is the maximum depth of the tree. If the max depth is set to None, the tree nodes are fully expanded or until they have less than min_samples_split samples.
-- Min_samples_split and min_samples_leaf represents the minimum number of samples required to split a node or to be at a leaf node. of criteria that needs to be met if we want to split new samples in the tree.
-- Class_weight is important in biology. If we had a training set and we are using binary classification, i.e. in the T-cells example, if 2 samples are labeled as active and 98 samples are labeled as quiescent, we don’t want to train the model that predicts all of the cells to be quiescent. Class_weight parameter would allow to put weight on 2 cells labeled as active. In biology, it is common to have an imbalanced training set more negative than positive instances, so training and evaluating appropriately is important! The uniform mode gives all classes the weight one. The balanced mode adjusts the weights.
+- Min_samples_split and min_samples_leaf represent the minimum number of samples required to split a node or to be at a leaf node. Of criteria that need to be met if we want to split new samples in the tree.
+- Class_weight is important hyperparameter in biology research. If we had a training set and we are using binary classification, i.e., in the T-cells example, if 2 samples are labeled as active and 98 samples are labeled as quiescent, we don't want to train the model that predicts all of the cells to be quiescent. Class_weight parameter would allow putting weight on 2 cells labeled as active. In biology, it is common to have an imbalanced training set more negative than positive instances, so training and evaluating appropriately is essential! The uniform mode gives all classes the weight one. The balanced mode adjusts the weights.
 
 ### Step 3 Test and Predict
 
-**Finish once the dataset is done**
+(finish this)
 
 ###  Application in biology
 
