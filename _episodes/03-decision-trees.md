@@ -14,13 +14,12 @@ Decision trees are part of the CART(Classification and Regression Trees) algorit
 <img width="450" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/decision%20tree1.jpg">
 </p>
 
+To better understand the algorithm, let's consider a real-life example. 
+(add the visual)
+
 ### About the Algorithm
 
 Decision tree is a supervised learning classifier. It splits the initial population depending on the a certain rule. The goal of the classifier is the predict the class label on a new set of data based on the rule that the classifier learned from the features. 
-
-**How do we choose a classifier?** (I struggled with this one so please help!)
-Pros:
-- easy to understand and to visualize
 
 ### Step 1 Select Data
 
