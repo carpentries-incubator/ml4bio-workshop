@@ -1,7 +1,6 @@
 ---
-title: "Random Forests"
+title: "Logistic Regression"
 teaching: 30
-exercises: 0
 questions:
 - "Key question (FIXME)"
 objectives:
