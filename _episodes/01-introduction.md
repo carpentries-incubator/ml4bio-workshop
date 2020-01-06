@@ -111,6 +111,7 @@ You have all the ingredients, you have the “recipe” or the proportions, and 
 You are given the ingredients and the final solution, but you don’t know the recipe.
 So, what you need to do it to find the “fitting” of the ingredients, that would result in your solution.  
 
+_Comment: What will the key points be?_
 
 {% include links.md %}
 
