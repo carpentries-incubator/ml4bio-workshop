@@ -10,16 +10,19 @@ keypoints:
 - "First key point. Brief Answer to questions. (FIXME)"
 ---
 
-Random forest is a classifier that is made of the large number of decision trees.
-Each decision tree in the forest gives the prediction, and the class that the most decision trees predicted 
+_Comment: Need to add Overview info_
+
+Random forest is a classifier that combines a large number of decision trees.
+Each decision tree in the forest makes a prediction, and the final prediction is the class label that the most decision trees predicted.
+Combining many different decision trees makes the final prediction more robust and less prone to overfitting.
+_Comment: Say more about the RF algortihm and how it randomlly selects features and instances to train on_
 
 **How do we choose a classifier?** (finish)
 
-### Step 1 Select Data
+### Step 1 Select data
 
-Let's load a T-cells #3 data set into our software.
-This dataset is engineered specifically for the decision tree classifier.
-Please note, that the prediction metrix for this dataset would rarely reflect the real-world data. 
+Let's load a T-cells #3 data set into our software. _Comment: State the exact filename_
+This dataset is designed specifically illustrate properties of the random forest classifier.
 
 > ## Conceptual Questions
 >
@@ -27,6 +30,8 @@ Please note, that the prediction metrix for this dataset would rarely reflect th
 > What is the decision rule?
 > How would the random forest look graphically?
 {: .challenge}
+
+_Comment: Need to fill in the rest of these terms and add step-by-step instructions of what to do in the software_
 
 Sample answer for the visual
 
