@@ -15,7 +15,9 @@ keypoints:
 
 ### Step 1 Select Data
 
-Let's load a T-cells #5 data set into our software. This dataset is engineered specifically for the decision tree classifier. Please note, that the prediction metrix for this dataset would rarely reflect the real-world data. 
+Let's load a T-cells #5 data set into our software.
+This dataset is engineered specifically for the decision tree classifier.
+Please note, that the prediction metrix for this dataset would rarely reflect the real-world data. 
 
 > ## Conceptual Questions
 >

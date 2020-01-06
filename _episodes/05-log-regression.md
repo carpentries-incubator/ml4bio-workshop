@@ -9,7 +9,10 @@ keypoints:
 - "First key point. Brief Answer to questions. (FIXME)"
 ---
 
-In our original example, when we predicted whether a price for a house is high or low, we were classifying our responses into two categories. We could've added a category and had "low", "medium" and "high". When we are trying to predict a certain category. In other words, logistic regression can be binary if we have two categories we are trying to predict, or multinomial if we have more than two categories that we are trying to predict.
+In our original example, when we predicted whether a price for a house is high or low, we were classifying our responses into two categories.
+We could've added a category and had "low", "medium" and "high".
+When we are trying to predict a certain category.
+In other words, logistic regression can be binary if we have two categories we are trying to predict, or multinomial if we have more than two categories that we are trying to predict.
 
 **How do we choose a classifier?** 
 
@@ -23,7 +26,9 @@ Logistic regression is different from the decision trees and random forests in t
 
 ### Step 1 Select Data
 
-Let's load a T-cells #4 data set into our software. This dataset is engineered specifically for the logistics regression classifier. Please note, that the prediction metrix for this dataset would rarely reflect the real-world data. 
+Let's load a T-cells #4 data set into our software.
+This dataset is engineered specifically for the logistics regression classifier.
+Please note, that the prediction metrix for this dataset would rarely reflect the real-world data. 
 
 > ## Conceptual Questions
 >

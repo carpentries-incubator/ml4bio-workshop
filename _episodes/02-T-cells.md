@@ -7,11 +7,15 @@ objectives:
 - "Comprehend how the datasets are preprocessed, what are samples, features and class labels, what is a model in machine learning, what is training set, hyperparameters, validation set, evaluation and prediction, and how to perform model selection."
 ---
 
-Immunotherapy is a type of cancer treatment that uses the body's immune cells to boost natural defenses against cancer, and T cells are a popular target for immunotherapies. To fully optimize the effect of immunotherapy, T cell activation must be assessed at a single-cell level. Melissa Skala's group developed a label-free and non-destructive autofluorescence imaging method to easily and quickly acquire T cell intensity images. Therefore, an activated/quiescent (inactive) T cell classifier that uses autofluorescence intensity images can contribute to the applications of immunotherapy.
+Immunotherapy is a type of cancer treatment that uses the body's immune cells to boost natural defenses against cancer, and T cells are a popular target for immunotherapies.
+To fully optimize the effect of immunotherapy, T cell activation must be assessed at a single-cell level.
+Melissa Skala's group developed a label-free and non-destructive autofluorescence imaging method to easily and quickly acquire T cell intensity images.
+Therefore, an activated/quiescent (inactive) T cell classifier that uses autofluorescence intensity images can contribute to the applications of immunotherapy.
 
 ### Dataset description
 
-This microscopy dataset includes gray scale images of two type of T cells: activated and quiescent (not activated). These T cells come from 6 donors.
+This microscopy dataset includes gray scale images of two type of T cells: activated and quiescent (not activated).
+These T cells come from 6 donors.
 
 |Activated|Quiescent|
 |:---:|:---:|
@@ -34,7 +38,10 @@ The goal of this study is to develop a method to classify T cell activation stag
 
 ### ML4Bio software setup
 
-We will be using ML4 Bio software. Refer to the [Setup](https://gitter-lab.github.io/ml-bio-workshop/setup.html) for instructions on how to install and launch the software. To better understand the GUI environment, check out the [About GUI page in Extras](https://gitter-lab.github.io/ml-bio-workshop/about/index.html). All of the datasets that we will be using for this workshop have been engineered to fit the GUI requirements. If you want to experiment with your data, make sure to follow the guidelines in the *About GUI* page.
+We will be using ML4 Bio software. Refer to the [Setup](https://gitter-lab.github.io/ml-bio-workshop/setup.html) for instructions on how to install and launch the software.
+To better understand the GUI environment, check out the [About GUI page in Extras](https://gitter-lab.github.io/ml-bio-workshop/about/index.html).
+All of the datasets that we will be using for this workshop have been engineered to fit the GUI requirements.
+If you want to experiment with your data, make sure to follow the guidelines in the *About GUI* page.
 
 ## Machine Learning workflow (Make our own version of this)
 
@@ -44,7 +51,12 @@ We will be using ML4 Bio software. Refer to the [Setup](https://gitter-lab.githu
 
 ### Data Preprocessing 
 
-The first step in machine learning is to prepare our data. Preprocessing the raw data is an essential step to have quality data for the model. Some of the properties of quality data are the absence of missing values, the data for each feature is of consistent data type and the same unit of measure, any outliers have been addressed, and there are no duplicate values. Some methods and tools are used for data normalization and preprocessing. However, learning these methods and tools is not one of the objectives of the workshop because of the time constraint and the focus on classification and choosing a model. So, we will assume that all of the data has already been preprocessed. 
+The first step in machine learning is to prepare our data.
+Preprocessing the raw data is an essential step to have quality data for the model.
+Some of the properties of quality data are the absence of missing values, the data for each feature is of consistent data type and the same unit of measure, any outliers have been addressed, and there are no duplicate values.
+Some methods and tools are used for data normalization and preprocessing.
+However, learning these methods and tools is not one of the objectives of the workshop because of the time constraint and the focus on classification and choosing a model.
+So, we will assume that all of the data has already been preprocessed. 
 
 **Load size_intensity_feature.csv into the software under the Labeled Data**
 
@@ -58,7 +70,9 @@ The first step in machine learning is to prepare our data. Preprocessing the raw
 
 ### Data Summary
 
-Data Summary gives us an insight into Features and Samples for the dataset we selected. In this particular dataset, we can see that we have two features **cell_size** and **total_intensity**. We can also see that the total number of Samples is 843. 
+Data Summary gives us an insight into Features and Samples for the dataset we selected.
+In this particular dataset, we can see that we have two features **cell_size** and **total_intensity**.
+We can also see that the total number of Samples is 843. 
 
 > ## Conceptual Questions
 >
@@ -68,7 +82,8 @@ Data Summary gives us an insight into Features and Samples for the dataset we se
 
 ### Training set vs. Validation set vs. Test set 
 
-The preprocessed dataset is split into a training set and a test set. The training set is further divided into a training set and a validation set. 
+The preprocessed dataset is split into a training set and a test set.
+The training set is further divided into a training set and a validation set. 
 
 <p align="center">
 <img width="600" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/datasets.jpg">
@@ -76,13 +91,23 @@ The preprocessed dataset is split into a training set and a test set. The traini
 
 #### Training set 
 
-The training set is a part of the original dataset that trains or fits the model. This is the data that the model uses to learn.
+The training set is a part of the original dataset that trains or fits the model.
+This is the data that the model uses to learn.
 
 #### Validation set
 
-Further, a part of the training set is used for validation of the fitted model. This is not the final evaluation of the model. This step is used to change hyperparameters and then train the model again.  We will be using the holdout validation method in the software. We will use the default 20% of the training set for the validation set.
+Further, a part of the training set is used for validation of the fitted model.
+This is not the final evaluation of the model. This step is used to change hyperparameters and then train the model again.
+We will be using the holdout validation method in the software.
+We will use the default 20% of the training set for the validation set.
 
-What is commonly done in practice is cross-validation. One part of the training set is used for training and another section for validation. Then the hyperparameters of the fitted models are changed, and the model has trained again with the new split between training data and the validation data. An excellent example to explain this process would be dealing the cards. Every time we deal with the cards, we shuffle them first. The same is done with the training dataset. Each time we repeat training and validating, we split the original training set into new training and validation datasets. 
+What is commonly done in practice is cross-validation.
+One part of the training set is used for training and another section for validation.
+Then the hyperparameters of the fitted models are changed, and the model has trained again with the new split between training data and the validation data.
+An excellent example to explain this process would be dealing the cards.
+Every time we deal with the cards, we shuffle them first.
+The same is done with the training dataset.
+Each time we repeat training and validating, we split the original training set into new training and validation datasets. 
 
 <p align="center">
 <img width="700" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/datasets2.jpg">
@@ -91,7 +116,8 @@ What is commonly done in practice is cross-validation. One part of the training 
 
 #### Test set
 
-The test set checks how well the model works on the new data. The test set is used in the final phase of the workflow, and it evaluates the final model. 
+The test set checks how well the model works on the new data.
+The test set is used in the final phase of the workflow, and it evaluates the final model. 
 
 In the GUI, we will be using the default option and splitting our dataset to be 80% training set and 20% test set. 
 
@@ -108,14 +134,17 @@ tried to write about this, but it is hard to be concise. Do we want this? Or jus
 
 ## Step 2 Train Classifiers
 
-We are given a dropdown menu of some of the most frequently used classifiers in biology. In this workshop, we will be further talking about Decision Tree, Random Forest, Logistic Regression, and Neural Network. 
+We are given a dropdown menu of some of the most frequently used classifiers in biology.
+In this workshop, we will be further talking about Decision Tree, Random Forest, Logistic Regression, and Neural Network. 
 
 > ## Play time
 >
 > Pick a few classifiers and without changing the default settings train the data.
 {: .callout}
 
-As you can see, you will be getting different performance metrics depending on the classifier. This reflects the real life situtation when you work with the real data. You will train many classifiers before you find the one that you are satisfied with.
+As you can see, you will be getting different performance metrics depending on the classifier.
+This reflects the real life situtation when you work with the real data.
+You will train many classifiers before you find the one that you are satisfied with.
 
 Try to answer these questions to get a better understanding of the software:
 - (FIX THIS)
@@ -127,7 +156,9 @@ For this specific example, we will be working with the default hyperparameters.
 
 ## Step 3 Test and Predict
 
-Our final step is model selection. After we trained multiple classifiers, changed some hyperparameters, and did cross-validation, the next step is to choose the best model. Model evaluation and selection is a vast topic so that we will be focusing on the metrics provided in the software.
+Our final step is model selection.
+After we trained multiple classifiers, changed some hyperparameters, and did cross-validation, the next step is to choose the best model.
+Model evaluation and selection is a vast topic so that we will be focusing on the metrics provided in the software.
 
 - Accuracy measures the fraction or the count of the correct predictions. In the T-cells dataset, this will be the number of correctly predicted quiescent and activated cells compared to the total number of predictions made. In the software, let's look at the prediction metrics on the validation data. Remember, you can switch between the training set and validation set at any time in software. In the T-cells example, we want to predict whether a cell was quiescent or activated. The accuracy gives us the count of the cells that were correctly predicted. In this section of the software
 
@@ -155,7 +186,5 @@ there are a few visualization tools that can help with the model selection. The 
 
 ### Test Data
 
-Once the model was selected based on the metric that we chose, we want to use the model for the prediction on the test data. Based on the same prediction metrics that we used on the validation set, we can make certain conclusions about our model. 
-
-
-
+Once the model was selected based on the metric that we chose, we want to use the model for the prediction on the test data.
+Based on the same prediction metrics that we used on the validation set, we can make certain conclusions about our model. 

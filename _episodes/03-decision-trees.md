@@ -8,7 +8,13 @@ objectives:
 - "Discuss applying, updating, and evaluating a trained model on new data."
 ---
 
-Decision trees are part of the CART(Classification and Regression Trees) algorithms. The decision trees are very intuitive and one of the benefits is that we can clearly see the path we took to get to the final answer. We can follow through the whole procedure. This is one of the most popular machine learning algorithms, and it is very intuitive. They are also used across many industries from finances to industrial engineering. For example, a doctor might use a decision tree to decide which medicine to prescribe. Or whether or not a customer qualifies for a credit card. Or in the case of T-cells, whether or not a cell is active or quiescent.
+Decision trees are part of the CART(Classification and Regression Trees) algorithms.
+The decision trees are very intuitive and one of the benefits is that we can clearly see the path we took to get to the final answer.
+We can follow through the whole procedure. This is one of the most popular machine learning algorithms, and it is very intuitive.
+They are also used across many industries from finances to industrial engineering.
+For example, a doctor might use a decision tree to decide which medicine to prescribe.
+Or whether or not a customer qualifies for a credit card.
+Or in the case of T-cells, whether or not a cell is active or quiescent.
 
 <p align="center">
 <img width="450" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/decision%20tree1.jpg">
@@ -19,7 +25,11 @@ To better understand the algorithm, let's consider a real-life example.
 
 ### About the Algorithm
 
-Decision tree is a supervised learning classifier. It splits the initial population depending on the a certain rule. The goal of the classifier is the predict the class label on a new set of data based on the rule that the classifier learned from the features. An important property of the decision tree is the depth of tree. That is the number of times we make a split to reach a decition. 
+Decision tree is a supervised learning classifier.
+It splits the initial population depending on the a certain rule.
+The goal of the classifier is the predict the class label on a new set of data based on the rule that the classifier learned from the features.
+An important property of the decision tree is the depth of tree.
+That is the number of times we make a split to reach a decition. 
 
 Some pros of using decision trees:
 
@@ -39,9 +49,13 @@ Some cons of using decision trees:
 > How would the decision tree look graphically?
 {: .challenge}
 
-Let's load a T-cells #2 data set into the software. This dataset is engineered specifically for the decision tree classifier. Please note that the prediction matrix for this dataset would rarely reflect the real-world data. 
+Let's load a T-cells #2 data set into the software.
+This dataset is engineered specifically for the decision tree classifier.
+Please note that the prediction matrix for this dataset would rarely reflect the real-world data. 
 
-We will continue working on the T-cells example. The goal is the same, predicting whether a cell is active or quiescent. We also have the same two features - cell size and intensity. 
+We will continue working on the T-cells example.
+The goal is the same, predicting whether a cell is active or quiescent.
+We also have the same two features - cell size and intensity. 
 
 
 ### Step 2 Train Classifiers
@@ -60,7 +74,3 @@ If a model fits the training data perfectly, or very well, the model can become 
 ###  Application in biology
 
 [PgpRules: a decision tree based prediction server for P-glycoprotein substrates and inhibitors](https://doi.org/10.1093/bioinformatics/btz213)
-
-
-
-

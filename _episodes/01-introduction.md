@@ -50,21 +50,30 @@ Let’s look at some examples of how machine learning is being used in biology r
 
 This about these questions and return to them to answer. 
 
-Let’s say you want to buy a house. You follow the market for a few years. During those years you visit 20 different homes. Every time you visit a house, you write down all the information you learned about the house. 
+Let’s say you want to buy a house.
+You follow the market for a few years.
+During those years you visit 20 different homes.
+Every time you visit a house, you write down all the information you learned about the house. 
 
 > ## Question
 >
 > What are some of the features that you would consider when buying a house?
 {: .challenge}
 
-Recreate the table and collect the data. After the data was collected, label the prices into two categories low or high. Our dataset has labeled data, so our classification is a supervised machine learning task. There are different types of machine learning algorithms - supervised learning, unsupervised learning, and reinforcement learning. In this workshop, we will be focusing on supervised learning algorithms. 
+Recreate the table and collect the data.
+After the data was collected, label the prices into two categories low or high.
+Our dataset has labeled data, so our classification is a supervised machine learning task.
+There are different types of machine learning algorithms - supervised learning, unsupervised learning, and reinforcement learning.
+In this workshop, we will be focusing on supervised learning algorithms. 
 
 Note different types of features (text, number, category, etc). 
 <p align="center">
 <img width="550" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/IMG_0016.jpg">
 </p>
 
-We find our dream home that is not a part of our already existing data set. This home is new data, and we want to predict whether the price will be high or low. Based on the features that we already know, we are trying to classify our future home in one of the two possible categories. 
+We find our dream home that is not a part of our already existing data set.
+This home is new data, and we want to predict whether the price will be high or low.
+Based on the features that we already know, we are trying to classify our future home in one of the two possible categories. 
 
 **Sample answer**
 
@@ -90,9 +99,11 @@ We use supervised learning to build our model, but the goal is to this be used i
 ### What is the difference between a machine learning algorithm and “normal” algorithm?
 
 Normal algorithm:
-Let’s say you are doing an experiment, and you need to mix up some solutions. You have all the ingredients, you have the “recipe” or the proportions, and you follow the recipe to get a solution. 
+Let’s say you are doing an experiment, and you need to mix up some solutions.
+You have all the ingredients, you have the “recipe” or the proportions, and you follow the recipe to get a solution. 
 ML algorithm: 
-You are given the ingredients and the final solution, but you don’t know the recipe. So, what you need to do it to find the “fitting” of the ingredients, that would result in your solution.  
+You are given the ingredients and the final solution, but you don’t know the recipe.
+So, what you need to do it to find the “fitting” of the ingredients, that would result in your solution.  
 
 
 {% include links.md %}
