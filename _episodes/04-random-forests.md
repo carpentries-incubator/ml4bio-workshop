@@ -12,31 +12,29 @@ keypoints:
 
 _Comment: Need to add Overview info_
 _Milica's comment: Review below_
-In this episode, we will learn about random forests classifier. 
+In this episode, we will learn about the random forest classifier. 
 Using the software, we will analyze the pre-engineered dataset and discuss the hyperparameters. 
 Then we will consider some applications in biology. 
 
-We previously talked about how we would predict the price of a house using a decision tree. 
-However, the prediction might not be accurate because many factors can affect it. 
-To improve the prediction accuracy, we will talk to a thousand individuals who will use a decision tree classifier to make their prediction. 
-All of these decision trees make a random forest. 
-Random forest is a classifier that combines a large number of decision trees.
-Each decision tree in the forest makes a prediction, and the final prediction is the class label that most decision trees predicted.
-Combining many different decision trees makes the final prediction more robust and less prone to overfitting.
+_Comment: The example did't quite capture what's happening with a random forest, so I iterated on it with the way I generally think of random forests. Probably still needs more iterating on, however._
+
+We previously examined decision trees. 
+One of their main weaknesses is their tendancy to overfit if the tree is allowed to get too deep. 
+In training a decision tree we often have to therefore alter the decison tree's parameters to keep it a "generalist", instead of allowing it to overly specialize and overfit. 
+
+Random forests, however, deal with the problem of overfitting by creating multiple trees, with each tree trained slighly differently so it overfits differently. 
+The decisions of each tree are then combined to make the final classification.
+This "team of specialists" approach random forests take often outperforms the "single generalist" approach of decision trees. 
 
 ### Why is it called "random" forest?
 
-If we give the same data to a thousand people, then they ask the same questions for each decision tree, and are provided with the same answers, we will get the same predictions that are prone to overfitting. 
-In order to get the most accurate predictions we want to provide slightly different data to each person. 
-When a human is making a decision, for example a wheather forecast in Madison, Wisconsin, if it is January, we know that it is winter and that it means the temperature will be colder. 
-A classifier cannot rationalize this way. 
-We need to provide a data that is a little bit different for each decision tree.
-Then each decision tree will use a different subset of features to form the questions.
-The feature selection will be random. 
-The final prediction is based on the average taken across all the decision trees in the forest.
+If we, when training each tree in the forest, give every tree the same data, we would get the same predictions that are prone to overfitting. 
+In order to train each tree differently we need to provide slightly different data to each tree. 
+To do this, we choose a **random** subset of the data to give to each tree. 
+At each node in the tree, when training we also **randomize** which features can be used to split the data.
+The final prediction is based on a vote or the average taken across all the decision trees in the forest.
 
-_Comment: Say more about the RF algortihm and how it randomlly selects features and instances to train on_
-Milica's comment: please review
+_Comment: Gave this a little rewording but I think it covers the randomization well._
 
 ### Step 1 Select data
 
