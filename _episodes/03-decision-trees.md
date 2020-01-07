@@ -68,7 +68,7 @@ Some cons of using decision trees:
 > How would the decision tree look graphically?
 {: .challenge}
 
-Let's load a T-cells #2 data set into the software.
+Let's load *simulated_t_cells_7.csv* data set into the software.
 This dataset is engineered specifically to demonstrate the decision tree classifier.
 
 We will continue working on the T-cells example.
@@ -84,7 +84,21 @@ For the hyperparameters that we don't discuss, use the default settings.
 - Max_depth can be an integer or None. It is the maximum depth of the tree. If the max depth is set to None, the tree nodes are fully expanded or until they have less than min_samples_split samples.
 - Min_samples_split and min_samples_leaf represent the minimum number of samples required to split a node or to be at a leaf node.
 - Class_weight is important hyperparameter in biology research. If we had a training set and we are using binary classification, i.e., in the T-cells example, if 2 samples are labeled as active and 98 samples are labeled as quiescent, we don't want to train the model that predicts all of the cells to be quiescent. Class_weight parameter would allow putting weight on 2 cells labeled as active. 
-In biology, it is common to have an imbalanced training set more negative than positive instances, so training and evaluating appropriately is essential! The uniform mode gives all classes the weight one. The balanced mode adjusts the weights.
+In biology, it is common to have an imbalanced training set with more negative than positive instances, so training and evaluating appropriately is essential! The uniform mode gives all classes the weight one. The balanced mode adjusts the weights.
+
+Without changing any hyperparameter settings, look at the Data Plot.
+
+**What do you notice?**
+
+The data plot shows two features, where the blue data points represent the quiescent cells, and the red data points represent the active cells. 
+
+**What hyperparameter might be important for this example?**
+
+The given dataset is imbalanced with more quiescent cells than active cells. 
+Let's change the class_weight to balanced. 
+Did this make any difference? 
+How does the data plot look for the uniform class_weight and how does it look for the balanced class weight?
+
 
 ### Step 3 Test and predict
 
@@ -95,8 +109,10 @@ If a model fits the training data perfectly, or very well, the model can become 
 _Comment: We need more callouts to guide this lesson.  What steps should they take?  What hyperparameter values should they try?  What are the key ideas?  What do they observe about the decision boundaries of a decision tree?_
 
 > ## Key points
->
 > 
+> Decision trees are easy to visualize and intuitive to understand. 
+> Decisition trees are prone to overfitting.
+> In biology, imbalanced datasets are common..
 {: .keypoints}
 
 ###  Application in biology
