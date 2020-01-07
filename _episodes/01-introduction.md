@@ -113,7 +113,7 @@ So, what you need to do it to find the “fitting” of the ingredients, that wo
 
 > ## Key points
 >
-> What classifier did we use, and why did we decide to use that one?
+> 
 {: .keypoints}
 
 
