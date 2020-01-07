@@ -9,9 +9,11 @@ objectives:
 ---
 _Comment: Is the objective to learn about pros/cons of the decision tree model as opposed to all of these models?_
 
+### What is the decision tree classifier? 
+
 Decision trees make predictions by asking a sequence of questions for each example and make a prediction based on the responses.
 This makes decision trees intuitive.
-One of the benefits is that we can clearly see the path of questiosn and answers we took to get to the final prediction.
+One of the benefits is that we can clearly see the path of questios and answers we took to get to the final prediction.
 For example, a doctor might use a decision tree to decide which medicine to prescribe based on a patient's responses about their symptoms.
 Or in the case of T-cells, a decision tree can predict whether or not a T cell is active or inactive.
 
@@ -19,10 +21,28 @@ Or in the case of T-cells, a decision tree can predict whether or not a T cell i
 <img width="450" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/decision%20tree1.jpg">
 </p>
 
-To better understand the algorithm, let's consider a real-life example. 
+#### Intuitive example
+
+To better understand the algorithm, let's consider the house price prediction example from the [Introduction episode](lhttps://gitter-lab.github.io/ml-bio-workshop/01-introduction/index.html).
+We are going to begin with an initial house price range, and for the neighborhood of our interest the prices range from $100k - $250k. 
+The first question we could ask is the number of bedrooms in the house. 
+The answer is 3 bedrooms, and so our new range will be $180k-$250k. 
+Then we will ask about the number of bathrooms, and the answer is 3 bathrooms. 
+The new range range is $220-$250.
+Finally we will ask 
+That give us the price of $230k. 
 _Comment: (add the visual)_
 
-### Decision tree algorithm
+#### How does the classifier make predictions?
+
+This intuitive way of understanding decision trees is very close to the way the algorithm is implemented, but we also have the other part of the split to consider. 
+The questions in our house price example are about the dataset features.
+The decision tree answers the questions with True or False. 
+Refer to the visual. 
+
+Comment - add a visual. 
+
+### About the classifier
 
 A decision tree is a supervised learning classifier.
 It splits the initial population depending on a certain rule.
@@ -48,24 +68,23 @@ Some cons of using decision trees:
 > How would the decision tree look graphically?
 {: .challenge}
 
-Let's load a T-cells #2 data set into the software. _Comment: What is the specific filename?_
+Let's load a T-cells #2 data set into the software.
 This dataset is engineered specifically to demonstrate the decision tree classifier.
-Please note that the prediction matrix for this dataset would rarely reflect the real-world data. _Comment: What is prediction matrix here?  Confusion matrix?_
 
 We will continue working on the T-cells example.
 The goal is the same, predicting whether a cell is active or inactive.
 We also have the same two features: cell size and intensity. 
-
 
 ### Step 2 Train classifiers
 
 In the original T-cells example, we left the hyperparameters settings as default.
 Now we will look further into some of the hyperparameters.
 In this workshop, not all of the hyperparameters from the software will be covered.
-For those that we don't discuss, we will be using the default settings.
+For the hyperparameters that we don't discuss, use the default settings.
 - Max_depth can be an integer or None. It is the maximum depth of the tree. If the max depth is set to None, the tree nodes are fully expanded or until they have less than min_samples_split samples.
-- Min_samples_split and min_samples_leaf represent the minimum number of samples required to split a node or to be at a leaf node. Of criteria that need to be met if we want to split new samples in the tree. _Comment: "Of criteria?"_
-- Class_weight is important hyperparameter in biology research. If we had a training set and we are using binary classification, i.e., in the T-cells example, if 2 samples are labeled as active and 98 samples are labeled as quiescent, we don't want to train the model that predicts all of the cells to be quiescent. Class_weight parameter would allow putting weight on 2 cells labeled as active. In biology, it is common to have an imbalanced training set more negative than positive instances, so training and evaluating appropriately is essential! The uniform mode gives all classes the weight one. The balanced mode adjusts the weights. _Comment: Split this into a separate paragraph to keep the defintion shorter._
+- Min_samples_split and min_samples_leaf represent the minimum number of samples required to split a node or to be at a leaf node.
+- Class_weight is important hyperparameter in biology research. If we had a training set and we are using binary classification, i.e., in the T-cells example, if 2 samples are labeled as active and 98 samples are labeled as quiescent, we don't want to train the model that predicts all of the cells to be quiescent. Class_weight parameter would allow putting weight on 2 cells labeled as active. 
+In biology, it is common to have an imbalanced training set more negative than positive instances, so training and evaluating appropriately is essential! The uniform mode gives all classes the weight one. The balanced mode adjusts the weights.
 
 ### Step 3 Test and predict
 
@@ -74,6 +93,11 @@ For those that we don't discuss, we will be using the default settings.
 If a model fits the training data perfectly, or very well, the model can become too data dependent and not work as well on a new data. 
 
 _Comment: We need more callouts to guide this lesson.  What steps should they take?  What hyperparameter values should they try?  What are the key ideas?  What do they observe about the decision boundaries of a decision tree?_
+
+> ## Key points
+>
+> 
+{: .keypoints}
 
 ###  Application in biology
 
