@@ -1,9 +1,9 @@
 ---
-title: About GUI
+title: About ml4bio
 ---
 {% include links.md %}
 
- ### Software environment details
+### Software environment details
  
 Anaconda includes software that enables you to run Python programs as well as additional tools for managing software environments, programming in Python, and integrating code with textual descriptions and results in Jupyter notebooks.
 The software environments are managed by conda, one of the tools included with Anaconda.
@@ -11,22 +11,23 @@ An environment is a collection of specific versions of Python packages.
 These are all stored in a directory that conda manages.
 Having multiple environments allows you to use different versions of the same package for different projects.
 
-The ML4Bio install scripts create a new conda environment.
+The ml4bio install scripts create a new conda environment.
 This environment, which is named `ml4bio`, contains the latest version of the `ml4bio` Python package as well as suitable versions of other Python packages that it requires.
 The `ml4bio` code may be incompatible with older or newer versions of the Python packages it uses.
 The environment makes it easy for you use a collection of Python packages that work together.
 
-The most important required Python package that ML4Bio uses is called [scikit-learn](http://scikit-learn.org/).
+The most important required Python package that ml4bio uses is called [scikit-learn](http://scikit-learn.org/).
 This is a popular general purpose machine learning package.
-When you use the ML4Bio graphical interface, it calls functions in scikit-learn to train classifiers and make predictions.
+When you use the ml4bio graphical interface, it calls functions in scikit-learn to train classifiers and make predictions.
 
 ### Advanced users
 Advanced users who already have Python installed can install the [required packages](../scripts/README.md) through pip.
-Then launch ML4Bio from the command line with the command `ml4bio`.
+Then launch ml4bio from the command line with the command `ml4bio`.
 
 ### A quick tour
 
-Once you open the ML4Bio software, you will see the following interface.
+Once you open the ml4bio software, you will see the following interface.
+It may look slightly different in newer versions of ml4bio.
 
 <p align="center">
 <img  src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/master/figures/software/window.png">
