@@ -1,7 +1,6 @@
 ---
 title: "Introduction"
 teaching: 15
-exercises: 0
 questions:
 - What is machine learning?
 objectives:
@@ -63,7 +62,10 @@ Every time you visit a house, you write down all the information you learned abo
 > What are some of the features that you would consider when buying a house?
 {: .challenge}
 
-Recreate the table and collect the data. _Comment: What does collect mean?  They should write in answers?  Do we do this as a group?_
+### Group activity
+
+The facilitator will recreate the table on the board and collect the data from the participants.
+Write the answer on the board.
 After the data was collected, label the prices into two categories low or high.
 Our dataset has labeled data, so our classification is a supervised machine learning task.
 There are different types of machine learning algorithms - supervised learning, unsupervised learning, and reinforcement learning.
@@ -92,14 +94,12 @@ _Comment: label the x and y axis._
 
 This is a simple example of machine learning.
 
-
 ### Evaluation
 
 Is there anything else that you would want to do before using this to price a house?
 
 **Are the models reusable?**
-We use supervised learning to build our model, but the goal is to this be used in transfer learning – that someone else takes our model, and apply it to their problem.
-_Comment: Not sure whether this fits the transfer learning definition.  We would likely continue using it in the same region from which data was collected.  Transfer learning is too complex a concept for this workshop._
+We use supervised learning to build our model. We want to be able to use the model on the different data. 
 
 ### What is the difference between a machine learning algorithm and a traditional algorithm?
 
@@ -111,7 +111,11 @@ You have all the ingredients, you have the “recipe” or the proportions, and 
 You are given the ingredients and the final solution, but you don’t know the recipe.
 So, what you need to do it to find the “fitting” of the ingredients, that would result in your solution.  
 
-_Comment: What will the key points be?_
+> ## Key points
+>
+> What classifier did we use, and why did we decide to use that one?
+{: .keypoints}
+
 
 {% include links.md %}
 
