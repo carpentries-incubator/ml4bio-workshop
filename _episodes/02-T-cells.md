@@ -207,3 +207,8 @@ there are a few visualization tools that can help with the model selection. The 
 Once the model was selected based on the metric that we chose, we want to use the model for the prediction on the test data.
 Based on the same prediction metrics that we used on the validation set, we can make certain conclusions about our model. 
 _Comment: Should summary the key points.  What can we now do with new T cell images?_
+
+> ## Key points
+>
+> 
+{: .keypoints}
