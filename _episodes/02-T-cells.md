@@ -15,13 +15,14 @@ Here we will study how to assess the activation state of individual T cells.
 
 Scientists at UW-Madison and the Morgridge Institute [developed an imaging method](https://doi.org/10.1101/536813) to easily and quickly acquire images of T cell without destroying them.
 These images contain information that can be used to predict T cell activity.
-We would like to develop a classifier that can take an image of a T cell and predict whether it is active or inactive.
+We would like to develop a classifier that can take an image of a T cell and predict whether it is active or quiescent.
 The active cells could them be used for immunotherapy, and the inactive cells could be discarded.
 _Comment: Is this our text or was it derived from another source?  Need to avoid as much bio jargon as possible and use inactive instead of quiescent._
+*Milica's comment: This is out text - Jay wrote it*
 
 ### Dataset description
 
-This microscopy dataset includes grayscale images of two type of T cells: activated and inactive.
+This microscopy dataset includes grayscale images of two type of T cells: activated and quiescent.
 These T cells come from blood samples from six human donors.
 _Comment: Do we need to make these images bigger?_
 
@@ -31,15 +32,6 @@ _Comment: Do we need to make these images bigger?_
 
 We will use a subset of the images and follow the workflow in a [T cell classification study](https://doi.org/10.1002/jbio.201960050).
 
-_Comment: Can we remove this table?  What are we trying to convey here?_
-The table presents the number of cells for each donor. 
-
-||Donor 1|Donor 2|Donor 3|Donor 4|Donor 5|Donor 6|
-|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-|Full Activated|271|656|487|494|694|446|
-|Full Quiescent|1631|152|1276|1629|252|589|
-|Subsampled Activated|27|65|48|49|69|44|
-|Subsampled Quiescent|163|15|127|162|25|58|
 
 ### Machine learning methods
 
@@ -117,11 +109,9 @@ We will use the ml4bio default 20% of the training set for the validation set.
 What is commonly done in practice is cross-validation.
 One part of the training set is used for training and another section for validation.
 Then the hyperparameters of the fitted models are changed, and the model has trained again with the new split between training data and the validation data.
-An example to explain this process would be dealing playing cards.
-Every time we deal the cards, we shuffle them first.
+Then we look through all folds of data.
 The same is done with the training dataset.
 Each time we repeat training and validating, we split the original training set into new training and validation datasets.
-_Comment: If we loop through all folds of the data, that isn't exactly following the cards example._
 
 <p align="center">
 <img width="700" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/datasets2.jpg">
@@ -150,8 +140,10 @@ tried to write about this, but it is hard to be concise. Do we want this? Or jus
 
 ## Step 2: Train classifiers
 
+Classification is a process when given some input we are try to predict an outcome by coming up with a rule that will guess this outcome. Tools that use classiffication to predict an outcome are classifiers.
+
 We are given a dropdown menu of some of the most frequently used classifiers in biology.
-In this workshop, we will be further talking about Decision Tree, Random Forest, Logistic Regression, and Neural Network. _Comment: Can we link to the episodes?_
+In this workshop, we will be further talking about [Decision Tree](https://gitter-lab.github.io/ml-bio-workshop/03-decision-trees/index.html), [Random Forests](https://gitter-lab.github.io/ml-bio-workshop/04-random-forests/index.html), [Logistic Regression](https://gitter-lab.github.io/ml-bio-workshop/05-log-regression/index.html), and [Neural Network](https://gitter-lab.github.io/ml-bio-workshop/07-neural-nets/index.html).
 
 > ## Play time
 >
