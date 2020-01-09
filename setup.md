@@ -3,17 +3,17 @@ title: Setup
 ---
 # Software overview
 
-### Setup and launch the ML4Bio software
+### Setup and launch the ml4bio software
 
 > #### Questions
 >
-> 1.   What do I need to run the ML4Bio software?
-> 2.   How do I download the ML4Bio workshop materials?
+> 1.   What do I need to run the ml4bio software?
+> 2.   How do I download the ml4bio workshop materials?
 >
 > #### Objectives
 >
-> 1.   Provide instructions for installing the ML4Bio software.
-> 2.   Explain the ML4Bio software environment
+> 1.   Provide instructions for installing the ml4bio software.
+> 2.   Explain the ml4bio software environment
 
 ### Overview
 
@@ -25,16 +25,16 @@ title: Setup
 >
 > 1.   Explain how the software works through an example.
 
-There are three main steps to prepare for the ML4Bio workshop:
+There are three main steps to prepare for the ml4bio workshop:
 1. [Download the workshop materials](#download-the-ml4bio-materials)
 2. [Install the Anaconda Python distribution](#install-python)
-3. [Install the ML4Bio software](#launch-the-ml4bio-software)
+3. [Install the ml4bio software](#launch-the-ml4bio-software)
 
 See the [troubleshooting](#troubleshooting) if you run into problems during the installation.
-If you already have Python installed and do not want to use Anaconda, download the ML4Bio materials and proceed to the [advanced](#advanced-users) instructions.
+If you already have Python installed and do not want to use Anaconda, download the ml4bio materials and proceed to the [advanced](#advanced-users) instructions.
 
-### Download the ML4Bio materials
-To download the ML4Bio materials, visit <https://github.com/gitter-lab/ml-bio-workshop/>.
+### Download the ml4bio materials
+To download the ml4bio materials, visit <https://github.com/gitter-lab/ml-bio-workshop/>.
 Click the `Clone or download` button followed by `Download ZIP`.
 
 <p align="center">
@@ -43,10 +43,10 @@ Click the `Clone or download` button followed by `Download ZIP`.
 
 Save the file `ml-bio-workshop-master.zip` and then open that location on your computer.
 Extract the zip file and open the folder `ml-bio-workshop-master`, which has the same contents as <https://github.com/gitter-lab/ml-bio-workshop/>.
-You are now ready to install the Python dependencies needed to run the ML4Bio software and follow the workshop exercises.
+You are now ready to install the Python dependencies needed to run the ml4bio software and follow the workshop exercises.
 
 ### Install Python
-ML4Bio requires Python and several other Python packages.
+ml4bio requires Python and several other Python packages.
 The easiest way to install Python and the correct version of these packages is through [Anaconda](https://anaconda.com/), a Python distribution.
 If you do not have Anaconda installed, please visit <https://www.anaconda.com/download/> to download and install the Python 3.x version (for example, 3.7).
 **We recommend letting the Anaconda installer add Anaconda to your computer's `PATH` environment variable so that it is easily accessible from the command line.**
@@ -58,9 +58,9 @@ If you do not have Anaconda installed, please visit <https://www.anaconda.com/do
 This will also make Anaconda your primary Python distribution.
 See the [Carpentries Anaconda installation instructions](http://carpentries.github.io/workshop-template/#python) for a step-by-step guide and video on how to install Anaconda for your operating system.
 
-### Launch the ML4Bio software
+### Launch the ml4bio software
 After you install Anaconda, return to the unzipped `ml-bio-workshop-master` directory and open the `scripts` subdirectory.
-There are wrapper scripts that will run ML4Bio inside a [conda environment](#software-environment-details).
+There are wrapper scripts that will run ml4bio inside a [conda environment](#software-environment-details).
 If the environment does not already exist, it will be created.
 This can take 5-10 minutes and requires internet connectivity to download the Python packages.
 - For **Windows**, launch the `install_launch_windows.bat` script.
@@ -77,14 +77,14 @@ For Windows, launch the Anaconda Prompt (formerly Anaconda Command Prompt) and t
 For Linux or Mac OS, open the terminal and navigate to the `ml-bio-workshop-master/scripts` directory.
 Then, enter the name of the script for your operating system.
 
-Visit the [software guide](software.md) to learn more about the ML4Bio software functionality.
-See the [software environment details](#software-environment-details) for more information about how the ML4Bio software works.
+Visit the [software guide](software.md) to learn more about the ml4bio software functionality.
+See the [software environment details](#software-environment-details) for more information about how the ml4bio software works.
 
 ### Troubleshooting
 You must extract the contents of the `ml-bio-workshop-master.zip` workshop materials file.
 Even though you may be able to browse the compressed directory to inspect the files, the software installation will not work until the file is unzipped.
 
-Launching ML4Bio from the command line can resolve many common problems related to Anaconda and how it was installed.
+Launching ml4bio from the command line can resolve many common problems related to Anaconda and how it was installed.
 
 If you did not add Anaconda to your `PATH` during installation and would like to, follow these instructions for Windows 10:
 - Start -> Type "Path" -> Edit environment variables for your account
@@ -95,17 +95,15 @@ This warning can be ignored.
 
 See also known [software warnings](../scripts/README.md#warnings) that can be safely ignored.
 
-### Updating ML4Bio
-New versions of the ML4Bio software will be periodically released through [PyPI](https://pypi.org/project/ml4bio/).
+### Updating ml4bio
+New versions of the ml4bio software will be periodically released through [PyPI](https://pypi.org/project/ml4bio/).
 The [release notes](https://github.com/gitter-lab/ml4bio/releases) describe the changes in each new version.
-To install the latest version of ML4Bio, run the appropriate update script for your operating system:
+To install the latest version of ml4bio, run the appropriate update script for your operating system:
 - `update_ml4bio_windows.bat`
 - `update_ml4bio_mac.command`
 - `update_ml4bio_linux.sh`
 
 Run these scripts in the same manner as the install scripts above.
-
-
 
 
 {% include links.md %}
