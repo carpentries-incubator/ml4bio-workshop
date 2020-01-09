@@ -37,10 +37,10 @@ _Comment: (add the visual)_
 #### How does the classifier make predictions?
 
 This intuitive way of understanding decision trees is very close to the way the algorithm is implemented, but we also have the other part of the split to consider. 
-Each split of a decision tree classifies instances based on a test of a feature. 
+Each split of a decision tree classifies instances based on a test of a single feature. 
 This test can be True or False. 
-The splitting goes from the root of the tree to a node. 
-So an instance is classified starting from the root and testing the feature specified by the node, then going down the split and testing a different feature specified by another node.  
+The splitting goes from the root at the top of the tree to a leaf node at the bottom. 
+So an instance is classified starting from the root and testing the feature specified by the node, then going down the split based on the outcome of the test and testing a different feature specified by another node.  
 Refer to the visual. 
 
 _Comment - add a visual_
