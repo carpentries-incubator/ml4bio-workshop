@@ -9,13 +9,14 @@ objectives:
 ---
 _Comment: Is the objective to learn about pros/cons of the decision tree model as opposed to all of these models?_
 _Comment: I'm not sure about the decision rule as a central question_
+
 ### What is the decision tree classifier? 
 
 Decision trees make predictions by asking a sequence of questions for each example and make a prediction based on the responses.
 This makes decision trees intuitive.
 One of the benefits is that we can clearly see the path of questios and answers we took to get to the final prediction.
 For example, a doctor might use a decision tree to decide which medicine to prescribe based on a patient's responses about their symptoms.
-Or in the case of T-cells, a decision tree can predict whether or not a T cell is active or inactive.
+Or in the case of T-cells, a decision tree can predict whether or not a T cell is active or quiescent.
 
 <p align="center">
 <img width="450" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/decision%20tree1.jpg">
@@ -36,8 +37,10 @@ _Comment: (add the visual)_
 #### How does the classifier make predictions?
 
 This intuitive way of understanding decision trees is very close to the way the algorithm is implemented, but we also have the other part of the split to consider. 
-The questions in our house price example are about the dataset features.
-The decision tree answers the questions with True or False. 
+Each split of a decision tree classifies instances based on a test of a feature. 
+This test can be True or False. 
+The splitting goes from the root of the tree to a node. 
+So an instance is classified starting from the root and testing the feature specified by the node, then going down the split and testing a different feature specified by another node.  
 Refer to the visual. 
 
 _Comment - add a visual_
