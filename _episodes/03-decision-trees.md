@@ -78,7 +78,7 @@ Let's load *simulated_t_cells_7.csv* data set into the software.
 This dataset is engineered specifically to demonstrate the decision tree classifier.
 
 We will continue working on the T-cells example.
-The goal is the same, predicting whether a cell is active or inactive.
+The goal is the same, predicting whether a cell is active or quiescent.
 We also have the same two features: cell size and intensity. 
 
 ### Step 2 Train classifiers
@@ -97,6 +97,14 @@ Without changing any hyperparameter settings, look at the Data Plot.
 **What do you notice?**
 
 The data plot shows two features, where the blue data points represent the quiescent cells, and the red data points represent the active cells. 
+
+Let's come up with a decision rule that the classifier uses to predict the outcome. 
+When we are trying to come up with the decision rule, we will consider the features and the data plot. 
+
+> ## Conceptual Questions
+>
+> What is the decision rule?
+{: .challenge}
 
 **What hyperparameter might be important for this example?**
 
