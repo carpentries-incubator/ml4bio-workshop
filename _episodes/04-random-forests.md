@@ -10,31 +10,27 @@ keypoints:
 - "First key point. Brief Answer to questions. (FIXME)"
 ---
 
-_Comment: Need to add Overview info_
-_Milica's comment: Review below_
-In this episode, we will learn about the random forest classifier. 
+In this episode, we will learn about the random forests classifier. 
 Using the software, we will analyze the pre-engineered dataset and discuss the hyperparameters. 
 Then we will consider some applications in biology. 
 
-_Comment: The example did't quite capture what's happening with a random forest, so I iterated on it with the way I generally think of random forests. Probably still needs more iterating on, however._
-
 We previously examined decision trees. 
 One of their main weaknesses is their tendancy to overfit if the tree is allowed to get too deep. 
-In training a decision tree we often have to therefore alter the decison tree's parameters to keep it a "generalist", instead of allowing it to overly specialize and overfit. 
+In training a decision tree we often have to therefore alter the decison tree's parameters to keep it a "generalist", instead of allowing it to overly specialize and overfit. *Milica's Comment: I struggled with this... can we find a better way to say this?*
 
-Random forests, however, deal with the problem of overfitting by creating multiple trees, with each tree trained slighly differently so it overfits differently. 
+Random forests deals with the problem of overfitting by creating multiple trees, with each tree trained slighly differently so it overfits differently.
+Random forests is a classifier that combines a large number of decision trees.
 The decisions of each tree are then combined to make the final classification.
-This "team of specialists" approach random forests take often outperforms the "single generalist" approach of decision trees. 
+This "team of specialists" approach random forests take often outperforms the "single generalist" approach of decision trees. *Milica's Comment: Same as the above, can we reword this somehow?*
 
-### Why is it called "random" forest?
+### Why is it called "random" forests?
 
 If we, when training each tree in the forest, give every tree the same data, we would get the same predictions that are prone to overfitting. 
-In order to train each tree differently we need to provide slightly different data to each tree. 
+In order to train the decision trees differently we need to provide slightly different data to each tree. 
 To do this, we choose a **random** subset of the data to give to each tree. 
-At each node in the tree, when training we also **randomize** which features can be used to split the data.
+When training At each node in the tree we also **randomize** which features can be used to split the data.
 The final prediction is based on a vote or the average taken across all the decision trees in the forest.
 
-_Comment: Gave this a little rewording but I think it covers the randomization well._
 
 ### Step 1 Select data
 
