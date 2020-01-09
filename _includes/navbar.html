@@ -14,23 +14,31 @@
         <span class="icon-bar"></span>
       </button>
 
-      {% comment %} Select what logo to display. {% endcomment %}
+      {% comment %} Select what logo to display. Commented out until ml4bio has a custom logo. {% endcomment %}
       {% if site.carpentry == "swc" %}
+      {% comment %}
       <a href="{{ site.swc_site }}" class="pull-left">
         <img class="navbar-logo" src="{{ relative_root_path }}{% link /assets/img/swc-icon-blue.svg %}" alt="Software Carpentry logo" />
       </a>
+      {% endcomment %}
       {% elsif site.carpentry == "dc" %}
+      {% comment %}
       <a href="{{ site.dc_site }}" class="pull-left">
         <img class="navbar-logo" src="{{ relative_root_path }}{% link /assets/img/dc-icon-black.svg %}" alt="Data Carpentry logo" />
       </a>
+      {% endcomment %}
       {% elsif site.carpentry == "lc" %}
+      {% comment %}
       <a href="{{ site.lc_site }}" class="pull-left">
         <img class="navbar-logo" src="{{ relative_root_path }}{% link /assets/img/lc-icon-black.svg %}" alt="Library Carpentry logo" />
       </a>
+      {% endcomment %}
       {% elsif site.carpentry == "cp" %}
+      {% comment %}
       <a href="{{ site.carpentries_site }}" class="pull-left">
         <img class="navbar-logo" src="{{ relative_root_path }}{% link /assets/img/cp-logo-blue.svg %}" alt="The Carpentries logo" />
       </a>
+      {% endcomment %}
       {% endif %}
 
       {% comment %} Always show link to home page. {% endcomment %}
