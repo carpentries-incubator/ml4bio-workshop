@@ -26,15 +26,13 @@ It can be very slow and expensive for an expert biologists to manually make the 
 Training and executing a machine learning model can be faster and cheaper.
 
 Let’s look at some examples of how machine learning is being used in biology research.
-_Comment: let's mostly on biology and remove some of the examples from personal health and medicine.  We'll need to replace some of these._
 
-* Fitness trackers.
-* MonBaby tracks your baby’s breathing movements and sleep position, transmitting important alerts directly to your smartphone. Made to help prevent SIDS.
-* [Solid-state lithium ion batteries](https://tomkat.stanford.edu/research/designing-better-battery-machine-learning)  
-* [Rxrx.ai](https://www.rxrx.ai/) “RxRx1 is a dataset consisting of 296 GB of 16-bit fluorescent microscopy images, the result of the same experimental design being run multiple times with the primary differences between experiments being technical noise unrelated to the underlying biology." 
-* [Insilico](https://insilico.com/#rec41711523) extends healthy longevity through innovative AI solutions for drug discovery and aging research. Drug discovery challenges are dominated by machine learning researchers. 
-* [Machine learning classifies cancer](https://www.nature.com/articles/d41586-018-02881-7)
-* [Finding glaucoma in color fundus photographs using deep learning](https://jamanetwork-com.ezproxy.library.wisc.edu/journals/jamaophthalmology/fullarticle/2749327?resultClick=1)
+* [Imputing missing SNP data.](https://doi.org/10.1038/sj.ejhg.5201988)
+* [Identifying transcription-factor binding sites from DNA sequence data alone, and predicting gene function from sequence and expression data.](http://doi.org/10.1038/nrg3920)   
+* [Finding drug targets in  breast, pancreatic and ovarian cancer.](https://doi.org/10.1186/s13073-014-0057-7)
+* [Diagnosing cancer from DNA methylation data.](http://doi.org/10.1038/d41586-018-02881-7)
+* [Finding glaucoma in color fundus photographs using deep learning.](http://doi.org/10.1001/jamaophthalmol.2019.3512)
+* [Predicting lymphocyte fate from cell imaging](https://doi.org/10.1371/journal.pone.0083251)
 
 
 ### Your first model
@@ -50,7 +48,7 @@ _Comment: let's mostly on biology and remove some of the examples from personal 
 > What classifier did we use, and why did we decide to use that one? _Comment: Need to define classifier first._
 {: .challenge}
 
-This about these questions and return to them to answer. 
+We will think about these questions whenever we encounter a situation involving machine learning. 
 
 Let’s say you want to buy a house.
 You follow the real estate market for a few months.

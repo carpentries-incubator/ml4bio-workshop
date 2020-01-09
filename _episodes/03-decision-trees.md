@@ -8,7 +8,7 @@ objectives:
 - "Discuss applying, updating, and evaluating a trained model on new data."
 ---
 _Comment: Is the objective to learn about pros/cons of the decision tree model as opposed to all of these models?_
-
+_Comment: I'm not sure about the decision rule as a central question_
 ### What is the decision tree classifier? 
 
 Decision trees make predictions by asking a sequence of questions for each example and make a prediction based on the responses.
@@ -21,7 +21,7 @@ Or in the case of T-cells, a decision tree can predict whether or not a T cell i
 <img width="450" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/decision%20tree1.jpg">
 </p>
 
-#### Intuitive example
+#### Example
 
 To better understand the algorithm, let's consider the house price prediction example from the [Introduction episode](lhttps://gitter-lab.github.io/ml-bio-workshop/01-introduction/index.html).
 We are going to begin with an initial house price range, and for the neighborhood of our interest the prices range from $100k - $250k. 
@@ -40,7 +40,7 @@ The questions in our house price example are about the dataset features.
 The decision tree answers the questions with True or False. 
 Refer to the visual. 
 
-Comment - add a visual. 
+_Comment - add a visual_
 
 ### About the classifier
 
@@ -54,10 +54,13 @@ Some pros of using decision trees:
 
 - easy to visualize
 - the classification can be visually followed, so it is easy to reproduce
+- makes few assumptions about the data
+- can ignore useless features
 
 Some cons of using decision trees:
 
 - prone to overfitting
+- requires a way to turn numeric data into a single decision rule
 
 ### Step 1 Select data
 
@@ -103,7 +106,7 @@ How does the data plot look for the uniform class_weight and how does it look fo
 ### Step 3 Test and predict
 
 #### Overfitting
-
+_Comment: It'd be tough to construct an example of decision trees overfitting if we stick to the toy_data examples with only 2 features. We may need to use another one of the datasets to show overfitting in this context._
 If a model fits the training data perfectly, or very well, the model can become too data dependent and not work as well on a new data. 
 
 _Comment: We need more callouts to guide this lesson.  What steps should they take?  What hyperparameter values should they try?  What are the key ideas?  What do they observe about the decision boundaries of a decision tree?_
