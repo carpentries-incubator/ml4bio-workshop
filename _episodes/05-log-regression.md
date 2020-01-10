@@ -9,20 +9,44 @@ keypoints:
 - "First key point. Brief Answer to questions. (FIXME)"
 ---
 
+Logistic regression is a classifier that models the probability of a certain label. 
 In our original example, when we predicted whether a price for a house is high or low, we were classifying our responses into two categories.
-We could've added a category and had "low", "medium" and "high".
-When we are trying to predict a certain category.
-In other words, logistic regression can be binary if we have two categories we are trying to predict, or multinomial if we have more than two categories that we are trying to predict.
+If we use logistic regression to predict one of the two labels, it is a binary logistic regression.
+Everything that applies to the binary classification could be applied to multi-class problems. 
+We will be focusing on binary classification in this workshop.
 
-**How do we choose a classifier?** 
+### What is logistic regression?
+
+Logistic regression returns the probability that a combination of features with weights belong to a certain class. 
+NOTE: Probability is always between 0 and 1.
+Let's build the visual of the house price example with one feature. 
+We want to predict whether the house price is high or low.
+We will be predicting the probability that the price belongs to one of the two classes, so this is binary classification. 
+Let's look at the single feature, square footage of a house, and how it affects whether the house price is high or low. 
+The price is high if it is more than $150k and low if it is less than $150k.
 
 > ## Conceptual Questions
 >
-> How is logistic regression different from decision trees and random forests?
+> What rule is the classifier learning?
 {: .challenge}
 
-Logistic regression is different from the decision trees and random forests in the way it 
+*Milica's comment: add visual*
 
+Now, let's think about the T-cells example. 
+If we focus only on one feature, for example cell size, we can use logistic regression to predict the probability that the cell would be active. 
+
+*Milica's comment: should we add multiple visuals with different weights?*
+
+If we have 2 features, both cell size and cell intensity, logistic regression is learning a different rule. 
+The rule is a single straight line. 
+We can control slope, steepness, from class 1 and class 2 
+
+> ## Conceptual Questions
+>
+> Why is it a straight line?
+> What exactly is the classifier learning?
+{: .challenge} 
+  
 
 ### Step 1 Select Data
 
