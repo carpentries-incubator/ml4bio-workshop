@@ -69,7 +69,12 @@ This metric is called _precision_ in machine learning (and may be different from
 > 1. Which entries in the confusion matrix are most important in this machine learning task? Is one type of correct or one type of incorect prediction more important than the other for your machine learning system?
 > 2. Imagine a classifier that predicted that all drugs are non-interacting. If you evaluated this classifier using the entire catalog of FDA approved drugs, what would the accuracy look like?
 > 3. What metric or couple of metrics would you use to evaluate your machine learning system?
+>
+>
+> Load the `simulated-drug-discovery` dataset from the `data` folder into the ML4Bio software. Trying training a logistic regression classifier on the dataset. Which metrics seem to accuratley reflect the performance of the classifier?
 {: .callout}
+
+_Comment: Need to relabel toy dataset 9 to fit this scenario_
 
 Common Metrics:
 
