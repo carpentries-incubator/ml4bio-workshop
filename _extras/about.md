@@ -1,5 +1,5 @@
 ---
-title: About ml4bio
+title: About ml4bio software
 ---
 {% include links.md %}
 
@@ -21,7 +21,7 @@ This is a popular general purpose machine learning package.
 When you use the ml4bio graphical interface, it calls functions in scikit-learn to train classifiers and make predictions.
 
 ### Advanced users
-Advanced users who already have Python installed can install the [required packages](../scripts/README.md) through pip.
+Advanced users who already have Python installed can install the [required packages](https://github.com/gitter-lab/ml-bio-workshop/blob/master/scripts/README.md) through pip.
 Then launch ml4bio from the command line with the command `ml4bio`.
 
 ### A quick tour

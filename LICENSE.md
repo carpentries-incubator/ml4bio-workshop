@@ -3,6 +3,16 @@ layout: page
 title: "Licenses"
 root: .
 ---
+## ml4bio Licenses
+
+The content of the ml4bio workshop is made available under the [Creative Commons Attribution 4.0 International Public License][cc-by-human] by the Gitter Lab.
+The [ml4bio software](https://github.com/gitter-lab/ml4bio) is made available under the [MIT license](https://github.com/gitter-lab/ml4bio/blob/master/LICENSE).
+The [ml4bio guides](https://github.com/gitter-lab/ml-bio-workshop/tree/master/guide) contain [images from third-party sources](https://github.com/gitter-lab/ml-bio-workshop/blob/master/figures/third_party_figures), as noted in the image links and guide references.
+See the linked original image sources for their licenses and terms of reuse.
+
+The ml4bio workshop is derived from materials, software, and templates from [The Carpentries](https://carpentries.org/).
+See below for The Carpentries licensing information.
+
 ## Instructional Material
 
 All Software Carpentry, Data Carpentry, and Library Carpentry instructional material is
