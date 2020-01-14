@@ -1,6 +1,7 @@
 ---
 title: "Decision Trees"
-teaching: 15
+teaching: 10
+exercises: 5
 questions:
 - "What is the decision rule?"
 objectives:
@@ -14,7 +15,7 @@ _Comment: I'm not sure about the decision rule as a central question_
 
 Decision trees make predictions by asking a sequence of questions for each example and make a prediction based on the responses.
 This makes decision trees intuitive.
-One of the benefits is that we can clearly see the path of questios and answers we took to get to the final prediction.
+One of the benefits is that we can clearly see the path of questions and answers we took to get to the final prediction.
 For example, a doctor might use a decision tree to decide which medicine to prescribe based on a patient's responses about their symptoms.
 Or in the case of T-cells, a decision tree can predict whether or not a T cell is active or quiescent.
 
@@ -30,7 +31,8 @@ The first question we could ask is the number of bedrooms in the house.
 The answer is 3 bedrooms, and so our new range will be $180k-$250k. 
 Then we will ask about the number of bathrooms, and the answer is 3 bathrooms. 
 The new range range is $220-$250.
-Finally we will ask 
+Finally we will ask what neighborhood is the house located.
+The answer is Neighborhood 1.
 That give us the price of $230k. 
 _Comment: (add the visual)_
 
@@ -50,8 +52,12 @@ _Comment - add a visual_
 A decision tree is a supervised learning classifier.
 It splits the initial population depending on a certain rule.
 The goal of the classifier is to predict the class label on a new set of data based on the rule that the classifier learned from the features of the training examples.
-An important property of the decision tree is the depth of tree.
-That is the number of times we make a split to reach a decition. 
+An important property of the decision tree is the __depth of tree__.
+
+> ## Definition
+>
+> Depth of tree is the number of times we make a split to reach a decision.
+{: .callout} 
 
 Some pros of using decision trees:
 
@@ -74,8 +80,13 @@ Some cons of using decision trees:
 > How would the decision tree look graphically?
 {: .challenge}
 
-Let's load *simulated_t_cells_7.csv* data set into the software.
-This dataset is engineered specifically to demonstrate the decision tree classifier.
+
+> ## Software
+>
+> Let's load *simulated_t_cells_7.csv* data set into the software.
+>
+> This dataset is engineered specifically to demonstrate the decision tree classifier.
+{: .checklist}
 
 We will continue working on the T-cells example.
 The goal is the same, predicting whether a cell is active or quiescent.
@@ -94,7 +105,10 @@ In biology, it is common to have an imbalanced training set with more negative t
 
 Without changing any hyperparameter settings, look at the Data Plot.
 
-**What do you notice?**
+> ## Think-Pair-Share
+>
+> What do you notice?
+{: .challenge}
 
 The data plot shows two features, where the blue data points represent the quiescent cells, and the red data points represent the active cells. 
 
@@ -104,15 +118,19 @@ When we are trying to come up with the decision rule, we will consider the featu
 > ## Conceptual Questions
 >
 > What is the decision rule?
+> 
+> What hyperparameter might be important for this example?
 {: .challenge}
-
-**What hyperparameter might be important for this example?**
 
 The given dataset is imbalanced with more quiescent cells than active cells. 
 Let's change the class_weight to balanced. 
-Did this make any difference? 
-How does the data plot look for the uniform class_weight and how does it look for the balanced class weight?
 
+> ## Activity
+>
+> Did this make any difference? 
+>
+> How does the data plot look for the uniform class_weight and how does it look for the balanced class weight?
+{: .challenge}
 
 ### Step 3 Test and predict
 
