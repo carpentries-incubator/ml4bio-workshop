@@ -8,6 +8,8 @@ objectives:
 - Define machine learning
 - Identify problems in computational biology suitable for machine learning
 - Recognize the benefits of machine learning techniques
+keypoints:
+- 
 ---
 
 > ## Think-Pair-Share
@@ -17,7 +19,11 @@ objectives:
 
 ### What is machine learning?
 
-Machine learning is a set of methods that can automatically detect patterns in data and then use those patterns to make predictions on future data or perform other kinds of decision making under uncertainty. 
+> ## Definition
+>
+>__Machine learning__ is a set of methods that can automatically detect patterns in data and then use those patterns to make predictions on future data or perform other kinds of decision making under uncertainty.
+{: .callout}
+ 
 A machine learning algorithm gets better at its task when it is shown examples as it tries to define general patterns from the examples.
 
 ### Your first machine learning model
@@ -29,24 +35,35 @@ Every time you visit a house, you write down all the information you learned abo
 
 > ## Question
 >
-> What are some of the features that you would consider when buying a house?
+> What are some of the __features__ that you would consider when buying a house?
 {: .challenge}
+
+> ## Definition
+>
+> Feature - text
+{: .callout}
 
 ### Group activity
 
 We'll create a housing dataset together.
 After the data was collected, label the prices into two categories low or high.
 
-_Comment: Make into bullet points using the .callout blockquote style. We will use bold formatting for each term that has a definition in a callout._
 > ## Definitions
 >
 > Supervised learning - text
+>
 > Unsupervised learning - text
 {: .callout}
 
-Our dataset has labeled data, so our classification is a supervised machine learning task.
-There are different types of machine learning algorithms - supervised learning and unsupervised learning are the main two.
-In this workshop, we focus on supervised learning algorithms. 
+Our dataset has labeled data, so our classification is a __supervised machine learning__ task.
+There are different types of machine learning algorithms - supervised learning and __unsupervised learning__ are the main two.
+In this workshop, we focus on supervised learning __algorithms__. 
+
+> ## Definitions
+>
+> Algorithm - text
+{: .callout}
+
 Note different types of features (text, number, category, etc).
 _Comment: We should have some example rows filled in already. Should we remove the third ... column to make it 2 features?_
 <p align="center">
@@ -76,7 +93,8 @@ We use supervised learning to build our model. We want to be able to use the mod
 
 ### What is the difference between a machine learning algorithm and a traditional algorithm?
 
-_Comment: Revise this to follow our housing example where we learned the rule from labeled data.  Traditional algorithm is direct implementation based on realtor's expert knowledge.  Define Algorithm._
+_Comment: Revise this to follow our housing example where we learned the rule from labeled data.  Traditional algorithm is direct implementation based on realtor's expert knowledge. 
+
 **Traditional algorithm:**
 Let’s say you are doing an experiment, and you need to mix up some solutions.
 You have all the ingredients, you have the “recipe” or the proportions, and you follow the recipe to get a solution.
