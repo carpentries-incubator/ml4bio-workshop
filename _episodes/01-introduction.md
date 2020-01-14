@@ -1,10 +1,13 @@
 ---
 title: "Introduction"
-teaching: 15
+teaching: 10
+exercises: 5
 questions:
 - What is machine learning?
 objectives:
-- Identify current problems in computational biology and recognize the benefits of machine learning techniques.
+- Define machine learning
+- Identify problems in computational biology suitable for machine learning
+- Recognize the benefits of machine learning techniques
 ---
 
 > ## Think-Pair-Share
@@ -17,38 +20,7 @@ objectives:
 Machine learning is a set of methods that can automatically detect patterns in data and then use those patterns to make predictions on future data or perform other kinds of decision making under uncertainty. 
 A machine learning algorithm gets better at its task when it is shown examples as it tries to define general patterns from the examples.
 
-
-### What does it mean for biology? 
-
-Machine learning is making computation more **sustainable**.
-Computers can **scale**, easily making predictions on a large number of items.
-It can be very slow and expensive for an expert biologists to manually make the same decisions or manually construct a decision-making model.
-Training and executing a machine learning model can be faster and cheaper.
-
-Let’s look at some examples of how machine learning is being used in biology research.
-
-* [Imputing missing SNP data.](https://doi.org/10.1038/sj.ejhg.5201988)
-* [Identifying transcription-factor binding sites from DNA sequence data alone, and predicting gene function from sequence and expression data.](http://doi.org/10.1038/nrg3920)   
-* [Finding drug targets in  breast, pancreatic and ovarian cancer.](https://doi.org/10.1186/s13073-014-0057-7)
-* [Diagnosing cancer from DNA methylation data.](http://doi.org/10.1038/d41586-018-02881-7)
-* [Finding glaucoma in color fundus photographs using deep learning.](http://doi.org/10.1001/jamaophthalmol.2019.3512)
-* [Predicting lymphocyte fate from cell imaging](https://doi.org/10.1371/journal.pone.0083251)
-
-
-### Your first model
-
-> ## Conceptual Questions
->
-> What is the benefit of machine learning in this situation?
->
-> What are we trying to predict? 
->
-> What features do we have for those predictions?
->
-> What classifier did we use, and why did we decide to use that one? _Comment: Need to define classifier first._
-{: .challenge}
-
-We will think about these questions whenever we encounter a situation involving machine learning. 
+### Your first machine learning model
 
 Let’s say you want to buy a house.
 You follow the real estate market for a few months.
@@ -62,15 +34,21 @@ Every time you visit a house, you write down all the information you learned abo
 
 ### Group activity
 
-The facilitator will recreate the table on the board and collect the data from the participants.
-Write the answer on the board.
+We'll create a housing dataset together.
 After the data was collected, label the prices into two categories low or high.
-Our dataset has labeled data, so our classification is a supervised machine learning task.
-There are different types of machine learning algorithms - supervised learning, unsupervised learning, and reinforcement learning.
-In this workshop, we focus on supervised learning algorithms. 
 
+_Comment: Make into bullet points using the .callout blockquote style. We will use bold formatting for each term that has a definition in a callout._
+> ## Definitions
+>
+> Supervised learning - text
+> Unsupervised learning - text
+{: .callout}
+
+Our dataset has labeled data, so our classification is a supervised machine learning task.
+There are different types of machine learning algorithms - supervised learning and unsupervised learning are the main two.
+In this workshop, we focus on supervised learning algorithms. 
 Note different types of features (text, number, category, etc).
-_Comment: We should have some example rows filled in already. Shoudl we remove the third ... column to make it 2 features?_
+_Comment: We should have some example rows filled in already. Should we remove the third ... column to make it 2 features?_
 <p align="center">
 <img width="550" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/IMG_0016.jpg">
 </p>
@@ -79,19 +57,16 @@ We find a dream home that is not a part of our already existing data set.
 This home is new data, and we want to predict whether the price will be high or low.
 Based on the features that we already know, we are trying to classify our future home in one of the two possible categories. 
 
-**Sample answer**
-_Comment: label the x and y axis._
+We can visualize what the classifier will predict based on the feature values.
+
+_Comment: label the x and y axis with real examples like square footage and number of bathrooms_
 <p align="center">
 <img width="450" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/78274.jpg">
 </p>
 
-> ## Question
->
-> What classifier did we use, and why did we decide to use that one?
-{: .challenge}
-
 This is a simple example of machine learning.
 
+_Comment: Move evaluation to a different lesson_
 ### Evaluation
 
 Is there anything else that you would want to do before using this to price a house?
@@ -101,6 +76,7 @@ We use supervised learning to build our model. We want to be able to use the mod
 
 ### What is the difference between a machine learning algorithm and a traditional algorithm?
 
+_Comment: Revise this to follow our housing example where we learned the rule from labeled data.  Traditional algorithm is direct implementation based on realtor's expert knowledge.  Define Algorithm._
 **Traditional algorithm:**
 Let’s say you are doing an experiment, and you need to mix up some solutions.
 You have all the ingredients, you have the “recipe” or the proportions, and you follow the recipe to get a solution.
@@ -109,11 +85,35 @@ You have all the ingredients, you have the “recipe” or the proportions, and 
 You are given the ingredients and the final solution, but you don’t know the recipe.
 So, what you need to do it to find the “fitting” of the ingredients, that would result in your solution.  
 
-> ## Key points
+> ## Conceptual Questions
 >
-> 
-{: .keypoints}
+> What is the benefit of machine learning in this situation?
+>
+> What are we trying to predict? 
+>
+> What features do we have for those predictions?
+>
+> What classifier did we use, and why did we decide to use that one? _Comment: Need to define classifier first._
+{: .challenge}
 
+We will think about these questions whenever we encounter a situation involving machine learning.
+
+### What does machine learning mean for biology? 
+
+Machine learning can **scale**, easily making predictions on a large number of items.
+It can be very slow and expensive for expert biologists to manually make the same decisions or manually construct a decision-making model.
+Training and executing a machine learning model can be faster and cheaper.
+
+Let’s look at some examples of how machine learning is being used in biology research.
+
+* [Imputing missing SNP data.](https://doi.org/10.1038/sj.ejhg.5201988)
+* [Identifying transcription-factor binding sites from DNA sequence data alone, and predicting gene function from sequence and expression data.](http://doi.org/10.1038/nrg3920)   
+* [Finding drug targets in  breast, pancreatic and ovarian cancer.](https://doi.org/10.1186/s13073-014-0057-7)
+* [Diagnosing cancer from DNA methylation data.](http://doi.org/10.1038/d41586-018-02881-7)
+* [Finding glaucoma in color fundus photographs using deep learning.](http://doi.org/10.1001/jamaophthalmol.2019.3512)
+* [Predicting lymphocyte fate from cell imaging](https://doi.org/10.1371/journal.pone.0083251)
+
+_Comment: will add keypoints_
 
 {% include links.md %}
 
