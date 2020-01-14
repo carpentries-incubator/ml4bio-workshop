@@ -1,11 +1,17 @@
 ---
-title: "T-cells"
-teaching: 30
+title: "Classifying T-cells"
+teaching: 25
+exercises: 5
 questions:
-- "What are we trying to predict?"
+- What are the steps in a machine learning workflow?
 objectives:
-- "Comprehend how the datasets are preprocessed, what are samples, features and class labels, what is a model in machine learning, what is training set, hyperparameters, validation set, evaluation and prediction, and how to perform model selection."
+- Define classifiers
+- Comprehend how the datasets are preprocessed
+- Learn what are samples, features, and class labels in a biological example
+- Understand training, validation, and test sets
 ---
+
+### Why classify T cells
 
 Let's consider how to answer a real biological question using the same concepts we saw in the introduction.
 The question pertains to immunotherapy, a type of cancer treatment that uses the body's immune cells to boost natural defenses against cancer.
@@ -16,15 +22,15 @@ Here we will study how to assess the activation state of individual T cells.
 Scientists at UW-Madison and the Morgridge Institute [developed an imaging method](https://doi.org/10.1101/536813) to easily and quickly acquire images of T cell without destroying them.
 These images contain information that can be used to predict T cell activity.
 We would like to develop a classifier that can take an image of a T cell and predict whether it is active or quiescent.
-The active cells could them be used for immunotherapy, and the inactive cells could be discarded.
-_Comment: Is this our text or was it derived from another source?  Need to avoid as much bio jargon as possible and use inactive instead of quiescent._
-*Milica's comment: This is out text - Jay wrote it*
+The active cells would then be used for immunotherapy, and the quiescent cells can be considered inactive and would be discarded.
+_Comment: Make sure we include Jay in acknowledgements when we update them_
+_Comment: Define "active" in the sentence above_
 
 ### Dataset description
 
 This microscopy dataset includes grayscale images of two type of T cells: activated and quiescent.
 These T cells come from blood samples from six human donors.
-_Comment: Do we need to make these images bigger?_
+_Comment: Do we need to make these images bigger? Does that require HTML images? Add another row or two so we can see some patterns emerge (Tony)._
 
 |Activated|Quiescent|
 |:---:|:---:|
@@ -32,10 +38,11 @@ _Comment: Do we need to make these images bigger?_
 
 We will use a subset of the images and follow the workflow in a [T cell classification study](https://doi.org/10.1002/jbio.201960050).
 
+_Comment: Restructure to be like slides, add 2-3 examples, ask questions about what we think the labels are (show of hands)_
 
 ### Machine learning methods
 
-The goal of this study is to develop a method to classify T cell activation stage (activated vs. quiescent). 
+The goal of this study is to develop a method to classify T cell activation state (activated vs. quiescent). 
 
 ### ml4bio software setup
 
@@ -47,7 +54,7 @@ If you want to experiment with your data, make sure to follow the guidelines in 
 
 ## Machine learning workflow (Make our own version of this)
 
-_Comment: Are we going to reuse this image?_
+_Comment: If we reuse, crop the bubbles out and add attribution at the bottom of the page._
 <p align="center">
 <img width="600" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/workflow.png">
 </p>
@@ -59,14 +66,16 @@ Preprocessing the raw data is an essential step to have quality data for the mod
 Some of the properties of quality data are the absence of missing values, the data for each feature is of consistent data type and the same unit of measure, any outliers have been addressed, and there are no duplicate values.
 Some methods and tools are used for data normalization and preprocessing.
 However, learning these methods and tools is not one of the objectives of the workshop because of the time constraint and the focus on classification and choosing a model.
-So, we will assume that all of the data has already been preprocessed. 
+So, we will assume that all of the data has already been preprocessed.
+_Comment: missing values, outliers need to be defined.  Leave this?  Make bullets?_
 
 **Load size_intensity_feature.csv into the software under the Labeled Data**
-_Comment: This should be some type of callout box_
+_Comment: This should be some type of callout box.  Make steps to be performed in ml4bio software into .checklist style callouts._
 
 > ## Conceptual Questions
 >
 > What are we trying to predict? 
+>
 > What features do we have for those predictions?
 {: .challenge}
 
@@ -80,7 +89,10 @@ We can also see that the total number of Samples is 843.
 
 > ## Conceptual Questions
 >
-> How many inactive samples are in the dataset? How many active? 
+> How many quiescent samples are in the dataset?
+>
+> How many active samples?
+> 
 > Can we make any assumptions about the dataset based on the number of samples for each label?
 {: .challenge}
 
@@ -93,6 +105,7 @@ The training set is further divided into a training set and a validation set.
 <img width="600" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/datasets.jpg">
 </p>
 
+_Comment: Use new definition styles for these terms.  Calling this approach Holdout Validation, which also needs to be defined here._
 #### Training set 
 
 The training set is a part of the original dataset that trains or fits the model.
@@ -113,6 +126,7 @@ Then we look through all folds of data.
 The same is done with the training dataset.
 Each time we repeat training and validating, we split the original training set into new training and validation datasets.
 
+_Comment: Replace Cross-Validation with Model Tuning and remove the red "repeat splitting" bubble. Cross validation would be a Day 2 workshop concept. _
 <p align="center">
 <img width="700" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/datasets2.jpg">
 </p>
@@ -126,31 +140,27 @@ _Comment: Say something about only using the test set once._
 
 We will use the ml4bio default option and splitting our dataset to be 80% training set and 20% test set. 
 
-### Validation methodology
-
-_Comment: Do we have time to discuss all of these or should we focus only on holdout validation?_
-Now that we learned about the importance of splitting our dataset, let's briefly mention some of the validation methodologies. 
-
-#### Holdout Validation
-
-#### K-Fold Cross Validation
-
-tried to write about this, but it is hard to be concise. Do we want this? Or just to tell them which one to use in the January workshop? 
-
-
 ## Step 2: Train classifiers
 
-Classification is a process when given some input we are try to predict an outcome by coming up with a rule that will guess this outcome. Tools that use classiffication to predict an outcome are classifiers.
+Classification is a process when given some input we are try to predict an outcome by coming up with a rule that will guess this outcome.
+Tools that use classification to predict an outcome are classifiers.
+_Comment: Callout for definition_
 
 We are given a dropdown menu of some of the most frequently used classifiers in biology.
 In this workshop, we will be further talking about [Decision Tree](https://gitter-lab.github.io/ml-bio-workshop/03-decision-trees/index.html), [Random Forests](https://gitter-lab.github.io/ml-bio-workshop/04-random-forests/index.html), [Logistic Regression](https://gitter-lab.github.io/ml-bio-workshop/05-log-regression/index.html), and [Neural Network](https://gitter-lab.github.io/ml-bio-workshop/07-neural-nets/index.html).
 
+We will evaluate the classifiers using accuracy.
+_Comment: Define accuracy_
+
 > ## Play time
 >
-> Pick a few classifiers and without changing the default settings train the data.
-{: .callout}
+> Pick a few classifiers and train them without changing the default hyperparameters.
+>
+> Do you see different accuracy depending on the classifier.
+{: .checklist}
 _Comment: Do we need more instructions about how to do this in the software?  Or will we show them?_
 
+_Comment: Clean up text and move some into the box above_
 As you can see, you will get different performance metrics depending on the classifier. _Comment: Tell them where the metrics are_
 This reflects the real life situtation when you work with the real data.
 You will train many classifiers before you find the one that you are satisfied with.
@@ -160,13 +170,13 @@ Try to answer these questions to get a better understanding of the software:
 
 After you finish playing around, let's train Decision Tree, Random Forest, Logistic regression, and Neural Network classifiers. 
 
-For this specific example, we will be working with the default hyperparameters in call cases.
+For this specific example, we will be working with the default hyperparameters in all cases.
 
 
 ## Step 3 Test and Predict
 
 Our final step is model selection.
-After we trained multiple classifiers, changed some hyperparameters, and did cross-validation, the next step is to choose the best model.
+After we trained multiple classifiers, changed some hyperparameters, and did holdout validation, the next step is to choose the best model.
 Model evaluation and selection is a vast topic so that we will be focusing on the metrics provided in the software.
 
 _Comment: Recommend focusing on 1 or maybe 2 metrics here (maybe accuracy?).  We want to show the end-to-end workflow and not get stuck explaining all the metrics.  Those can come is the choosing a model episode or elsewhere._
@@ -198,9 +208,9 @@ there are a few visualization tools that can help with the model selection. The 
 
 Once the model was selected based on the metric that we chose, we want to use the model for the prediction on the test data.
 Based on the same prediction metrics that we used on the validation set, we can make certain conclusions about our model. 
-_Comment: Should summary the key points.  What can we now do with new T cell images?_
 
-> ## Key points
->
-> 
-{: .keypoints}
+_Comment: Add callout to ask if whoever had the best validation accuracy also has the best test set accuracy.  Why or why not is this the case?_
+
+_Comment: Should summarize the key points and add them above in the Markdown header.  What can we now do with new T cell images?_
+
+{% include links.md %}

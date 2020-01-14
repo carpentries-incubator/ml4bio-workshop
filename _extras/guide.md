@@ -10,5 +10,10 @@ Write the answers on the board.
 Provide one example feature, then open the discussion for others.
 Select two features that will work well for the classification example.
 
+## T cells
+When training classifiers, train one type of classifier together.
+Point out where the accuracy is in the table and how it is derived from the confusion matrix.
+Then have participants try more classifiers.
+Ask the participants who obtained the best accuracy and what settings they used.
 
 {% include links.md %}
