@@ -24,7 +24,13 @@ These images contain information that can be used to predict T cell activity.
 We would like to develop a classifier that can take an image of a T cell and predict whether it is active or quiescent.
 The active cells would then be used for immunotherapy, and the quiescent cells can be considered inactive and would be discarded.
 _Comment: Make sure we include Jay in acknowledgements when we update them_
-_Comment: Define "active" in the sentence above_
+
+> ## Definitions
+>
+> Active cells - text
+>
+> Quiescent cells - text
+{: .callout}
 
 ### Dataset description
 
@@ -62,15 +68,30 @@ _Comment: If we reuse, crop the bubbles out and add attribution at the bottom of
 ### Data preprocessing 
 
 The first step in machine learning is to prepare our data.
-Preprocessing the raw data is an essential step to have quality data for the model.
-Some of the properties of quality data are the absence of missing values, the data for each feature is of consistent data type and the same unit of measure, any outliers have been addressed, and there are no duplicate values.
-Some methods and tools are used for data normalization and preprocessing.
+__Preprocessing__ the raw data is an essential step to have quality data for the model.
+
+> ## Definitions
+>
+> Preprocession - text
+>
+> Missing values - text
+>
+> Data type - text
+>
+> Outliers - text
+>
+> Data normalization - text
+{: .callout}
+
+Some of the properties of quality data are the absence of __missing values__, the data for each feature is of consistent __data type__ and the same unit of measure, any __outliers__ have been addressed, and there are no duplicate values.
+Some methods and tools are used for __data normalization__ and preprocessing.
 However, learning these methods and tools is not one of the objectives of the workshop because of the time constraint and the focus on classification and choosing a model.
 So, we will assume that all of the data has already been preprocessed.
-_Comment: missing values, outliers need to be defined.  Leave this?  Make bullets?_
 
-**Load size_intensity_feature.csv into the software under the Labeled Data**
-_Comment: This should be some type of callout box.  Make steps to be performed in ml4bio software into .checklist style callouts._
+> ## Software
+>
+> Load size_intensity_feature.csv into the software under the Labeled Data.
+{: .checklist}
 
 > ## Conceptual Questions
 >
@@ -83,9 +104,15 @@ _Comment: This should be some type of callout box.  Make steps to be performed i
 
 ### Data summary
 
-Data Summary gives us an insight into Features and Samples for the dataset we selected.
+Data Summary gives us an insight into features and __samples__ for the dataset we selected.
+
+> ## Definition
+>
+> Sample - text
+{: .callout}
+
 In this particular dataset, we can see that we have two features **cell_size** and **total_intensity**.
-We can also see that the total number of Samples is 843. 
+We can also see that the total number of samples is 843. 
 
 > ## Conceptual Questions
 >
