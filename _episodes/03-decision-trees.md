@@ -3,11 +3,10 @@ title: "Decision Trees"
 teaching: 10
 exercises: 5
 questions:
-- How does the decision trees classifier make the prediction?
+- How does the decision trees classifier make predictions?
 objectives:
-- Develop knowledge on how a classifier makes the prediction. 
-- Understand the cons of a classifier. 
-- Come up with the decision rule.
+- Develop knowledge on how a classifier makes predictions. 
+- Understand advantages and disadvantages of a classifier. 
 - Discuss applying, updating, and evaluating a trained model on new data.
 keypoints:
 - Decision trees are easy to visualize and intuitive to understand. 
@@ -36,7 +35,7 @@ The answer is 3 bedrooms, and so our new range will be $180k-$250k.
 Then we will ask about the number of bathrooms, and the answer is 3 bathrooms. 
 The new range range is $220-$250.
 Finally we will ask what neighborhood is the house located.
-The answer is Neighborhood 1.
+The answer is Neighborhood A.
 That give us the price of $230k. 
 _Comment: (add the visual)_
 
@@ -68,7 +67,7 @@ An important property of the decision tree is the __depth of tree__.
 
 > ## Definition
 >
-> Depth of tree is the number of times we make a split to reach a decision.
+> Depth of tree - the number of times we make a split to reach a decision.
 {: .callout} 
 
 Some pros of using decision trees:
@@ -85,22 +84,19 @@ Some cons of using decision trees:
 
 ### Step 1 Select data
 
-> ## Conceptual Questions
->
-> What are we trying to predict? 
->
-> What is the decision rule?
->
-> How would the decision tree look graphically?
-{: .challenge}
-
-
 > ## Software
 >
 > Let's load *simulated_t_cells_7.csv* data set into the software.
 >
 > This dataset is engineered specifically to demonstrate the decision tree classifier.
 {: .checklist}
+
+> ## Conceptual Questions
+>
+> What are we trying to predict? 
+>
+> What is the decision rule?
+{: .challenge}
 
 We will continue working on the T-cells example.
 The goal is the same, predicting whether a cell is active or quiescent.
@@ -126,18 +122,21 @@ Without changing any hyperparameter settings, look at the Data Plot.
 
 The data plot shows two features, where the blue data points represent the quiescent cells, and the red data points represent the active cells. 
 
-Let's come up with a decision rule that the classifier uses to predict the outcome. 
+So if you notice these cut offs, what do you think they represent?
+They each represent a node in the decision tree. 
 When we are trying to come up with the decision rule, we will consider the features and the data plot. 
 
 > ## Conceptual Questions
->
-> What is the decision rule?
 > 
 > What hyperparameter might be important for this example?
 {: .challenge}
 
-The given dataset is imbalanced with more quiescent cells than active cells. 
-Let's change the class_weight to balanced. 
+The given dataset is imbalanced with more quiescent cells than active cells.
+
+> ## Software
+>
+> Let's change the class_weight to balanced. 
+{: .checklist}
 
 > ## Activity
 >
@@ -149,6 +148,7 @@ Let's change the class_weight to balanced.
 ### Step 3 Test and predict
 
 #### Overfitting
+while we allow to keep these datasets small, image 9000 leaves, one for every single cell and then use the visual from the original pp.
 _Comment: It'd be tough to construct an example of decision trees overfitting if we stick to the toy_data examples with only 2 features. We may need to use another one of the datasets to show overfitting in this context._
 If a model fits the training data perfectly, or very well, the model can become too data dependent and not work as well on a new data. 
 
