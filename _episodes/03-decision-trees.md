@@ -3,13 +3,17 @@ title: "Decision Trees"
 teaching: 10
 exercises: 5
 questions:
-- "What is the decision rule?"
+- How does the decision trees classifier make the prediction?
 objectives:
-- "Compare and contrast the strengths and weaknesses of machine learning classifiers commonly used in biology - logistic regression, decision trees, random forests, and neural networks. Assess model selection and recognize that these methods don't necessarily work right out of the box."
-- "Discuss applying, updating, and evaluating a trained model on new data."
+- Develop knowledge on how a classifier makes the prediction. 
+- Understand the cons of a classifier. 
+- Come up with the decision rule.
+- Discuss applying, updating, and evaluating a trained model on new data.
+keypoints:
+- Decision trees are easy to visualize and intuitive to understand. 
+- Decision trees are prone to overfitting.
+- In biology, imbalanced datasets are common.
 ---
-_Comment: Is the objective to learn about pros/cons of the decision tree model as opposed to all of these models?_
-_Comment: I'm not sure about the decision rule as a central question_
 
 ### What is the decision tree classifier? 
 
@@ -41,8 +45,16 @@ _Comment: (add the visual)_
 This intuitive way of understanding decision trees is very close to the way the algorithm is implemented, but we also have the other part of the split to consider. 
 Each split of a decision tree classifies instances based on a test of a single feature. 
 This test can be True or False. 
-The splitting goes from the root at the top of the tree to a leaf node at the bottom. 
-So an instance is classified starting from the root and testing the feature specified by the node, then going down the split based on the outcome of the test and testing a different feature specified by another node.  
+The splitting goes from the root at the top of the tree to a leaf node at the bottom.
+
+> ## Definitions
+>
+> Root node - text
+>
+> Leaf node - text
+{: .callout}
+
+An instance is classified starting from the root and testing the feature specified by the node, then going down the split based on the outcome of the test and testing a different feature specified by another node.  
 Refer to the visual. 
 
 _Comment - add a visual_
@@ -76,7 +88,9 @@ Some cons of using decision trees:
 > ## Conceptual Questions
 >
 > What are we trying to predict? 
+>
 > What is the decision rule?
+>
 > How would the decision tree look graphically?
 {: .challenge}
 
@@ -139,13 +153,6 @@ _Comment: It'd be tough to construct an example of decision trees overfitting if
 If a model fits the training data perfectly, or very well, the model can become too data dependent and not work as well on a new data. 
 
 _Comment: We need more callouts to guide this lesson.  What steps should they take?  What hyperparameter values should they try?  What are the key ideas?  What do they observe about the decision boundaries of a decision tree?_
-
-> ## Key points
-> 
-> Decision trees are easy to visualize and intuitive to understand. 
-> Decisition trees are prone to overfitting.
-> In biology, imbalanced datasets are common..
-{: .keypoints}
 
 ###  Application in biology
 
