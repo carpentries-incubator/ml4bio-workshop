@@ -4,8 +4,8 @@ teaching: 30
 questions:
 - ""
 objectives:
-- "Discuss applying, updating, and evaluating a trained model on new data."
-- "Select and evaluate a model on a sample dataset. Understand the models' complexity and limitations."
+- Develop knowledge on how a classifier makes the prediction.
+- Come up with the decision rule.
 keypoints:
 - "First key point. Brief Answer to questions. (FIXME)"
 ---
@@ -28,19 +28,24 @@ This "team of specialists" approach random forests take often outperforms the "s
 If we, when training each tree in the forest, give every tree the same data, we would get the same predictions that are prone to overfitting. 
 In order to train the decision trees differently we need to provide slightly different data to each tree. 
 To do this, we choose a **random** subset of the data to give to each tree. 
-When training At each node in the tree we also **randomize** which features can be used to split the data.
+When training at each node in the tree we also **randomize** which features can be used to split the data.
 The final prediction is based on a vote or the average taken across all the decision trees in the forest.
 
 
 ### Step 1 Select data
 
-Let's load a T-cells #3 data set into our software. 
-This dataset is designed to specifically illustrate properties of the random forest classifier.
+> ## Software
+>
+> Load a T-cells #3 data set into our software. 
+> This dataset is designed to specifically illustrate properties of the random forest classifier.
+{: .checklist}
 
 > ## Conceptual Questions
 >
 > What are we trying to predict? 
+>
 > What is the decision rule?
+>
 > How would the random forest look graphically?
 {: .challenge}
 
