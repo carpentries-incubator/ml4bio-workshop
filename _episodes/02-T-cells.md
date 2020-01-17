@@ -70,23 +70,23 @@ _Comment: If we reuse, crop the bubbles out and add attribution at the bottom of
 The first step in machine learning is to prepare our data.
 __Preprocessing__ the raw data is an essential step to have quality data for the model.
 
+
 > ## Definitions
 >
 > Preprocession - text
 >
 > Missing values - text
 >
-> Data type - text
->
 > Outliers - text
 >
 > Data normalization - text
 {: .callout}
 
-Some of the properties of quality data are the absence of __missing values__, the data for each feature is of consistent __data type__ and the same unit of measure, any __outliers__ have been addressed, and there are no duplicate values.
-Some methods and tools are used for __data normalization__ and preprocessing.
-However, learning these methods and tools is not one of the objectives of the workshop because of the time constraint and the focus on classification and choosing a model.
-So, we will assume that all of the data has already been preprocessed.
+Preprocessing data can include imputing __missing values__, checking the consistency of the data's features, choosing how to deal with any __outliers__, removing duplicate values, and converting all features into a format that is usable by a machine elarning algorithm.
+Ther are a variety of methods and tools for data __normalization__ and preprocessing.
+
+However, learning these methods and tools is outside the scope of this workshop because as preprocessing strategies are specific to both a dataset's domain and the technology used to gather the data.
+Thoughout this workshop we will assume that all of the data has already been preprocessed. 
 
 > ## Software
 >
@@ -125,118 +125,103 @@ We can also see that the total number of samples is 843.
 
 ### Training set vs. Validation set vs. Test set 
 
-The preprocessed dataset is split into a training set and a test set.
+Before we continue, we need to split the dataset into a training set and a test set.
 The training set is further divided into a training set and a validation set. 
 
 <p align="center">
 <img width="600" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/datasets.jpg">
 </p>
 
-_Comment: Use new definition styles for these terms.  Calling this approach Holdout Validation, which also needs to be defined here._
-#### Training set 
+> ## Definitions
+>
+> Training set - The training set is a part of the original dataset that trains or fits the model. This is the data that the model uses to learn.
+>
+> Test set - The test set checks how well the model we expect the model to work on new data in the future. The test set is used in the final phase of the workflow, and it evaluates the final model. 
+>
+> Validation set - Further, part of the training set is used to validate that the fitted model works on new data.
+> This is not the final evaluation of the model.
+> This step is used to change __hyperparameters__ and then train the model again. _Comment: Define hyperparams_
+>
+> Hyperparameters - These are the settings of a machine learning model. Each machine learning method has different hyperparameters, and they control various trade-offs which change how the model learns. 
+> Hyperparameters control parts of a machine learning method such as how much emphasis the method should place on being perfectly correct versus becoming overly complex, how fast the method should learn, the type of mathmatical model the method should use for learning, and more.
+{: .callout}
 
-The training set is a part of the original dataset that trains or fits the model.
-This is the data that the model uses to learn.
+Setting a test set aside from the training and validation sets from the beginning, and only using it once for a final evaulation, is very important to be able to properly evaluate how well a machine learning algorithm learned.
+Letting the machine learning method learn from the test set can be seen as giving a student the answers to an exam; once a student sees any exam answers, their exam score will nol longer reflect their performance in the class.  
 
-#### Validation set
-
-Further, part of the training set is used to validate that the fitted model works on new data.
-This is not the final evaluation of the model.
-This step is used to change hyperparameters and then train the model again. _Comment: Define hyperparams_
 We will be using the holdout validation method in the software.
-We will use the ml4bio default 20% of the training set for the validation set.
-
-What is commonly done in practice is cross-validation.
-One part of the training set is used for training and another section for validation.
-Then the hyperparameters of the fitted models are changed, and the model has trained again with the new split between training data and the validation data.
-Then we look through all folds of data.
-The same is done with the training dataset.
-Each time we repeat training and validating, we split the original training set into new training and validation datasets.
-
-_Comment: Replace Cross-Validation with Model Tuning and remove the red "repeat splitting" bubble. Cross validation would be a Day 2 workshop concept. _
+We will use the software's default of 20% of the training set for the validation set.
 <p align="center">
 <img width="700" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/datasets2.jpg">
 </p>
 
 
-#### Test set
-
-The test set checks how well the model we expect the model to work on new data in the future.
-The test set is used in the final phase of the workflow, and it evaluates the final model. 
-_Comment: Say something about only using the test set once._
-
-We will use the ml4bio default option and splitting our dataset to be 80% training set and 20% test set. 
-
 ## Step 2: Train classifiers
 
-Classification is a process when given some input we are try to predict an outcome by coming up with a rule that will guess this outcome.
-Tools that use classification to predict an outcome are classifiers.
+__Classification__ is a process when given some input we are try to predict an outcome by coming up with a rule that will guess this outcome.
+Tools that use classification to predict an outcome are __classifiers__.
 _Comment: Callout for definition_
 
-We are given a dropdown menu of some of the most frequently used classifiers in biology.
-In this workshop, we will be further talking about [Decision Tree](https://gitter-lab.github.io/ml-bio-workshop/03-decision-trees/index.html), [Random Forests](https://gitter-lab.github.io/ml-bio-workshop/04-random-forests/index.html), [Logistic Regression](https://gitter-lab.github.io/ml-bio-workshop/05-log-regression/index.html), and [Neural Network](https://gitter-lab.github.io/ml-bio-workshop/07-neural-nets/index.html).
-
-We will evaluate the classifiers using accuracy.
-_Comment: Define accuracy_
-
-> ## Play time
+> ## Definitions
 >
-> Pick a few classifiers and train them without changing the default hyperparameters.
+> Classification - text
 >
-> Do you see different accuracy depending on the classifier.
+> Classifier - text
+{: .callout}
+
+
+The software has a dropdown menu of some of the most frequently used classifiers.
+In this workshop, we will be further talking about [Decision Trees](https://gitter-lab.github.io/ml-bio-workshop/03-decision-trees/index.html), [Random Forests](https://gitter-lab.github.io/ml-bio-workshop/04-random-forests/index.html), [Logistic Regression](https://gitter-lab.github.io/ml-bio-workshop/05-log-regression/index.html), and [Neural Network](https://gitter-lab.github.io/ml-bio-workshop/07-neural-nets/index.html).
+
+We will evaluate the classifiers using accuracy.Accuracy measures the fraction or the count of the correct predictions. In the T-cells dataset, this will be the number of correctly predicted quiescent and activated cells compared to the total number of predictions made. 
+In the software, let's look at the prediction metrics on the validation data.
+Remember, you can switch between the training set and validation set at any time in software. 
+In the T-cells example, we want to predict whether a cell was quiescent or activated. The accuracy gives us the count of the cells that were correctly predicted.
+
+> ## Exploring model training
+>
+> Pick a few classifiers and train them.
+>
+> Try to answer these questions to get a better understanding of the software:
+> 
+> How does changing the validation set percentage change the training set and validation set accuracies?
+>
+> How do training set accuracy and validation set accuracy tend to compare to eachother? Why do you think this is?
+>
+> What is the highest validation set accuracy you can get a classifier to achieve?
 {: .checklist}
-_Comment: Do we need more instructions about how to do this in the software?  Or will we show them?_
 
-_Comment: Clean up text and move some into the box above_
-As you can see, you will get different performance metrics depending on the classifier. _Comment: Tell them where the metrics are_
-This reflects the real life situtation when you work with the real data.
-You will train many classifiers before you find the one that you are satisfied with.
+This type of exploration of multiple algorithms reflects how a good model is often found in real-world situations.
+It often takes many classifiers before you find the one that you are satisfied with.
 
-Try to answer these questions to get a better understanding of the software:
-- (FIX THIS)
-
-After you finish playing around, let's train Decision Tree, Random Forest, Logistic regression, and Neural Network classifiers. 
-
-For this specific example, we will be working with the default hyperparameters in all cases.
+For your final comparison, train at least one decision tree, random forest, logistic regression and logistic regression classifier.
 
 
 ## Step 3 Test and Predict
 
-Our final step is model selection.
-After we trained multiple classifiers, changed some hyperparameters, and did holdout validation, the next step is to choose the best model.
-Model evaluation and selection is a vast topic so that we will be focusing on the metrics provided in the software.
-
-_Comment: Recommend focusing on 1 or maybe 2 metrics here (maybe accuracy?).  We want to show the end-to-end workflow and not get stuck explaining all the metrics.  Those can come is the choosing a model episode or elsewhere._
-- Accuracy measures the fraction or the count of the correct predictions. In the T-cells dataset, this will be the number of correctly predicted quiescent and activated cells compared to the total number of predictions made. In the software, let's look at the prediction metrics on the validation data. Remember, you can switch between the training set and validation set at any time in software. In the T-cells example, we want to predict whether a cell was quiescent or activated. The accuracy gives us the count of the cells that were correctly predicted. In this section of the software
+Our final step is model selection and evaluation.
+After we trained multiple classifiers and did holdout validation, the next step is to choose the best model.
 
 <p align="center">
 <img width="350" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/Screen%20Shot%202019-11-08%20at%2010.40.25%20AM.png">
 </p>
 
-there are a few visualization tools that can help with the model selection. The *Confusion Matrix* reflects the selected dataset(training or validation). The T-cells dataset has two labels so that the Confusion Matrix will be 2 x 2. The sum of all the predictions will be the total number of samples in the selected dataset(training or validation). 
+There are a few visualization tools that can help with the model selection. The __Confusion Matrix__ reflects the selected dataset(training or validation). The T-cells dataset has two labels so that the Confusion Matrix will be 2 x 2. The sum of all the predictions will be the total number of samples in the selected dataset(training or validation). 
 
-<p align="center">
-<img width="350" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/Screen%20Shot%202019-11-08%20at%2010.40.25%20AM.png">
-</p>
-
-> ## Conceptual Questions
+> ## Definitions
 >
-> Explain the meaning of the Confusion Matrix to a partner.  
-{: .challenge}
-
-- Precision is the proportion of the cells correctly predicted as activated compared to the total number of cells predicted as activated regardless if they were correctly predicted or not. 
-- Recall is the proportion of the cells correctly predicted as activated compared to the sum of those cells correctly predicted as activated and those incorrectly predicted as quiescent. Although the Precision-Recall curve visualized these two metrics, we will not be going into details about it in this version of the workshop. 
-- F1 
-- AUROC
-- AUPRC
-
+> Confusion matrix - text
+{: .callout}
 
 ### Test Data
 
 Once the model was selected based on the metric that we chose, we want to use the model for the prediction on the test data.
 Based on the same prediction metrics that we used on the validation set, we can make certain conclusions about our model. 
 
-_Comment: Add callout to ask if whoever had the best validation accuracy also has the best test set accuracy.  Why or why not is this the case?_
+> ## Conceptual Questions
+>
+> How did your final test set accuracy compare to your validation accuracy?
+{: .challenge}
 
 _Comment: Should summarize the key points and add them above in the Markdown header.  What can we now do with new T cell images?_
 
