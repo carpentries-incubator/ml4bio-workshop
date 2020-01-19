@@ -36,15 +36,17 @@ _Comment: Make sure we include Jay in acknowledgements when we update them_
 
 This microscopy dataset includes grayscale images of two type of T cells: activated and quiescent.
 These T cells come from blood samples from six human donors.
-_Comment: Do we need to make these images bigger? Does that require HTML images? Add another row or two so we can see some patterns emerge (Tony)._
 
 |Activated|Quiescent|
 |:---:|:---:|
-|![CD3_2_act_2_6_66](https://user-images.githubusercontent.com/15007159/61666368-e4804d00-ac9c-11e9-9031-a3f9f6cfd7b1.png)|![CD8_2_noact_3_3_13](https://user-images.githubusercontent.com/15007159/61666346-d9c5b800-ac9c-11e9-9044-e13c218d0da0.png)|
+|![Activated T-cell 1]({{ page.root }}/fig/activated-tcell-1.png)|![Quiescent T-cell 1]({{ page.root }}/fig/quiescent-tcell-1.png)|
+|![Activated T-cell 2]({{ page.root }}/fig/activated-tcell-2.png)|![Quiescent T-cell 3]({{ page.root }}/fig/quiescent-tcell-2.png)|
+|![Activated T-cell 3]({{ page.root }}/fig/activated-tcell-3.png)|![Quiescent T-cell 3]({{ page.root }}/fig/quiescent-tcell-3.png)|
 
 We will use a subset of the images and follow the workflow in a [T cell classification study](https://doi.org/10.1002/jbio.201960050).
 
 _Comment: Restructure to be like slides, add 2-3 examples, ask questions about what we think the labels are (show of hands)_
+_Comment: If we want to make this an activity, show the first two examples of each class and reserve the third for the interactive question_
 
 ### Machine learning methods
 
@@ -224,5 +226,9 @@ Based on the same prediction metrics that we used on the validation set, we can 
 {: .challenge}
 
 _Comment: Should summarize the key points and add them above in the Markdown header.  What can we now do with new T cell images?_
+
+#### Image attributions
+
+> The T-cell images come from [Wang et al. 2019](https://doi.org/10.1002/jbio.201960050) with data originally from [Walsh et al. 2019](https://doi.org/10.1101/536813).
 
 {% include links.md %}
