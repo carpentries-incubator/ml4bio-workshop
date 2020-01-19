@@ -83,14 +83,6 @@ _Comment: label the x and y axis with real examples like square footage and numb
 
 This is a simple example of machine learning.
 
-_Comment: Move evaluation to a different lesson_
-### Evaluation
-
-Is there anything else that you would want to do before using this to price a house?
-
-**Are the models reusable?**
-We use supervised learning to build our model. We want to be able to use the model on the different data. 
-
 ### What is the difference between a machine learning algorithm and a traditional algorithm?
 
 _Comment: Revise this to follow our housing example where we learned the rule from labeled data.  Traditional algorithm is direct implementation based on realtor's expert knowledge. 

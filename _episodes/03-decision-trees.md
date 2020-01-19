@@ -122,7 +122,11 @@ Without changing any hyperparameter settings, look at the Data Plot.
 
 The data plot shows two features, where the blue data points represent the quiescent cells, and the red data points represent the active cells. 
 
-So if you notice these cut offs, what do you think they represent?
+> ## Questions
+>
+> So if you notice these cut offs, what do you think they represent?
+{: .challenge}
+
 They each represent a node in the decision tree. 
 When we are trying to come up with the decision rule, we will consider the features and the data plot. 
 
@@ -145,14 +149,56 @@ The given dataset is imbalanced with more quiescent cells than active cells.
 > How does the data plot look for the uniform class_weight and how does it look for the balanced class weight?
 {: .challenge}
 
+> ## Play time
+>
+> Change the max_depth paramenter. 
+>
+> Did you notice any difference?
+{: .challenge}
+
 ### Step 3 Test and predict
 
 #### Overfitting
-while we allow to keep these datasets small, image 9000 leaves, one for every single cell and then use the visual from the original pp.
-_Comment: It'd be tough to construct an example of decision trees overfitting if we stick to the toy_data examples with only 2 features. We may need to use another one of the datasets to show overfitting in this context._
-If a model fits the training data perfectly, or very well, the model can become too data dependent and not work as well on a new data. 
 
-_Comment: We need more callouts to guide this lesson.  What steps should they take?  What hyperparameter values should they try?  What are the key ideas?  What do they observe about the decision boundaries of a decision tree?_
+It is easy to go to deep in the tree, and to fit the parameters that are specific for that training set, rather than to generalize to the whole dataset.
+This is overfitting. 
+
+__Add visual fromt he original pp__
+
+> ## Software
+>
+> To check if the classifier overfit, first look at the training data. 
+>
+> Switch between training data and validation data in the upper right corner.
+{: .checklist}
+
+By looking at the evaluation metrics and the confusion matrix we can see that when the training data evaluation metrics were perfect, but they were not as great on the validation data, the classifier probably overfit.
+
+> ## Definitions
+>
+> Evaluation metrics - 
+>
+> Confusion matrix - 
+{: .callout}
+
+> ## Software
+>
+> Let's go to the Step 3 in the software. 
+{: .checklist}
+
+> ## Questions
+>
+> Based on accuracy, which classifier was best-performing? 
+> 
+> Did the classifier overfit?
+{: .challenge}
+
+#### Evaluation
+
+Is there anything else that you would want to do before using this to classify the T-cells?
+
+**Are the models reusable?**
+We use supervised learning to build our model. We want to be able to use the model on the different data. 
 
 ###  Application in biology
 

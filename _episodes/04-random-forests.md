@@ -16,12 +16,14 @@ Then we will consider some applications in biology.
 
 We previously examined decision trees. 
 One of their main weaknesses is their tendancy to overfit if the tree is allowed to get too deep. 
-In training a decision tree we often have to therefore alter the decison tree's parameters to keep it a "generalist", instead of allowing it to overly specialize and overfit. *Milica's Comment: I struggled with this... can we find a better way to say this?*
+In training a decision tree we often have to therefore alter the decison tree's parameters to keep it a "generalist", instead of allowing it to overly specialize and overfit. 
 
 Random forests deals with the problem of overfitting by creating multiple trees, with each tree trained slighly differently so it overfits differently.
 Random forests is a classifier that combines a large number of decision trees.
 The decisions of each tree are then combined to make the final classification.
-This "team of specialists" approach random forests take often outperforms the "single generalist" approach of decision trees. *Milica's Comment: Same as the above, can we reword this somehow?*
+This "team of specialists" approach random forests take often outperforms the "single generalist" approach of decision trees. 
+Multiple overfitting classifiers are put together to reduce the overfitting.
+
 
 ### Why is it called "random" forests?
 
@@ -36,7 +38,7 @@ The final prediction is based on a vote or the average taken across all the deci
 
 > ## Software
 >
-> Load a T-cells #3 data set into our software. 
+> Load a simulated_t_cells_2 data set into our software. 
 > This dataset is designed to specifically illustrate properties of the random forest classifier.
 {: .checklist}
 
@@ -45,9 +47,8 @@ The final prediction is based on a vote or the average taken across all the deci
 > What are we trying to predict? 
 >
 > What is the decision rule?
->
-> How would the random forest look graphically?
 {: .challenge}
+
 
 ### Step 2 Train Classifiers
 
@@ -55,14 +56,28 @@ In this workshop not all of the hyperparameters from the software will be covere
 For the hyperparameters that we don't discuss, use the default settings. 
 - N-estimator represents the number of the decision trees that go into forest. Although we want to consider the biggest number of trees possible, there is a certain number where the classifier performance won't be improving. 
 - Max-features represents the number of features considered. For the classification problems *sqrt* is mostly used. That is the square root of the total number of features.
-- Bootstrap 
+
+> ## Software
+>
+> Train the classifier without changing the hyperparameters. 
+{: .checklist}
+
+> ## Think-Pair-Share
+>
+> What happens when you change the number of trees in the forest?
+>
+> Compare test data and validation data.
+{: .challenge}
 
 
 ### Step 3 Test and Predict
 
-**Finish once the dataset is done**
-
-> ## Key points
+> ## Software
 >
-> What classifier did we use, and why did we decide to use that one?
-{: .keypoints}
+> In the software, go to the Step 3. 
+>
+> Choose the evluation metric to select the best-performing classifier. 
+{: .checklist}
+
+
+{% include links.md %}
