@@ -2,12 +2,14 @@
 title: "Random Forests"
 teaching: 30
 questions:
-- ""
+- How is the classifier preventing overfitting?
 objectives:
 - Develop knowledge on how a classifier makes the prediction.
 - Come up with the decision rule.
 keypoints:
-- "First key point. Brief Answer to questions. (FIXME)"
+- Random forests combines the large number of decision trees.
+- Each tree is given a random subset of the data.
+- 
 ---
 
 In this episode, we will learn about the random forests classifier. 
