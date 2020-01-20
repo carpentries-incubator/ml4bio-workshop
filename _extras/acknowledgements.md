@@ -1,7 +1,7 @@
 ---
 title: Acknowledgements
 ---
-The ml4bio workshop [authors]({{ repo_url }}/blob/{{ source_branch}}/AUTHORS) acknowledge:
+The ml4bio workshop authors acknowledge:
 - Beth Meyerand, Ross Kleiman, and Zijie Wang for feedback on learning objectives and machine learning content
 - Python Machine Learning book authors Sebastian Raschka and Vahid Mirjalili for permission to reuse images
 - Megan McClean for helping recruit pilot workshop participants
