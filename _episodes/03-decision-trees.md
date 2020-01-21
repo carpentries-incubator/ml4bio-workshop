@@ -37,7 +37,11 @@ The new range range is $220-$250.
 Finally we will ask what neighborhood is the house located.
 The answer is Neighborhood A.
 That give us the price of $230k. 
-_Comment: (add the visual)_
+
+<p align="center">
+<img width="450" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/decisiontrees1.jpeg">
+</p>
+
 
 #### How does the classifier make predictions?
 
@@ -56,7 +60,10 @@ The splitting goes from the root at the top of the tree to a leaf node at the bo
 An instance is classified starting from the root and testing the feature specified by the node, then going down the split based on the outcome of the test and testing a different feature specified by another node.  
 Refer to the visual. 
 
-_Comment - add a visual_
+
+<p align="center">
+<img width="450" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/decisiontrees2.jpeg">
+</p>
 
 ### About the classifier
 
