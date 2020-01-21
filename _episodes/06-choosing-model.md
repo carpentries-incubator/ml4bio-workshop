@@ -1,17 +1,18 @@
 ---
 title: "How to Choose a Model"
-teaching: 15
+teaching: 10
+exercises: 5
 questions:
 - "How do you evaluate the performance of a model?"
 objectives:
 keypoints:
-- The choice of evaluation metric depends on what the data's class balance is, and what we want the model to suceed at.
+- The choice of evaluation metric depends on what the data's class balance is, and what we want the model to succeed at.
 - 
 ---
 
 ### Model Selection
 
-Chossing the proper machine learning model for a given task is often considered more..
+Choosing the proper machine learning model for a given task is often considered more..
 
 Some of the questions to consider when choosing a model are:
 
@@ -19,14 +20,14 @@ Some of the questions to consider when choosing a model are:
 * What is the class balance of the data? 
 * How many features does the dataset have? Are all of the features relevant, or might some of them not be related to the data's class?
 * What types are the features (numeric, categorical, image, text)?
-* What might the decision boundary look like? Is the data likely linearly seperable?
+* What might the decision boundary look like? Is the data likely linearly separable?
 * How noisy is the data? 
 
 ### Evaluation Metrics
 
 Arguably the most important part of choosing a model is evaluating it to see how well it performs. So far we've been looking at metrics such as accuracy, but let's take a look at how we think about metrics in machine learning.
 
-In the binary classification setting (where there are only two classes we're trying to predict, such as activated or quiscent T-cells) we can group all possile predictions our classifier makes into four categories. This is organized into a table called the _confusion matrix_:
+In the binary classification setting (where there are only two classes we're trying to predict, such as activated or quiescent T-cells) we can group all possible predictions our classifier makes into four categories. This is organized into a table called the _confusion matrix_:
 
 _Comment: We'll probably want to replace these with images in the same style as the rest of the workshop._
 
@@ -38,7 +39,7 @@ _Comment: We'll probably want to replace these with images in the same style as 
 Here, all possible types of predictions are split by 1) What the actual, true class is and 2) what the predicted class is, what our classifier thinks the truth is. This results in the 4 entries of the confusion matrix, two of which means our classifier got something right:
 
     - True Positives (TP): These instances are actually true (activated) and have been correctly predicted to be true.
-    - True Negatives (TN): These instances are actually false (quiscent) and have been correctly predicted to be false. 
+    - True Negatives (TN): These instances are actually false (quiescent) and have been correctly predicted to be false. 
 
 And two of which means our classifier got something wrong:
 
@@ -60,7 +61,8 @@ And divide it by the number total entries in the table, which is all four entrie
 <img width="450" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/confusionMatrix_All.png">
 </p>
 
-Thus, accuracy is defined as $\frac{TP + TN}{TP+FP+TN+FN}$
+Thus, accuracy is defined as $$\frac{TP + TN}{TP+FP+TN+FN}$$
+_Comment: We need to debug equations. Testing with this one first._
 
 We can see accuracy as estimating the answer to the question _How likely is our classifier to get a single instance right?_ However, for many models this might not be the right question. 
 
@@ -81,7 +83,7 @@ This metric is called _precision_ in machine learning (and may be different from
 >
 > You are designing a machine learning system for discovering existing drugs which may be effective in treating Malaria, focusing on the parasite _Plasmodium falciparum_. Your system takes in information on an FDA approved drug's chemical structure, and predicts whether or not a drug may interact with _P. falciparum_. The machine learning system will be used as an initial screening step; drugs classified as interacting by your system will be flagged and tested in the lab. The vast majority of drugs will not be useful in treating _P. falciparum_.
 > With your neighbor, talk through the following questions:
-> 1. Which entries in the confusion matrix are most important in this machine learning task? Is one type of correct or one type of incorect prediction more important than the other for your machine learning system?
+> 1. Which entries in the confusion matrix are most important in this machine learning task? Is one type of correct or one type of incorrect prediction more important than the other for your machine learning system?
 > 2. Imagine a classifier that predicted that all drugs are non-interacting. If you evaluated this classifier using the entire catalog of FDA approved drugs, what would the accuracy look like?
 > 3. What metric or couple of metrics would you use to evaluate your machine learning system?
 >

@@ -10,9 +10,9 @@ objectives:
 - Learn what are samples, features, and class labels in a biological example
 - Understand training, validation, and test sets
 keypoints:
-- Choosing how to represent a dataset in a machine learning task have have a large impact on performance
+- Choosing how to represent a dataset in a machine learning task can have a large impact on performance
 - The machine learning workflow is split into data preprocessing and selection, training and model selection, and evaluation stages
-- Splitting a dataset into training, testing, and validation sets is key to being able to properly evaluate a machine learning method
+- Splitting a dataset into training, validation, and testing sets is key to being able to properly evaluate a machine learning method
 ---
 
 ### Why classify T-cells
@@ -79,7 +79,7 @@ __Preprocessing__ the raw data is an essential step to have quality data for the
 
 > ## Definitions
 >
-> Preprocession - text
+> Preprocessing - text
 >
 > Missing values - text
 >
@@ -88,11 +88,11 @@ __Preprocessing__ the raw data is an essential step to have quality data for the
 > Data normalization - text
 {: .callout}
 
-Preprocessing data can include imputing __missing values__, checking the consistency of the data's features, choosing how to deal with any __outliers__, removing duplicate values, and converting all features into a format that is usable by a machine elarning algorithm.
+Preprocessing data can include imputing __missing values__, checking the consistency of the data's features, choosing how to deal with any __outliers__, removing duplicate values, and converting all features into a format that is usable by a machine learning algorithm.
 Ther are a variety of methods and tools for data __normalization__ and preprocessing.
 
 However, learning these methods and tools is outside the scope of this workshop because as preprocessing strategies are specific to both a dataset's domain and the technology used to gather the data.
-Thoughout this workshop we will assume that all of the data has already been preprocessed. 
+Throughout this workshop we will assume that all of the data has already been preprocessed. 
 
 > ## Software
 >
@@ -149,10 +149,10 @@ The training set is further divided into a training set and a validation set.
 > This step is used to change __hyperparameters__ and then train the model again. _Comment: Define hyperparams_
 >
 > Hyperparameters - These are the settings of a machine learning model. Each machine learning method has different hyperparameters, and they control various trade-offs which change how the model learns. 
-> Hyperparameters control parts of a machine learning method such as how much emphasis the method should place on being perfectly correct versus becoming overly complex, how fast the method should learn, the type of mathmatical model the method should use for learning, and more.
+> Hyperparameters control parts of a machine learning method such as how much emphasis the method should place on being perfectly correct versus becoming overly complex, how fast the method should learn, the type of mathematical model the method should use for learning, and more.
 {: .callout}
 
-Setting a test set aside from the training and validation sets from the beginning, and only using it once for a final evaulation, is very important to be able to properly evaluate how well a machine learning algorithm learned.
+Setting a test set aside from the training and validation sets from the beginning, and only using it once for a final evaluation, is very important to be able to properly evaluate how well a machine learning algorithm learned.
 Letting the machine learning method learn from the test set can be seen as giving a student the answers to an exam; once a student sees any exam answers, their exam score will nol longer reflect their performance in the class.  
 
 We will be using the holdout validation method in the software.
@@ -191,7 +191,7 @@ In the T-cells example, we want to predict whether a cell was quiescent or activ
 > 
 > How does changing the validation set percentage change the training set and validation set accuracies?
 >
-> How do training set accuracy and validation set accuracy tend to compare to eachother? Why do you think this is?
+> How do training set accuracy and validation set accuracy tend to compare to each other? Why do you think this is?
 >
 > What is the highest validation set accuracy you can get a classifier to achieve?
 {: .checklist}
@@ -211,7 +211,7 @@ After we trained multiple classifiers and did holdout validation, the next step 
 <img width="350" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/Screen%20Shot%202019-11-08%20at%2010.40.25%20AM.png">
 </p>
 
-There are a few visualization tools that can help with the model selection. The __Confusion Matrix__ reflects the selected dataset(training or validation). The T-cells dataset has two labels so that the Confusion Matrix will be 2 x 2. The sum of all the predictions will be the total number of samples in the selected dataset(training or validation). 
+There are a few visualization tools that can help with the model selection. The __Confusion Matrix__ reflects the selected dataset (training or validation). The T-cells dataset has two labels so that the Confusion Matrix will be 2 x 2. The sum of all the predictions will be the total number of samples in the selected dataset (training or validation). 
 
 > ## Definitions
 >
