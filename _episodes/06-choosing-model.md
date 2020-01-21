@@ -7,18 +7,20 @@ questions:
 objectives:
 keypoints:
 - The choice of evaluation metric depends on what the data's class balance is, and what we want the model to succeed at.
-- 
+- Comparing performance on the validation set with the right metric is an effective way to select a classifier and hyperparameter settings.
 mathjax: true
 ---
 
 ### Model Selection
 
-Choosing the proper machine learning model for a given task is often considered more..
+Choosing the proper machine learning model for a given task requires knowledge of both machine learning models and the domain of the task. 
+Finding _the best_ model for a new task in machine learning is often a research question in itself.
+Finding a model that performs _reasonably well_, however, can often be accomplished by carefully considering the task domain and a little trial and error with the validation set. 
 
 Some of the questions to consider when choosing a model are:
 
 * How much data is there to train with?
-* What is the class balance of the data? 
+* Does the data contain aboue the same number of each class? 
 * How many features does the dataset have? Are all of the features relevant, or might some of them not be related to the data's class?
 * What types are the features (numeric, categorical, image, text)?
 * What might the decision boundary look like? Is the data likely linearly separable?
@@ -91,8 +93,6 @@ This metric is called _precision_ in machine learning (and may be different from
 >
 > Load the `simulated-drug-discovery` dataset from the `data` folder into the ML4Bio software. Trying training a logistic regression classifier on the dataset. Which metrics seem to accurately reflect the performance of the classifier?
 {: .callout}
-
-_Comment: Need to relabel toy dataset 9 to fit this scenario_
 
 Common Metrics:
 
