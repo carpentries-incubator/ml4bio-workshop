@@ -100,9 +100,6 @@ See also known [software warnings](https://github.com/gitter-lab/ml-bio-workshop
 
 ### Updating ml4bio
 New versions of the ml4bio software will be periodically released through [PyPI](https://pypi.org/project/ml4bio/).
-The latest version is [![ml4bio PyPI](https://img.shields.io/pypi/v/ml4bio.svg)](https://pypi.org/project/ml4bio/).
-The version of ml4bio you are running is displayed in the ml4bio window title.
-
 The [release notes](https://github.com/gitter-lab/ml4bio/releases) describe the changes in each new version.
 To install the latest version of ml4bio, run the appropriate update script for your operating system:
 - `update_ml4bio_windows.bat`
