@@ -1,12 +1,12 @@
 ## Pre-workshop survey questions
 
-1. How much do you know about machine learning? (1-5)
+1. How much do you know about machine learning? (1-3)
   - 1: Nothing
   - 5: Have taken a machine learning course or have research experience
-1. Do you have coding experience? (1-5)
+1. Do you have coding experience? (1-3)
   - 1: None
   - 5: Have written a nontrivial program (1000 or more lines of code)
-1. How comfortable are you with coding? (1-5)
+1. How comfortable are you with coding? (1-3)
   - 1: Intimidating
   - 5: Enjoyable
 1. How would you like to split your research effort in the future? (1-5)
