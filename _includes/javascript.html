@@ -21,6 +21,12 @@
       "a11y/accessibility-menu.js"
     ],
     jax: ["input/TeX", "output/CommonHTML"],
+    tex2jax: {
+      inlineMath: [['$', '$']],
+      displayMath: [['$$', '$$'],['\\[','\\]']],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+    },
     TeX: {
       extensions: [
         "AMSmath.js",
