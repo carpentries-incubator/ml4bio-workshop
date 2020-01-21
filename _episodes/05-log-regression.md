@@ -24,13 +24,18 @@ We want to predict whether the house price is high or low.
 We will be predicting the probability that the price belongs to one of the two classes, so this is binary classification. 
 Let's look at the single feature, square footage of a house, and how it affects whether the house price is high or low. 
 
-
 > ## Conceptual Questions
 >
 > What rule is the classifier learning?
 {: .challenge}
 
-add visual 
+<p align="center">
+<img width="450" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/logit1.jpeg">
+</p>
+
+<p align="center">
+<img width="450" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/logit3.jpeg">
+</p>
 
 > ## Activity
 >
@@ -38,6 +43,10 @@ add visual
 >
 > Is the price for your house high or low based on this one feature?
 {: .challenge}
+
+<p align="center">
+<img width="450" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/logit2.jpeg">
+</p>
 
 Now, let's think about the T-cells example. 
 If we focus only on one feature, for example cell size, we can use logistic regression to predict the probability that the cell would be active. 
@@ -59,8 +68,6 @@ This affects what type of rules it can learn.
 If we have 2 features, both cell size and cell intensity, logistic regression is learning a different rule. 
 The rule is a single straight line. 
 We can control slope and steepness, from class 1 and class 2.
-
-add visual 
 
 > ## Definitions
 >
