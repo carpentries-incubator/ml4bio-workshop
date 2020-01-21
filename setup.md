@@ -44,12 +44,14 @@ Click the `Clone or download` button followed by `Download ZIP`.
 Save the file `ml-bio-workshop-master.zip` and then open that location on your computer.
 Extract the zip file and open the folder `ml-bio-workshop-master`, which has the same contents as <https://github.com/gitter-lab/ml-bio-workshop/>.
 You are now ready to install the Python dependencies needed to run the ml4bio software and follow the workshop exercises.
+You will also use the datasets in the `data` subdirectory during the workshop.
 
 ### Install Python
 ml4bio requires Python and several other Python packages.
 The easiest way to install Python and the correct version of these packages is through [Anaconda](https://anaconda.com/), a Python distribution.
 If you do not have Anaconda installed, please visit <https://www.anaconda.com/download/> to download and install the Python 3.x version (for example, 3.7).
-**We recommend letting the Anaconda installer add Anaconda to your computer's `PATH` environment variable so that it is easily accessible from the command line.**
+**We recommend letting the installer add Anaconda to your computer's `PATH` environment variable so that it is easily accessible from the command line.**
+This screenshot shows the `PATH` option in the 2019 version of the Anaconda Windows installer:
 
 <p align="center">
 <img width="350" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/master/figures/setup/anaconda_path.png">
@@ -68,16 +70,17 @@ You may need to run this script twice, once to install the software and again to
 - For **Mac OS**, launch the `install_launch_mac.command` script.
 - For **Linux**, launch the `install_launch_linux.sh` script.
 
-If you have trouble launching the script, try running it from the command line.
+It is most reliable to run these scripts from the command line.
+
 For Windows, launch the Anaconda Prompt (formerly Anaconda Command Prompt) and then run the script:
 - Start -> Type "Anaconda" -> Anaconda Prompt
-- Navigate to the `ml-bio-workshop-master\scripts` directory from the command line
+- Navigate to the `ml-bio-workshop-master\scripts` directory from the command line using the command `cd <PATH_TO_ml-bio-workshop-master>\scripts` (replace `<PATH_TO_ml-bio-workshop-master>` with the appropriate directory on your computer)
 - Type `install_launch_windows.bat` -> Enter
 
 For Linux or Mac OS, open the terminal and navigate to the `ml-bio-workshop-master/scripts` directory.
 Then, enter the name of the script for your operating system.
 
-Visit the [software guide](software.md) to learn more about the ml4bio software functionality.
+Visit the [software guide](https://gitter-lab.github.io/ml-bio-workshop/about/index.html) to learn more about the ml4bio software functionality.
 See the [software environment details](#software-environment-details) for more information about how the ml4bio software works.
 
 ### Troubleshooting
@@ -93,10 +96,13 @@ If you did not add Anaconda to your `PATH` during installation and would like to
 When running the `install_launch_windows.bat` install script, Windows may display a warning that the app is from an unknown publisher and may be unsafe to run.
 This warning can be ignored.
 
-See also known [software warnings](../scripts/README.md#warnings) that can be safely ignored.
+See also known [software warnings](https://github.com/gitter-lab/ml-bio-workshop/tree/master/scripts#warnings) that can be safely ignored.
 
 ### Updating ml4bio
 New versions of the ml4bio software will be periodically released through [PyPI](https://pypi.org/project/ml4bio/).
+The latest version is [![ml4bio PyPI](https://img.shields.io/pypi/v/ml4bio.svg)](https://pypi.org/project/ml4bio/).
+The version of ml4bio you are running is displayed in the ml4bio window title.
+
 The [release notes](https://github.com/gitter-lab/ml4bio/releases) describe the changes in each new version.
 To install the latest version of ml4bio, run the appropriate update script for your operating system:
 - `update_ml4bio_windows.bat`
@@ -112,17 +118,17 @@ An environment is a collection of specific versions of Python packages.
 These are all stored in a directory that conda manages.
 Having multiple environments allows you to use different versions of the same package for different projects.
 
-The ML4Bio install scripts create a new conda environment.
+The ml4bio install scripts create a new conda environment.
 This environment, which is named `ml4bio`, contains the latest version of the `ml4bio` Python package as well as suitable versions of other Python packages that it requires.
 The `ml4bio` code may be incompatible with older or newer versions of the Python packages it uses.
 The environment makes it easy for you use a collection of Python packages that work together.
 
-The most important required Python package that ML4Bio uses is called [scikit-learn](http://scikit-learn.org/).
+The most important required Python package that ml4bio uses is called [scikit-learn](http://scikit-learn.org/).
 This is a popular general purpose machine learning package.
-When you use the ML4Bio graphical interface, it calls functions in scikit-learn to train classifiers and make predictions.
+When you use the ml4bio graphical interface, it calls functions in scikit-learn to train classifiers and make predictions.
 
 ### Advanced users
-Advanced users who already have Python installed can install the [required packages](../scripts/README.md) through pip.
-Then launch ML4Bio from the command line with the command `ml4bio`.
+Advanced users who already have Python installed can install the [required packages](https://github.com/gitter-lab/ml-bio-workshop/tree/master/scripts) through pip.
+Then launch ml4bio from the command line with the command `ml4bio`.
 
 {% include links.md %}
