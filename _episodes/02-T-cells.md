@@ -134,7 +134,7 @@ Before we continue, we need to split the dataset into a training set and a test 
 The training set is further divided into a training set and a validation set. 
 
 <p align="center">
-<img width="600" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/datasets.jpg">
+<img width="600" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/tcells2.jpg">
 </p>
 
 > ## Definitions
@@ -157,7 +157,7 @@ Letting the machine learning method learn from the test set can be seen as givin
 We will be using the holdout validation method in the software.
 We will use the software's default of 20% of the training set for the validation set.
 <p align="center">
-<img width="700" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/datasets2.jpg">
+<img width="700" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/tcells3.jpg">
 </p>
 
 
