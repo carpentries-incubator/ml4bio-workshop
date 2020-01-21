@@ -8,6 +8,7 @@ objectives:
 keypoints:
 - The choice of evaluation metric depends on what the data's class balance is, and what we want the model to succeed at.
 - 
+mathjax: true
 ---
 
 ### Model Selection
