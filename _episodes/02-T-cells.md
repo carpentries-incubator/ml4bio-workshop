@@ -66,9 +66,8 @@ If you want to experiment with your data, make sure to follow the guidelines in 
 
 ## Machine learning workflow (Make our own version of this)
 
-_Comment: If we reuse, crop the bubbles out and add attribution at the bottom of the page._
 <p align="center">
-<img width="600" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/workflow.png">
+<img width="600" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/tcells1.jpeg">
 </p>
 
 ### Data preprocessing 
