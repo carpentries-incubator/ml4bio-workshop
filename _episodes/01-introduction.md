@@ -65,9 +65,9 @@ In this workshop, we focus on supervised learning __algorithms__.
 {: .callout}
 
 Note different types of features (text, number, category, etc).
-_Comment: We should have some example rows filled in already. Should we remove the third ... column to make it 2 features?_
+
 <p align="center">
-<img width="550" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/IMG_0016.jpg">
+<img width="550" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/intro_1.jpg">
 </p>
 
 We find a dream home that is not a part of our already existing data set.
@@ -76,9 +76,8 @@ Based on the features that we already know, we are trying to classify our future
 
 We can visualize what the classifier will predict based on the feature values.
 
-_Comment: label the x and y axis with real examples like square footage and number of bathrooms_
 <p align="center">
-<img width="450" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/78274.jpg">
+<img width="450" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/intro_2.jpg">
 </p>
 
 This is a simple example of machine learning.
@@ -123,7 +122,6 @@ Let’s look at some examples of how machine learning is being used in biology r
 * [Finding glaucoma in color fundus photographs using deep learning.](http://doi.org/10.1001/jamaophthalmol.2019.3512)
 * [Predicting lymphocyte fate from cell imaging](https://doi.org/10.1371/journal.pone.0083251)
 
-_Comment: will add keypoints_
 
 {% include links.md %}
 
