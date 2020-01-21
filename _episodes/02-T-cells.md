@@ -78,13 +78,16 @@ __Preprocessing__ the raw data is an essential step to have quality data for the
 
 > ## Definitions
 >
-> Preprocessing - text
+> Preprocessing - Anything done to a raw dataset before being used for analysis. 
+> This can include transformations, format changes, de-noising, removal of poor-quality data, or adding in data that is missing.
 >
-> Missing values - text
+> Missing values - Parts of a dataset which are missing. Missing values can be imputed, using statistics to guess their value, or removed. 
 >
-> Outliers - text
+> Outliers - Parts of a dataset which are significantly different from the rest. 
+> Outliers can be caused by a true phenomenon or experimental error, in which case they may be removed or transformed to fit the rest of the dataset.
 >
-> Data normalization - text
+> Data normalization - Transforming a feature or set of features of a dataset so they have a certain set of properties. 
+> An example would be changing a feature so that all of it's values are between 0 and 1, and/or changing its variance to be 1. 
 {: .callout}
 
 Preprocessing data can include imputing __missing values__, checking the consistency of the data's features, choosing how to deal with any __outliers__, removing duplicate values, and converting all features into a format that is usable by a machine learning algorithm.
@@ -109,11 +112,17 @@ Throughout this workshop we will assume that all of the data has already been pr
 
 ### Data summary
 
-Data Summary gives us an insight into features and __samples__ for the dataset we selected.
+Data Summary gives us an insight into features, __samples__, and __class__ for the dataset we selected.
 
-> ## Definition
+> ## Definitions
 >
-> Sample - text
+> Sample - A specific observation in a dataset. 
+> For instance, in the T-cells example each T-cell is a sample. 
+> Also called instances or observations.
+>
+> Class - The part of a dataset that is being predicted. 
+> In the T-cells example a T-cell's state as active or quiescent is its class. 
+> Also called the target variable.
 {: .callout}
 
 In this particular dataset, we can see that we have two features **cell_size** and **total_intensity**.
@@ -168,9 +177,13 @@ Tools that use classification to predict an outcome are __classifiers__.
 
 > ## Definitions
 >
-> Classification - text
+> Classification - The task in supervised learning when the class is a category. 
+> The goal of classification is to predict which category each sample belongs to.
 >
-> Classifier - text
+> Classifier - A specific model or algorithm which performs classification. 
+>
+> Regression - The task in supervised learning when the class is numeric. 
+> Instead of predicting a category, here the value of the class variable is predicted.
 {: .callout}
 
 
@@ -214,7 +227,8 @@ There are a few visualization tools that can help with the model selection. The 
 
 > ## Definitions
 >
-> Confusion matrix - text
+> Confusion matrix - A matrix used in classification to visualize the performance of a classifier. 
+> Each cell shows the number of time the predicted and actual classes of samples occured in a certain combination. 
 {: .callout}
 
 ### Test Data

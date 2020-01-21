@@ -20,7 +20,7 @@ Finding a model that performs _reasonably well_, however, can often be accomplis
 Some of the questions to consider when choosing a model are:
 
 * How much data is there to train with?
-* Does the data contain aboue the same number of each class? 
+* Does the data contain about the same number of each class? 
 * How many features does the dataset have? Are all of the features relevant, or might some of them not be related to the data's class?
 * What types are the features (numeric, categorical, image, text)?
 * What might the decision boundary look like? Is the data likely linearly separable?
