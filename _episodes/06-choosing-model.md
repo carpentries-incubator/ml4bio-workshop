@@ -61,7 +61,7 @@ And divide it by the number total entries in the table, which is all four entrie
 <img width="450" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/confusionMatrix_All.png">
 </p>
 
-Thus, accuracy is defined as $$\frac{TP + TN}{TP+FP+TN+FN}$$
+Thus, accuracy is defined as $\frac{TP + TN}{TP+FP+TN+FN}$
 _Comment: We need to debug equations. Testing with this one first._
 
 We can see accuracy as estimating the answer to the question _How likely is our classifier to get a single instance right?_ However, for many models this might not be the right question. 
