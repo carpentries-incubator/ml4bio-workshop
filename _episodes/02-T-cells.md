@@ -9,19 +9,23 @@ objectives:
 - Comprehend how the datasets are preprocessed
 - Learn what are samples, features, and class labels in a biological example
 - Understand training, validation, and test sets
+keypoints:
+- Choosing how to represent a dataset in a machine learning task have have a large impact on performance
+- The machine learning workflow is split into data preprocessing and selection, training and model selection, and evaluation stages
+- Splitting a dataset into training, testing, and validation sets is key to being able to properly evaluate a machine learning method
 ---
 
-### Why classify T cells
+### Why classify T-cells
 
 Let's consider how to answer a real biological question using the same concepts we saw in the introduction.
 The question pertains to immunotherapy, a type of cancer treatment that uses the body's immune cells to boost natural defenses against cancer.
-T cells are a common target for immunotherapies.
-For immunotherapy to be effective, the modified T cells must be in an active state.
-Here we will study how to assess the activation state of individual T cells.
+T-cells are a common target for immunotherapies.
+For immunotherapy to be effective, the modified T-cells must be in an active state.
+Here we will study how to assess the activation state of individual T-cells.
 
-Scientists at UW-Madison and the Morgridge Institute [developed an imaging method](https://doi.org/10.1101/536813) to easily and quickly acquire images of T cell without destroying them.
-These images contain information that can be used to predict T cell activity.
-We would like to develop a classifier that can take an image of a T cell and predict whether it is active or quiescent.
+Scientists at UW-Madison and the Morgridge Institute [developed an imaging method](https://doi.org/10.1101/536813) to easily and quickly acquire images of T-cell without destroying them.
+These images contain information that can be used to predict T-cell activity.
+We would like to develop a classifier that can take an image of a T-cell and predict whether it is active or quiescent.
 The active cells would then be used for immunotherapy, and the quiescent cells can be considered inactive and would be discarded.
 _Comment: Make sure we include Jay in acknowledgements when we update them_
 
@@ -34,8 +38,8 @@ _Comment: Make sure we include Jay in acknowledgements when we update them_
 
 ### Dataset description
 
-This microscopy dataset includes grayscale images of two type of T cells: activated and quiescent.
-These T cells come from blood samples from six human donors.
+This microscopy dataset includes grayscale images of two type of T-cells: activated and quiescent.
+These T-cells come from blood samples from six human donors.
 
 |Activated|Quiescent|
 |:---:|:---:|
@@ -43,18 +47,18 @@ These T cells come from blood samples from six human donors.
 |![Activated T-cell 2]({{ page.root }}/fig/activated-tcell-2.png)|![Quiescent T-cell 3]({{ page.root }}/fig/quiescent-tcell-2.png)|
 |![Activated T-cell 3]({{ page.root }}/fig/activated-tcell-3.png)|![Quiescent T-cell 3]({{ page.root }}/fig/quiescent-tcell-3.png)|
 
-We will use a subset of the images and follow the workflow in a [T cell classification study](https://doi.org/10.1002/jbio.201960050).
+We will use a subset of the images and follow the workflow in a [T-cell classification study](https://doi.org/10.1002/jbio.201960050).
 
 _Comment: Restructure to be like slides, add 2-3 examples, ask questions about what we think the labels are (show of hands)_
 _Comment: If we want to make this an activity, show the first two examples of each class and reserve the third for the interactive question_
 
 ### Machine learning methods
 
-The goal of this study is to develop a method to classify T cell activation state (activated vs. quiescent). 
+The goal of this study is to develop a method to classify T-cell activation state (activated vs. quiescent). 
 
 ### ml4bio software setup
 
-We will be using ml4bio software to build classifiers with the T cell images.
+We will be using ml4bio software to build classifiers with the T-cell images.
 Refer to the [Setup](https://gitter-lab.github.io/ml-bio-workshop/setup.html) for instructions on how to install and launch the ml4bio software. _Comment: We should learn how to use relative links_ 
 To better understand the software features, check out the [About ml4bio](https://gitter-lab.github.io/ml-bio-workshop/about/index.html) page.
 All of the datasets that we will be using for this workshop have been formatted to fit the ml4bio requirements.
@@ -162,7 +166,6 @@ We will use the software's default of 20% of the training set for the validation
 
 __Classification__ is a process when given some input we are try to predict an outcome by coming up with a rule that will guess this outcome.
 Tools that use classification to predict an outcome are __classifiers__.
-_Comment: Callout for definition_
 
 > ## Definitions
 >
@@ -224,8 +227,6 @@ Based on the same prediction metrics that we used on the validation set, we can 
 >
 > How did your final test set accuracy compare to your validation accuracy?
 {: .challenge}
-
-_Comment: Should summarize the key points and add them above in the Markdown header.  What can we now do with new T cell images?_
 
 #### Image attributions
 

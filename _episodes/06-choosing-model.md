@@ -2,15 +2,31 @@
 title: "How to Choose a Model"
 teaching: 15
 questions:
-- "How do you choose the model?"
+- "How do you evaluate the performance of a model?"
 objectives:
+keypoints:
+- The choice of evaluation metric depends on what the data's class balance is, and what we want the model to suceed at.
+- 
 ---
+
+### Model Selection
+
+Chossing the proper machine learning model for a given task is often considered more..
+
+Some of the questions to consider when choosing a model are:
+
+* How much data is there to train with?
+* What is the class balance of the data? 
+* How many features does the dataset have? Are all of the features relevant, or might some of them not be related to the data's class?
+* What types are the features (numeric, categorical, image, text)?
+* What might the decision boundary look like? Is the data likely linearly seperable?
+* How noisy is the data? 
 
 ### Evaluation Metrics
 
 Arguably the most important part of choosing a model is evaluating it to see how well it performs. So far we've been looking at metrics such as accuracy, but let's take a look at how we think about metrics in machine learning.
 
-In the binary classification setting (where there are only two classes we're trying to predict, such as activated or quiscent t-cells) we can group all possile predictions our classifier makes into four categories. This is organized into a table called the _confusion matrix_:
+In the binary classification setting (where there are only two classes we're trying to predict, such as activated or quiscent T-cells) we can group all possile predictions our classifier makes into four categories. This is organized into a table called the _confusion matrix_:
 
 _Comment: We'll probably want to replace these with images in the same style as the rest of the workshop._
 
@@ -21,8 +37,8 @@ _Comment: We'll probably want to replace these with images in the same style as 
 
 Here, all possible types of predictions are split by 1) What the actual, true class is and 2) what the predicted class is, what our classifier thinks the truth is. This results in the 4 entries of the confusion matrix, two of which means our classifier got something right:
 
-    - True Positives (TP): These instances are actually true and have been correctly predicted to be true.
-    - True Negatives (TN): These instances are actually false and have been correctly predicted to be false. 
+    - True Positives (TP): These instances are actually true (activated) and have been correctly predicted to be true.
+    - True Negatives (TN): These instances are actually false (quiscent) and have been correctly predicted to be false. 
 
 And two of which means our classifier got something wrong:
 
@@ -44,7 +60,7 @@ And divide it by the number total entries in the table, which is all four entrie
 <img width="450" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/confusionMatrix_All.png">
 </p>
 
-Thus, accuracy is defined as $$\frac{TP + TN}{TP+FP+TN+FN}$$
+Thus, accuracy is defined as $\frac{TP + TN}{TP+FP+TN+FN}$
 
 We can see accuracy as estimating the answer to the question _How likely is our classifier to get a single instance right?_ However, for many models this might not be the right question. 
 
@@ -57,7 +73,7 @@ To answer this question we would look at everything we predicted to be true, whi
 </p>
 
 
-We would then calculate the percent of these predictions that were correct, which are the true positives. Thus, to answer this question we would use the metric $$\frac{TP}{TP + FP}$$
+We would then calculate the percent of these predictions that were correct, which are the true positives. Thus, to answer this question we would use the metric $\frac{TP}{TP + FP}$
 
 This metric is called _precision_ in machine learning (and may be different from the definition of precision you use in a laboratory setting).
 
@@ -70,7 +86,7 @@ This metric is called _precision_ in machine learning (and may be different from
 > 3. What metric or couple of metrics would you use to evaluate your machine learning system?
 >
 >
-> Load the `simulated-drug-discovery` dataset from the `data` folder into the ML4Bio software. Trying training a logistic regression classifier on the dataset. Which metrics seem to accuratley reflect the performance of the classifier?
+> Load the `simulated-drug-discovery` dataset from the `data` folder into the ML4Bio software. Trying training a logistic regression classifier on the dataset. Which metrics seem to accurately reflect the performance of the classifier?
 {: .callout}
 
 _Comment: Need to relabel toy dataset 9 to fit this scenario_
@@ -79,16 +95,9 @@ Common Metrics:
 
 | Name                                   	|    Formula    	                |
 |----------------------------------------	|:--------------------------------:	|
-| Accuracy                               	| $$\frac{TP + TN}{TP+FP+TN+FN}$$ 	|
-| Precision (Positive Predictive Value) 	| $$\frac{TP}{TP + FP}$$         	|
-| Recall (Sensitivity)                   	| $$\frac{TP}{TP + FN}$$ 	        |
-| True Negative Rate (Specificity)       	| $$\frac{TN}{TN + FP}$$          	|
-| False Positive Rate                    	| $$\frac{FP}{FP + TN}$$         	|
-| F1 Score                               	| $$\frac{2TP}{TP + TN + FP + FN}$$ |
-
-_Comment: If there's time we'll want to go into ROC and PR curves. If not, we should just mention that they are ways of combining multiple of these metrics over different decision scenarios._
-
-> ## Key points
->
-> The choice of evaluation metric depends on what the data's class balance is, and what we want the model to suceed at.
-{: .keypoints}
+| Accuracy                               	| $\frac{TP + TN}{TP+FP+TN+FN}$ 	|
+| Precision (Positive Predictive Value) 	| $\frac{TP}{TP + FP}$         	|
+| Recall (Sensitivity)                   	| $\frac{TP}{TP + FN}$ 	        |
+| True Negative Rate (Specificity)       	| $\frac{TN}{TN + FP}$          	|
+| False Positive Rate                    	| $\frac{FP}{FP + TN}$         	|
+| F1 Score                               	| $\frac{2TP}{TP + TN + FP + FN}$ |
