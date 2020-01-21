@@ -5,8 +5,11 @@ exercises: 5
 questions:
 - "How do you evaluate the performance of a model?"
 objectives:
+- Create questions to ask about a machine learning task to aid model selection
+- Evaluate the choice of a metric for a particular task
+- Derive the definitions of popular evaluation metrics
 keypoints:
-- The choice of evaluation metric depends on what the data's class balance is, and what we want the model to succeed at.
+- The choice of evaluation metric depends on what the data's class composition is, and what we want the model to succeed at.
 - Comparing performance on the validation set with the right metric is an effective way to select a classifier and hyperparameter settings.
 mathjax: true
 ---
@@ -65,7 +68,6 @@ And divide it by the number total entries in the table, which is all four entrie
 </p>
 
 Thus, accuracy is defined as $$\frac{TP + TN}{TP+FP+TN+FN}$$
-_Comment: We need to debug equations. Testing with this one first._
 
 We can see accuracy as estimating the answer to the question _How likely is our classifier to get a single instance right?_ However, for many models this might not be the right question. 
 
