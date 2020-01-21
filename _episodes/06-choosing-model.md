@@ -39,13 +39,13 @@ _Comment: We'll probably want to replace these with images in the same style as 
 
 Here, all possible types of predictions are split by 1) What the actual, true class is and 2) what the predicted class is, what our classifier thinks the truth is. This results in the 4 entries of the confusion matrix, two of which means our classifier got something right:
 
-    - True Positives (TP): These instances are actually true (activated) and have been correctly predicted to be true.
-    - True Negatives (TN): These instances are actually false (quiescent) and have been correctly predicted to be false. 
+- True Positives (TP): These instances are actually true (activated) and have been correctly predicted to be true.
+- True Negatives (TN): These instances are actually false (quiescent) and have been correctly predicted to be false. 
 
 And two of which means our classifier got something wrong:
 
-    - False Positives (FP): These are instances which are actually false but our classifier predicted to be true. False positives are sometimes called type I errors or _alpha_ errors. 
-    - False Negatives (FN): These are instances which are actually true but our classifier predicted to be false. False negatives are sometimes called type II errors or _beta_ errors. 
+- False Positives (FP): These are instances which are actually false but our classifier predicted to be true. False positives are sometimes called type I errors or $\alpha$ errors. 
+- False Negatives (FN): These are instances which are actually true but our classifier predicted to be false. False negatives are sometimes called type II errors or $\beta$ errors. 
 
 Almost all evaluation metrics used in machine learning can be derived from the entries in the truth table, typically as a ratio of two sets of entries. For instance, accuracy is defined as the percent of instances the classifier got right.
 
