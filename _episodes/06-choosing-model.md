@@ -44,8 +44,8 @@ Here, all possible types of predictions are split by 1) What the actual, true cl
 
 And two of which means our classifier got something wrong:
 
-    - False Positives (FP): These are instances which are actually false but our classifier predicted to be true. False positives are sometimes called type I errors or $\alpha$ errors. 
-    - False Negatives (FN): These are instances which are actually true but our classifier predicted to be false. False negatives are sometimes called type II errors or $\beta$ errors. 
+    - False Positives (FP): These are instances which are actually false but our classifier predicted to be true. False positives are sometimes called type I errors or $\\alpha$ errors. 
+    - False Negatives (FN): These are instances which are actually true but our classifier predicted to be false. False negatives are sometimes called type II errors or $\\beta$ errors. 
 
 Almost all evaluation metrics used in machine learning can be derived from the entries in the truth table, typically as a ratio of two sets of entries. For instance, accuracy is defined as the percent of instances the classifier got right.
 
