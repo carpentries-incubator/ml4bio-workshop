@@ -170,7 +170,9 @@ The given dataset is imbalanced with more quiescent cells than active cells.
 It is easy to go to deep in the tree, and to fit the parameters that are specific for that training set, rather than to generalize to the whole dataset.
 This is overfitting. 
 
-__Add visual fromt he original pp__
+<p align="center">
+<img width="450" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/decisiontrees3.jpeg">
+</p>
 
 > ## Software
 >
