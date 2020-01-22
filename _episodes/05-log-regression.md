@@ -1,7 +1,7 @@
 ---
 title: "Logistic Regression"
-teaching: 30
-questions:
+teaching: 15
+questions: 15
 - "Key question (FIXME)"
 objectives:
 - "First learning objective."
