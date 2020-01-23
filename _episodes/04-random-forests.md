@@ -1,6 +1,7 @@
 ---
 title: "Random Forests"
-teaching: 30
+teaching: 15
+exercises: 15
 questions:
 - How is the classifier preventing overfitting?
 objectives:
