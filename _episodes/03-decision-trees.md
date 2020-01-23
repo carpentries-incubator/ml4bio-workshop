@@ -20,7 +20,7 @@ Decision trees make predictions by asking a sequence of questions for each examp
 This makes decision trees intuitive.
 One of the benefits is that we can clearly see the path of questions and answers we took to get to the final prediction.
 For example, a doctor might use a decision tree to decide which medicine to prescribe based on a patient's responses about their symptoms.
-Or in the case of T-cells, a decision tree can predict whether or not a T cell is active or quiescent.
+Or in the case of T-cells, a decision tree can predict whether a T-cell is active or quiescent.
 
 <p align="center">
 <img width="450" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/decision%20tree1.jpg">
@@ -28,13 +28,13 @@ Or in the case of T-cells, a decision tree can predict whether or not a T cell i
 
 #### Example
 
-To better understand the algorithm, let's consider the house price prediction example from the [Introduction episode](lhttps://gitter-lab.github.io/ml-bio-workshop/01-introduction/index.html).
-We are going to begin with an initial house price range, and for the neighborhood of our interest the prices range from $100k - $250k. 
+To better understand the algorithm, let's consider the house price prediction example from the [Introduction episode](https://gitter-lab.github.io/ml-bio-workshop/01-introduction/index.html).
+We are going to begin with an initial house price range, and for our neighborhood of interest the prices range from $100k - $250k. 
 The first question we could ask is the number of bedrooms in the house. 
 The answer is 3 bedrooms, and so our new range will be $180k-$250k. 
-Then we will ask about the number of bathrooms, and the answer is 3 bathrooms. 
+Then, we will ask about the number of bathrooms, and the answer is 3 bathrooms. 
 The new range range is $220-$250.
-Finally we will ask what neighborhood is the house located.
+Finally, we will ask the house's neighborhood.
 The answer is Neighborhood A.
 That give us the price of $230k. 
 
@@ -42,6 +42,7 @@ That give us the price of $230k.
 <img width="450" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/decisiontrees1.jpeg">
 </p>
 
+_Comment: Add intructor notes to explain that this is more like a regression example than classification, we use it because it is very intuitive._
 
 #### How does the classifier make predictions?
 
@@ -58,11 +59,10 @@ The splitting goes from the root at the top of the tree to a leaf node at the bo
 {: .callout}
 
 An instance is classified starting from the root and testing the feature specified by the node, then going down the split based on the outcome of the test and testing a different feature specified by another node.  
-Refer to the visual. 
-
+The graphic shows the full decision tree used for the housing example above.
 
 <p align="center">
-<img width="450" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/decisiontrees2.jpeg">
+<img width="750" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/decisiontrees2.jpeg">
 </p>
 
 ### About the classifier
@@ -86,7 +86,7 @@ Some pros of using decision trees:
 
 Some cons of using decision trees:
 
-- prone to overfitting
+- prone to __overfitting__ _Comment: Define overfitting_
 - requires a way to turn numeric data into a single decision rule
 
 ### Step 1 Select data
@@ -111,14 +111,14 @@ We also have the same two features: cell size and intensity.
 
 ### Step 2 Train classifiers
 
-In the original T-cells example, we left the hyperparameters settings as default.
+In the original T-cells example, we left the hyperparameters settings as the defaults.
 Now we will look further into some of the hyperparameters.
 In this workshop, not all of the hyperparameters from the software will be covered.
 For the hyperparameters that we don't discuss, use the default settings.
 - Max_depth can be an integer or None. It is the maximum depth of the tree. If the max depth is set to None, the tree nodes are fully expanded or until they have less than min_samples_split samples.
 - Min_samples_split and min_samples_leaf represent the minimum number of samples required to split a node or to be at a leaf node.
-- Class_weight is important hyperparameter in biology research. If we had a training set and we are using binary classification, i.e., in the T-cells example, if 2 samples are labeled as active and 98 samples are labeled as quiescent, we don't want to train the model that predicts all of the cells to be quiescent. Class_weight parameter would allow putting weight on 2 cells labeled as active. 
-In biology, it is common to have an imbalanced training set with more negative than positive instances, so training and evaluating appropriately is essential! The uniform mode gives all classes the weight one. The balanced mode adjusts the weights.
+- Class_weight is important hyperparameter in biology research. If we had a training set and we are using binary classification, we don't want to only predict the most abundant class.  For example, in the T-cells example, if 2 samples are active and 98 samples are quiescent, we don't want to train a model that predicts all of the cells to be quiescent. Class_weight parameter would allow putting weight on 2 cells labeled as active so that predicting them incorrectly would be penalized more. 
+In biology, it is common to have this type of imbalanced training set with more negative than positive instances, so training and evaluating appropriately is essential! The uniform mode gives all classes the weight one. The balanced mode adjusts the weights.
 
 Without changing any hyperparameter settings, look at the Data Plot.
 
@@ -127,6 +127,7 @@ Without changing any hyperparameter settings, look at the Data Plot.
 > What do you notice?
 {: .challenge}
 
+_Comment: Should we use a different callout to initially hide these solutions?_
 The data plot shows two features, where the blue data points represent the quiescent cells, and the red data points represent the active cells. 
 
 > ## Questions
@@ -171,7 +172,7 @@ It is easy to go to deep in the tree, and to fit the parameters that are specifi
 This is overfitting. 
 
 <p align="center">
-<img width="450" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/decisiontrees3.jpeg">
+<img width="450" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/decisiontree3.jpeg">
 </p>
 
 > ## Software
@@ -181,7 +182,8 @@ This is overfitting.
 > Switch between training data and validation data in the upper right corner.
 {: .checklist}
 
-By looking at the evaluation metrics and the confusion matrix we can see that when the training data evaluation metrics were perfect, but they were not as great on the validation data, the classifier probably overfit.
+By looking at the evaluation metrics and the confusion matrix we can see that when the training data evaluation metrics were perfect, but they were not as great on the validation data.
+The classifier probably overfit.
 
 > ## Definitions
 >
