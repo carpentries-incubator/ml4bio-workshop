@@ -39,9 +39,11 @@ Every time you visit a house, you write down all the information you learned abo
 > What are some of the __features__ that you would consider when buying a house?
 {: .challenge}
 
-> ## Definition
+> ## Definitions
 >
-> Feature - text
+> Feature - a property or a characteristic of the observed object. Used as an input.
+>
+> Class label - prediction output.
 {: .callout}
 
 ### Group activity
@@ -51,18 +53,19 @@ After the data is collected, we'll label the prices into two categories low or h
 
 > ## Definitions
 >
-> Supervised learning - text
+> Supervised learning - training a model from the labeled input data.
 >
-> Unsupervised learning - text
+> Unsupervised learning - training a model from the unlabeled input data to find the patterns in the data.
 {: .callout}
 
 Our dataset has labeled data, so our problem is a __supervised machine learning__ task.
+_Comment: Classification has not been defined yet.  Add Classification and Regression to definitions above as examples?  Add Clustering as unsupervised example?_
 There are different types of machine learning algorithms - supervised learning and __unsupervised learning__ are the main two.
 In this workshop, we focus on supervised learning __algorithms__. 
 
-> ## Definitions
+> ## Definition
 >
-> Algorithm - text
+> Algorithm - is a relationship between input and output. It is a set of steps that takes an input and produces an output.
 {: .callout}
 
 Note there can be different types of features (text, number, category, etc).
@@ -83,6 +86,11 @@ We can visualize what the machine learning model will predict (H for high, L for
 
 This is a simple example of machine learning.
 
+> ## Definition
+>
+> Model - mathematical representation that generates predictions based on the input data.
+{: .callout}
+
 ### What is the difference between a machine learning algorithm and a traditional algorithm?
 
 _Comment: Revise this to follow our housing example where we learned the rule from labeled data.  Traditional algorithm is direct implementation based on realtor's expert knowledge._
@@ -94,7 +102,6 @@ You have all the ingredients, you have the “recipe” or the proportions, and 
 **ML algorithm:**
 You are given the ingredients and the final solution, but you don’t know the recipe.
 So, what you need to do it to find the “fitting” of the ingredients, that would result in your solution.  
-
 
 We can think about the following questions whenever we encounter a situation involving machine learning.
 
