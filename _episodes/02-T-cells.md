@@ -190,8 +190,7 @@ Tools that use classification to predict an outcome are __classifiers__.
 {: .callout}
 
 The software has a dropdown menu of some of the most frequently used classifiers.
-In this workshop, we will be further talking about [Decision Trees](https://gitter-lab.github.io/ml-bio-workshop/03-decision-trees/index.html), [Random Forests](https://gitter-lab.github.io/ml-bio-workshop/04-random-forests/index.html), [Logistic Regression](https://gitter-lab.github.io/ml-bio-workshop/05-log-regression/index.html), and [Neural Networks](https://gitter-lab.github.io/ml-bio-workshop/07-neural-nets/index.html).
-_Comment: Remove neural nets?_
+In this workshop, we will be further talking about [Decision Trees](https://gitter-lab.github.io/ml-bio-workshop/03-decision-trees/index.html), [Random Forests](https://gitter-lab.github.io/ml-bio-workshop/04-random-forests/index.html), and [Logistic Regression](https://gitter-lab.github.io/ml-bio-workshop/05-log-regression/index.html).
 
 We will evaluate the classifiers using accuracy.
 Accuracy measures the fraction of the predictions that are correct.
