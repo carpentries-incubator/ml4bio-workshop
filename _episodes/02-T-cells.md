@@ -18,16 +18,15 @@ keypoints:
 ### Why classify T-cells
 
 Let's consider how to answer a real biological question using the same concepts we saw in the introduction.
-The question pertains to immunotherapy, a type of cancer treatment that uses the body's immune cells to boost natural defenses against cancer.
+The question pertains to immunotherapy, a type of cancer treatment that uses the body's immune cells to attack cancer.
 T-cells are a common target for immunotherapies.
 For immunotherapy to be effective, the modified T-cells must be in an active state.
 Here we will study how to assess the activation state of individual T-cells.
 
-Scientists at UW-Madison and the Morgridge Institute [developed an imaging method](https://doi.org/10.1101/536813) to easily and quickly acquire images of T-cell without destroying them.
+Scientists at UW-Madison and the Morgridge Institute [developed an imaging method](https://doi.org/10.1101/536813) to quickly acquire images of T-cells without destroying them.
 These images contain information that can be used to predict T-cell activity.
-We would like to develop a classifier that can take an image of a T-cell and predict whether it is active or quiescent.
+We would like to develop a classifier that can take an image of a T-cell and predict whether it is __active__ or __quiescent__.
 The active cells would then be used for immunotherapy, and the quiescent cells can be considered inactive and would be discarded.
-_Comment: Make sure we include Jay in acknowledgements when we update them_
 
 > ## Definitions
 >
@@ -41,7 +40,7 @@ _Comment: Make sure we include Jay in acknowledgements when we update them_
 This microscopy dataset includes grayscale images of two type of T-cells: activated and quiescent.
 These T-cells come from blood samples from six human donors.
 
-|Activated|Quiescent|
+|Activated T-cell examples|Quiescent T-cell examples|
 |:---:|:---:|
 |![Activated T-cell 1]({{ page.root }}/fig/activated-tcell-1.png)|![Quiescent T-cell 1]({{ page.root }}/fig/quiescent-tcell-1.png)|
 |![Activated T-cell 2]({{ page.root }}/fig/activated-tcell-2.png)|![Quiescent T-cell 3]({{ page.root }}/fig/quiescent-tcell-2.png)|
@@ -59,15 +58,15 @@ The goal of this study is to develop a method to classify T-cell activation stat
 ### ml4bio software setup
 
 We will be using ml4bio software to build classifiers with the T-cell images.
-Refer to the [Setup](https://gitter-lab.github.io/ml-bio-workshop/setup.html) for instructions on how to install and launch the ml4bio software. _Comment: We should learn how to use relative links_ 
+Refer to the [Setup](https://gitter-lab.github.io/ml-bio-workshop/setup.html) for instructions on how to install and launch the ml4bio software.
 To better understand the software features, check out the [About ml4bio](https://gitter-lab.github.io/ml-bio-workshop/about/index.html) page.
 All of the datasets that we will be using for this workshop have been formatted to fit the ml4bio requirements.
 If you want to experiment with your data, make sure to follow the guidelines in the *About ml4bio* page.
 
-## Machine learning workflow (Make our own version of this)
+## Machine learning workflow
 
 <p align="center">
-<img width="600" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/tcells1.jpeg">
+<img width="800" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/tcells1.jpeg">
 </p>
 
 ### Data preprocessing 
@@ -81,24 +80,25 @@ __Preprocessing__ the raw data is an essential step to have quality data for the
 > Preprocessing - Anything done to a raw dataset before being used for analysis. 
 > This can include transformations, format changes, de-noising, removal of poor-quality data, or adding in data that is missing.
 >
-> Missing values - Parts of a dataset which are missing. Missing values can be imputed, using statistics to guess their value, or removed. 
+> Missing values - Parts of a dataset that are not measured or reported. Missing values can be imputed, using statistics to guess their value, or removed. 
 >
-> Outliers - Parts of a dataset which are significantly different from the rest. 
+> Outliers - Parts of a dataset that are significantly different from the rest. 
 > Outliers can be caused by a true phenomenon or experimental error, in which case they may be removed or transformed to fit the rest of the dataset.
 >
 > Data normalization - Transforming a feature or set of features of a dataset so they have a certain set of properties. 
-> An example would be changing a feature so that all of it's values are between 0 and 1, and/or changing its variance to be 1. 
+> An example would be changing a feature so that all of its values are between 0 and 1, or changing its variance to be 1. 
 {: .callout}
 
 Preprocessing data can include imputing __missing values__, checking the consistency of the data's features, choosing how to deal with any __outliers__, removing duplicate values, and converting all features into a format that is usable by a machine learning algorithm.
-Ther are a variety of methods and tools for data __normalization__ and preprocessing.
+There are a variety of methods and tools for data __normalization__ and preprocessing.
 
-However, learning these methods and tools is outside the scope of this workshop because as preprocessing strategies are specific to both a dataset's domain and the technology used to gather the data.
-Throughout this workshop we will assume that all of the data has already been preprocessed. 
+However, learning these methods and tools is outside the scope of this workshop.
+Preprocessing strategies are specific to both a dataset's domain and the technology used to gather the data.
+Throughout this workshop, we will assume that all of the data has already been preprocessed. 
 
 > ## Software
 >
-> Load size_intensity_feature.csv into the software under the Labeled Data.
+> Load size_intensity_feature.csv into the ml4bio software under the Labeled Data.
 {: .checklist}
 
 > ## Conceptual Questions
@@ -122,7 +122,7 @@ Data Summary gives us an insight into features, __samples__, and __class__ for t
 >
 > Class - The part of a dataset that is being predicted. 
 > In the T-cells example a T-cell's state as active or quiescent is its class. 
-> Also called the target variable.
+> Also called the target variable or label.
 {: .callout}
 
 In this particular dataset, we can see that we have two features **cell_size** and **total_intensity**.
@@ -139,8 +139,8 @@ We can also see that the total number of samples is 843.
 
 ### Training set vs. Validation set vs. Test set 
 
-Before we continue, we need to split the dataset into a training set and a test set.
-The training set is further divided into a training set and a validation set. 
+Before we continue, we need to split the dataset into a __training set__ and a __test set__.
+The training set is further divided into a training set and a __validation set__. 
 
 <p align="center">
 <img width="600" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/tcells2.jpg">
@@ -148,49 +148,54 @@ The training set is further divided into a training set and a validation set.
 
 > ## Definitions
 >
-> Training set - The training set is a part of the original dataset that trains or fits the model. This is the data that the model uses to learn.
+> Training set - The training set is a part of the original dataset that trains or fits the model. This is the data that the model uses to learn patterns.
 >
-> Test set - The test set checks how well the model we expect the model to work on new data in the future. The test set is used in the final phase of the workflow, and it evaluates the final model. 
->
-> Validation set - Further, part of the training set is used to validate that the fitted model works on new data.
+> Validation set - Part of the training set is used to validate that the fitted model works on new data.
 > This is not the final evaluation of the model.
-> This step is used to change __hyperparameters__ and then train the model again. _Comment: Define hyperparams_
+> This step is used to change __hyperparameters__ and then train the model again.
+> 
+> Test set - The test set checks how well we expect the model to work on new data in the future. The test set is used in the final phase of the workflow, and it evaluates the final model. It can only be used one time, and the model cannot be adjusted after using it.
 >
 > Hyperparameters - These are the settings of a machine learning model. Each machine learning method has different hyperparameters, and they control various trade-offs which change how the model learns. 
 > Hyperparameters control parts of a machine learning method such as how much emphasis the method should place on being perfectly correct versus becoming overly complex, how fast the method should learn, the type of mathematical model the method should use for learning, and more.
 {: .callout}
 
 Setting a test set aside from the training and validation sets from the beginning, and only using it once for a final evaluation, is very important to be able to properly evaluate how well a machine learning algorithm learned.
-Letting the machine learning method learn from the test set can be seen as giving a student the answers to an exam; once a student sees any exam answers, their exam score will nol longer reflect their performance in the class.  
+Letting the machine learning method learn from the test set can be seen as giving a student the answers to an exam; once a student sees any exam answers, their exam score will no longer reflect their true understanding of the material.  
 
 We will be using the holdout validation method in the software.
+This reserves a single fixed portion of the data for evaluation.
 We will use the software's default of 20% of the training set for the validation set.
+
 <p align="center">
 <img width="700" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/tcells3.jpg">
 </p>
 
+_Comment: Image should say Holdout Validation instead of Cross Validation_
 
 ## Step 2: Train classifiers
 
-__Classification__ is a process when given some input we are try to predict an outcome by coming up with a rule that will guess this outcome.
+__Classification__ is a process where given some input we are try to predict an outcome by coming up with a rule that will guess this outcome.
 Tools that use classification to predict an outcome are __classifiers__.
 
 > ## Definitions
 >
-> Classification - The task in supervised learning when the class is a category. 
+> Classification - The task in supervised learning when the label is a category. 
 > The goal of classification is to predict which category each sample belongs to.
 >
 > Classifier - A specific model or algorithm which performs classification. 
 >
-> Regression - The task in supervised learning when the class is numeric. 
-> Instead of predicting a category, here the value of the class variable is predicted.
+> Regression - The task in supervised learning when the label is numeric. 
+> Instead of predicting a category, here the value of the label variable is predicted.
 {: .callout}
 
-
 The software has a dropdown menu of some of the most frequently used classifiers.
-In this workshop, we will be further talking about [Decision Trees](https://gitter-lab.github.io/ml-bio-workshop/03-decision-trees/index.html), [Random Forests](https://gitter-lab.github.io/ml-bio-workshop/04-random-forests/index.html), [Logistic Regression](https://gitter-lab.github.io/ml-bio-workshop/05-log-regression/index.html), and [Neural Network](https://gitter-lab.github.io/ml-bio-workshop/07-neural-nets/index.html).
+In this workshop, we will be further talking about [Decision Trees](https://gitter-lab.github.io/ml-bio-workshop/03-decision-trees/index.html), [Random Forests](https://gitter-lab.github.io/ml-bio-workshop/04-random-forests/index.html), [Logistic Regression](https://gitter-lab.github.io/ml-bio-workshop/05-log-regression/index.html), and [Neural Networks](https://gitter-lab.github.io/ml-bio-workshop/07-neural-nets/index.html).
+_Comment: Remove neural nets?_
 
-We will evaluate the classifiers using accuracy.Accuracy measures the fraction or the count of the correct predictions. In the T-cells dataset, this will be the number of correctly predicted quiescent and activated cells compared to the total number of predictions made. 
+We will evaluate the classifiers using accuracy.
+Accuracy measures the fraction of the predictions that are correct.
+In the T-cells dataset, this will be the number of correctly predicted quiescent and activated cells compared to the total number of predictions made. 
 In the software, let's look at the prediction metrics on the validation data.
 Remember, you can switch between the training set and validation set at any time in software. 
 In the T-cells example, we want to predict whether a cell was quiescent or activated. The accuracy gives us the count of the cells that were correctly predicted.
@@ -211,7 +216,7 @@ In the T-cells example, we want to predict whether a cell was quiescent or activ
 This type of exploration of multiple algorithms reflects how a good model is often found in real-world situations.
 It often takes many classifiers before you find the one that you are satisfied with.
 
-For your final comparison, train at least one decision tree, random forest, logistic regression and logistic regression classifier.
+For your final comparison, train at least one decision tree, random forest, and logistic regression classifier.
 
 
 ## Step 3 Test and Predict
@@ -228,7 +233,7 @@ There are a few visualization tools that can help with the model selection. The 
 > ## Definitions
 >
 > Confusion matrix - A matrix used in classification to visualize the performance of a classifier. 
-> Each cell shows the number of time the predicted and actual classes of samples occured in a certain combination. 
+> Each cell shows the number of time the predicted and actual classes of samples occurred in a certain combination. 
 {: .callout}
 
 ### Test Data

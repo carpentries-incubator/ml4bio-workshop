@@ -56,8 +56,7 @@ After the data is collected, we'll label the prices into two categories low or h
 > Unsupervised learning - text
 {: .callout}
 
-Our dataset has labeled data, so our classification is a __supervised machine learning__ task.
-_Comment: Classification has not been defined yet.  Add Classification and Regression to definitions above as examples?  Add Clustering as unsupervised example?_
+Our dataset has labeled data, so our problem is a __supervised machine learning__ task.
 There are different types of machine learning algorithms - supervised learning and __unsupervised learning__ are the main two.
 In this workshop, we focus on supervised learning __algorithms__. 
 
@@ -76,7 +75,7 @@ We find a dream home that has not yet been listed for sale and is not part of ou
 This home is new data, and we want to predict whether the price will be high or low.
 Based on the features that we already know, we want to classify our future home in one of the two possible categories. 
 
-We can visualize what the classifier will predict (H for high, L for low price) based on the feature values.
+We can visualize what the machine learning model will predict (H for high, L for low price) based on the feature values.
 
 <p align="center">
 <img width="550" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/intro_2.jpg">
@@ -107,7 +106,7 @@ We can think about the following questions whenever we encounter a situation inv
 >
 > What features do we have for those predictions?
 >
-> What classifier did we use, and why did we decide to use that one? _Comment: Need to define classifier first._
+> What machine learning model did we use, and why did we decide to use that one?
 {: .challenge}
 
 ### What does machine learning mean for biology? 
