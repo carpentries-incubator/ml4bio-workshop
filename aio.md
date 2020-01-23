@@ -1,5 +1,6 @@
 ---
 permalink: /aio/index.html
+mathjax: true
 ---
 
 {% comment %}
