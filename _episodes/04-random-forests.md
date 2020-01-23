@@ -5,12 +5,12 @@ exercises: 15
 questions:
 - How is the classifier preventing overfitting?
 objectives:
-- Develop knowledge on how a classifier makes the prediction.
-- Come up with the decision rule.
+- Develop knowledge on how a random forest classifier makes a prediction.
+- Come up with the random forest decision rule.
 keypoints:
 - Random forests combines the large number of decision trees.
 - Each tree is given a random subset of the data.
-- 
+- Random forests tend to be a good classifier on many different datasets.
 ---
 
 In this episode, we will learn about the random forests classifier. 
@@ -19,7 +19,7 @@ Then we will consider some applications in biology.
 
 We previously examined decision trees. 
 One of their main weaknesses is their tendancy to overfit if the tree is allowed to get too deep. 
-In training a decision tree we often have to therefore alter the decison tree's parameters to keep it a "generalist", instead of allowing it to overly specialize and overfit. 
+In training a decision tree we often have to alter the decison tree's parameters to keep it a "generalist", instead of allowing it to overly specialize and overfit the training examples. 
 
 Random forests deals with the problem of overfitting by creating multiple trees, with each tree trained slighly differently so it overfits differently.
 Random forests is a classifier that combines a large number of decision trees.
@@ -30,7 +30,7 @@ Multiple overfitting classifiers are put together to reduce the overfitting.
 
 ### Why is it called "random" forests?
 
-If we, when training each tree in the forest, give every tree the same data, we would get the same predictions that are prone to overfitting. 
+If when training each tree in the forest, we give every tree the same data, we would get the same predictions that are prone to overfitting. 
 In order to train the decision trees differently we need to provide slightly different data to each tree. 
 To do this, we choose a **random** subset of the data to give to each tree. 
 When training at each node in the tree we also **randomize** which features can be used to split the data.
@@ -57,7 +57,7 @@ The final prediction is based on a vote or the average taken across all the deci
 
 In this workshop not all of the hyperparameters from the software will be covered.
 For the hyperparameters that we don't discuss, use the default settings. 
-- N-estimator represents the number of the decision trees that go into forest. Although we want to consider the biggest number of trees possible, there is a certain number where the classifier performance won't be improving. 
+- N-estimator represents the number of the decision trees that go into forest. Although we want to consider the biggest number of trees possible, there is a certain number where the classifier performance won't be improving. The software allows at most 50 trees.
 - Max-features represents the number of features considered. For the classification problems *sqrt* is mostly used. That is the square root of the total number of features.
 
 > ## Software
