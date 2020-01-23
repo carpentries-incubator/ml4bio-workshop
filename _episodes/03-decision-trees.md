@@ -53,9 +53,9 @@ The splitting goes from the root at the top of the tree to a leaf node at the bo
 
 > ## Definitions
 >
-> Root node - text
+> Root node - the topmost node where the decision flow starts.
 >
-> Leaf node - text
+> Leaf node - a bottom node that doesn't split any further. It represents the class label.
 {: .callout}
 
 An instance is classified starting from the root and testing the feature specified by the node, then going down the split based on the outcome of the test and testing a different feature specified by another node.  
@@ -187,9 +187,9 @@ The classifier probably overfit.
 
 > ## Definitions
 >
-> Evaluation metrics - 
+> Evaluation metrics - used to measure the performance of a model.
 >
-> Confusion matrix - 
+> Confusion matrix - a table that summarizes successes and failures of model's predictions.
 {: .callout}
 
 > ## Software
