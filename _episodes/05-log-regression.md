@@ -7,8 +7,12 @@ questions:
 objectives:
 - Understand advantages and disadvantages of a classifier.
 - Develop an ability to discern between linear and nonlinear classifiers.
+- Learn various methods to prevent overfitting.
 keypoints:
-- 
+- Logistic regression is a linear classifier. 
+- The output of logistic regression is probability of a certain class.
+- Logistic regression is characterized by linear separability of the data.
+- Regularization can be used to improve an overfitting model.
 ---
 
 Logistic regression is a classifier that models the probability of a certain label. 
@@ -122,7 +126,7 @@ _Comment: Update filename._
 > Is the data linearly separable?  
 {: .challenge} 
 
-#### Logistic regression vs. Ranfom forests
+#### Logistic regression vs. Random forests
 
 > ## Software
 >
@@ -150,7 +154,7 @@ _Comment: Update filename_
 > Train the data set with the default hyperparameters using random forests classifier.
 {: .checklist}
 
-> ## Questions
+> ## Question
 >
 > How did the accuracy change? 
 {: .challenge} 
@@ -190,13 +194,19 @@ L1 reguralization or lasso reguralization shrinks some feature weights that find
 L2 reguralization or ridge reguralization makes some feature weights that finds less important very small. 
 The higher the C is the smaller will be the feature weights.
 
-First, set penalty to ‘L1’.
-Experiment with C = 0.08, 0.1, 0.2, 0.5, 1.
+> ## Software
+>
+> First, set penalty to ‘L1’.
+> Experiment with C = 0.08, 0.1, 0.2, 0.5, 1.
+>
+> Next, set penalty to ‘L2’.
+> Experiment with the same set of C. Think about the difference.
+{: .checklist}
 
-Next, set penalty to ‘L2’.
-Experiment with the same set of C. Think about the difference.
-
-Examine the decision boundary and explain what you observe.
+> ## Question
+>
+> What do you observe?
+{: .challenge}
 
 The main idea is that L1 will regularize such that one feature weight goes to 0, so we can see the classifier ignores that feature in its decision boundary.
 
