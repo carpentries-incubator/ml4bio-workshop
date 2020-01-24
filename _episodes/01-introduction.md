@@ -34,8 +34,8 @@ A machine learning __algorithm__ gets better at its task when it is shown exampl
 ### Your first machine learning model
 
 Let’s say you want to buy a house.
-You follow the real estate market for a few years.
-During those months you visit 20 different homes.
+You follow the real estate market for a few months.
+During those months you visit 20 different houses.
 Every time you visit a house, you write down all the information you learned about the house. 
 
 > ## Question
@@ -57,12 +57,9 @@ Note there can be different types of features (text, number, category, etc).
 We'll create a housing dataset together.
 After the data is collected, we'll label the prices into two categories low or high.
 
-> ## Definitions
->
-> Supervised learning - training a model from the labeled input data.
->
-> Unsupervised learning - training a model from the unlabeled input data to find the patterns in the data.
-{: .callout}
+<p align="center">
+<img width="550" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/intro_1.jpg">
+</p>
 
 Our dataset has labeled data, so our problem is a __supervised machine learning__ task. 
 There are different types of machine learning algorithms - supervised learning and __unsupervised learning__ are the main two.
@@ -70,16 +67,19 @@ Some examples of supervised machine learning are classification and regression.
 These will be further defined in the next lesson.
 An example of unsupervised machine learning is __clustering__. 
 
+> ## Definitions
+>
+> Supervised learning - training a model from the labeled input data.
+>
+> Unsupervised learning - training a model from the unlabeled input data to find the patterns in the data.
+{: .callout}
+
 > ## Definition
 >
 > Clustering - grouping related samples in the data set. In the house price example, a sample is each house.
 {: .callout}
 
 In this workshop, we focus on supervised learning algorithms. 
-
-<p align="center">
-<img width="550" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/intro_1.jpg">
-</p>
 
 We find a dream home that has not yet been listed for sale and is not part of our existing dataset.
 This home is new data, and we want to predict whether the price will be high or low.
