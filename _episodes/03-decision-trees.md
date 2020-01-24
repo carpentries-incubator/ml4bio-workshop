@@ -188,8 +188,6 @@ The classifier probably overfit.
 > ## Definitions
 >
 > Evaluation metrics - used to measure the performance of a model.
->
-> Confusion matrix - a table that summarizes successes and failures of model's predictions.
 {: .callout}
 
 > ## Software
