@@ -3,14 +3,13 @@ title: "Logistic Regression"
 teaching: 15
 exercises: 15
 questions:
-- "Key question (FIXME)"
+- What is linear separability?
 objectives:
-- "First learning objective."
+- Understand advantages and disadvantages of a classifier.
+- Develop an ability to discern between linear and nonlinear classifiers.
 keypoints:
-- "First key point. Brief Answer to questions. (FIXME)"
+- 
 ---
-
-_Comment: Need questions, objectives, key points_
 
 Logistic regression is a classifier that models the probability of a certain label. 
 In our original example, when we predicted whether a price for a house is high or low, we were classifying our responses into two categories.
@@ -67,6 +66,10 @@ We will not be going through the math, so trust us on this!
 What is important to understand is that the change in one feature by a unit changes the odds ratio. 
 So logistic regression treats each feature independently. 
 This affects what type of rules it can learn. 
+
+Another important characteristic of logistic regression features is how they affect the probabiity. 
+If the feature weight is positive then the probability of the outcome increases, for example the probability that a T-cell is active increases. 
+If the feature weight is negative then the probability of the outcome decreases, or in our example, the probability that a T-cell is active decreases.
 
 If we have 2 features, both cell size and cell intensity, logistic regression is learning a different rule. 
 The rule is a single straight line. 
@@ -164,13 +167,40 @@ This parameter is used in reguralization and, although, there is an option not t
 
 #### Regularization
 
-L2 reguralization or ridge reguralization - text
+> ## Software
+>
+> Let's load toy_data_1 data set into our software.
+>
+> This data set is engineered specifically to demonstrate the regularization.
+{: .checklist}
 
-L1 reguralization or lasso reguralization - text
+Previously we talked about the positive and negative affect a feature and its weight can have to the outcome probability. 
+_Do we define feature weight anywhere?_
+As with decision trees and random forests, logistic regression can overfit. 
+If we have a complex model with many features, our model might have high variance.
 
-_Comment: Are we adding the example toy data that demonstrates regularization? See https://github.com/gitter-lab/ml-bio-workshop/commit/3c68643fce7d20fb9e5c4a7b3581011b8a12d5fa#r36884205_
+One way to deal with this is regularization. 
+Regularization can help us decide how many features is too many or how many is too low.
+Regularization does not make models fit better on the training data, but it help with generalizing the pattern on the new data.
+
+Recall: C is the inverse of regularization strength.
+
+L1 reguralization or lasso reguralization shrinks some feature weights that finds less important to 0.
+
+L2 reguralization or ridge reguralization makes some feature weights that finds less important very small. 
+The higher the C is the smaller will be the feature weights.
+
+First, set penalty to ‘L1’.
+Experiment with C = 0.08, 0.1, 0.2, 0.5, 1.
+
+Next, set penalty to ‘L2’.
+Experiment with the same set of C. Think about the difference.
+
+Examine the decision boundary and explain what you observe.
+
+The main idea is that L1 will regularize such that one feature weight goes to 0, so we can see the classifier ignores that feature in its decision boundary.
 
 ### Step 3 Test and Predict
 
-**Finish once the dataset is done**
+
 
