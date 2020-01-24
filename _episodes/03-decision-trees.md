@@ -89,7 +89,7 @@ Some cons of using decision trees:
 
 > ## Definition
 >
-> Overfitting - an overfitting model was trained too well on the training data set. This might cause for the model not to work as well on the test data. 
+> Overfitting - an overfitting model fits the training data too well, but it fails to do this on the new data.
 {: .callout} 
 
 ### Step 1 Select data
@@ -173,8 +173,16 @@ The given dataset is imbalanced with more quiescent cells than active cells.
 
 #### Overfitting
 
+A good model will learn a pattern from the data and then it will be able to generalize the pattern on the new data.
+
 It is easy to go to deep in the tree, and to fit the parameters that are specific for that training set, rather than to generalize to the whole dataset.
-This is overfitting. 
+This is overfitting.
+In other words, the more complex the model, the higher the chance that it will overfit. 
+The overfitted model has too many features. 
+However, the solution is not necessarily to start removing these features, because this might lead to underfitting.
+
+The model that overfits has high variance. 
+This means that we have large changes in our rule, for a very small changes in our samples. (_HELP_)
 
 <p align="center">
 <img width="450" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/decisiontree3.jpeg">
