@@ -1,7 +1,7 @@
 ---
 title: "Decision Trees"
-teaching: 10
-exercises: 5
+teaching: 15
+exercises: 15
 questions:
 - How does the decision trees classifier make predictions?
 objectives:
@@ -42,14 +42,12 @@ That give us the price of $230k.
 <img width="450" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/decisiontrees1.jpeg">
 </p>
 
-_Comment: Add intructor notes to explain that this is more like a regression example than classification, we use it because it is very intuitive._
-
 #### How does the classifier make predictions?
 
 This intuitive way of understanding decision trees is very close to the way the algorithm is implemented, but we also have the other part of the split to consider. 
 Each split of a decision tree classifies instances based on a test of a single feature. 
 This test can be True or False. 
-The splitting goes from the root at the top of the tree to a leaf node at the bottom.
+The splitting goes from the __root__ at the top of the tree to a __leaf node__ at the bottom.
 
 > ## Definitions
 >
@@ -86,8 +84,13 @@ Some pros of using decision trees:
 
 Some cons of using decision trees:
 
-- prone to __overfitting__ _Comment: Define overfitting_
+- prone to __overfitting__ 
 - requires a way to turn numeric data into a single decision rule
+
+> ## Definition
+>
+> Overfitting - an overfitting model was trained too well on the training data set. This might cause for the model not to work as well on the test data. 
+{: .callout} 
 
 ### Step 1 Select data
 
@@ -127,10 +130,12 @@ Without changing any hyperparameter settings, look at the Data Plot.
 > What do you notice?
 {: .challenge}
 
-_Comment: Should we use a different callout to initially hide these solutions?_
-The data plot shows two features, where the blue data points represent the quiescent cells, and the red data points represent the active cells. 
+> ## Solution
+>
+> The data plot shows two features, where the blue data points represent the quiescent cells, and the red data points represent the active cells. 
+{: .solution}
 
-> ## Questions
+> ## Question
 >
 > So if you notice these cut offs, what do you think they represent?
 {: .challenge}
@@ -138,7 +143,7 @@ The data plot shows two features, where the blue data points represent the quies
 They each represent a node in the decision tree. 
 When we are trying to come up with the decision rule, we will consider the features and the data plot. 
 
-> ## Conceptual Questions
+> ## Conceptual Question
 > 
 > What hyperparameter might be important for this example?
 {: .challenge}
@@ -182,7 +187,7 @@ This is overfitting.
 > Switch between training data and validation data in the upper right corner.
 {: .checklist}
 
-By looking at the evaluation metrics and the confusion matrix we can see that when the training data evaluation metrics were perfect, but they were not as great on the validation data.
+By looking at the __evaluation metrics__ and the confusion matrix we can see that when the training data evaluation metrics were perfect, but they were not as great on the validation data.
 The classifier probably overfit.
 
 > ## Definitions
