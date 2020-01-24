@@ -35,6 +35,8 @@ __Regression__ - The task in supervised learning when the label is numeric. Inst
 
 __Confusion matrix__ - A matrix used in classification to visualize the performance of a classifier. Each cell shows the number of time the predicted and actual classes of samples occurred in a certain combination.
 
+__Overfitting__ - an overfitting model was trained too well on the training data set. This might cause for the model not to work as well on the test data. 
+
 __Root node__ - the topmost node where the decision flow starts.
 
 __Leaf node__ - a bottom node that doesn't split any further. It represents the class label.
