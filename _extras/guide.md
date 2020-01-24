@@ -16,4 +16,7 @@ Point out where the accuracy is in the table and how it is derived from the conf
 Then have participants try more classifiers.
 Ask the participants who obtained the best accuracy and what settings they used.
 
+## Decision Trees
+The house price example is more like a regression example than classification, but we use it because it is very intuitive.
+
 {% include links.md %}
