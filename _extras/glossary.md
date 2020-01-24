@@ -1,5 +1,5 @@
 ---
-title: Glossary of machine learning terms from the workshop
+title: Glossary
 ---
 {% include links.md %}
 
