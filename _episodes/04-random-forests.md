@@ -27,6 +27,26 @@ The decisions of each tree are then combined to make the final classification.
 This "team of specialists" approach random forests take often outperforms the "single generalist" approach of decision trees. 
 Multiple overfitting classifiers are put together to reduce the overfitting.
 
+### Motivation from the bias variance trade-off
+
+<p align="center">
+<img width="450" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/decisiontree3.jpeg">
+</p>
+
+In the previous lesson we looked at overfitting. 
+Looking again at the different decision boundaries, note that the one of the left has high __bias__ while the one on the right has high __variance__. 
+
+> ## Definitions
+>
+> Bias - The assumptions made by a model about what the decision boundary will look like. Models with high bias are less sensitive to changes in the training data.
+>
+> Variance - The amount the training data affects what a model's decision boundary looks like. Models with high variance have low bias. 
+>
+> Note that these concepts have more exact mathmatical definitions which are beyond the scope of this workshop.
+{: .callout}
+
+Random forests are based on mitigating the negative effects of this trade-off by creating multiple high variance models that work together.
+
 
 ### Why is it called "random" forests?
 
@@ -42,7 +62,6 @@ The final prediction is based on a vote or the average taken across all the deci
 > ## Software
 >
 > Load a simulated_t_cells_2 data set into our software. 
-> This dataset is designed to specifically illustrate properties of the random forest classifier.
 {: .checklist}
 
 > ## Conceptual Questions
