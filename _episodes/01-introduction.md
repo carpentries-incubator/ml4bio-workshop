@@ -85,11 +85,16 @@ We find a dream home that has not yet been listed for sale and is not part of ou
 This home is new data, and we want to predict whether the price will be high or low.
 Based on the features that we already know, we want to classify our future home in one of the two possible categories. 
 
-We can visualize what the machine learning model will predict (H for high, L for low price) based on the feature values.
+We can visualize what the __machine learning model__ will predict (H for high, L for low price) based on the feature values.
 
 <p align="center">
 <img width="550" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/intro_2.jpg">
 </p>
+
+> ## Definition
+>
+>__Decision boundary__ - a region where all the patterns within the decision boundary belong to the same class. It divides the space that is represented by all the data points. Identifying the decision boundary can be used to classify the data points. The decision boundary does not have to be linear.
+{: .callout}
 
 This is a simple example of machine learning.
 
@@ -99,8 +104,6 @@ This is a simple example of machine learning.
 {: .callout}
 
 ### What is the difference between a machine learning algorithm and a traditional algorithm?
-
-_Comment: Revise this to follow our housing example where we learned the rule from labeled data.  Traditional algorithm is direct implementation based on realtor's expert knowledge._
 
 **Traditional algorithm:**
 Let’s say you are doing an experiment, and you need to mix up some solutions.
