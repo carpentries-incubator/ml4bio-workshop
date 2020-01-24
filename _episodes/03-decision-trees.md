@@ -140,15 +140,21 @@ Without changing any hyperparameter settings, look at the Data Plot.
 > So if you notice these cut offs, what do you think they represent?
 {: .challenge}
 
-They each represent a node in the decision tree. 
-When we are trying to come up with the decision rule, we will consider the features and the data plot. 
+> ## Solution
+>
+> They each represent a node in the decision tree. 
+> When we are trying to come up with the decision rule, we will consider the features and the data plot.
+{: .solution}
 
 > ## Conceptual Question
 > 
 > What hyperparameter might be important for this example?
 {: .challenge}
 
-The given dataset is imbalanced with more quiescent cells than active cells.
+> ## Solution
+>
+> The given dataset is imbalanced with more quiescent cells than active cells.
+{: .solution}
 
 > ## Software
 >
@@ -182,7 +188,7 @@ The overfitted model has too many features.
 However, the solution is not necessarily to start removing these features, because this might lead to underfitting.
 
 The model that overfits has high variance. 
-This means that we have large changes in our rule, for a very small changes in our samples. (_HELP_)
+This means that we have large changes in our decision rule, for a very small changes in our samples. (_HELP_)
 
 <p align="center">
 <img width="450" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/decisiontree3.jpeg">
