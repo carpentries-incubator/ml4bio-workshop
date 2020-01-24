@@ -71,7 +71,7 @@ What is important to understand is that the change in one feature by a unit chan
 So logistic regression treats each feature independently. 
 This affects what type of rules it can learn. 
 
-Another important characteristic of logistic regression features is how they affect the probabiity. 
+Another important characteristic of logistic regression features is how they affect the probability. 
 If the feature weight is positive then the probability of the outcome increases, for example the probability that a T-cell is active increases. 
 If the feature weight is negative then the probability of the outcome decreases, or in our example, the probability that a T-cell is active decreases.
 
@@ -112,7 +112,7 @@ _Comment: Update filename._
 
 > ## Software
 >
-> Let's train logistic regresion classifier. 
+> Let's train logistic regression classifier. 
 >
 > For now use the default hyperparameters. 
 {: .checklist}
@@ -164,10 +164,11 @@ However, with the nonlinear data, random forests will be the better choice for a
 
 ### Step 2 Train Classifiers
 
-In this workshop not all of the hyperparameters from the software will be covered. Those that we don't cover, we will be using the default settings. 
-- Penalty can be l1 or l2 norm. 
-This parameter is used in reguralization and, although, there is an option not to use reguralization, in this workshop we will only be focusing on the example when we use reguralization.
-- C is an inverse of reguralization strength. Smaller values mean stronger regularization.
+In this workshop not all of the hyperparameters from the software will be covered.
+For those that we don't cover, we will use the default settings. 
+- Penalty can be L1 or L2 norm. 
+This parameter is used in regularization. Although there is an option not to use reguralization, in this workshop we will always use reguralization, following common practices in real applications.
+- C is the inverse of the regularization strength. Smaller values of C mean stronger regularization.
 
 #### Regularization
 
@@ -175,24 +176,25 @@ This parameter is used in reguralization and, although, there is an option not t
 >
 > Let's load toy_data_1 data set into our software.
 >
-> This data set is engineered specifically to demonstrate the regularization.
+> This data set is engineered specifically to demonstrate the effects of regularization.
 {: .checklist}
 
-Previously we talked about the positive and negative affect a feature and its weight can have to the outcome probability. 
+Previously, we talked about the positive and negative effect a feature and its weight can have on the outcome probability. 
 _Do we define feature weight anywhere?_
 As with decision trees and random forests, logistic regression can overfit. 
 If we have a complex model with many features, our model might have high variance.
 
 One way to deal with this is regularization. 
-Regularization can help us decide how many features is too many or how many is too low.
-Regularization does not make models fit better on the training data, but it help with generalizing the pattern on the new data.
+Regularization can help us decide how many features are too many or too few.
+Regularization does not make models fit better on the training data, but it helps with generalizing the pattern to new data.
 
 Recall: C is the inverse of regularization strength.
 
-L1 reguralization or lasso reguralization shrinks some feature weights that finds less important to 0.
+L1 reguralization or lasso reguralization shrinks the weights of less important features to be exactly 0.
+These features are then not used at all to make predictions on new data.
 
-L2 reguralization or ridge reguralization makes some feature weights that finds less important very small. 
-The higher the C is the smaller will be the feature weights.
+L2 reguralization or ridge reguralization makes the weights of less important features to be very small values.
+The higher the C, the smaller the feature weights.
 
 > ## Software
 >
@@ -208,9 +210,9 @@ The higher the C is the smaller will be the feature weights.
 > What do you observe?
 {: .challenge}
 
-The main idea is that L1 will regularize such that one feature weight goes to 0, so we can see the classifier ignores that feature in its decision boundary.
+L1 will regularize such that one feature weight goes to 0.
+We can see the classifier ignores that feature in its decision boundary.
 
 ### Step 3 Test and Predict
 
-
-
+_Comment: What goes here?_
