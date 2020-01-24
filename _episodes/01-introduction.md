@@ -17,7 +17,6 @@ keypoints:
 > What do you think of when you hear the phrase machine learning?
 {: .challenge}
 
-
 ### What is machine learning?
 
 > ## Definition
@@ -25,12 +24,17 @@ keypoints:
 >__Machine learning__ is a set of methods that can automatically detect patterns in data and then use those patterns to make predictions on future data or perform other kinds of decision making under uncertainty.
 {: .callout}
  
-A machine learning algorithm gets better at its task when it is shown examples as it tries to define general patterns from the examples.
+A machine learning __algorithm__ gets better at its task when it is shown examples as it tries to define general patterns from the examples.
+
+> ## Definition
+>
+> Algorithm - is a relationship between input and output. It is a set of steps that takes an input and produces an output.
+{: .callout}
 
 ### Your first machine learning model
 
 Let’s say you want to buy a house.
-You follow the real estate market for a few months.
+You follow the real estate market for a few years.
 During those months you visit 20 different homes.
 Every time you visit a house, you write down all the information you learned about the house. 
 
@@ -46,6 +50,8 @@ Every time you visit a house, you write down all the information you learned abo
 > Class label - prediction output.
 {: .callout}
 
+Note there can be different types of features (text, number, category, etc).
+
 ### Group activity
 
 We'll create a housing dataset together.
@@ -58,17 +64,18 @@ After the data is collected, we'll label the prices into two categories low or h
 > Unsupervised learning - training a model from the unlabeled input data to find the patterns in the data.
 {: .callout}
 
-Our dataset has labeled data, so our problem is a __supervised machine learning__ task.
-_Comment: Classification has not been defined yet.  Add Classification and Regression to definitions above as examples?  Add Clustering as unsupervised example?_
+Our dataset has labeled data, so our problem is a __supervised machine learning__ task. 
 There are different types of machine learning algorithms - supervised learning and __unsupervised learning__ are the main two.
-In this workshop, we focus on supervised learning __algorithms__. 
+Some examples of supervised machine learning are classification and regression. 
+These will be further defined in the next lesson.
+An example of unsupervised machine learning is __clustering__. 
 
 > ## Definition
 >
-> Algorithm - is a relationship between input and output. It is a set of steps that takes an input and produces an output.
+> Clustering - grouping related samples in the data set. In the house price example, a sample is each house.
 {: .callout}
 
-Note there can be different types of features (text, number, category, etc).
+In this workshop, we focus on supervised learning algorithms. 
 
 <p align="center">
 <img width="550" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/intro_1.jpg">
@@ -131,8 +138,6 @@ Let’s look at some examples of how machine learning is being used in biology r
 * [Diagnosing cancer from DNA methylation data.](http://doi.org/10.1038/d41586-018-02881-7)
 * [Finding glaucoma in color fundus photographs using deep learning.](http://doi.org/10.1001/jamaophthalmol.2019.3512)
 * [Predicting lymphocyte fate from cell imaging](https://doi.org/10.1371/journal.pone.0083251)
-
-_Comment: What do we do with these papers?  Should ask a question or have partners pick one and discuss the benefit of ML in this situation?_
 
 {% include links.md %}
 
