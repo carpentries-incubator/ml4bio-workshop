@@ -24,6 +24,12 @@ We will be focusing on binary classification in this workshop.
 ### What is logistic regression?
 
 Logistic regression returns the probability that a combination of features with weights belongs to a certain class. 
+
+> ## Definition
+>
+> Feature weights - determine the importance of a feature in a model.  
+{: .callout}
+
 The probability is always between 0 and 1.
 Let's build the visual of the house price example with one feature. 
 We want to predict whether the house price is high or low.
@@ -57,7 +63,7 @@ Let's look at the single feature, square footage of a house, and how it affects 
 Now, let's think about the T-cells example. 
 If we focus only on one feature, for example cell size, we can use logistic regression to predict the probability that the cell would be active. 
 
-What the "S" shaped function is represented by the logistic function of __odds__. 
+The "S" shaped function is the inverse of the logistic function of __odds__. 
 
 > ## Definition
 >
@@ -66,17 +72,11 @@ What the "S" shaped function is represented by the logistic function of __odds__
 
 The logistic function of odds is a sum of the __weighted features__.
 This makes the log-odds function a linear function, and logistic regression a linear classifier. 
-We will not be going through the math, so trust us on this! 
 What is important to understand is that the change in one feature by a unit changes the odds ratio. 
 So logistic regression treats each feature independently. 
 This affects what type of rules it can learn. 
 
-> ## Definition
->
-> Feature weights - determine the importance of a feature in a model.  
-{: .callout}
-
-Another important characteristic of logistic regression features is how they affect the probability. 
+So, an important characteristic of logistic regression features is how they affect the probability. 
 If the feature weight is positive then the probability of the outcome increases, for example the probability that a T-cell is active increases. 
 If the feature weight is negative then the probability of the outcome decreases, or in our example, the probability that a T-cell is active decreases.
 
