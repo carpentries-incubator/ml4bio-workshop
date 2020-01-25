@@ -169,7 +169,7 @@ This parameter is used in regularization. Although there is an option not to use
 
 > ## Software
 >
-> Let's load _toy_data_1_ data set into our software.
+> Let's load _simulated_t_cells_1_ data set into our software.
 >
 > This data set is engineered specifically to demonstrate the effects of regularization.
 {: .checklist}
