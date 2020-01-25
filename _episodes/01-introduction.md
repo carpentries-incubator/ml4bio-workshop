@@ -47,7 +47,8 @@ Every time you visit a house, you write down all the information you learned abo
 >
 > Feature - a property or a characteristic of the observed object. Used as an input.
 >
-> Class label - prediction output.
+> Class label - prediction output. 
+> Also called the target variable or label.
 {: .callout}
 
 Note there can be different types of features (text, number, category, etc).

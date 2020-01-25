@@ -1,6 +1,6 @@
 ---
 title: "How to Choose a Model"
-teaching: 10
+teaching: 15
 exercises: 5
 questions:
 - "How do you evaluate the performance of a model?"
@@ -44,15 +44,19 @@ In the binary classification setting (where there are only two classes we're try
 Here, all possible types of predictions are split by 1) What the actual, true class is and 2) what the predicted class is, that is, what our classifier thinks the truth is.
 This results in the 4 entries of the confusion matrix, two of which means our classifier got something right:
 
-- True Positives (TP): These instances are actually true (activated) and have been correctly predicted to be true.
-- True Negatives (TN): These instances are actually false (quiescent) and have been correctly predicted to be false. 
+> ## Definitions
+> True Positives (TP): These instances are actually true (activated) and have been correctly predicted to be true.
+>
+> True Negatives (TN): These instances are actually false (quiescent) and have been correctly predicted to be false. 
+{: .callout}
 
 And two of which means our classifier got something wrong:
 
-- False Positives (FP): These are instances which are actually false but our classifier predicted to be true. False positives are sometimes called type I errors or $\alpha$ errors. 
-- False Negatives (FN): These are instances which are actually true but our classifier predicted to be false. False negatives are sometimes called type II errors or $\beta$ errors. 
-
-_Comment: Make these definition boxes?_
+> ## Definitions
+> False Positives (FP) - These are instances which are actually false but our classifier predicted to be true. False positives are sometimes called type I errors or $\alpha$ errors. 
+>
+> False Negatives (FN) - These are instances which are actually true but our classifier predicted to be false. False negatives are sometimes called type II errors or $\beta$ errors. 
+{: .callout}
 
 Almost all evaluation metrics used in machine learning can be derived from the entries in the truth table, typically as a ratio of two sets of entries. For instance, accuracy is defined as the percent of instances the classifier got right.
 
@@ -104,7 +108,20 @@ Common Metrics:
 |----------------------------------------	|:--------------------------------:	|
 | Accuracy                               	| $\frac{TP + TN}{TP+FP+TN+FN}$ 	|
 | Precision (Positive Predictive Value) 	| $\frac{TP}{TP + FP}$         	|
-| Recall (Sensitivity)                   	| $\frac{TP}{TP + FN}$ 	        |
+| Recall (Sensitivity, True Positive Rate) 	| $\frac{TP}{TP + FN}$ 	        |
 | True Negative Rate (Specificity)       	| $\frac{TN}{TN + FP}$          	|
 | False Positive Rate                    	| $\frac{FP}{FP + TN}$         	|
 | F1 Score                               	| $\frac{2TP}{TP + TN + FP + FN}$ |
+
+## Error Curves
+
+When evaluating machine learning models, multiple metrics are often combined into curves to be able to summarize performance into a single final metric. 
+These curves are plotted at different confidence cut-offs, selecting different confidence thresholds for what is predicted to be in the positive class.
+The two most popular curves are the __ROC curve__ and the __PR curve__. 
+
+> ## Definitions
+> Receiver Operating Characteristic (ROC) Curve - A curve which plots the recall (true positive rate) against the false positive rate at different confidence cut-offs. The area under the curve (often called the AUROC) can then be used as a single metric to evaluate a classifier.
+>
+> Precition Recall (PR) Curve - A curve which plots the precision against the recall at different confidence cut-offs. The area under the curve (often called AUPR) can then be used as a single metric to evaluate a classifier. 
+>
+{: .callout}

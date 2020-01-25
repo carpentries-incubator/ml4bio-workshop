@@ -30,9 +30,9 @@ The active cells would then be used for immunotherapy, and the quiescent cells c
 
 > ## Definitions
 >
-> Active cells - text
+> Active cells - Cells that have become active in their functions. For T-cells, this means increased cell growth and differentiation, typically after being activated by an antigen. 
 >
-> Quiescent cells - text
+> Quiescent cells - Cells that are in an inactive state.
 {: .callout}
 
 ### Dataset description
@@ -47,9 +47,6 @@ These T-cells come from blood samples from six human donors.
 |![Activated T-cell 3]({{ page.root }}/fig/activated-tcell-3.png)|![Quiescent T-cell 3]({{ page.root }}/fig/quiescent-tcell-3.png)|
 
 We will use a subset of the images and follow the workflow in a [T-cell classification study](https://doi.org/10.1002/jbio.201960050).
-
-_Comment: Restructure to be like slides, add 2-3 examples, ask questions about what we think the labels are (show of hands)_
-_Comment: If we want to make this an activity, show the first two examples of each class and reserve the third for the interactive question_
 
 ### Machine learning methods
 
@@ -170,8 +167,6 @@ We will use the software's default of 20% of the training set for the validation
 <p align="center">
 <img width="700" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/tcells3.jpg">
 </p>
-
-_Comment: Image should say Holdout Validation instead of Cross Validation_
 
 ## Step 2: Train classifiers
 
