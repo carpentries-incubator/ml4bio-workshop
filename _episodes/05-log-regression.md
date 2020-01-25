@@ -24,7 +24,7 @@ We will be focusing on binary classification in this workshop.
 ### What is logistic regression?
 
 Logistic regression returns the probability that a combination of features with weights belongs to a certain class. 
-This probability is always between 0 and 1.
+The probability is always between 0 and 1.
 Let's build the visual of the house price example with one feature. 
 We want to predict whether the house price is high or low.
 We will be predicting the probability that the price belongs to one of the two classes, so this is binary classification. 
