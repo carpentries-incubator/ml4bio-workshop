@@ -234,8 +234,6 @@ The classifier probably overfit.
 
 #### Evaluation
 
-Is there anything else that you would want to do before using this to classify the T-cells?
-
 **Are the models reusable?**
 We use supervised learning to build our model. We want to be able to use the model on the different data. 
 
