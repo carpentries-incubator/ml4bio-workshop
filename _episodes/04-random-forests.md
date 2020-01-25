@@ -30,7 +30,7 @@ Multiple overfitting classifiers are put together to reduce the overfitting.
 ### Motivation from the bias variance trade-off
 
 <p align="center">
-<img width="450" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/decisiontree3.jpeg">
+<img width="700" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/decisiontree3.jpeg">
 </p>
 
 In the previous lesson we looked at overfitting. 
