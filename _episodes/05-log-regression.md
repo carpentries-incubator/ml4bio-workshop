@@ -103,7 +103,7 @@ We can control slope and steepness, from class 1 and class 2.
 >
 > Let's load toy_data_3 data set into our software.
 >
-> This dataset is engineered specifically for the logistics regression classifier.
+> This dataset is engineered specifically for the logistic regression classifier.
 {: .checklist}
 
 #### Linear separability
