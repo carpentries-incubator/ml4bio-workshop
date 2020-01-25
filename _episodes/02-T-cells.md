@@ -219,7 +219,7 @@ Our final step is model selection and evaluation.
 After we trained multiple classifiers and did holdout validation, the next step is to choose the best model.
 
 <p align="center">
-<img width="350" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/Screen%20Shot%202019-11-08%20at%2010.40.25%20AM.png">
+<img width="350" src="https://github.com/gitter-lab/ml-bio-workshop/blob/gh-pages/assets/holdoutvalidation.jpg?raw=true">
 </p>
 
 There are a few visualization tools that can help with the model selection. The __Confusion Matrix__ reflects the selected dataset (training or validation). The T-cells dataset has two labels so that the Confusion Matrix will be 2 x 2. The sum of all the predictions will be the total number of samples in the selected dataset (training or validation). 
