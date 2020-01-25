@@ -40,7 +40,7 @@ Let's look at the single feature, square footage of a house, and how it affects 
 </p>
 
 <p align="center">
-<img width="500" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/logit3.jpeg">
+<img width="400" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/logit3.jpeg">
 </p>
 
 > ## Activity
@@ -59,17 +59,22 @@ If we focus only on one feature, for example cell size, we can use logistic regr
 
 What the "S" shaped function is represented by the logistic function of __odds__. 
 
-> ## Definitions
+> ## Definition
 >
 > Odds - probability that an event happens divided by probability that an event doesn't happen.
 {: .callout}
 
-The logistic function of odds is a sum of the weighted features.
+The logistic function of odds is a sum of the __weighted features__.
 This makes the log-odds function a linear function, and logistic regression a linear classifier. 
 We will not be going through the math, so trust us on this! 
 What is important to understand is that the change in one feature by a unit changes the odds ratio. 
 So logistic regression treats each feature independently. 
 This affects what type of rules it can learn. 
+
+> ## Definition
+>
+> Feature weights - determine the importance of a feature in a model.  
+{: .callout}
 
 Another important characteristic of logistic regression features is how they affect the probability. 
 If the feature weight is positive then the probability of the outcome increases, for example the probability that a T-cell is active increases. 
@@ -79,16 +84,16 @@ If we have 2 features, both cell size and cell intensity, logistic regression is
 The rule is a single straight line. 
 We can control slope and steepness, from class 1 and class 2.
 
-> ## Definitions
+> ## Definition
 >
 > Linear Separability - drawing a line in the plane that separates all the points of one kind on one side of the line, and all the point of the other kind on the other side of the line. 
 {: .callout}
 
-> ## Conceptual Questions
+> ## Think-Pair-Sharee
 >
-> Why is it a straight line?
+> Think of an example when a linear separability is not a straight line. 
 >
-> What exactly is the classifier learning?
+> When do you think something is linearly separable?
 {: .challenge} 
  
 
@@ -101,13 +106,6 @@ We can control slope and steepness, from class 1 and class 2.
 > This dataset is engineered specifically for the logistics regression classifier.
 {: .checklist}
 
-_Comment: Update filename._
-
-> ## Conceptual Questions
->
-> What are we trying to predict? 
-{: .challenge}
-
 #### Linear separability
 
 > ## Software
@@ -116,7 +114,6 @@ _Comment: Update filename._
 >
 > For now use the default hyperparameters. 
 {: .checklist}
-
 
 > ## Conceptual Questions
 >
@@ -130,14 +127,12 @@ _Comment: Update filename._
 
 > ## Software
 >
-> Let's load toy_data_8 data set into our software.
+> Let's load _toy_data_8_ data set into our software.
 >
 > This data set is engineered specifically to demonstrate the difference between linear and nonlinear classifiers.
 >
 > Train the data set with the default hyperparameters using logistic regression classifier.
 {: .checklist}
-
-_Comment: Update filename_
 
 > ## Questions
 >
@@ -174,13 +169,12 @@ This parameter is used in regularization. Although there is an option not to use
 
 > ## Software
 >
-> Let's load toy_data_1 data set into our software.
+> Let's load _toy_data_1_ data set into our software.
 >
 > This data set is engineered specifically to demonstrate the effects of regularization.
 {: .checklist}
 
 Previously, we talked about the positive and negative effect a feature and its weight can have on the outcome probability. 
-_Do we define feature weight anywhere?_
 As with decision trees and random forests, logistic regression can overfit. 
 If we have a complex model with many features, our model might have high variance.
 
@@ -213,6 +207,3 @@ The higher the C, the smaller the feature weights.
 L1 will regularize such that one feature weight goes to 0.
 We can see the classifier ignores that feature in its decision boundary.
 
-### Step 3 Test and Predict
-
-_Comment: What goes here?_
