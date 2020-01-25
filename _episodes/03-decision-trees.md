@@ -29,6 +29,7 @@ Or in the case of T-cells, a decision tree can predict whether a T-cell is activ
 #### Example
 
 To better understand the algorithm, let's consider the house price prediction example from the [Introduction episode](https://gitter-lab.github.io/ml-bio-workshop/01-introduction/index.html).
+If the house price is higher than $200k, we will predict high, otherwise we will predict low. 
 We are going to begin with an initial house price range, and for our neighborhood of interest the prices range from $100k - $250k. 
 The first question we could ask is the number of bedrooms in the house. 
 The answer is 3 bedrooms, and so our new range will be $180k-$250k. 
@@ -36,7 +37,8 @@ Then, we will ask about the number of bathrooms, and the answer is 3 bathrooms.
 The new range range is $220-$250.
 Finally, we will ask the house's neighborhood.
 The answer is Neighborhood A.
-That give us the price of $230k. 
+That gives us the price of $230k. 
+Our final class label is high. 
 
 <p align="center">
 <img width="450" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/decisiontrees1.jpeg">
