@@ -89,7 +89,7 @@ We can control slope and steepness, from class 1 and class 2.
 > Linear Separability - drawing a line in the plane that separates all the points of one kind on one side of the line, and all the point of the other kind on the other side of the line. 
 {: .callout}
 
-> ## Think-Pair-Sharee
+> ## Think-Pair-Share
 >
 > Think of an example when a linear separability is not a straight line. 
 >

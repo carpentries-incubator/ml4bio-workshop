@@ -34,7 +34,7 @@ We are going to begin with an initial house price range, and for our neighborhoo
 The first question we could ask is the number of bedrooms in the house. 
 The answer is 3 bedrooms, and so our new range will be $180k-$250k. 
 Then, we will ask about the number of bathrooms, and the answer is 3 bathrooms. 
-The new range range is $220-$250.
+The new range is $220-$250.
 Finally, we will ask the house's neighborhood.
 The answer is Neighborhood A.
 That gives us the price of $230k. 
@@ -182,7 +182,7 @@ Without changing any hyperparameter settings, look at the Data Plot.
 
 > ## Play time
 >
-> Change the max_depth paramenter. 
+> Change the max_depth parameter. 
 >
 > Did you notice any difference?
 {: .challenge}

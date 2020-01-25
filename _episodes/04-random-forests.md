@@ -18,10 +18,10 @@ Using the software, we will analyze the pre-engineered dataset and discuss the h
 Then we will consider some applications in biology. 
 
 We previously examined decision trees. 
-One of their main weaknesses is their tendancy to overfit if the tree is allowed to get too deep. 
-In training a decision tree we often have to alter the decison tree's parameters to keep it a "generalist", instead of allowing it to overly specialize and overfit the training examples. 
+One of their main weaknesses is their tendency to overfit if the tree is allowed to get too deep. 
+In training a decision tree we often have to alter the decision tree's parameters to keep it a "generalist", instead of allowing it to overly specialize and overfit the training examples. 
 
-Random forests deals with the problem of overfitting by creating multiple trees, with each tree trained slighly differently so it overfits differently.
+Random forests deals with the problem of overfitting by creating multiple trees, with each tree trained slightly differently so it overfits differently.
 Random forests is a classifier that combines a large number of decision trees.
 The decisions of each tree are then combined to make the final classification.
 This "team of specialists" approach random forests take often outperforms the "single generalist" approach of decision trees. 
@@ -42,7 +42,7 @@ Looking again at the different decision boundaries, note that the one of the lef
 >
 > Variance - The amount the training data affects what a model's decision boundary looks like. Models with high variance have low bias. 
 >
-> Note that these concepts have more exact mathmatical definitions which are beyond the scope of this workshop.
+> Note that these concepts have more exact mathematical definitions which are beyond the scope of this workshop.
 {: .callout}
 
 Random forests are based on mitigating the negative effects of this trade-off by creating multiple high variance models that work together.
@@ -98,7 +98,7 @@ For the hyperparameters that we don't discuss, use the default settings.
 >
 > In the software, go to the Step 3. 
 >
-> Choose the evluation metric to select the best-performing classifier. 
+> Choose the evaluation metric to select the best-performing classifier. 
 {: .checklist}
 
 
