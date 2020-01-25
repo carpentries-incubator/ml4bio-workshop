@@ -200,7 +200,7 @@ However, the solution is not necessarily to start removing these features, becau
 The model that overfits has high variance. 
 
 <p align="center">
-<img width="700" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/decisiontree3.jpeg">
+<img width="900" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/decisiontree3.jpeg">
 </p>
 
 > ## Software
