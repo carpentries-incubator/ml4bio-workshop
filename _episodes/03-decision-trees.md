@@ -56,12 +56,17 @@ The splitting goes from the __root__ at the top of the tree to a __leaf node__ a
 > Leaf node - a bottom node that doesn't split any further. It represents the class label.
 {: .callout}
 
-An instance is classified starting from the root and testing the feature specified by the node, then going down the split based on the outcome of the test and testing a different feature specified by another node.  
+An instance is classified starting from the root and testing the feature specified by the __node__, then going down the split based on the outcome of the test and testing a different feature specified by another node.  
 The graphic shows the full decision tree used for the housing example above.
 
 <p align="center">
 <img width="750" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/decisiontrees2.jpeg">
 </p>
+
+> ## Definition
+>
+> Node - a test performed on a feature. It branches into two branches.
+{: .callout}
 
 ### About the classifier
 
@@ -105,7 +110,7 @@ Some cons of using decision trees:
 >
 > What are we trying to predict? 
 >
-> What is the decision rule?
+> What is the decision boundary?
 {: .challenge}
 
 We will continue working on the T-cells example.
@@ -121,13 +126,18 @@ For the hyperparameters that we don't discuss, use the default settings.
 - Max_depth can be an integer or None. It is the maximum depth of the tree. If the max depth is set to None, the tree nodes are fully expanded or until they have less than min_samples_split samples.
 - Min_samples_split and min_samples_leaf represent the minimum number of samples required to split a node or to be at a leaf node.
 - Class_weight is important hyperparameter in biology research. If we had a training set and we are using binary classification, we don't want to only predict the most abundant class.  For example, in the T-cells example, if 2 samples are active and 98 samples are quiescent, we don't want to train a model that predicts all of the cells to be quiescent. Class_weight parameter would allow putting weight on 2 cells labeled as active so that predicting them incorrectly would be penalized more. 
-In biology, it is common to have this type of imbalanced training set with more negative than positive instances, so training and evaluating appropriately is essential! The uniform mode gives all classes the weight one. The balanced mode adjusts the weights.
+In biology, it is common to have this type of __imbalanced training set__ with more negative than positive instances, so training and evaluating appropriately is essential! The uniform mode gives all classes the weight one. The balanced mode adjusts the weights.
+
+> ## Definition
+>
+> Imbalanced training set - a data set that contains a large proportion of a certain class or classes.  
+{: .callout} 
 
 Without changing any hyperparameter settings, look at the Data Plot.
 
 > ## Think-Pair-Share
 >
-> What do you notice?
+> What do the different points represent?
 {: .challenge}
 
 > ## Solution
@@ -188,10 +198,9 @@ The overfitted model has too many features.
 However, the solution is not necessarily to start removing these features, because this might lead to underfitting.
 
 The model that overfits has high variance. 
-This means that we have large changes in our decision rule, for a very small changes in our samples. (_HELP_)
 
 <p align="center">
-<img width="450" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/decisiontree3.jpeg">
+<img width="700" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/decisiontree3.jpeg">
 </p>
 
 > ## Software
@@ -204,7 +213,7 @@ This means that we have large changes in our decision rule, for a very small cha
 By looking at the __evaluation metrics__ and the confusion matrix we can see that when the training data evaluation metrics were perfect, but they were not as great on the validation data.
 The classifier probably overfit.
 
-> ## Definitions
+> ## Definition
 >
 > Evaluation metrics - used to measure the performance of a model.
 {: .callout}
