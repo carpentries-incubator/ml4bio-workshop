@@ -196,12 +196,16 @@ The higher the C, the smaller the feature weights.
 > Experiment with C = 0.08, 0.1, 0.2, 0.5, 1.
 >
 > Next, set penalty to ‘L2’.
-> Experiment with the same set of C. Think about the difference.
+> Experiment with the same set of C. 
 {: .checklist}
 
-> ## Question
+> ## Questions
 >
 > What do you observe?
+>
+> Think about the difference.
+>
+> How does the decision boundary change?
 {: .challenge}
 
 L1 will regularize such that one feature weight goes to 0.
