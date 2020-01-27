@@ -12,7 +12,7 @@ The focus will be on problems in biology where machine learning is effectively u
 **Please note that the workshop materials for ml4bio are still in development.
 Feedback is welcome in the [GitHub issues](https://github.com/gitter-lab/ml-bio-workshop/issues).**
 
-January 25, 2020 anonymous [pre-workshop survey](https://uwmadison.co1.qualtrics.com/jfe/form/SV_d4OiHoamefFA5Eh)
+January 25, 2020 anonymous [post-workshop survey](https://uwmadison.co1.qualtrics.com/jfe/form/SV_071zc6dzaAIx5U9)
 
 > ## Getting Started
 >
