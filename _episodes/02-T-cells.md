@@ -165,7 +165,7 @@ This reserves a single fixed portion of the data for evaluation.
 We will use the software's default of 20% of the training set for the validation set.
 
 <p align="center">
-<img width="700" src="https://github.com/gitter-lab/ml-bio-workshop/blob/gh-pages/assets/holdoutvalidation.jpg?raw=true">
+<img width="600" src="https://github.com/gitter-lab/ml-bio-workshop/blob/gh-pages/assets/holdoutvalidation.jpg?raw=true">
 </p>
 
 ## Step 2: Train classifiers
