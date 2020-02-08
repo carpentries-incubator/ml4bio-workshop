@@ -48,5 +48,5 @@ However, the guides also contain [images from third-party sources](figures/third
 See the linked original image sources for their licenses and terms of reuse.
 
 The workshop template is derived from [The Carpentries lesson template](https://github.com/carpentries/styles).
-The template is Copyright � 2018�2020 [The Carpentries](https://carpentries.org/) and [licensed CC BY 4.0](https://github.com/carpentries/styles/blob/gh-pages/LICENSE.md).
+The template is Copyright © 2018–2020 [The Carpentries](https://carpentries.org/) and [licensed CC BY 4.0](https://github.com/carpentries/styles/blob/gh-pages/LICENSE.md).
 See the [license](https://gitter-lab.github.io/ml-bio-workshop/LICENSE.html) for additional information.
