@@ -4,7 +4,7 @@ title: About ml4bio software
 {% include links.md %}
 
 ### Software environment details
- 
+
 Anaconda includes software that enables you to run Python programs as well as additional tools for managing software environments, programming in Python, and integrating code with textual descriptions and results in Jupyter notebooks.
 The software environments are managed by conda, one of the tools included with Anaconda.
 An environment is a collection of specific versions of Python packages.
@@ -21,7 +21,7 @@ This is a popular general purpose machine learning package.
 When you use the ml4bio graphical interface, it calls functions in scikit-learn to train classifiers and make predictions.
 
 ### Advanced users
-Advanced users who already have Python installed can install the [required packages](https://github.com/gitter-lab/ml-bio-workshop/blob/master/scripts/README.md) through pip.
+Advanced users who already have Python installed can install the [required packages]({{ repo_url }}/blob/{{ source_branch }}/scripts/README.md) through pip.
 Then launch ml4bio from the command line with the command `ml4bio`.
 
 ### A quick tour

@@ -96,7 +96,7 @@ If you did not add Anaconda to your `PATH` during installation and would like to
 When running the `install_launch_windows.bat` install script, Windows may display a warning that the app is from an unknown publisher and may be unsafe to run.
 This warning can be ignored.
 
-See also known [software warnings](https://github.com/gitter-lab/ml-bio-workshop/tree/master/scripts#warnings) that can be safely ignored.
+See also known [software warnings](./scripts#warnings) that can be safely ignored.
 
 ### Updating ml4bio
 New versions of the ml4bio software will be periodically released through [PyPI](https://pypi.org/project/ml4bio/).
@@ -125,7 +125,7 @@ This is a popular general purpose machine learning package.
 When you use the ml4bio graphical interface, it calls functions in scikit-learn to train classifiers and make predictions.
 
 ### Advanced users
-Advanced users who already have Python installed can install the [required packages](https://github.com/gitter-lab/ml-bio-workshop/tree/master/scripts) through pip.
+Advanced users who already have Python installed can install the [required packages](./scripts) through pip.
 Then launch ml4bio from the command line with the command `ml4bio`.
 
 {% include links.md %}
