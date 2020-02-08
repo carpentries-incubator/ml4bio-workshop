@@ -1,3 +1,5 @@
+# Build all branches including gh-pages
+# https://docs.travis-ci.com/user/customizing-the-build#safelisting-or-blocklisting-branches
 branches:
   only:
   - gh-pages
