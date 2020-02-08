@@ -44,7 +44,7 @@ To cite this lesson, please consult with [CITATION](CITATION)
 
 ## Licenses
 The original workshop materials and guides created in this repository are licensed under the Creative Commons Attribution 4.0 International Public License.
-However, the guides also contain [images from third-party sources](figures/third_party_figures), as noted in the image links, guide references, and [attributions](fig/attribution.md).
+However, the guides also contain [images from third-party sources](fig/third_party_figures), as noted in the image links and guide references.
 See the linked original image sources for their licenses and terms of reuse.
 
 The workshop template is derived from [The Carpentries lesson template](https://github.com/carpentries/styles).
