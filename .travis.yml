@@ -1,3 +1,8 @@
+branches:
+  only:
+  - gh-pages
+  - /.*/
+
 # Use a build matrix to run one set of jobs that test the conda environments
 # another to test the URLs in the Markdown files
 # and other to test the lessons and web site
@@ -47,10 +52,6 @@ matrix:
     name: Check lessons and site
     dist: xenial  # Ubuntu 16.04 (required for python 3.7)
     python: 3.7
-#    branches:
-#      only:
-#      - gh-pages
-#      - /.*/
     before_install:
       - sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
       - echo "deb https://cloud.r-project.org/bin/linux/ubuntu xenial-cran35/" | sudo tee -a /etc/apt/sources.list
