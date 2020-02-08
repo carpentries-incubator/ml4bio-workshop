@@ -3,20 +3,20 @@
 ### Representation
 
 <p align="center">
-<img src="../figures/random_forest/rep_fig.jpg">
+<img src="../fig/random_forest/rep_fig.jpg">
 </p>
 
 ### Learning
 
-Given the full training data ![](../figures/random_forest/D.gif) 
-and the feature set ![](../figures/random_forest/F.gif), we train ![](../figures/random_forest/T.gif) randomized decision tree.
+Given the full training data ![](../fig/random_forest/D.gif) 
+and the feature set ![](../fig/random_forest/F.gif), we train ![](../fig/random_forest/T.gif) randomized decision tree.
 
-For tree ![](../figures/random_forest/i.gif),
+For tree ![](../fig/random_forest/i.gif),
 
-- Sample ![](../figures/random_forest/D.gif) with replacement to create a new dataset ![](../figures/random_forest/D_i.gif).
+- Sample ![](../fig/random_forest/D.gif) with replacement to create a new dataset ![](../fig/random_forest/D_i.gif).
 
 - To choose a split at a node, 
-sample ![](../figures/random_forest/m.gif) features without replacement from ![](../figures/random_forest/F.gif) (where ![](../figures/random_forest/m_f.gif)) to create a subset of features ![](../figures/random_forest/F_m.gif). Choose the best split from ![](../figures/random_forest/F_m.gif).
+sample ![](../fig/random_forest/m.gif) features without replacement from ![](../fig/random_forest/F.gif) (where ![](../fig/random_forest/m_f.gif)) to create a subset of features ![](../fig/random_forest/F_m.gif). Choose the best split from ![](../fig/random_forest/F_m.gif).
 
 The intuition is that each randomized tree has increasing _bias_ compared to a tree that utilizes full data and feature set, but the **ensemble** of randomized trees enables reduction in _variance_ in performance. 
 
@@ -24,13 +24,13 @@ As with decision tree learning, we can regularize the randomized trees by limiti
 
 ### Inference
 
-Given a new sample ![](../figures/random_forest/x.gif), feed it to the trees in the forest.
-Each tree will produce a class label for ![](../figures/random_forest/x.gif), and the final label is determined by a majority vote. Sometimes (as in sklearn), each tree will produce a probability for each class instead of a concrete label. In such case, we average over the predicted probabilities for each class across all trees. The final label is the class with highest average probability.
+Given a new sample ![](../fig/random_forest/x.gif), feed it to the trees in the forest.
+Each tree will produce a class label for ![](../fig/random_forest/x.gif), and the final label is determined by a majority vote. Sometimes (as in sklearn), each tree will produce a probability for each class instead of a concrete label. In such case, we average over the predicted probabilities for each class across all trees. The final label is the class with highest average probability.
 
 ### Software
 
 <p align="center">
-<img src="../figures/random_forest/hyperparameters.png">
+<img src="../fig/random_forest/hyperparameters.png">
 </p>
 
 - **criterion**: the measure of uncertainty (_gini_ or _entropy_)

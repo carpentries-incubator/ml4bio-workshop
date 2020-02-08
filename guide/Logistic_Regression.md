@@ -3,11 +3,11 @@
 ### Representation
 
 <p align="center">
-<img src="../figures/logistic_regression/binary_rep.jpg">
+<img src="../fig/logistic_regression/binary_rep.jpg">
 </p>
 
 <p align="center">
-<img src="../figures/logistic_regression/multiclass_rep.jpg">
+<img src="../fig/logistic_regression/multiclass_rep.jpg">
 </p>
 
 ### Inference
@@ -15,7 +15,7 @@
 Given a new sample, we denote it by
 
 <p align="center">
-<img src="../figures/logistic_regression/inference_eq_0.gif">
+<img src="../fig/logistic_regression/inference_eq_0.gif">
 </p>
 
 where the first element is the **bias** term and the others are the feature values.
@@ -27,41 +27,41 @@ where the first element is the **bias** term and the others are the feature valu
 	Denote
 
 	<p align="center">
-	<img src="../figures/logistic_regression/inference_eq_1.gif">
+	<img src="../fig/logistic_regression/inference_eq_1.gif">
 	</p>
 	
 	Then
 	
 	<p align="center">
-	<img src="../figures/logistic_regression/inference_eq_2.gif">
+	<img src="../fig/logistic_regression/inference_eq_2.gif">
 	</p>
 	
 	and the probability that the new sample is positive is
 	
 	<p align="center">
-	<img src="../figures/logistic_regression/inference_eq_3.gif">
+	<img src="../fig/logistic_regression/inference_eq_3.gif">
 	</p>
 
 - **Multiclass problem**
 	
-	Consider a multiclass classification task with classes ![](../figures/logistic_regression/classes.gif).
+	Consider a multiclass classification task with classes ![](../fig/logistic_regression/classes.gif).
 	
 	Denote
 	
 	<p align="center">
-	<img src="../figures/logistic_regression/inference_eq_4.gif">
+	<img src="../fig/logistic_regression/inference_eq_4.gif">
 	</p>
 	
 	Then
 	
 	<p align="center">
-	<img src="../figures/logistic_regression/inference_eq_5.gif">
+	<img src="../fig/logistic_regression/inference_eq_5.gif">
 	</p>
 	
-	and the probability that the new sample belongs to class ![](../figures/logistic_regression/i.gif) is
+	and the probability that the new sample belongs to class ![](../fig/logistic_regression/i.gif) is
 	
 	<p align="center">
-	<img src="../figures/logistic_regression/inference_eq_6.gif">
+	<img src="../fig/logistic_regression/inference_eq_6.gif">
 	</p>
 
 ### Learning
@@ -69,29 +69,29 @@ where the first element is the **bias** term and the others are the feature valu
 - **Binary problem**
 
 	<p align="center">
-	<img src="../figures/logistic_regression/binary_loss.jpg">
+	<img src="../fig/logistic_regression/binary_loss.jpg">
 
-	<img src="../figures/logistic_regression/cross_entropy.jpg">
+	<img src="../fig/logistic_regression/cross_entropy.jpg">
 	</p>
 
 - **Multiclass problem**
 
 	<p align="center">
-	<img src="../figures/logistic_regression/multiclass_loss.jpg">
+	<img src="../fig/logistic_regression/multiclass_loss.jpg">
 	</p>
 
-In both cases, ![](../figures/logistic_regression/W.gif) is a vector containing all weights, 
-and ![](../figures/logistic_regression/alpha.gif) is a constant 
+In both cases, ![](../fig/logistic_regression/W.gif) is a vector containing all weights, 
+and ![](../fig/logistic_regression/alpha.gif) is a constant 
 that determines the strength of regularization.
 
 ### Software
 
 <p align="center">
-<img src="../figures/logistic_regression/hyperparameters.png">
+<img src="../fig/logistic_regression/hyperparameters.png">
 </p>
 
 - **penalty_type**: the norm used in the regularization term (_L1_ or _L2_)
-- **penalty**: inverse of regularization strength ![](../figures/logistic_regression/alpha.gif) (i.e. larger values lead to weaker regularization.)
+- **penalty**: inverse of regularization strength ![](../fig/logistic_regression/alpha.gif) (i.e. larger values lead to weaker regularization.)
 - **fit_intercept**: whether to use a bias term
 - **intercept_scaling**: scale of the bias term
 - **solver**: learning algorithm used to optimize the loss function

@@ -16,7 +16,7 @@ See the [setup](setup.md) instructions for a guide on downloading and installing
 Once you open the ML4Bio software, you will see the following interface.
 
 <p align="center">
-<img  src="../figures/software/window.png">
+<img  src="../fig/software/window.png">
 </p>
 
 The interface can be divided into three areas:
@@ -49,11 +49,11 @@ The interface may differ slightly on different operating systems.
 Load a .csv file from the disc by clicking on **Select File...**.
 
 <p align="center">
-<img width="350" src="../figures/software/before_load.png">
+<img width="350" src="../fig/software/before_load.png">
 </p>
 
 <p align="center">
-<img width="800" src="../figures/software/file_1.png">
+<img width="800" src="../fig/software/file_1.png">
 </p>
 
 Note that
@@ -64,13 +64,13 @@ Note that
 - The delimiter can be ',' or an empty space.
 
 <p align="center">
-<img width="700" src="../figures/software/format.png">
+<img width="700" src="../fig/software/format.png">
 </p>
 
 After a valid labeled dataset is loaded, the file name will be shown next to **Select File...**.
 
 <p align="center">
-<img width="350" src="../figures/software/after_load.png">
+<img width="350" src="../fig/software/after_load.png">
 </p>
 
 You may optionally load an unlabeled dataset that pairs up with the labeled one.
@@ -86,7 +86,7 @@ The dataset has only two features, namely x and y.
 Both of them are continous.
 
 <p align="center">
-<img width="350" src="../figures/software/data_summary.png">
+<img width="350" src="../fig/software/data_summary.png">
 </p>
 
 #### Step 2: Split data
@@ -97,7 +97,7 @@ and decide whether or not to split the data in a stratified fashion.
 We reserve 20% of the labeled dataset for testing by default.
 
 <p align="center">
-<img width="350" src="../figures/software/train_test_split.png">
+<img width="350" src="../fig/software/train_test_split.png">
 </p>
 
 #### Step 3: Choose a validation method
@@ -107,7 +107,7 @@ Adjust the values accordingly.
 We use 5-fold cross-validation with stratified sampling by default.
 
 <p align="center">
-<img width="350" src="../figures/software/validation.png">
+<img width="350" src="../fig/software/validation.png">
 </p>
 
 Here is what the left panel (i.e. the red area) looks like after step 3.
@@ -115,7 +115,7 @@ We are ready for training classifiers.
 Click on **Next** to go to the next page.
 
 <p align="center">
-<img width="350" src="../figures/software/p1_after.png">
+<img width="350" src="../fig/software/p1_after.png">
 </p>
 
 #### Step 4: Set up a classifier
@@ -123,14 +123,14 @@ Click on **Next** to go to the next page.
 Use the drop-down menu to select a classifier type.
 We select SVM (i.e. support vector machine).
 
-<p align="center"><img width="350" src="../figures/software/classifier_type.png"></p>
+<p align="center"><img width="350" src="../fig/software/classifier_type.png"></p>
 
 A list of hyperparameters for an SVM shows up.
 The meaning of the hyperparameters will be introduced in a later section.
 We first train an SVM using the default hyperparameters.
 
 <p align="center">
-<img width="350" src="../figures/software/svm_param.png">
+<img width="350" src="../fig/software/svm_param.png">
 </p>
 
 You may give your classifier a name and add a comment.
@@ -138,7 +138,7 @@ If you do not specify a name, the software will use "classifier\_[int]" as its d
 For example, if the classifier is the third one you trained, its default name is "classifier\_3".
 
 <p align="center">
-<img width="350" src="../figures/software/name_comment.png">
+<img width="350" src="../fig/software/name_comment.png">
 </p>
 
 #### Step 5: Train and evaluate classifiers
@@ -150,7 +150,7 @@ The hyperparameters will be back to default.
 Otherwise, click on **Train**.
 
 <p align="center">
-<img width="350" src="../figures/software/before_train.png">
+<img width="350" src="../fig/software/before_train.png">
 </p>
 
 In the yellow area, a new entry was added to the list.
@@ -159,7 +159,7 @@ _Note that the metrics are all with respect to the type of data, training or val
 shown at the top-right corner of the yellow area._
 
 <p align="center">
-<img src="../figures/software/after_train.png">
+<img src="../fig/software/after_train.png">
 </p>
 
 There are a few things you can do at this stage:
@@ -169,8 +169,8 @@ A summary of the newly trained classifier is presented in the blue area.
 As with data summary, you may unfold the bullets to see more details.
 
 <p align="center">
-<img src="../figures/software/param_expand.png">
-<img src="../figures/software/perform_expand.png">
+<img src="../fig/software/param_expand.png">
+<img src="../fig/software/perform_expand.png">
 </p>
 
 The left figure shows a complete list of classifier hyperparameters.
@@ -189,8 +189,8 @@ _Note that the plots are all with respect to the type of data
 shown at the top-right corner of the yellow area._
 
 <p align="center">
-<img width='200' src="../figures/software/data_plot.png">
-<img width='200' src="../figures/software/confusion_matrix.png">
+<img width='200' src="../fig/software/data_plot.png">
+<img width='200' src="../fig/software/confusion_matrix.png">
 </p>
 
 Shown on the left is a scatter plot of the training data and contours of the decision regions.
@@ -198,8 +198,8 @@ The darker the color, the more confident the classifier is.
 Shown on the right is the confusion matrix.
 
 <p align="center">
-<img width='200' src="../figures/software/roc.png">
-<img width='200' src="../figures/software/prc.png">
+<img width='200' src="../fig/software/roc.png">
+<img width='200' src="../fig/software/prc.png">
 </p>
 
 The left figure includes ROC curves and the right one includes precision-recall curves.
@@ -213,7 +213,7 @@ Use the drop-down menu at the top-right corner of the yellow area
 to switch between performance on different types of data.
 
 <p align="center">
-<img src="../figures/software/switch_metric.png">
+<img src="../fig/software/switch_metric.png">
 </p>
 
 Typically, you will train and evaluate many classifiers
@@ -224,14 +224,14 @@ For example, if you click on **Accuracy**,
 the classifiers will be listed in descending order of accuracy.
 
 <p align="center">
-<img src="../figures/software/after_sort.png">
+<img src="../fig/software/after_sort.png">
 </p>
 
 It seems that the SVM we trained first is the second best classifier in terms of accuracy.
 The best one is a k-nearest neighbor classifier that achieves 91% accuracy on the validation data.
 
 <p align="center">
-<img width="350" src="../figures/software/p2_after.png">
+<img width="350" src="../fig/software/p2_after.png">
 </p>
 
 Let's say we are happy about the k-nearest neighbor classifier.
@@ -247,7 +247,7 @@ However, if you changed your mind and decided to train more classifiers,
 you have a chance to return to the previous page by clicking on **Back**.
 
 <p align="center">
-<img width="350" src="../figures/software/p3_before.png">
+<img width="350" src="../fig/software/p3_before.png">
 </p>
 
 To select a classifier, you may let the software pick one for you by specifying a metric.
@@ -256,7 +256,7 @@ Otherwise, you may pick a classifier on your own.
 We let the software select the classifier with the highest accuracy.
 
 <p align="center">
-<img width="350" src="../figures/software/before_test.png">
+<img width="350" src="../fig/software/before_test.png">
 </p>
 
 After a classifier is selected, its name will show up.
@@ -266,7 +266,7 @@ _Note that once you hit **Test**,
 you are no longer allowed to go back and train more classifiers._
 
 <p align="center">
-<img width="350" src="../figures/software/test.png">
+<img width="350" src="../fig/software/test.png">
 </p>
 
 Now the only classifier in the list is the tested one.
@@ -274,7 +274,7 @@ Note that the software is showing the classifier's performance on the test data.
 You may examine the performance using either the summary or the plots.
 
 <p align="center">
-<img src="../figures/software/after_test.png">
+<img src="../fig/software/after_test.png">
 </p>
 
 Although not recommended, you are allowed to test any of the other trained classifiers.
@@ -283,7 +283,7 @@ and you will see the complete list of trained classifiers.
 Select a classifier and test it.
 
 <p align="center">
-<img src="../figures/software/test_more.png">
+<img src="../fig/software/test_more.png">
 </p>
 
 #### Step 7: Make predictions
@@ -292,7 +292,7 @@ Optionally, you may make predictions on the unlabeled data you uploaded and save
 If no unlabeled data exists, the **Predict** button is disabled.
 
 <p align="center">
-<img width="350" src="../figures/software/predict.png">
+<img width="350" src="../fig/software/predict.png">
 </p>
 
 Finally, finish your work by clicking on **Finish**.
@@ -300,5 +300,5 @@ A message box will show up and you may choose from closing the software
 or modeling a different dataset.
 
 <p align="center">
-<img width="350" src="../figures/software/finish.png">
+<img width="350" src="../fig/software/finish.png">
 </p>

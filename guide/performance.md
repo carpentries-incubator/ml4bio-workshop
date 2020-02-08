@@ -31,7 +31,7 @@ If a sample is an FP or FN, we know the classifier made a mistake.
 Given the definitions above, we can summarize the samples in a **confusion matrix**.
 
 <p align="center">
-<img width="300" src="../figures/third_party_figures/Python_Machine_Learning/confusion_matrix.png"
+<img width="300" src="../fig/third_party_figures/Python_Machine_Learning/confusion_matrix.png"
 title="Image from https://github.com/rasbt/python-machine-learning-book-2nd-edition/blob/master/code/ch06/images/06_08.png">
 </p>
 
@@ -46,11 +46,11 @@ Now that we have defined some terms, we can use them to introduce some useful me
 Using the notations above, we write
 
 <p align="center">
-<img src="../figures/performance/accuracy.gif">
+<img src="../fig/performance/accuracy.gif">
 </p>
 
 In other words, it is the number of correctly predicted samples divided by the total number of samples.
-Sometimes, people talk about **error rate**, which is ![](../figures/performance/error.gif).
+Sometimes, people talk about **error rate**, which is ![](../fig/performance/error.gif).
 
 Accuracy gains its popularity because of its simplicity,
 but it is less useful when the classes are _imbalanced_,
@@ -66,7 +66,7 @@ _Out of the samples predicted to be positive, how many of them are truly positiv
 Mathematically,
 
 <p align="center">
-<img src="../figures/performance/precision.gif">
+<img src="../fig/performance/precision.gif">
 </p>
 
 It measures how strongly we can believe the classifier's calls.
@@ -80,7 +80,7 @@ _How many of the truly positive samples can the classifier discover (or recall)?
 Mathematically,
 
 <p align="center">
-<img src="../figures/performance/recall.gif">
+<img src="../fig/performance/recall.gif">
 </p>
 
 It measures how sensitive the classifier is to interesting information.
@@ -93,7 +93,7 @@ F1 score takes both precision and recall into account.
 Mathematically,
 
 <p align="center">
-<img src="../figures/performance/f1.gif">
+<img src="../fig/performance/f1.gif">
 </p>
 
 For a conservative classifier, F1 score is dominated by recall.
@@ -158,19 +158,19 @@ It is the percent of truly positive samples
 that are correctly predicted to be positive. Mathematically,
 
 <p align="center">
-<img src="../figures/performance/tpr.gif">
+<img src="../fig/performance/tpr.gif">
 </p>
 
 - **False positive rate (FPR)** is the percent of truly negative samples
 that are falsely predicted to be positive. Mathematically,
 
 <p align="center">
-<img src="../figures/performance/fpr.gif">
+<img src="../fig/performance/fpr.gif">
 </p>
 
 In statistics, the counterpart of TPR for negative samples is called **specificity**
 (i.e. the percent of truly negative samples that are correctly predicted to be negative),
-and FPR is simply ![](../figures/performance/fpr2.gif).
+and FPR is simply ![](../fig/performance/fpr2.gif).
 
 An ROC curve is created by plotting TPR against FPR at various thresholds.
 Starting from 0, we increase the threshold until it reaches 1.
@@ -180,7 +180,7 @@ Finally, we connect the points and obtain the ROC curve.
 The figure below shows an example ROC curve.
 
 <p align="center">
-<img width="500" src="../figures/third_party_figures/sklearn_doc/roc1.png"
+<img width="500" src="../fig/third_party_figures/sklearn_doc/roc1.png"
 title="Image from http://scikit-learn.org/stable/auto_examples/model_selection/plot_roc.html">
 </p>
 
@@ -192,7 +192,7 @@ but a macro-average curve does not.
 For simplicity, the software only plots the classwise curves and their macro-average curve.
 
 <p align="center">
-<img width="500" src="../figures/third_party_figures/sklearn_doc/roc2.png"
+<img width="500" src="../fig/third_party_figures/sklearn_doc/roc2.png"
 title="Image from http://scikit-learn.org/stable/auto_examples/model_selection/plot_roc.html">
 </p>
 
@@ -221,7 +221,7 @@ _The best cutoff depends on the relative costs of misclassifications._
   The desired cutoff corresponds to where the line is tangent to the ROC curve.
 
 	<p align="center">
-	<img width="500" src="../figures/third_party_figures/sklearn_doc/roc3.png"
+	<img width="500" src="../fig/third_party_figures/sklearn_doc/roc3.png"
 	title="Image adapted from http://scikit-learn.org/stable/auto_examples/model_selection/plot_roc.html">
 	</p>
 
@@ -235,7 +235,7 @@ _The best cutoff depends on the relative costs of misclassifications._
   The desired cutoff corresponds to where the line is tangent to the ROC curve.
 
 	<p align="center">
-	<img width="500" src="../figures/third_party_figures/sklearn_doc/roc4.png"
+	<img width="500" src="../fig/third_party_figures/sklearn_doc/roc4.png"
 	title="Image adapted from http://scikit-learn.org/stable/auto_examples/model_selection/plot_roc.html">
 	</p>
 
@@ -249,7 +249,7 @@ _The best cutoff depends on the relative costs of misclassifications._
   The desired cutoff corresponds to where the line is tangent to the ROC curve.
 
 	<p align="center">
-	<img width="500" src="../figures/third_party_figures/sklearn_doc/roc5.png"
+	<img width="500" src="../fig/third_party_figures/sklearn_doc/roc5.png"
 	title="Image adapted from http://scikit-learn.org/stable/auto_examples/model_selection/plot_roc.html">
 	</p>
 
@@ -261,7 +261,7 @@ However, this does not mean the number of FPs remains small _relative to the tot
 Note that
 
 <p align="center">
-<img src="../figures/performance/pr.gif">
+<img src="../fig/performance/pr.gif">
 </p>
 
 When there are a lot more negatives than positives, TP is no larger than a small number,
@@ -281,7 +281,7 @@ Finally, we connect the points and obtain the PR curve.
 The figure below shows an example PR curve.
 
 <p align="center">
-<img width="500" src="../figures/third_party_figures/sklearn_doc/pr1.png"
+<img width="500" src="../fig/third_party_figures/sklearn_doc/pr1.png"
 title="Image from http://ogrisel.github.io/scikit-learn.org/sklearn-tutorial/auto_examples/plot_precision_recall.html">
 </p>
 
@@ -293,7 +293,7 @@ The larger AUPRC is, the better the PR curve is.
 It is clear from the figure below that the classifier is best at predicting class 0.
 
 <p align="center">
-<img width="500" src="../figures/third_party_figures/sklearn_doc/pr2.png"
+<img width="500" src="../fig/third_party_figures/sklearn_doc/pr2.png"
 title="Image from http://ogrisel.github.io/scikit-learn.org/sklearn-tutorial/auto_examples/plot_precision_recall.html">
 </p>
 
