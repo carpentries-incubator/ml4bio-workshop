@@ -5,7 +5,7 @@ root: .
 ---
 ## ml4bio Licenses
 
-The content of the ml4bio workshop is made available under the [Creative Commons Attribution 4.0 International Public License][cc-by-human] by the Gitter Lab.
+The content of the ml4bio workshop is made available under the [Creative Commons Attribution 4.0 International Public License][cc-by-human] by the Gitter Lab (full text [below][cc-by-section]).
 The [ml4bio software](https://github.com/gitter-lab/ml4bio) is made available under the [MIT license](https://github.com/gitter-lab/ml4bio/blob/master/LICENSE).
 The [ml4bio guides](https://github.com/gitter-lab/ml-bio-workshop/tree/master/guide) contain [images from third-party sources](https://github.com/gitter-lab/ml-bio-workshop/blob/master/figures/third_party_figures), as noted in the image links and guide references.
 See the linked original image sources for their licenses and terms of reuse.
@@ -85,25 +85,6 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 "Software Carpentry" and "Data Carpentry" and their respective logos
 are registered trademarks of [Community Initiatives][CI].
-
-[cc-by-human]: https://creativecommons.org/licenses/by/4.0/
-[cc-by-legal]: https://creativecommons.org/licenses/by/4.0/legalcode
-[mit-license]: https://opensource.org/licenses/mit-license.html
-[ci]: http://communityin.org/
-[osi]: https://opensource.org
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 # Creative Commons Attribution 4.0 International
 
@@ -264,3 +245,10 @@ Creative Commons is not a party to its public licenses. Notwithstanding, Creativ
 
 Creative Commons may be contacted at creativecommons.org
 ```
+
+[cc-by-human]: https://creativecommons.org/licenses/by/4.0/
+[cc-by-legal]: https://creativecommons.org/licenses/by/4.0/legalcode
+[cc-by-section]: #creative-commons-attribution-40-international
+[mit-license]: https://opensource.org/licenses/mit-license.html
+[ci]: http://communityin.org/
+[osi]: https://opensource.org
