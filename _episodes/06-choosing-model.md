@@ -16,18 +16,18 @@ mathjax: true
 
 ### Model Selection
 
-Choosing the proper machine learning model for a given task requires knowledge of both machine learning models and the domain of the task. 
+Choosing the proper machine learning model for a given task requires knowledge of both machine learning models and the domain of the task.
 Finding _the best_ model for a new task in machine learning is often a research question in itself.
-Finding a model that performs _reasonably well_, however, can often be accomplished by carefully considering the task domain and a little trial and error with the validation set. 
+Finding a model that performs _reasonably well_, however, can often be accomplished by carefully considering the task domain and a little trial and error with the validation set.
 
 Some of the questions to consider when choosing a model are:
 
 * How much data is there to train with?
-* Does the data contain about the same number of each class? 
+* Does the data contain about the same number of each class?
 * How many features does the dataset have? Are all of the features relevant, or might some of them not be related to the data's class?
 * What types are the features (numeric, categorical, image, text)?
 * What might the decision boundary look like? Is the data likely linearly separable?
-* How noisy is the data? 
+* How noisy is the data?
 
 ### Evaluation Metrics
 
@@ -47,20 +47,20 @@ This results in the 4 entries of the confusion matrix, two of which means our cl
 > ## Definitions
 > True Positives (TP): These instances are actually true (activated) and have been correctly predicted to be true.
 >
-> True Negatives (TN): These instances are actually false (quiescent) and have been correctly predicted to be false. 
+> True Negatives (TN): These instances are actually false (quiescent) and have been correctly predicted to be false.
 {: .callout}
 
 And two of which means our classifier got something wrong:
 
 > ## Definitions
-> False Positives (FP) - These are instances which are actually false but our classifier predicted to be true. False positives are sometimes called type I errors or $\alpha$ errors. 
+> False Positives (FP) - These are instances which are actually false but our classifier predicted to be true. False positives are sometimes called type I errors or $\alpha$ errors.
 >
-> False Negatives (FN) - These are instances which are actually true but our classifier predicted to be false. False negatives are sometimes called type II errors or $\beta$ errors. 
+> False Negatives (FN) - These are instances which are actually true but our classifier predicted to be false. False negatives are sometimes called type II errors or $\beta$ errors.
 {: .callout}
 
 Almost all evaluation metrics used in machine learning can be derived from the entries in the truth table, typically as a ratio of two sets of entries. For instance, accuracy is defined as the percent of instances the classifier got right.
 
-So to calculate accuracy we take the number of things we got right, which is the number of true positives and the number of true negatives: 
+So to calculate accuracy we take the number of things we got right, which is the number of true positives and the number of true negatives:
 
 <p align="center">
 <img width="700" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/confusionMatrix_P.png">
@@ -75,7 +75,7 @@ And divide it by the number total entries in the table, which is all four entrie
 
 Thus, accuracy is defined as $$\frac{TP + TN}{TP+FP+TN+FN}$$
 
-We can see accuracy as estimating the answer to the question _How likely is our classifier to get a single instance right?_ However, for many models this might not be the right question. 
+We can see accuracy as estimating the answer to the question _How likely is our classifier to get a single instance right?_ However, for many models this might not be the right question.
 
 An example of a different question we might want to ask about a model would be _If our classifier predicts something to be true, how likely is it to be right?_
 
@@ -115,13 +115,15 @@ Common Metrics:
 
 ## Error Curves
 
-When evaluating machine learning models, multiple metrics are often combined into curves to be able to summarize performance into a single final metric. 
+When evaluating machine learning models, multiple metrics are often combined into curves to be able to summarize performance into a single final metric.
 These curves are plotted at different confidence cut-offs, selecting different confidence thresholds for what is predicted to be in the positive class.
-The two most popular curves are the __ROC curve__ and the __PR curve__. 
+The two most popular curves are the __ROC curve__ and the __PR curve__.
 
 > ## Definitions
 > Receiver Operating Characteristic (ROC) Curve - A curve which plots the recall (true positive rate) against the false positive rate at different confidence cut-offs. The area under the curve (often called the AUROC) can then be used as a single metric to evaluate a classifier.
 >
-> Precision Recall (PR) Curve - A curve which plots the precision against the recall at different confidence cut-offs. The area under the curve (often called AUPR) can then be used as a single metric to evaluate a classifier. 
+> Precision Recall (PR) Curve - A curve which plots the precision against the recall at different confidence cut-offs. The area under the curve (often called AUPR) can then be used as a single metric to evaluate a classifier.
 >
 {: .callout}
+
+{% include links.md %}

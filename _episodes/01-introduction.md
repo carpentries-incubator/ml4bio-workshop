@@ -23,7 +23,7 @@ keypoints:
 >
 >__Machine learning__ is a set of methods that can automatically detect patterns in data and then use those patterns to make predictions on future data or perform other kinds of decision making under uncertainty.
 {: .callout}
- 
+
 A machine learning __algorithm__ gets better at its task when it is shown examples as it tries to define general patterns from the examples.
 
 > ## Definition
@@ -36,7 +36,7 @@ A machine learning __algorithm__ gets better at its task when it is shown exampl
 Let’s say you want to buy a house.
 You follow the real estate market for a few months.
 During those months you visit 20 different houses.
-Every time you visit a house, you write down all the information you learned about the house. 
+Every time you visit a house, you write down all the information you learned about the house.
 
 > ## Question
 >
@@ -47,7 +47,7 @@ Every time you visit a house, you write down all the information you learned abo
 >
 > Feature - a property or a characteristic of the observed object. Used as an input.
 >
-> Class label - prediction output. 
+> Class label - prediction output.
 > Also called the target variable or label.
 {: .callout}
 
@@ -62,11 +62,11 @@ After the data is collected, we'll label the prices into two categories low or h
 <img width="550" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/intro_1.jpg">
 </p>
 
-Our dataset has labeled data, so our problem is a __supervised machine learning__ task. 
+Our dataset has labeled data, so our problem is a __supervised machine learning__ task.
 There are different types of machine learning algorithms - supervised learning and __unsupervised learning__ are the main two.
-Some examples of supervised machine learning are classification and regression. 
+Some examples of supervised machine learning are classification and regression.
 These will be further defined in the next lesson.
-An example of unsupervised machine learning is __clustering__. 
+An example of unsupervised machine learning is __clustering__.
 
 > ## Definitions
 >
@@ -80,11 +80,11 @@ An example of unsupervised machine learning is __clustering__.
 > Clustering - grouping related samples in the data set. In the house price example, a sample is each house.
 {: .callout}
 
-In this workshop, we focus on supervised learning algorithms. 
+In this workshop, we focus on supervised learning algorithms.
 
 We find a dream home that has not yet been listed for sale and is not part of our existing dataset.
 This home is new data, and we want to predict whether the price will be high or low.
-Based on the features that we already know, we want to classify our future home in one of the two possible categories. 
+Based on the features that we already know, we want to classify our future home in one of the two possible categories.
 
 We can visualize what the __machine learning model__ will predict (H for high, L for low price) based on the feature values.
 
@@ -120,14 +120,14 @@ We can think about the following questions whenever we encounter a situation inv
 >
 > What is the benefit of machine learning in this situation?
 >
-> What are we trying to predict? 
+> What are we trying to predict?
 >
 > What features do we have for those predictions?
 >
 > What machine learning model did we use, and why did we decide to use that one?
 {: .challenge}
 
-### What does machine learning mean for biology? 
+### What does machine learning mean for biology?
 
 Machine learning can **scale**, easily making predictions on a large number of items.
 It can be very slow and expensive for expert biologists to manually make the same decisions or manually construct a decision-making model.
@@ -144,4 +144,3 @@ Let’s look at some examples of how machine learning is being used in biology r
 * [Predicting lymphocyte fate from cell imaging](https://doi.org/10.1371/journal.pone.0083251)
 
 {% include links.md %}
-
