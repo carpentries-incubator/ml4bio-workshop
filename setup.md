@@ -16,15 +16,6 @@ title: Setup
 > 2.   Explain the ml4bio software environment
 
 ### Overview
-
-> #### Questions
->
-> 1.   What can I do with the software?
->
-> #### Objectives
->
-> 1.   Explain how the software works through an example.
-
 There are three main steps to prepare for the ml4bio workshop:
 1. [Download the workshop materials](#download-the-ml4bio-materials)
 2. [Install the Anaconda Python distribution](#install-python)
@@ -38,7 +29,7 @@ To download the ml4bio materials, visit <https://github.com/gitter-lab/ml-bio-wo
 Click the `Clone or download` button followed by `Download ZIP`.
 
 <p align="center">
-<img width="350" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/master/figures/setup/download_button.png">
+<img width="350" src="{{ page.root }}/fig/setup/download_button.png">
 </p>
 
 Save the file `ml-bio-workshop-master.zip` and then open that location on your computer.
@@ -54,7 +45,7 @@ If you do not have Anaconda installed, please visit <https://www.anaconda.com/do
 This screenshot shows the `PATH` option in the 2019 version of the Anaconda Windows installer:
 
 <p align="center">
-<img width="350" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/master/figures/setup/anaconda_path.png">
+<img width="350" src="{{ page.root }}/fig/setup/anaconda_path.png">
 </p>
 
 This will also make Anaconda your primary Python distribution.
@@ -80,7 +71,7 @@ For Windows, launch the Anaconda Prompt (formerly Anaconda Command Prompt) and t
 For Linux or Mac OS, open the terminal and navigate to the `ml-bio-workshop-master/scripts` directory.
 Then, enter the name of the script for your operating system.
 
-Visit the [software guide](https://gitter-lab.github.io/ml-bio-workshop/about/index.html) to learn more about the ml4bio software functionality.
+Visit the [software guide]({{ page.root }}/about/index.html) to learn more about the ml4bio software functionality.
 See the [software environment details](#software-environment-details) for more information about how the ml4bio software works.
 
 ### Troubleshooting
@@ -96,7 +87,7 @@ If you did not add Anaconda to your `PATH` during installation and would like to
 When running the `install_launch_windows.bat` install script, Windows may display a warning that the app is from an unknown publisher and may be unsafe to run.
 This warning can be ignored.
 
-See also known [software warnings](https://github.com/gitter-lab/ml-bio-workshop/tree/master/scripts#warnings) that can be safely ignored.
+See also known [software warnings](./scripts/README.md#warnings) that can be safely ignored.
 
 ### Updating ml4bio
 New versions of the ml4bio software will be periodically released through [PyPI](https://pypi.org/project/ml4bio/).
@@ -125,7 +116,7 @@ This is a popular general purpose machine learning package.
 When you use the ml4bio graphical interface, it calls functions in scikit-learn to train classifiers and make predictions.
 
 ### Advanced users
-Advanced users who already have Python installed can install the [required packages](https://github.com/gitter-lab/ml-bio-workshop/tree/master/scripts) through pip.
+Advanced users who already have Python installed can install the [required packages](./scripts) through pip.
 Then launch ml4bio from the command line with the command `ml4bio`.
 
 {% include links.md %}

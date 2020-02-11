@@ -5,16 +5,16 @@ exercises: 15
 questions:
 - How does the decision trees classifier make predictions?
 objectives:
-- Develop knowledge on how a classifier makes predictions. 
-- Understand advantages and disadvantages of a classifier. 
+- Develop knowledge on how a classifier makes predictions.
+- Understand advantages and disadvantages of a classifier.
 - Discuss applying, updating, and evaluating a trained model on new data.
 keypoints:
-- Decision trees are easy to visualize and intuitive to understand. 
+- Decision trees are easy to visualize and intuitive to understand.
 - Decision trees are prone to overfitting.
 - In biology, imbalanced datasets are common.
 ---
 
-### What is the decision tree classifier? 
+### What is the decision tree classifier?
 
 Decision trees make predictions by asking a sequence of questions for each example and make a prediction based on the responses.
 This makes decision trees intuitive.
@@ -29,16 +29,16 @@ Or in the case of T-cells, a decision tree can predict whether a T-cell is activ
 #### Example
 
 To better understand the algorithm, let's consider the house price prediction example from the [Introduction episode](https://gitter-lab.github.io/ml-bio-workshop/01-introduction/index.html).
-If the house price is higher than $200k, we will predict high, otherwise we will predict low. 
-We are going to begin with an initial house price range, and for our neighborhood of interest the prices range from $100k - $250k. 
-The first question we could ask is the number of bedrooms in the house. 
-The answer is 3 bedrooms, and so our new range will be $180k-$250k. 
-Then, we will ask about the number of bathrooms, and the answer is 3 bathrooms. 
+If the house price is higher than $200k, we will predict high, otherwise we will predict low.
+We are going to begin with an initial house price range, and for our neighborhood of interest the prices range from $100k - $250k.
+The first question we could ask is the number of bedrooms in the house.
+The answer is 3 bedrooms, and so our new range will be $180k-$250k.
+Then, we will ask about the number of bathrooms, and the answer is 3 bathrooms.
 The new range is $220-$250.
 Finally, we will ask the house's neighborhood.
 The answer is Neighborhood A.
-That gives us the price of $230k. 
-Our final class label is high. 
+That gives us the price of $230k.
+Our final class label is high.
 
 <p align="center">
 <img width="450" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/decisiontrees1.jpeg">
@@ -46,9 +46,9 @@ Our final class label is high.
 
 #### How does the classifier make predictions?
 
-This intuitive way of understanding decision trees is very close to the way the algorithm is implemented, but we also have the other part of the split to consider. 
-Each split of a decision tree classifies instances based on a test of a single feature. 
-This test can be True or False. 
+This intuitive way of understanding decision trees is very close to the way the algorithm is implemented, but we also have the other part of the split to consider.
+Each split of a decision tree classifies instances based on a test of a single feature.
+This test can be True or False.
 The splitting goes from the __root__ at the top of the tree to a __leaf node__ at the bottom.
 
 > ## Definitions
@@ -80,7 +80,7 @@ An important property of the decision tree is the __depth of tree__.
 > ## Definition
 >
 > Depth of tree - the number of times we make a split to reach a decision.
-{: .callout} 
+{: .callout}
 
 Some pros of using decision trees:
 
@@ -91,13 +91,13 @@ Some pros of using decision trees:
 
 Some cons of using decision trees:
 
-- prone to __overfitting__ 
+- prone to __overfitting__
 - requires a way to turn numeric data into a single decision rule
 
 > ## Definition
 >
 > Overfitting - an overfitting model fits the training data too well, but it fails to do this on the new data.
-{: .callout} 
+{: .callout}
 
 ### Step 1 Select data
 
@@ -110,14 +110,14 @@ Some cons of using decision trees:
 
 > ## Conceptual Questions
 >
-> What are we trying to predict? 
+> What are we trying to predict?
 >
 > What is the decision boundary?
 {: .challenge}
 
 We will continue working on the T-cells example.
 The goal is the same, predicting whether a cell is active or quiescent.
-We also have the same two features: cell size and intensity. 
+We also have the same two features: cell size and intensity.
 
 ### Step 2 Train classifiers
 
@@ -127,13 +127,13 @@ In this workshop, not all of the hyperparameters from the software will be cover
 For the hyperparameters that we don't discuss, use the default settings.
 - Max_depth can be an integer or None. It is the maximum depth of the tree. If the max depth is set to None, the tree nodes are fully expanded or until they have less than min_samples_split samples.
 - Min_samples_split and min_samples_leaf represent the minimum number of samples required to split a node or to be at a leaf node.
-- Class_weight is important hyperparameter in biology research. If we had a training set and we are using binary classification, we don't want to only predict the most abundant class.  For example, in the T-cells example, if 2 samples are active and 98 samples are quiescent, we don't want to train a model that predicts all of the cells to be quiescent. Class_weight parameter would allow putting weight on 2 cells labeled as active so that predicting them incorrectly would be penalized more. 
+- Class_weight is important hyperparameter in biology research. If we had a training set and we are using binary classification, we don't want to only predict the most abundant class.  For example, in the T-cells example, if 2 samples are active and 98 samples are quiescent, we don't want to train a model that predicts all of the cells to be quiescent. Class_weight parameter would allow putting weight on 2 cells labeled as active so that predicting them incorrectly would be penalized more.
 In biology, it is common to have this type of __imbalanced training set__ with more negative than positive instances, so training and evaluating appropriately is essential! The uniform mode gives all classes the weight one. The balanced mode adjusts the weights.
 
 > ## Definition
 >
 > Imbalanced training set - a data set that contains a large proportion of a certain class or classes.  
-{: .callout} 
+{: .callout}
 
 Without changing any hyperparameter settings, look at the Data Plot.
 
@@ -144,7 +144,7 @@ Without changing any hyperparameter settings, look at the Data Plot.
 
 > ## Solution
 >
-> The data plot shows two features, where the blue data points represent the quiescent cells, and the red data points represent the active cells. 
+> The data plot shows two features, where the blue data points represent the quiescent cells, and the red data points represent the active cells.
 {: .solution}
 
 > ## Question
@@ -154,12 +154,12 @@ Without changing any hyperparameter settings, look at the Data Plot.
 
 > ## Solution
 >
-> They each represent a node in the decision tree. 
+> They each represent a node in the decision tree.
 > When we are trying to come up with the decision rule, we will consider the features and the data plot.
 {: .solution}
 
 > ## Conceptual Question
-> 
+>
 > What hyperparameter might be important for this example?
 {: .challenge}
 
@@ -170,19 +170,19 @@ Without changing any hyperparameter settings, look at the Data Plot.
 
 > ## Software
 >
-> Let's change the class_weight to balanced. 
+> Let's change the class_weight to balanced.
 {: .checklist}
 
 > ## Activity
 >
-> Did this make any difference? 
+> Did this make any difference?
 >
 > How does the data plot look for the uniform class_weight and how does it look for the balanced class weight?
 {: .challenge}
 
 > ## Play time
 >
-> Change the max_depth parameter. 
+> Change the max_depth parameter.
 >
 > Did you notice any difference?
 {: .challenge}
@@ -195,11 +195,11 @@ A good model will learn a pattern from the data and then it will be able to gene
 
 It is easy to go to deep in the tree, and to fit the parameters that are specific for that training set, rather than to generalize to the whole dataset.
 This is overfitting.
-In other words, the more complex the model, the higher the chance that it will overfit. 
-The overfitted model has too many features. 
+In other words, the more complex the model, the higher the chance that it will overfit.
+The overfitted model has too many features.
 However, the solution is not necessarily to start removing these features, because this might lead to underfitting.
 
-The model that overfits has high variance. 
+The model that overfits has high variance.
 
 <p align="center">
 <img width="900" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/decisiontree3.jpeg">
@@ -207,7 +207,7 @@ The model that overfits has high variance.
 
 > ## Software
 >
-> To check if the classifier overfit, first look at the training data. 
+> To check if the classifier overfit, first look at the training data.
 >
 > Switch between training data and validation data in the upper right corner.
 {: .checklist}
@@ -222,21 +222,23 @@ The classifier probably overfit.
 
 > ## Software
 >
-> Let's go to the Step 3 in the software. 
+> Let's go to the Step 3 in the software.
 {: .checklist}
 
 > ## Questions
 >
-> Based on accuracy, which classifier was best-performing? 
-> 
+> Based on accuracy, which classifier was best-performing?
+>
 > Did the classifier overfit?
 {: .challenge}
 
 #### Evaluation
 
 **Are the models reusable?**
-We use supervised learning to build our model. We want to be able to use the model on the different data. 
+We use supervised learning to build our model. We want to be able to use the model on the different data.
 
 ###  Application in biology
 
 [PgpRules: a decision tree based prediction server for P-glycoprotein substrates and inhibitors](https://doi.org/10.1093/bioinformatics/btz213)
+
+{% include links.md %}

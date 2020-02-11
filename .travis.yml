@@ -1,26 +1,75 @@
-dist: xenial  # Ubuntu 16.04 (required for python 3.7)
-language: python
-python: 3.7
+# Build all branches including gh-pages
+# https://docs.travis-ci.com/user/customizing-the-build#safelisting-or-blocklisting-branches
 branches:
   only:
   - gh-pages
   - /.*/
-before_install:
-  - sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
-  - echo "deb https://cloud.r-project.org/bin/linux/ubuntu xenial-cran35/" | sudo tee -a /etc/apt/sources.list
-  - sudo apt-get update -y
-  - sudo apt-get install -y --allow-unauthenticated r-base
-  - sudo Rscript -e "install.packages('knitr', repos = 'https://', dependencies = TRUE)"
-  - sudo Rscript -e "install.packages('stringr', repos = 'https://cran.rstudio.com', dependencies = TRUE)"
-  - sudo Rscript -e "install.packages('checkpoint', repos = 'https://cran.rstudio.com', dependencies = TRUE)"
-  - sudo Rscript -e "install.packages('ggplot2', repos = 'https://cran.rstudio.com', dependencies = TRUE)"
-  - rvm default
-  - gem install json kramdown jekyll
-install:
-  - pip install pyyaml
-script:
-  - make lesson-check-all
-  - make --always-make site
+
+# Use a build matrix to run one set of jobs that test the conda environments
+# another to test the URLs in the Markdown files
+# and other to test the lessons and web site
+# See https://stackoverflow.com/questions/27644586/how-to-set-up-travis-ci-with-multiple-languages
+matrix:
+  include:
+  # Configuration adapted from https://github.com/gitter-lab/t-cell-classification
+  - language: minimal
+    name: Conda environment Linux
+    os: linux
+    before_install:
+      - wget https://repo.continuum.io/miniconda/Miniconda3-4.5.12-Linux-x86_64.sh -O miniconda.sh
+      - bash miniconda.sh -b -p $HOME/anaconda
+      - export PATH="$HOME/anaconda/bin:$PATH"
+      - cd scripts
+      # Avoid QXcbConnection error by confirming ml4bio can be imported instead of launching the GUI
+      - sed -i 's/^ml4bio$/python -c "import ml4bio; print(ml4bio.__version__)"/g' install_launch_linux.sh
+    script:
+      - ./install_launch_linux.sh
+
+  - language: minimal
+    name: Conda environment macOS
+    os: osx
+    before_install:
+      - wget https://repo.continuum.io/miniconda/Miniconda3-4.5.12-MacOSX-x86_64.sh -O miniconda.sh
+      - bash miniconda.sh -b -p $HOME/anaconda
+      - export PATH="$HOME/anaconda/bin:$PATH"
+      - cd scripts
+      # Avoid QXcbConnection error by confirming ml4bio can be imported instead of launching the GUI
+      # sed workaround needed because macOS does not use GNU sed
+      # Workaround from https://github.com/manubot/rootstock/blob/master/SETUP.md
+      - sed 's/^ml4bio$/python -c "import ml4bio; print(ml4bio.__version__)"/g' install_launch_mac.command > tmp && mv -f tmp install_launch_mac.command
+      - chmod u+x install_launch_mac.command
+    script:
+      - ./install_launch_mac.command
+
+  # Configuration adapted from https://github.com/dkhamsing/awesome_bot
+  - language: ruby
+    name: Check URLs
+    rvm: 2.4.1
+    before_script: gem install awesome_bot
+    script: awesome_bot guide/*.md --allow-redirect --allow-dupe
+
+  # Configuration adapted from https://github.com/carpentries/styles/blob/gh-pages/bin/boilerplate/.travis.yml
+  # Travis CI is only used to check the lesson and is not involved in its deployment
+  - language: python
+    name: Check lessons and site
+    dist: xenial  # Ubuntu 16.04 (required for python 3.7)
+    python: 3.7
+    before_install:
+      - sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
+      - echo "deb https://cloud.r-project.org/bin/linux/ubuntu xenial-cran35/" | sudo tee -a /etc/apt/sources.list
+      - sudo apt-get update -y
+      - sudo apt-get install -y --allow-unauthenticated r-base
+      - sudo Rscript -e "install.packages('knitr', repos = 'https://', dependencies = TRUE)"
+      - sudo Rscript -e "install.packages('stringr', repos = 'https://cran.rstudio.com', dependencies = TRUE)"
+      - sudo Rscript -e "install.packages('checkpoint', repos = 'https://cran.rstudio.com', dependencies = TRUE)"
+      - sudo Rscript -e "install.packages('ggplot2', repos = 'https://cran.rstudio.com', dependencies = TRUE)"
+      - rvm default
+      - gem install json kramdown jekyll bundler
+    install:
+      - pip install pyyaml
+    script:
+      - make lesson-check-all
+      - make --always-make site
 
 notifications:
   email: false
