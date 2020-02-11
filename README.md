@@ -17,11 +17,11 @@ Visit the [software setup page](https://gitter-lab.github.io/ml-bio-workshop/set
 In addition to the materials needed to build the lesson website, this repository contains the following files and subdirectories:
 - [`binder`](binder): a configuration file to enable running the `illustration.ipynb` notebook interactively using [Binder](https://mybinder.org/)
 - [`data`](data): example datasets to use with the ml4bio classification software, including both real and toy (illustrative simulated) datasets
-- [`figures`](figures): figures for the guides
+- [`fig`](fig): figures for the lessons and guides
 - [`guide`](guide): tutorials about the ml4bio software, machine learning concepts, and various classifiers
+- [`planning`](planning): materials for instructors to plan the workshop
 - [`scripts`](scripts): ml4bio installation scripts
 - [`illustration.ipynb`](illustration.ipynb): a Jupyter notebook the demonstrates the machine learned workshop in Python code
-- `workshop_slides.pptx`: slides for the machine learning for biology workshop
 
 The [ml4bio repository](https://github.com/gitter-lab/ml4bio) contains the Python software.
 
