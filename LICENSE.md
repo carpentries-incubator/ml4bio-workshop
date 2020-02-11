@@ -7,7 +7,7 @@ root: .
 
 The content of the ml4bio workshop is made available under the [Creative Commons Attribution 4.0 International Public License][cc-by-human] by the Gitter Lab (full text [below][cc-by-section]).
 The [ml4bio software](https://github.com/gitter-lab/ml4bio) is made available under the [MIT license](https://github.com/gitter-lab/ml4bio/blob/master/LICENSE).
-The [ml4bio guides]({{ repo_url }}/blob/{{ source_branch }}/guide) contain [images from third-party sources]({{ repo_url }}/blob/{{ source_branch }}/fig/third_party_figures), as noted in the image links and guide references.
+The [ml4bio guides](https://github.com/gitter-lab/ml-bio-workshop/tree/gh-pages/guide) contain [images from third-party sources](https://github.com/gitter-lab/ml-bio-workshop/tree/gh-pages/fig/third_party_figures), as noted in the image links and guide references.
 See the linked original image sources for their licenses and terms of reuse.
 
 The ml4bio workshop is derived from materials, software, and templates from [The Carpentries](https://carpentries.org/).

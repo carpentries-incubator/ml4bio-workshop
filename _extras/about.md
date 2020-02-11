@@ -16,12 +16,12 @@ This environment, which is named `ml4bio`, contains the latest version of the `m
 The `ml4bio` code may be incompatible with older or newer versions of the Python packages it uses.
 The environment makes it easy for you use a collection of Python packages that work together.
 
-The most important required Python package that ml4bio uses is called [scikit-learn](http://scikit-learn.org/).
+The most important required Python package that ml4bio uses is called [scikit-learn](https://scikit-learn.org/).
 This is a popular general purpose machine learning package.
 When you use the ml4bio graphical interface, it calls functions in scikit-learn to train classifiers and make predictions.
 
 ### Advanced users
-Advanced users who already have Python installed can install the [required packages]({{ repo_url }}/blob/{{ source_branch }}/scripts/README.md) through pip.
+Advanced users who already have Python installed can install the [required packages](https://github.com/gitter-lab/ml-bio-workshop/tree/gh-pages/scripts) through pip.
 Then launch ml4bio from the command line with the command `ml4bio`.
 
 ### A quick tour
@@ -189,7 +189,7 @@ As with data summary, you may unfold the bullets to see more details.
 
 The left figure shows a complete list of classifier hyperparameters.
 Some of them were exposed to you for tuning, others were fixed by the software.
-You may learn more about the hyperparameters from the [sklearn documentation](http://scikit-learn.org/stable/documentation.html).
+You may learn more about the hyperparameters from the [sklearn documentation](https://scikit-learn.org/stable/documentation.html).
 
 The right figure shows the classifier's performance with respect to different types of data.
 For each metric, classwise values as well as their average are computed.
