@@ -2,13 +2,13 @@
 
 1. How much do you know about machine learning? (1-3)
   - 1: Nothing
-  - 5: Have taken a machine learning course or have research experience
+  - 3: Have taken a machine learning course or have research experience
 2. Do you have coding experience? (1-3)
   - 1: None
-  - 5: Have written a nontrivial program (1000 or more lines of code)
+  - 3: Have written a nontrivial program (1000 or more lines of code)
 3. How comfortable are you with coding? (1-3)
   - 1: Intimidating
-  - 5: Enjoyable
+  - 3: Enjoyable
 4. How would you like to split your research effort in the future? (1-5)
   - 1: 100% bench work, no computation
   - 5: 100% computation, no bench work
