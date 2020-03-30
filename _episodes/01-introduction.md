@@ -55,8 +55,8 @@ Note there can be different types of features (text, number, category, etc).
 
 ### Group activity
 
-We'll create a housing dataset together.
-After the data is collected, we'll label the prices into two categories low or high.
+Create a housing dataset as a group.
+After the data is collected, label the prices into two categories low or high.
 
 <p align="center">
 <img width="550" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/intro_1.jpg">
@@ -64,7 +64,7 @@ After the data is collected, we'll label the prices into two categories low or h
 
 Our dataset has labeled data, so our problem is a __supervised machine learning__ task.
 There are different types of machine learning algorithms - supervised learning and __unsupervised learning__ are the main two.
-Some examples of supervised machine learning are classification and regression.
+Some examples of supervised machine learning are __classification__ and __regression__.
 These will be further defined in the next lesson.
 An example of unsupervised machine learning is __clustering__.
 
@@ -78,6 +78,10 @@ An example of unsupervised machine learning is __clustering__.
 > ## Definition
 >
 > Clustering - grouping related samples in the data set. In the house price example, a sample is each house.
+>
+> Classification - classifying related samples in the data set into a category. In the house price example, a categories are high and low.  
+>
+> Regression - _add a simple definition_
 {: .callout}
 
 In this workshop, we focus on supervised learning algorithms.
@@ -86,7 +90,7 @@ We find a dream home that has not yet been listed for sale and is not part of ou
 This home is new data, and we want to predict whether the price will be high or low.
 Based on the features that we already know, we want to classify our future home in one of the two possible categories.
 
-We can visualize what the __machine learning model__ will predict (H for high, L for low price) based on the feature values.
+Visualize what the __machine learning model__ will predict (H for high, L for low price) based on the feature values.
 
 <p align="center">
 <img width="550" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/intro_2.jpg">
@@ -114,7 +118,7 @@ You have all the ingredients, you have the “recipe” or the proportions, and 
 You are given the ingredients and the final solution, but you don’t know the recipe.
 So, what you need to do it to find the “fitting” of the ingredients, that would result in your solution.  
 
-We can think about the following questions whenever we encounter a situation involving machine learning.
+Think about the following questions whenever we encounter a situation involving machine learning.
 
 > ## Conceptual Questions
 >
