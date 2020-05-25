@@ -17,7 +17,7 @@ keypoints:
 
 ### Why classify T-cells
 
-Let's consider how to answer a real biological question using the same concepts we saw in the introduction.
+Consider how to answer a real biological question using the same concepts we saw in the introduction.
 The question pertains to immunotherapy, a type of cancer treatment that uses the body's immune cells to attack cancer.
 T-cells are a common target for immunotherapies.
 For immunotherapy to be effective, the modified T-cells must be in an active state.
@@ -25,7 +25,7 @@ Here we will study how to assess the activation state of individual T-cells.
 
 Scientists at UW-Madison and the Morgridge Institute [developed an imaging method](https://doi.org/10.1101/536813) to quickly acquire images of T-cells without destroying them.
 These images contain information that can be used to predict T-cell activity.
-We would like to develop a classifier that can take an image of a T-cell and predict whether it is __active__ or __quiescent__.
+The goal is to develop a classifier that can take an image of a T-cell and predict whether it is __active__ or __quiescent__.
 The active cells would then be used for immunotherapy, and the quiescent cells can be considered inactive and would be discarded.
 
 > ## Definitions
@@ -58,7 +58,7 @@ We will be using ml4bio software to build classifiers with the T-cell images.
 Refer to the [Setup](https://gitter-lab.github.io/ml-bio-workshop/setup.html) for instructions on how to install and launch the ml4bio software.
 To better understand the software features, check out the [About ml4bio](https://gitter-lab.github.io/ml-bio-workshop/about/index.html) page.
 All of the datasets that we will be using for this workshop have been formatted to fit the ml4bio requirements.
-If you want to experiment with your data, make sure to follow the guidelines in the *About ml4bio* page.
+If you want to experiment with your data, follow the guidelines in the *About ml4bio* page.
 
 ## Machine learning workflow
 
@@ -123,7 +123,7 @@ Data Summary gives us an insight into features, __samples__, and __class__ for t
 {: .callout}
 
 In this particular dataset, we can see that we have two features **cell_size** and **total_intensity**.
-We can also see that the total number of samples is 843.
+The total number of samples is 843.
 
 > ## Conceptual Questions
 >
@@ -136,7 +136,7 @@ We can also see that the total number of samples is 843.
 
 ### Training set vs. Validation set vs. Test set
 
-Before we continue, we need to split the dataset into a __training set__ and a __test set__.
+Before we continue, split the dataset into a __training set__ and a __test set__.
 The training set is further divided into a training set and a __validation set__.
 
 <p align="center">
@@ -160,9 +160,13 @@ The training set is further divided into a training set and a __validation set__
 Setting a test set aside from the training and validation sets from the beginning, and only using it once for a final evaluation, is very important to be able to properly evaluate how well a machine learning algorithm learned.
 Letting the machine learning method learn from the test set can be seen as giving a student the answers to an exam; once a student sees any exam answers, their exam score will no longer reflect their true understanding of the material.  
 
-We will be using the holdout validation method in the software.
-This reserves a single fixed portion of the data for evaluation.
-We will use the software's default of 20% of the training set for the validation set.
+> ## Software
+>
+> We will be using the holdout validation method in the software.
+> This reserves a single fixed portion of the data for evaluation.
+>
+> We will use the software's default of 20% of the training set for the validation set.
+{: .checklist}
 
 <p align="center">
 <img width="600" src="https://github.com/gitter-lab/ml-bio-workshop/blob/gh-pages/assets/holdoutvalidation.jpg?raw=true">
@@ -184,14 +188,24 @@ Tools that use classification to predict an outcome are __classifiers__.
 > Instead of predicting a category, here the value of the label variable is predicted.
 {: .callout}
 
-The software has a dropdown menu of some of the most frequently used classifiers.
+> ## Software
+>
+> The software has a dropdown menu of some of the most frequently used classifiers.
+{: .checklist}
+
 In this workshop, we will be further talking about [Decision Trees](https://gitter-lab.github.io/ml-bio-workshop/03-decision-trees/index.html), [Random Forests](https://gitter-lab.github.io/ml-bio-workshop/04-random-forests/index.html), and [Logistic Regression](https://gitter-lab.github.io/ml-bio-workshop/05-log-regression/index.html).
 
-We will evaluate the classifiers using accuracy.
+We will use accuracy to evaluate the classifiers.
 Accuracy measures the fraction of the predictions that are correct.
-In the T-cells dataset, this will be the number of correctly predicted quiescent and activated cells compared to the total number of predictions made.
-In the software, let's look at the prediction metrics on the validation data.
-Remember, you can switch between the training set and validation set at any time in software.
+In the T-cells dataset, this is the number of correctly predicted quiescent and activated cells compared to the total number of predictions made.
+
+> ## Software
+>
+> In the software, look at the prediction metrics on the validation data.
+>
+> __Remember, you can switch between the training set and validation set at any time.__
+{: .checklist}
+
 In the T-cells example, we want to predict whether a cell was quiescent or activated. The accuracy gives us the count of the cells that were correctly predicted.
 
 > ## Exploring model training
@@ -208,9 +222,13 @@ In the T-cells example, we want to predict whether a cell was quiescent or activ
 {: .checklist}
 
 This type of exploration of multiple algorithms reflects how a good model is often found in real-world situations.
-It often takes many classifiers before you find the one that you are satisfied with.
+It often takes many classifiers to find the one that you are satisfied with.
 
-For your final comparison, train at least one decision tree, random forest, and logistic regression classifier.
+> ## Software
+>
+> For your final comparison, train at least one decision tree, random forest, and logistic regression classifier.
+>
+{: .checklist}
 
 
 ## Step 3 Test and Predict
@@ -232,7 +250,7 @@ There are a few visualization tools that can help with the model selection. The 
 
 ### Test Data
 
-Once the model was selected based on the metric that we chose, we want to use the model for the prediction on the test data.
+Once the model was selected based on the metric that we chose, use the model for the prediction on the test data.
 Based on the same prediction metrics that we used on the validation set, we can make certain conclusions about our model.
 
 > ## Conceptual Questions
