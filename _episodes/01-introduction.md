@@ -79,9 +79,11 @@ An example of unsupervised machine learning is __clustering__.
 >
 > Clustering - grouping related samples in the data set. In the house price example, a sample is each house.
 >
-> Classification - classifying related samples in the data set into a category. In the house price example, a categories are high and low.  
+> Classification - classifying related samples in the data set into a category. The goal of classification is to predict which category each sample belongs to. In the house price example, a categories are high and low.  
+> 
+> Classifier - A specific model or algorithm which performs classification.
 >
-> Regression - _add a simple definition_
+> Regression - Unlike classification that predicts a category, regression predicts a dicrete value. 
 {: .callout}
 
 In this workshop, we focus on supervised learning algorithms.
