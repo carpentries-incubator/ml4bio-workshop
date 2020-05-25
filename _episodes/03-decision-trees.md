@@ -28,7 +28,7 @@ Or in the case of T-cells, a decision tree can predict whether a T-cell is activ
 
 #### Example
 
-To better understand the algorithm, let's consider the house price prediction example from the [Introduction episode](https://gitter-lab.github.io/ml-bio-workshop/01-introduction/index.html).
+To better understand the algorithm, consider the house price prediction example from the [Introduction episode](https://gitter-lab.github.io/ml-bio-workshop/01-introduction/index.html).
 If the house price is higher than $200k, we will predict high, otherwise we will predict low.
 We are going to begin with an initial house price range, and for our neighborhood of interest the prices range from $100k - $250k.
 The first question we could ask is the number of bedrooms in the house.
@@ -40,9 +40,7 @@ The answer is Neighborhood A.
 That gives us the price of $230k.
 Our final class label is high.
 
-<p align="center">
-<img width="450" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/decisiontrees1.jpeg">
-</p>
+[add new visual]
 
 #### How does the classifier make predictions?
 
@@ -61,9 +59,7 @@ The splitting goes from the __root__ at the top of the tree to a __leaf node__ a
 An instance is classified starting from the root and testing the feature specified by the __node__, then going down the split based on the outcome of the test and testing a different feature specified by another node.  
 The graphic shows the full decision tree used for the housing example above.
 
-<p align="center">
-<img width="750" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/decisiontrees2.jpeg">
-</p>
+[add a new visual]
 
 > ## Definition
 >
@@ -103,7 +99,7 @@ Some cons of using decision trees:
 
 > ## Software
 >
-> Let's load *simulated_t_cells_7.csv* data set into the software.
+> Load *simulated_t_cells_7.csv* data set into the software.
 >
 > This dataset is engineered specifically to demonstrate the decision tree classifier.
 {: .checklist}
@@ -135,7 +131,11 @@ In biology, it is common to have this type of __imbalanced training set__ with m
 > Imbalanced training set - a data set that contains a large proportion of a certain class or classes.  
 {: .callout}
 
-Without changing any hyperparameter settings, look at the Data Plot.
+> ## Software
+>
+> Without changing any hyperparameter settings, look at the Data Plot. 
+{: .checklist}
+
 
 > ## Think-Pair-Share
 >
