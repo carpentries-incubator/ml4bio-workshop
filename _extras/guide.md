@@ -1,6 +1,13 @@
 ---
 title: "Instructor Notes"
 ---
+## Tips
+When instructing, repeat 3 times:
+- talk about the process 
+- show how it is done
+- instruct the participants to do it themselves
+
+Give clear indicators of when learners should be looking at the projector screen, the instructor, or their own laptop (or combination).
 
 ## Introduction
 Initial think-pair-share on machine learning is very short.
