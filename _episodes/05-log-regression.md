@@ -17,24 +17,46 @@ keypoints:
 
 Logistic regression is a classifier that models the probability of a certain label.
 In our original example, when we predicted whether a price for a house is high or low, we were classifying our responses into two categories.
-If we use logistic regression to predict one of the two labels, it is a binary logistic regression.
+Using the logistic regression to predict one of the two labels is a binary logistic regression.
 Everything that applies to the binary classification could be applied to multi-class problems (for example, high, medium, or low).
-We will be focusing on binary classification in this workshop.
+Focus of this workshop is on binary classification.
 
-### What is logistic regression?
+#### Linear regression vs. logistic regression
 
-Logistic regression returns the probability that a combination of features with weights belongs to a certain class.
+You should be familiar with $y=mx+b$. 
+If we rewrite it in terms of feature weights $y=w_1x+w_0$ where $w_0$ is the interscept of the line and $w_1$ is the slope of the line. 
+In statistics, for the simple linear regression we write interscept term first $y=w_0+w_1x$. 
 
 > ## Definition
 >
 > Feature weights - determine the importance of a feature in a model.  
 {: .callout}
 
-The probability is always between 0 and 1.
-Let's build the visual of the house price example with one feature.
-We want to predict whether the house price is high or low.
-We will be predicting the probability that the price belongs to one of the two classes, so this is binary classification.
-Let's look at the single feature, square footage of a house, and how it affects whether the house price is high or low.
+The interscept term is a constant and it is defined as the mean of the outcome when the input is 0. 
+This interpretation gets more involved with multiple inputs, but that is out of the scope of the workshop. 
+The slope is a feature weight. 
+Think about the house price example, and this time we want to predict the house price with one feature, for example square footage. 
+The feature weight is the coefficient for the feature $x$ and it represents the average increase in the house price with a one unit increase in $x$. 
+Linear regression predicts the expected house price for the given feature, here the square footage.
+
+When we have multiple features, the linear regression would be $y = w_0 + w_1x1 + w_2x_2 +...+w_nx_n$.
+
+<p align="center">
+<img width="650" src="https://github.com/gitter-lab/ml-bio-workshop/blob/gh-pages/assets/logit01.jpg?raw=true">
+</p>
+
+### What is logistic regression?
+
+Logistic regression returns the probability that a combination of features with weights belongs to a certain class.
+
+In the original example, if the house price was higher than $150K, it was classified as high, otherwise if was classified as low. 
+Consider the situation where we want to predict the likelihood of a certain house price. 
+
+Recall that probability is always between 0 and 1.
+Build the visual of the house price example with one feature.
+The goal is to predict whether the house price is high or low.
+Predict the probability that the price belongs to one of the two classes, so this is binary classification.
+Examine the single feature, square footage of a house, and how it affects whether the house price is high or low.
 
 > ## Conceptual Questions
 >
@@ -56,19 +78,21 @@ Let's look at the single feature, square footage of a house, and how it affects 
 > Is the price for your house high or low based on this one feature?
 {: .challenge}
 
-<p align="center">
-<img width="650" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/logit2.jpeg">
-</p>
-
-Now, let's think about the T-cells example.
-If we focus only on one feature, for example cell size, we can use logistic regression to predict the probability that the cell would be active.
-
-The "S" shaped function is the inverse of the logistic function of __odds__.
+The "S" shaped function is the inverse of the logistic function of __odds__. It guarantees that the outcome will be between 0 and 1.
 
 > ## Definition
 >
 > Odds - probability that an event happens divided by probability that an event doesn't happen.
 {: .callout}
+
+<p align="center">
+<img width="650" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/logit2.jpeg">
+</p>
+
+Visual 
+
+Now, let's think about the T-cells example.
+If we focus only on one feature, for example cell size, we can use logistic regression to predict the probability that the cell would be active.
 
 The logistic function of odds is a sum of the __weighted features__.
 This makes the log-odds function a linear function, and logistic regression a linear classifier.
