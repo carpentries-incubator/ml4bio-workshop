@@ -19,27 +19,28 @@ Logistic regression is a classifier that models the probability of a certain lab
 In our original example, when we predicted whether a price for a house is high or low, we were classifying our responses into two categories.
 Using the logistic regression to predict one of the two labels is a binary logistic regression.
 Everything that applies to the binary classification could be applied to multi-class problems (for example, high, medium, or low).
-Focus of this workshop is on binary classification.
+The focus of this workshop is on binary classification.
 
 #### Linear regression vs. logistic regression
 
 You should be familiar with $y=mx+b$. 
-If we rewrite it in terms of feature weights $y=w_1x+w_0$ where $w_0$ is the interscept of the line and $w_1$ is the slope of the line. 
-In statistics, for the simple linear regression we write interscept term first $y=w_0+w_1x$. 
+If we rewrite it in terms of feature weights $y=w_1x+w_0$ where $w_0$ is the intercept of the line and $w_1$ is the slope of the line. 
+In statistics, for the simple linear regression we write intercept term first $y=w_0+w_1x$. 
 
 > ## Definition
 >
 > Feature weights - determine the importance of a feature in a model.  
 {: .callout}
 
-The interscept term is a constant and it is defined as the mean of the outcome when the input is 0. 
+The intercept term is a constant and it is defined as the mean of the outcome when the input is 0. 
 This interpretation gets more involved with multiple inputs, but that is out of the scope of the workshop. 
 The slope is a feature weight. 
-Think about the house price example, and this time we want to predict the house price with one feature, for example square footage. 
+Think about the house price example.
+This time we want to predict the house price with one feature, for example, square footage. 
 The feature weight is the coefficient for the feature $x$ and it represents the average increase in the house price with a one unit increase in $x$. 
 Linear regression predicts the expected house price for the given feature, here the square footage.
 
-When we have multiple features, the linear regression would be $y = w_0 + w_1x1 + w_2x_2 +...+w_nx_n$.
+When we have multiple features, the linear regression would be $y = w_0 + w_1x1 + w_2x_2 +...+ w_nx_n$.
 
 <p align="center">
 <img width="650" src="https://github.com/gitter-lab/ml-bio-workshop/blob/gh-pages/assets/logit01.jpg?raw=true">
@@ -49,7 +50,7 @@ When we have multiple features, the linear regression would be $y = w_0 + w_1x1 
 
 Logistic regression returns the probability that a combination of features with weights belongs to a certain class.
 
-In the original example, if the house price was higher than $150K, it was classified as high, otherwise if was classified as low. 
+In the original example, if the house price was higher than $150K, it was classified as high, otherwise it was classified as low. 
 Consider the situation where we want to predict the likelihood of a certain house price. 
 
 Recall that probability is always between 0 and 1.
