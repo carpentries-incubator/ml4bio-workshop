@@ -13,6 +13,7 @@ keypoints:
 - The output of logistic regression is probability of a certain class.
 - Logistic regression is characterized by linear separability of the data.
 - Regularization can be used to improve an overfitting model.
+mathjax: true
 ---
 
 Logistic regression is a classifier that models the probability of a certain label.
