@@ -44,7 +44,7 @@ Linear regression predicts the expected house price for the given feature, here 
 When we have multiple features, the linear regression would be $y = w_0 + w_1x1 + w_2x_2 +...+ w_nx_n$.
 
 <p align="center">
-<img width="650" src="https://github.com/gitter-lab/ml-bio-workshop/blob/gh-pages/assets/logit01.jpg?raw=true">
+<img width="650" src="https://github.com/gitter-lab/ml-bio-workshop/blob/gh-pages/assets/linear_vs_logit.jpg?raw=true">
 </p>
 
 ### What is logistic regression?
