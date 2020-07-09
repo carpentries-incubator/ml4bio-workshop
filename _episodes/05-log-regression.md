@@ -66,17 +66,17 @@ $odds = \frac{P(event)}{1-P(event)}$
 In the original example, if the house price was higher than $150K, it was classified as high, otherwise it was classified as low. 
 Consider the situation where we want to predict the likelihood of a certain house price. 
 
-The goal is to predict the probability that the price is high $P(y=high|x;w)$.
+The goal is to predict the probability that the price is high $P(y=high\|x;w)$.
 
 From the previous visual, we saw that the sigmoid function represents the probability of a certain outcome. 
 
-$P(y=high\|x;w) = \frac{1}{1+e^{-(w_0+w_1x_1)}}$ If we multiply both sides by $1+e^{-(w_0+w_1x_1)}$
-$P(y=high\|x;w)(1+e^{-(w_0+w_1x_1)}) = 1$
-$P(y=high\|x;w)+P(y=high|x;w)e^{-(w_0+w_1x_1)} = 1$
-$P(y=high\|x;w)e^{-(w_0+w_1x_1)} = 1 - P(y=high|x;w)$
-$e^{-(w_0+w_1x_1)} = \frac{1-P(y=high|x;w)}{P(y=high|x;w)}$ Take an inverse
-$(e^{-(w_0+w_1x_1)})^{-1}=(\frac{1-P(y=high|x;w)}{P(y=high|x;w)})^{-1}$
-$\frac{P(y=high|x;w)}{1-P(y=high|x;w)}= e^{w_0+w_1x_1}$ Take the log of both sides.
+$P(y=high\|x;w) = \frac{1}{1+e^{-(w_0+w_1x_1)}}$ If we multiply both sides by $1+e^{-(w_0+w_1x_1)}$  
+$P(y=high\|x;w)(1+e^{-(w_0+w_1x_1)}) = 1$  
+$P(y=high\|x;w)+P(y=high|x;w)e^{-(w_0+w_1x_1)} = 1$  
+$P(y=high\|x;w)e^{-(w_0+w_1x_1)} = 1 - P(y=high|x;w)$  
+$e^{-(w_0+w_1x_1)} = \frac{1-P(y=high|x;w)}{P(y=high|x;w)}$ Take an inverse  
+$(e^{-(w_0+w_1x_1)})^{-1}=(\frac{1-P(y=high|x;w)}{P(y=high|x;w)})^{-1}$  
+$\frac{P(y=high|x;w)}{1-P(y=high|x;w)}= e^{w_0+w_1x_1}$ Take the log of both sides.  
 $log(\frac{P(y=high|x;w)}{1-P(y=high|x;w)})= log (e^{w_0+w_1x_1}) = w_0+w_1x_1$
 
 Remember, $y = w_0 + w_1x1$
