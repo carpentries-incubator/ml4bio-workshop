@@ -51,19 +51,39 @@ When we have multiple features, the linear regression would be $y = w_0 + w_1x1 
 
 Logistic regression returns the probability that a combination of features with weights belongs to a certain class.
 
+In the visual above that compares linear regression to logistic regression, we can see the "S" shaped function is defined by $p = \frac{1}{1+e^{-(w_0+w_1x_1)}}$. 
+The "S" shaped function is the inverse of the logistic function of __odds__. 
+It guarantees that the outcome will be between 0 and 1. 
+Recall that probability is always between 0 and 1.
+
+> ## Definition
+>
+> Odds - probability that an event happens divided by probability that an event doesn't happen.
+{: .callout}
+
+$odds = \frac{P(event)}{1-P(event)}$
+
 In the original example, if the house price was higher than $150K, it was classified as high, otherwise it was classified as low. 
 Consider the situation where we want to predict the likelihood of a certain house price. 
 
-Recall that probability is always between 0 and 1.
-Build the visual of the house price example with one feature.
-The goal is to predict whether the house price is high or low.
-Predict the probability that the price belongs to one of the two classes, so this is binary classification.
-Examine the single feature, square footage of a house, and how it affects whether the house price is high or low.
+The goal is to predict the probability that the price is high $P(y=high|x;w)$.
 
-> ## Conceptual Questions
->
-> What rule is the classifier learning?
-{: .challenge}
+From the previous visual, we saw that the sigmoid function represents the probability of a certain outcome. 
+
+$P(y=high|x;w) = \frac{1}{1+e^{-(w_0+w_1x_1)}}$ If we multiply both sides by $1+e^{-(w_0+w_1x_1)}$
+$P(y=high|x;w)(1+e^{-(w_0+w_1x_1)}) = 1$
+$P(y=high|x;w)+P(y=high|x;w)e^{-(w_0+w_1x_1)} = 1$
+$P(y=high|x;w)e^{-(w_0+w_1x_1)} = 1 - P(y=high|x;w)$
+$e^{-(w_0+w_1x_1)} = \frac{1-P(y=high|x;w)}{P(y=high|x;w)}$ Take an inverse
+$(e^{-(w_0+w_1x_1)})^{-1}=(\frac{1-P(y=high|x;w)}{P(y=high|x;w)})^{-1}$
+$\frac{P(y=high|x;w)}{1-P(y=high|x;w)}= e^{w_0+w_1x_1}$ Take the log of both sides.
+$log(\frac{P(y=high|x;w)}{1-P(y=high|x;w)})= log (e^{w_0+w_1x_1}) = w_0+w_1x_1$
+
+Remember, $y = w_0 + w_1x1$
+
+Since, we are predicting the probability that the price belongs to one of the two classes, the classification is binary. 
+
+Examine the single feature, that is that square footage of a house, and how it affects the classification whether the house price is high or low. Build the visual of the house price example with one feature.
 
 <p align="center">
 <img width="500" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/logit1.jpeg">
@@ -73,6 +93,12 @@ Examine the single feature, square footage of a house, and how it affects whethe
 <img width="400" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/logit3.jpeg">
 </p>
 
+
+> ## Conceptual Questions
+>
+> What rule is the classifier learning?
+{: .challenge}
+
 > ## Activity
 >
 > You are looking to purchase a house. How many square feet do you want?
@@ -80,24 +106,17 @@ Examine the single feature, square footage of a house, and how it affects whethe
 > Is the price for your house high or low based on this one feature?
 {: .challenge}
 
-The "S" shaped function is the inverse of the logistic function of __odds__. It guarantees that the outcome will be between 0 and 1.
-
-> ## Definition
->
-> Odds - probability that an event happens divided by probability that an event doesn't happen.
-{: .callout}
 
 <p align="center">
 <img width="650" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/logit2.jpeg">
 </p>
 
-Visual 
 
 Now, let's think about the T-cells example.
 If we focus only on one feature, for example cell size, we can use logistic regression to predict the probability that the cell would be active.
 
 The logistic function of odds is a sum of the __weighted features__.
-This makes the log-odds function a linear function, and logistic regression a linear classifier.
+This makes the log-odds function a linear function.
 What is important to understand is that the change in one feature by a unit changes the odds ratio.
 So logistic regression treats each feature independently.
 This affects what type of rules it can learn.
@@ -115,13 +134,18 @@ We can control slope and steepness, from class 1 and class 2.
 > Linear Separability - drawing a line in the plane that separates all the points of one kind on one side of the line, and all the point of the other kind on the other side of the line.
 {: .callout}
 
+Recall, $y=mx+b$ graphed on the coordinate plane. 
+It is a straight line. 
+$y = w_0 + w_1x_1$ is a straight line. 
+The separating function has the equation $w_0+w_1x_1= 0$.
+If $w_0+w_1x_1>0$ the house price is classified high, and if $w_0+w_1x_1<0$ the house price is classified as low. 
+
 > ## Think-Pair-Share
 >
 > Think of an example when a linear separability is not a straight line.
 >
 > When do you think something is linearly separable?
 {: .challenge}
-
 
 ### Step 1 Select Data
 
