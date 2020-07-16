@@ -58,6 +58,7 @@ The splitting goes from the __root__ at the top of the tree to a __leaf node__ a
 
 An instance is classified starting from the root and testing the feature specified by the __node__, then going down the split based on the outcome of the test and testing a different feature specified by another node.  
 The graphic shows the full decision tree used for the housing example above.
+Each leaf node in the tree is a class label.
 
 [add a new visual]
 
@@ -108,7 +109,6 @@ Some cons of using decision trees:
 >
 > What are we trying to predict?
 >
-> What is the decision boundary?
 {: .challenge}
 
 We will continue working on the T-cells example.
@@ -123,7 +123,7 @@ In this workshop, not all of the hyperparameters from the software will be cover
 For the hyperparameters that we don't discuss, use the default settings.
 - Max_depth can be an integer or None. It is the maximum depth of the tree. If the max depth is set to None, the tree nodes are fully expanded or until they have less than min_samples_split samples.
 - Min_samples_split and min_samples_leaf represent the minimum number of samples required to split a node or to be at a leaf node.
-- Class_weight is important hyperparameter in biology research. If we had a training set and we are using binary classification, we don't want to only predict the most abundant class.  For example, in the T-cells example, if 2 samples are active and 98 samples are quiescent, we don't want to train a model that predicts all of the cells to be quiescent. Class_weight parameter would allow putting weight on 2 cells labeled as active so that predicting them incorrectly would be penalized more.
+- Class_weight is important hyperparameter in biology research. If we had a training set and we are using binary classification, we don't want to only predict the most abundant class. For example, in the T-cells example, if 2 samples are active and 98 samples are quiescent, we don't want to train a model that predicts all of the cells to be quiescent. Class_weight parameter would allow putting weight on 2 cells labeled as active so that predicting them incorrectly would be penalized more.
 In biology, it is common to have this type of __imbalanced training set__ with more negative than positive instances, so training and evaluating appropriately is essential! The uniform mode gives all classes the weight one. The balanced mode adjusts the weights.
 
 > ## Definition
@@ -133,9 +133,16 @@ In biology, it is common to have this type of __imbalanced training set__ with m
 
 > ## Software
 >
-> Without changing any hyperparameter settings, look at the Data Plot. 
+> Without changing any hyperparameter settings, look at the Data Plot.
 {: .checklist}
 
+> ## Conceptual Questions
+>
+> What is the decision boundary?
+>
+{: .challenge}
+
+If we look at the Data Plot, the decision boundaries are rectangular.
 
 > ## Think-Pair-Share
 >
@@ -232,10 +239,48 @@ The classifier probably overfit.
 > Did the classifier overfit?
 {: .challenge}
 
-#### Evaluation
+#### Regularization
 
-**Are the models reusable?**
-We use supervised learning to build our model. We want to be able to use the model on the different data.
+As a note, there are many ways to deal with overfitting, and on many we will focus in the next lesson on Random Forests.
+Here, we want to introduce regularization as a way of dealing with overfitting, and though in practice, this is not typical a way to handle simple decision trees, it is important to introduce regularization.
+
+##### Brief Overview
+
+- Machine learning algorithms are used to make predictions given certain inputs
+- The dataset is usually split in training data and evaluation data
+- The model is trained on the training data and then further tuned on the test data
+- The model is then tested on the evaluation data
+- We measure the model's performance using different metrics
+
+Overfitting of a tree can lead to the misclassification.
+We previously learned that by allowing the tree to go to the maximum depth during training, the classifier would fail to lear to generalize, and could overfit.
+To be able to improve the misclasssification of the model, we use certain metrics.
+The objective is to minimize the misclassification, or the error, and this can be done with regularization.
+
+Misclassification can be measured with a loss function.
+Imagine a loss function as a way to measure the number of misclassified samples.
+
+As it sounds, intuitive way of understanding the loss function would be everyday understanding of optimization.
+For example, we are a manager of a coffee shop.
+We want to introduce a new type of dark roast to our customers.
+We start with the introductory special price for our new coffee to attract the customers.
+Then, without losing on demand, we raise the price a few times before reaching the apex price.
+Any price higher than the apex price will result in demand dropping.
+The loss function in this case measures the loss of demand for the dark roast coffee.
+There is no one way of doing this, and different classifiers use different loss functions.
+
+Recall that the objective is to minimize the misclassification of the classifier, which is the same as minimizing the loss function.
+One example of a loss function that is usually taught in introductory statistics classes is residual sum of squares often used in regression.
+
+##### Regularizing the model
+
+When a model overfits, it gives one feature more weight than another feature.
+This leads to the model fitting the training data very well, but failing to predict the new evaluation data.
+Regularization helps in this situatation by changing the loss function so that the model prefers the features with smaller weights.
+
+##### L1 Norm
+
+To ensure further understanding of regularization, especially in Logistic Regression lesson, we introduce L1 norm.
 
 ###  Application in biology
 
