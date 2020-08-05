@@ -142,7 +142,10 @@ In biology, it is common to have this type of __imbalanced training set__ with m
 >
 {: .challenge}
 
-If we look at the Data Plot, the decision boundaries are rectangular.
+> ## Solution
+>
+> If we look at the Data Plot, the decision boundaries are rectangular.
+{: .solution}
 
 > ## Think-Pair-Share
 >
@@ -241,46 +244,33 @@ The classifier probably overfit.
 
 #### Regularization
 
-As a note, there are many ways to deal with overfitting, and on many we will focus in the next lesson on Random Forests.
-Here, we want to introduce regularization as a way of dealing with overfitting, and though in practice, this is not typical a way to handle simple decision trees, it is important to introduce regularization.
+Here we to introduce regularization as a way of dealing with overfitting.
 
 ##### Brief Overview
 
-- Machine learning algorithms are used to make predictions given certain inputs
 - The dataset is usually split in training data and evaluation data
 - The model is trained on the training data and then further tuned on the test data
 - The model is then tested on the evaluation data
 - We measure the model's performance using different metrics
 
-Overfitting of a tree can lead to the misclassification.
-We previously learned that by allowing the tree to go to the maximum depth during training, the classifier would fail to lear to generalize, and could overfit.
+Overfitting of a tree can lead to the misclassification on future data points.
+We previously learned that by allowing the tree to go to the maximum depth during training, the classifier would fail to learn to generalize, and could overfit.
 To be able to improve the misclasssification of the model, we use certain metrics.
 The objective is to minimize the misclassification, or the error, and this can be done with regularization.
 
-Misclassification can be measured with a loss function.
-Imagine a loss function as a way to measure the number of misclassified samples.
-
-As it sounds, intuitive way of understanding the loss function would be everyday understanding of optimization.
-For example, we are a manager of a coffee shop.
-We want to introduce a new type of dark roast to our customers.
-We start with the introductory special price for our new coffee to attract the customers.
-Then, without losing on demand, we raise the price a few times before reaching the apex price.
-Any price higher than the apex price will result in demand dropping.
-The loss function in this case measures the loss of demand for the dark roast coffee.
-There is no one way of doing this, and different classifiers use different loss functions.
-
-Recall that the objective is to minimize the misclassification of the classifier, which is the same as minimizing the loss function.
-One example of a loss function that is usually taught in introductory statistics classes is residual sum of squares often used in regression.
-
 ##### Regularizing the model
 
-When a model overfits, it gives one feature more weight than another feature.
-This leads to the model fitting the training data very well, but failing to predict the new evaluation data.
-Regularization helps in this situatation by changing the loss function so that the model prefers the features with smaller weights.
+When a model overfits, it can fit the training data very well, but fail to predict the new evaluation data.
+Regularization in decision trees can be done by pruning.
+Pruning a plant means removing the parts of the plant that might be dead or non-productive. 
+Similarly, pruning in decision trees means removing parts of the tree that do not contribute to classification. 
+Pruning the decision tree reduces its size. 
 
-##### L1 Norm
+> ## Definition
+>
+> Pruning - improves classification by reducing the overfitting.   
+{: .callout}
 
-To ensure further understanding of regularization, especially in Logistic Regression lesson, we introduce L1 norm.
 
 ###  Application in biology
 
