@@ -41,7 +41,7 @@ This time we want to predict the house price with one feature, for example, squa
 The feature weight is the coefficient for the feature $x$ and it represents the average increase in the house price with a one unit increase in $x$. 
 Linear regression predicts the expected house price for the given feature, here the square footage.
 
-When we have multiple features, the linear regression would be $y = w_0 + w_1x1 + w_2x_2 +...+ w_nx_n$.
+When we have multiple features, the linear regression would be $y = w_0 + w_1x_1 + w_2x_2 +...+ w_nx_n$.
 
 <p align="center">
 <img width="550" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/Linreg-vs-logit_.png">
@@ -62,6 +62,7 @@ Recall that probability is always between 0 and 1.
 {: .callout}
 
 $odds = \frac{P(event)}{1-P(event)}$
+
 
 In the original example, if the house price was higher than $150K, it was classified as high, otherwise it was classified as low. 
 Consider the situation where we want to predict the likelihood of a certain house price. 
@@ -112,7 +113,6 @@ Examine the single feature, that is that square footage of a house, and how it a
 <p align="center">
 <img width="650" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/logit2.jpeg">
 </p>
-
 
 Now, let's think about the T-cells example.
 If we focus only on one feature, for example cell size, we can use logistic regression to predict the probability that the cell would be active.
@@ -213,11 +213,25 @@ However, with the nonlinear data, random forests will be the better choice for a
 
 In this workshop not all of the hyperparameters from the software will be covered.
 For those that we don't cover, we will use the default settings.
-- Penalty can be L1 or L2 norm.
+- Penalty can be L1 or L2.
 This parameter is used in regularization. Although there is an option not to use reguralization, in this workshop we will always use reguralization, following common practices in real applications.
 - C is the inverse of the regularization strength. Smaller values of C mean stronger regularization.
 
 #### Regularization
+
+Recall, regularization is used to make sure that our model pays attention only to the important features to avoid overfitting. 
+Previously, we talked about the positive and negative effect a feature and its weight can have on the outcome probability.
+As with decision trees and random forests, logistic regression can overfit.
+If we have a complex model with many features, our model might have high variance.
+Regularization can help us decide how many features are too many or too few.
+Regularization does not make models fit better on the training data, but it helps with generalizing the pattern to new data.
+
+> ## Definition
+>
+> Penalty - mathematically reduces importance of certain features by shrinking the feature weights. 
+{: .callout}
+
+##### L1 (Lasso) regularization
 
 > ## Software
 >
@@ -226,21 +240,15 @@ This parameter is used in regularization. Although there is an option not to use
 > This data set is engineered specifically to demonstrate the effects of regularization.
 {: .checklist}
 
-Previously, we talked about the positive and negative effect a feature and its weight can have on the outcome probability.
-As with decision trees and random forests, logistic regression can overfit.
-If we have a complex model with many features, our model might have high variance.
+Recall that $x_1, x_2, ..., x_n$ are the features, and $w_0, w_1, ..., w_n$ are the feature weights.
+Without regularization, training data might fit perfectly, giving certain values to each weight that would lead to overfitting. 
+This model could be very complex and it would generalize poorly on the future data.
 
-One way to deal with this is regularization.
-Regularization can help us decide how many features are too many or too few.
-Regularization does not make models fit better on the training data, but it helps with generalizing the pattern to new data.
-
-Recall: C is the inverse of regularization strength.
-
-L1 reguralization or lasso reguralization shrinks the weights of less important features to be exactly 0.
+L1 regularization prevents overfitting by adding a penalty term and mathematically shrinking the extreme weights.
+L1 could shrink the weights of less important features all the way to 0, and "deleting" those weights. 
 These features are then not used at all to make predictions on new data.
 
-L2 reguralization or ridge reguralization makes the weights of less important features to be very small values.
-The higher the C, the smaller the feature weights.
+Recall: C is the inverse of regularization strength.
 
 > ## Software
 >
@@ -262,5 +270,11 @@ The higher the C, the smaller the feature weights.
 
 L1 will regularize such that one feature weight goes to 0.
 We can see the classifier ignores that feature in its decision boundary.
+
+
+##### L2 Penalty
+
+L2 reguralization or ridge reguralization makes the weights of less important features to be very small values.
+The higher the C, the smaller the feature weights.
 
 {% include links.md %}
