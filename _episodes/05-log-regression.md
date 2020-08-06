@@ -44,7 +44,7 @@ Linear regression predicts the expected house price for the given feature, here 
 When we have multiple features, the linear regression would be $y = w_0 + w_1x1 + w_2x_2 +...+ w_nx_n$.
 
 <p align="center">
-<img width="650" src="https://github.com/gitter-lab/ml-bio-workshop/blob/gh-pages/assets/linear_vs_logit.jpg?raw=true">
+<img width="650" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/Linreg-vs-logit_.png">
 </p>
 
 ### What is logistic regression?
@@ -69,15 +69,17 @@ Consider the situation where we want to predict the likelihood of a certain hous
 The goal is to predict the probability that the price is high $P(y=high\|x;w)$.
 
 From the previous visual, we saw that the sigmoid function represents the probability of a certain outcome. 
-
-$P(y=high\|x;w) = \frac{1}{1+e^{-(w_0+w_1x_1)}}$ If we multiply both sides by $1+e^{-(w_0+w_1x_1)}$  
-$P(y=high\|x;w)(1+e^{-(w_0+w_1x_1)}) = 1$  
-$P(y=high\|x;w)+P(y=high|x;w)e^{-(w_0+w_1x_1)} = 1$  
-$P(y=high\|x;w)e^{-(w_0+w_1x_1)} = 1 - P(y=high|x;w)$  
-$e^{-(w_0+w_1x_1)} = \frac{1-P(y=high|x;w)}{P(y=high|x;w)}$ Take an inverse  
-$(e^{-(w_0+w_1x_1)})^{-1}=(\frac{1-P(y=high|x;w)}{P(y=high|x;w)})^{-1}$  
-$\frac{P(y=high|x;w)}{1-P(y=high|x;w)}= e^{w_0+w_1x_1}$ Take the log of both sides.  
-$log(\frac{P(y=high|x;w)}{1-P(y=high|x;w)})= log (e^{w_0+w_1x_1}) = w_0+w_1x_1$
+ 
+$$\begin{align}
+P(y=high\|x;w) = \frac{1}{1+e^{-(w_0+w_1x_1)}}
+P(y=high\|x;w)(1+e^{-(w_0+w_1x_1)}) = 1 
+P(y=high\|x;w)+P(y=high|x;w)e^{-(w_0+w_1x_1)} = 1 
+P(y=high\|x;w)e^{-(w_0+w_1x_1)} = 1 - P(y=high|x;w) 
+e^{-(w_0+w_1x_1)} = \frac{1-P(y=high|x;w)}{P(y=high|x;w)} 
+(e^{-(w_0+w_1x_1)})^{-1}=(\frac{1-P(y=high|x;w)}{P(y=high|x;w)})^{-1}$  
+\frac{P(y=high|x;w)}{1-P(y=high|x;w)}= e^{w_0+w_1x_1}
+log(\frac{P(y=high|x;w)}{1-P(y=high|x;w)})= log (e^{w_0+w_1x_1}) = w_0+w_1x_1
+\end{align}$$
 
 Remember, $y = w_0 + w_1x1$
 
