@@ -59,7 +59,7 @@ Create a housing dataset as a group.
 After the data is collected, label the prices into two categories low or high.
 
 <p align="center">
-<img width="600" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/intro_1.jpg">
+<img width="800" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/Intro-dataset.png">
 </p>
 
 Our dataset has labeled data, so our problem is a __supervised machine learning__ task.
@@ -95,7 +95,7 @@ Based on the features that we already know, we want to classify our future home 
 Visualize what the __machine learning model__ will predict (H for high, L for low price) based on the feature values.
 
 <p align="center">
-<img width="600" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/Intro-dataset.png">
+<img width="800" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/Intro-dB.png">
 </p>
 
 > ## Definition
