@@ -71,13 +71,13 @@ The goal is to predict the probability that the price is high $P(y=high\|x;w)$.
 From the previous visual, we saw that the sigmoid function represents the probability of a certain outcome. 
  
 $$\begin{align}
-P(y=high\|x;w) = \frac{1}{1+e^{-(w_0+w_1x_1)}} \\&
-P(y=high\|x;w)(1+e^{-(w_0+w_1x_1)}) = 1 \\&
-P(y=high\|x;w)+P(y=high|x;w)e^{-(w_0+w_1x_1)} = 1 \\&
-P(y=high\|x;w)e^{-(w_0+w_1x_1)} = 1 - P(y=high|x;w) \\&
-e^{-(w_0+w_1x_1)} = \frac{1-P(y=high|x;w)}{P(y=high|x;w)} \\&
-(e^{-(w_0+w_1x_1)})^{-1}=(\frac{1-P(y=high|x;w)}{P(y=high|x;w)})^{-1} \\&
-\frac{P(y=high|x;w)}{1-P(y=high|x;w)}= e^{w_0+w_1x_1}  \\&
+P(y=high|x;w) = \frac{1}{1+e^{-(w_0+w_1x_1)}} \\ \\&
+P(y=high|x;w)(1+e^{-(w_0+w_1x_1)}) = 1 \\ \\&
+P(y=high|x;w)+P(y=high|x;w)e^{-(w_0+w_1x_1)} = 1 \\ \\&
+P(y=high|x;w)e^{-(w_0+w_1x_1)} = 1 - P(y=high|x;w) \\ \\&
+e^{-(w_0+w_1x_1)} = \frac{1-P(y=high|x;w)}{P(y=high|x;w)} \\ \\&
+(e^{-(w_0+w_1x_1)})^{-1}=(\frac{1-P(y=high|x;w)}{P(y=high|x;w)})^{-1} \\ \\&
+\frac{P(y=high|x;w)}{1-P(y=high|x;w)}= e^{w_0+w_1x_1}  \\ \\&
 log(\frac{P(y=high|x;w)}{1-P(y=high|x;w)})= log (e^{w_0+w_1x_1}) = w_0+w_1x_1 \\&
 \end{align}$$
 
