@@ -211,11 +211,15 @@ However, with the nonlinear data, random forests will be the better choice for a
 
 ### Step 2 Train Classifiers
 
-In this workshop not all of the hyperparameters from the software will be covered.
-For those that we don't cover, we will use the default settings.
-- Penalty can be L1 or L2.
-This parameter is used in regularization. Although there is an option not to use reguralization, in this workshop we will always use reguralization, following common practices in real applications.
-- C is the inverse of the regularization strength. Smaller values of C mean stronger regularization.
+In this workshop not all of the hyperparameters from the software will be discussed.
+The most important hyperparameters are:
+- The regularization penalty can be L1 or L2.
+Although it is possible to train a logistic regression classifier without regularization, regularization is always used in the ml4bio software.
+This follows best practices in real applications.
+- C is the inverse of the regularization strength.
+Smaller values of C mean stronger regularization.
+
+For those hyperparameters that we don't cover, we will use the default settings.
 
 #### Regularization
 
@@ -231,7 +235,9 @@ Regularization does not make models fit better on the training data, but it help
 > Penalty - mathematically reduces importance of certain features by shrinking the feature weights. 
 {: .callout}
 
-##### L1 (Lasso) regularization
+#### L1 regularization
+
+L1 regularization is also known as Lasso reguralization.
 
 > ## Software
 >
@@ -241,14 +247,15 @@ Regularization does not make models fit better on the training data, but it help
 {: .checklist}
 
 Recall that $x_1, x_2, ..., x_n$ are the features, and $w_0, w_1, ..., w_n$ are the feature weights.
-Without regularization, training data might fit perfectly, giving certain values to each weight that would lead to overfitting. 
+Without regularization, the classifier might fit the training data perfectly, giving certain values to each weight that would lead to overfitting. 
 This model could be very complex and it would generalize poorly on the future data.
 
-L1 regularization prevents overfitting by adding a penalty term and mathematically shrinking the extreme weights.
-L1 could shrink the weights of less important features all the way to 0, and "deleting" those weights. 
-These features are then not used at all to make predictions on new data.
+L1 regularization prevents overfitting by adding a penalty term and mathematically shrinking (decreasing) some weights.
+L1 could shrink the weights of less important features all the way to 0, effectively deleting those weights. 
+The corresponding features are then not used at all to make predictions on new data.
 
 Recall: C is the inverse of regularization strength.
+Smaller values of C will shrink more weights and use fewer features to make the prediction.
 
 > ## Software
 >
@@ -271,10 +278,11 @@ Recall: C is the inverse of regularization strength.
 L1 will regularize such that one feature weight goes to 0.
 We can see the classifier ignores that feature in its decision boundary.
 
+#### L2 Penalty
 
-##### L2 Penalty
-
-L2 reguralization or ridge reguralization makes the weights of less important features to be very small values.
-The higher the C, the smaller the feature weights.
+L2 regularization is also known as ridge reguralization.
+L2 reguralization makes the weights of less important features to be small values.
+Unlike L1 regularization, L2 regularization does not necessarily shrink the weights to 0.
+The higher the value of C, the smaller the feature weights will be.
 
 {% include links.md %}
