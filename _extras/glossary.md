@@ -9,7 +9,7 @@ __Class label__ - prediction output.
 
 __Supervised learning__ - training a model from the labeled input data.
 
-__Unsupervised learning__ - training a model from the unlabeled input data to find the patterns in the data.
+__Unsupervised learning__ - training a model from the unlabeled input data to find the patterns in the data. 
 
 __Algorithm__ - a relationship between input and output. It is a set of steps that takes an input and produces an output.
 
@@ -32,6 +32,8 @@ __Hyperparameters__ - these are the settings of a machine learning model. Each m
 __Classification__ - the task in supervised learning when the label is a category. The goal of classification is to predict which category each sample belongs to.
 
 __Classifier__ - a specific model or algorithm which performs classification.
+
+__Clustering__ - grouping related samples in the data set. In the house price example, a sample is each house. For further [reading](https://developers.google.com/machine-learning/clustering/overview).
 
 __Regression__ - the task in supervised learning when the label is numeric. Instead of predicting a category, here the value of the label variable is predicted.
 
