@@ -67,23 +67,25 @@ There are different types of machine learning algorithms - supervised learning a
 Some examples of supervised machine learning are __classification__ and __regression__.
 These will be further defined in the next lesson.
 An example of unsupervised machine learning is __clustering__.
+Unsupervised learning will not be covered in this workshop.
+For some external resources, check out the [glossary](https://gitter-lab.github.io/ml-bio-workshop/glossary/index.html). 
 
 > ## Definitions
 >
 > Supervised learning - training a model from the labeled input data.
 >
-> Unsupervised learning - training a model from the unlabeled input data to find the patterns in the data.
+> Unsupervised learning - training a model from the unlabeled input data to find the patterns in the data. 
 {: .callout}
 
 > ## Definition
 >
 > Clustering - grouping related samples in the data set. In the house price example, a sample is each house.
 >
-> Classification - classifying related samples in the data set into a category. The goal of classification is to predict which category each sample belongs to. In the house price example, the categories are high and low.
+> Classification - predicting a category for the samples in the data set. In the house price example, the categories are high and low.
 > 
 > Classifier - a specific model or algorithm that performs classification.
 >
-> Regression - unlike classification that predicts a category, regression predicts a numeric value, such as the price of a house in dollars.
+> Regression - predicting a continuous number for the samples in the data set. A regression version of the house price example would be predicting the price in dollars.
 {: .callout}
 
 In this workshop, we focus on supervised learning algorithms.
