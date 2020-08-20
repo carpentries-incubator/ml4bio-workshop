@@ -68,7 +68,7 @@ Some examples of supervised machine learning are __classification__ and __regres
 These will be further defined in the next lesson.
 An example of unsupervised machine learning is __clustering__.
 Unsupervised learning will not be covered in this workshop.
-For some external resources, check out the [glossary](https://gitter-lab.github.io/ml-bio-workshop/glossary/index.html). 
+For some external resources, check out the [glossary](lesson-glossary).
 
 > ## Definitions
 >
