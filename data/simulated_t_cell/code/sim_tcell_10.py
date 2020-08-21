@@ -3,7 +3,7 @@ import pandas as pd
 import random
 from sklearn.datasets import make_blobs
 
-data = make_blobs(n_samples = 500, n_features = 2, centers = 2, random_state=0)
+data = make_blobs(n_samples = 60, n_features = 2, centers = 2, random_state=0)
 X, y = data
 X = pd.DataFrame(X, columns=['cell_size','total_intensity'])
 y = pd.DataFrame(y, columns=['class'])
@@ -13,17 +13,18 @@ data['class'] = data['class'].replace(1,'activated')
 
 def random_generator(lst, start, end):
     random.seed(1)
-    for i in range(500):
+    for i in range(60):
         n = round(random.uniform(start, end),2)
         lst.append(n)
     return lst
 
-feature_a = []
-a = random_generator(feature_a, 10, 24)
-feature_b = []
-b = random_generator(feature_b, 50, 100)
-feature_c = []
-c = random_generator(feature_c, 10,24)
+gaussian_noise = np.random.normal(0, 0.1, 60)
+
+
+a = X['cell_size'] + gaussian_noise
+b = X['total_intensity'] + 2*gaussian_noise
+feature_c = [] 
+c = random_generator(feature_c, 0,1)
 feature_d = []
 d = random_generator(feature_d, 10,24)
 feature_e = []
@@ -33,7 +34,7 @@ f = random_generator(feature_f, 1, 10)
 feature_g = []
 g = random_generator(feature_g, 1, 20)
 feature_h = []
-h = random_generator(feature_h, 1, 20)
+h = random_generator(feature_h, -1,1)
 
 #data.drop(columns = ['donor'], axis = 1, inplace = True)
 
@@ -45,5 +46,9 @@ data.insert(6,'feature_e', e)
 data.insert(7,'feature_f', f)
 data.insert(8,'feature_g', g)
 data.insert(9,'feature_h', h)
+
+#make a feature that is predictive 20% and random 80
+#maybe have another feature that is cell size + 2*noise
+#small sample size try that too - lower the number of data points
 
 data.to_csv('../simulated_t_cells_10.csv', sep=' ', index=False)
