@@ -1,0 +1,12 @@
+.wrapper {
+    position: relative;
+    background-color: #F5F5F2;
+    
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    padding: 5em 1em;
+    font-family: sans-serif;
+}
