@@ -285,4 +285,10 @@ L2 reguralization makes the weights of less important features to be small value
 Unlike L1 regularization, L2 regularization does not necessarily shrink the weights to 0.
 The higher the value of C, the smaller the feature weights will be.
 
+#### Logistic regression demo
+
+**Work in progress interactive demo**
+
+{% include logreg_demo.html %}
+
 {% include links.md %}
