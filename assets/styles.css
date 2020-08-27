@@ -1,7 +1,19 @@
-.wrapper {
+.outer {
+    display: grid;
+    grid-template-columns: auto;
+    place-items: center;
+}
+
+.outer > * {
+    grid-column: 1 / 1;
+}
+.outer .wrapper {
     position: relative;
     background-color: #F5F5F2;
-    
+}
+
+.button {
+    font-weight:bold
 }
 
 body {
