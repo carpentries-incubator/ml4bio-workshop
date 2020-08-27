@@ -11,7 +11,11 @@ The [ml4bio guides](https://github.com/gitter-lab/ml-bio-workshop/tree/gh-pages/
 See the linked original image sources for their licenses and terms of reuse.
 
 The ml4bio workshop is derived from materials, software, and templates from [The Carpentries](https://carpentries.org/).
-See below for The Carpentries licensing information.
+See below for third-party code and The Carpentries licensing information.
+
+## Data-Driven Documents (D3) License
+
+The third-party file `d3.min.js` from [D3](https://d3js.org/) is available under the BSD-3-Clause © 2020 Mike Bostock.
 
 ## Instructional Material
 
