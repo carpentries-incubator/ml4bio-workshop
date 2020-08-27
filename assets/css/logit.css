@@ -15,10 +15,3 @@
 .button {
     font-weight:bold
 }
-
-body {
-    display: flex;
-    justify-content: center;
-    padding: 5em 1em;
-    font-family: sans-serif;
-}
