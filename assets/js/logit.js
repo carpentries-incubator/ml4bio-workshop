@@ -1,7 +1,7 @@
 async function drawScatter() {
 
   // Access data
-  let dataset = await d3.csv("../assets/logit_lin_sep.csv")
+  let dataset = await d3.csv("logit_lin_sep.csv")
 
   dataset.forEach(d => {
     d["x1"] = +d["x1"]
@@ -79,29 +79,61 @@ async function drawScatter() {
     .attr("cy", d => yScale(yAccessor(d)))
     .attr("r", 6)
     .attr("fill", "#F5F5F2")//d => colorScale(colorAccessor(d)))
-    .attr('stroke', d => colorScale(colorAccessor(d)))
-    .attr('stroke-width', 4)
+    .attr("stroke", d => colorScale(colorAccessor(d)))
+    .attr("stroke-width", 4)
 
 
-  //Interaction mean line
-  // let drag = d3.drag()
-  //   .on("start", dragstarted)
-  //   .on('drag', dragged)
-  //   .on('end', dragended)
+  //Interaction end points
+  let drag = d3.drag()
+    .on("start", dragstarted)
+    .on("drag", dragged)
+    .on("end", dragended)
 
   //Draw mean line
   const mean = d3.mean(dataset, yAccessor)
-  const meanLine = bounds.append("line")
-    .attr("x1", -1)
-    .attr("x2", dimensions.boundedWidth)
-    .attr("y1", yScale(mean))
-    .attr("y2", yScale(mean))
+
+  const sourceData = {
+    x: -1,
+    y: yScale(mean)
+  }
+
+  const targetData = {
+    x: dimensions.boundedWidth,
+    y: yScale(mean)
+  }
+
+  meanGroup = bounds.append("g")
+
+  meanLine = meanGroup.append("line")
+    .attr("x1", sourceData.x)
+    .attr("x2", targetData.x)
+    .attr("y1", sourceData.y)
+    .attr("y2", targetData.y)
     .attr("stroke", "#CF366C")
     .attr("stroke-width", 5)
     .attr("opacity", 0.6)
-    //.call(drag)
 
-  //Set up transitions for the buttons
+  //Draw endpoints on the mean line
+  leftEndpoint = meanGroup.append("circle")
+    .datum(sourceData)
+    .attr("cx", sourceData.x)
+    .attr("cy", sourceData.y)
+    .attr("r", 6)
+    .attr("fill", "#CF366C")
+    .attr("cursor", "pointer")
+    .call(drag)
+
+  rightEndpoint = meanGroup.append("circle")
+    .datum(targetData)
+    .attr("cx", targetData.x)
+    .attr("cy", targetData.y)
+    .attr("r", 6)
+    .attr("fill", "#CF366C")
+    .attr("cursor", "pointer")
+    .call(drag)
+
+
+  //Set up transitions for the buttons 
   d3.select("#caseTwo").on("click", function () {
     dots
       .transition()
@@ -129,19 +161,30 @@ async function drawScatter() {
       .attr("cy", d => yScale(y3Accessor(d)))
   })
 
-  // d3.select("#reset").on("click", function () {
-  //   meanLine
-  //     .transition()
-  //     .duration(1200)
-  //     .ease(d3.easeCubicIn)
-  //     .attr("x1", -1)
-  //     .attr("x2", dimensions.boundedWidth)
-  //     .attr("y1", yScale(mean))
-  //     .attr("y2", yScale(mean))
-  // })
+  d3.select("#reset").on("click", function () {
+    meanLine
+      .transition()
+      .duration(500)
+      .ease(d3.easeLinear)
+      .attr("x1", -1)
+      .attr("x2", dimensions.boundedWidth)
+      .attr("y1", yScale(mean))
+      .attr("y2", yScale(mean))
+    leftEndpoint
+      .transition()
+      .duration(500)
+      .ease(d3.easeLinear)
+      .attr("cx", -1)
+      .attr("cy", yScale(mean))
+    rightEndpoint
+      .transition()
+      .duration(500)
+      .ease(d3.easeLinear)
+      .attr("cx", dimensions.boundedWidth)
+      .attr("cy", yScale(mean))
+  })
 
   // Draw peripherals
-
   xAxisGenerator = d3.axisBottom()
     .scale(xScale)
 
@@ -172,26 +215,35 @@ async function drawScatter() {
     .style("text-anchor", "middle")
 
   //Interactions
-  // function dragstarted(d) {
-  //   d3.select(this).raise().classed('active', true)
-  // }
+  function dragstarted() {
+    d3.select(this)
+      .attr("stroke", "black")
+      .attr("stroke-width", 2)
+  }
 
-  // function dragged(d) {
-  //   dx = d3.event.dx
-  //   dy = d3.event.dy
-  //   x1New = parseFloat(d3.select(this).attr('x1')) + dx
-  //   y1New = parseFloat(d3.select(this).attr('y1')) + dy
-  //   x2New = parseFloat(d3.select(this).attr('x2')) + dx
-  //   y2New = parseFloat(d3.select(this).attr('y2')) + dy
-  //   d3.selectAll(this)
-  //     .attr("x1", d3.event.x1 - 1)
-  //     .attr("y1", d3.event.y1 + yScale(mean))
-  //     .attr("x2", d3.event.x2 + dimensions.boundedWidth)
-  //     .attr("y2", d3.event.y2 + yScale(mean))
-  // }
+  function dragged(d) {
+    d.x = d3.event.x
+    d.y = d3.event.y
+    update()
+  }
 
-  // function dragended(d) {
-  //   d3.select(this).classed('active', false)
-  // }
+  function update() {
+    leftEndpoint
+      .attr("cx", sourceData.x)
+      .attr("cy", sourceData.y)
+    rightEndpoint
+      .attr("cx", targetData.x)
+      .attr("cy", targetData.y)
+    meanLine
+      .attr("x1", sourceData.x)
+      .attr("x2", targetData.x)
+      .attr("y1", sourceData.y)
+      .attr("y2", targetData.y)
+  }
+
+  function dragended() {
+    d3.select(this)
+      .attr("stroke", null)
+  }
 }
 drawScatter()
