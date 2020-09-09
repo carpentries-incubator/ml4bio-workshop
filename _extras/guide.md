@@ -1,5 +1,5 @@
 ---
-title: "Instructor Notes"
+title: "Instructor notes"
 ---
 ## Tips
 When instructing, repeat 3 times:
