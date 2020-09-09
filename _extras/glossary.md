@@ -5,7 +5,7 @@ title: Glossary
 
 __Machine learning__ - set of methods that can automatically detect patterns in data and then use those patterns to make predictions on future data or perform other kinds of decision making under uncertainty.
 
-__Class label__ - prediction output.
+__Class label__ - prediction output, where the prediction is a category instead of a number.
 
 __Supervised learning__ - training a model from the labeled input data.
 
@@ -59,4 +59,4 @@ __Odds__ - probability that an event happens divided by probability that an even
 
 __Feature weights__ - determine the importance of a feature in a model.
 
-__Linear Separability__ - drawing a line in the plane that separates all the points of one kind on one side of the line, and all the point of the other kind on the other side of the line.
+__Linear separability__ - drawing a line in the plane that separates all the points of one kind on one side of the line, and all the point of the other kind on the other side of the line.
