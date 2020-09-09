@@ -1,7 +1,7 @@
 async function drawScatter() {
 
   // Access data
-  let dataset = await d3.csv("logit_lin_sep.csv")
+  let dataset = await d3.csv("../assets/logit_lin_sep.csv")
 
   dataset.forEach(d => {
     d["x1"] = +d["x1"]
