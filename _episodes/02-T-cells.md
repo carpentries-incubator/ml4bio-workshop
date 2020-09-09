@@ -63,7 +63,7 @@ If you want to experiment with your data, follow the guidelines in the *About ml
 ## Machine learning workflow
 
 <p align="center">
-<img width="800" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/tcells1.jpeg">
+<img width="800" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/tcells1.png">
 </p>
 
 ### Data preprocessing
@@ -140,7 +140,7 @@ Before we continue, split the dataset into a __training set__ and a __test set__
 The training set is further divided into a training set and a __validation set__.
 
 <p align="center">
-<img width="600" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/tcells2.jpg">
+<img width="600" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/tcells2.png">
 </p>
 
 > ## Definitions
