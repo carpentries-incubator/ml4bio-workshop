@@ -10,7 +10,7 @@ objectives:
 - Learn to quickly load the data and train a classifier
 - Get accustomed to hyperparameters
 keypoints:
-- 
+- The ml4bio software supports interactively exploring different classifiers and hyperparmaters on a dataset
 ---
 
 ## Guided Tour
