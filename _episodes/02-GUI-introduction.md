@@ -3,7 +3,7 @@ title: "GUI Introduction"
 teaching: 15
 exercises: 5
 questions:
-- What is ml4bio software?
+- What is the ml4bio software?
 objectives:
 - Introduce ml4bio software 
 - Get familiarized with the software environment and navigation
