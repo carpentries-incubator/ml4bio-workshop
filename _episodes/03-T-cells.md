@@ -169,7 +169,7 @@ Letting the machine learning method learn from the test set can be seen as givin
 {: .checklist}
 
 <p align="center">
-<img width="600" src="https://github.com/gitter-lab/ml-bio-workshop/blob/gh-pages/assets/holdoutvalidation.jpg?raw=true">
+<img width="600" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/Holdout_Validation.png">
 </p>
 
 ## Step 2: Train classifiers
