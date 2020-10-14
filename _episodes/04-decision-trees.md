@@ -22,10 +22,6 @@ One of the benefits is that we can clearly see the path of questions and answers
 For example, a doctor might use a decision tree to decide which medicine to prescribe based on a patient's responses about their symptoms.
 Or in the case of T-cells, a decision tree can predict whether a T-cell is active or quiescent.
 
-<p align="center">
-<img width="450" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/decision%20tree1.jpg">
-</p>
-
 #### Example
 
 To better understand the algorithm, consider the house price prediction example from the [Introduction episode](https://gitter-lab.github.io/ml-bio-workshop/01-introduction/index.html).
@@ -40,11 +36,28 @@ The answer is Neighborhood A.
 That gives us the price of $230k.
 Our final class label is high.
 
-[add new visual]
+<p align="center">
+<img width="500" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/Decision_tree1.png">
+</p>
+
+<p align="center">
+<img width="500" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/Decision_tree2.png">
+</p>
+
+<p align="center">
+<img width="500" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/Decision_tree3.png">
+</p>
+
+<p align="center">
+<img width="500" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/Decision_tree4.png">
+</p>
+
+<p align="center">
+<img width="500" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/Decision_tree5.png">
+</p>
 
 #### How does the classifier make predictions?
 
-This intuitive way of understanding decision trees is very close to the way the algorithm is implemented, but we also have the other part of the split to consider.
 Each split of a decision tree classifies instances based on a test of a single feature.
 This test can be True or False.
 The splitting goes from the __root__ at the top of the tree to a __leaf node__ at the bottom.
@@ -57,10 +70,7 @@ The splitting goes from the __root__ at the top of the tree to a __leaf node__ a
 {: .callout}
 
 An instance is classified starting from the root and testing the feature specified by the __node__, then going down the split based on the outcome of the test and testing a different feature specified by another node.  
-The graphic shows the full decision tree used for the housing example above.
 Each leaf node in the tree is a class label.
-
-[add a new visual]
 
 > ## Definition
 >
@@ -81,7 +91,7 @@ An important property of the decision tree is the __depth of tree__.
 
 Some pros of using decision trees:
 
-- easy to visualize
+- easy to visualize and interpret
 - the classification can be visually followed, so it is easy to reproduce
 - makes few assumptions about the data
 - can ignore useless features
