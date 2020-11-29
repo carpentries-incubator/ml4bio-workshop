@@ -1,0 +1,244 @@
+|--- sqft_living <= 2085.00
+|   |--- sqft_lot <= 6105.00
+|   |   |--- yr_built <= 1951.50
+|   |   |   |--- sqft_living <= 775.00
+|   |   |   |   |--- class: low
+|   |   |   |--- sqft_living >  775.00
+|   |   |   |   |--- sqft_lot <= 5838.00
+|   |   |   |   |   |--- sqft_basement <= 610.00
+|   |   |   |   |   |   |--- class: high
+|   |   |   |   |   |--- sqft_basement >  610.00
+|   |   |   |   |   |   |--- bathrooms <= 1.38
+|   |   |   |   |   |   |   |--- class: low
+|   |   |   |   |   |   |--- bathrooms >  1.38
+|   |   |   |   |   |   |   |--- class: high
+|   |   |   |   |--- sqft_lot >  5838.00
+|   |   |   |   |   |--- sqft_lot <= 5963.00
+|   |   |   |   |   |   |--- class: low
+|   |   |   |   |   |--- sqft_lot >  5963.00
+|   |   |   |   |   |   |--- class: high
+|   |   |--- yr_built >  1951.50
+|   |   |   |--- sqft_living <= 1360.00
+|   |   |   |   |--- yr_built <= 2005.50
+|   |   |   |   |   |--- sqft_lot <= 6025.00
+|   |   |   |   |   |   |--- sqft_lot <= 1332.50
+|   |   |   |   |   |   |   |--- bedrooms <= 2.50
+|   |   |   |   |   |   |   |   |--- class: low
+|   |   |   |   |   |   |   |--- bedrooms >  2.50
+|   |   |   |   |   |   |   |   |--- class: high
+|   |   |   |   |   |   |--- sqft_lot >  1332.50
+|   |   |   |   |   |   |   |--- class: low
+|   |   |   |   |   |--- sqft_lot >  6025.00
+|   |   |   |   |   |   |--- class: high
+|   |   |   |   |--- yr_built >  2005.50
+|   |   |   |   |   |--- sqft_above <= 873.00
+|   |   |   |   |   |   |--- class: low
+|   |   |   |   |   |--- sqft_above >  873.00
+|   |   |   |   |   |   |--- sqft_living <= 1345.00
+|   |   |   |   |   |   |   |--- class: high
+|   |   |   |   |   |   |--- sqft_living >  1345.00
+|   |   |   |   |   |   |   |--- class: low
+|   |   |   |--- sqft_living >  1360.00
+|   |   |   |   |--- sqft_lot <= 4349.00
+|   |   |   |   |   |--- yr_built <= 1988.50
+|   |   |   |   |   |   |--- sqft_above <= 1325.00
+|   |   |   |   |   |   |   |--- class: high
+|   |   |   |   |   |   |--- sqft_above >  1325.00
+|   |   |   |   |   |   |   |--- class: low
+|   |   |   |   |   |--- yr_built >  1988.50
+|   |   |   |   |   |   |--- sqft_lot <= 969.50
+|   |   |   |   |   |   |   |--- sqft_lot <= 927.00
+|   |   |   |   |   |   |   |   |--- class: high
+|   |   |   |   |   |   |   |--- sqft_lot >  927.00
+|   |   |   |   |   |   |   |   |--- class: low
+|   |   |   |   |   |   |--- sqft_lot >  969.50
+|   |   |   |   |   |   |   |--- class: high
+|   |   |   |   |--- sqft_lot >  4349.00
+|   |   |   |   |   |--- yr_built <= 1970.00
+|   |   |   |   |   |   |--- class: high
+|   |   |   |   |   |--- yr_built >  1970.00
+|   |   |   |   |   |   |--- sqft_above <= 1705.00
+|   |   |   |   |   |   |   |--- class: low
+|   |   |   |   |   |   |--- sqft_above >  1705.00
+|   |   |   |   |   |   |   |--- sqft_above <= 1995.00
+|   |   |   |   |   |   |   |   |--- class: high
+|   |   |   |   |   |   |   |--- sqft_above >  1995.00
+|   |   |   |   |   |   |   |   |--- class: low
+|   |--- sqft_lot >  6105.00
+|   |   |--- sqft_living <= 1470.00
+|   |   |   |--- yr_built <= 1925.00
+|   |   |   |   |--- sqft_lot <= 17358.50
+|   |   |   |   |   |--- class: high
+|   |   |   |   |--- sqft_lot >  17358.50
+|   |   |   |   |   |--- class: low
+|   |   |   |--- yr_built >  1925.00
+|   |   |   |   |--- bedrooms <= 3.50
+|   |   |   |   |   |--- sqft_lot <= 10780.50
+|   |   |   |   |   |   |--- sqft_lot <= 6635.00
+|   |   |   |   |   |   |   |--- sqft_above <= 890.00
+|   |   |   |   |   |   |   |   |--- class: low
+|   |   |   |   |   |   |   |--- sqft_above >  890.00
+|   |   |   |   |   |   |   |   |--- class: high
+|   |   |   |   |   |   |--- sqft_lot >  6635.00
+|   |   |   |   |   |   |   |--- class: low
+|   |   |   |   |   |--- sqft_lot >  10780.50
+|   |   |   |   |   |   |--- sqft_lot <= 11513.50
+|   |   |   |   |   |   |   |--- sqft_above <= 1050.00
+|   |   |   |   |   |   |   |   |--- class: low
+|   |   |   |   |   |   |   |--- sqft_above >  1050.00
+|   |   |   |   |   |   |   |   |--- class: high
+|   |   |   |   |   |   |--- sqft_lot >  11513.50
+|   |   |   |   |   |   |   |--- yr_built <= 1945.00
+|   |   |   |   |   |   |   |   |--- sqft_living <= 1085.00
+|   |   |   |   |   |   |   |   |   |--- class: low
+|   |   |   |   |   |   |   |   |--- sqft_living >  1085.00
+|   |   |   |   |   |   |   |   |   |--- class: high
+|   |   |   |   |   |   |   |--- yr_built >  1945.00
+|   |   |   |   |   |   |   |   |--- sqft_above <= 1275.00
+|   |   |   |   |   |   |   |   |   |--- class: low
+|   |   |   |   |   |   |   |   |--- sqft_above >  1275.00
+|   |   |   |   |   |   |   |   |   |--- sqft_above <= 1320.00
+|   |   |   |   |   |   |   |   |   |   |--- class: high
+|   |   |   |   |   |   |   |   |   |--- sqft_above >  1320.00
+|   |   |   |   |   |   |   |   |   |   |--- class: low
+|   |   |   |   |--- bedrooms >  3.50
+|   |   |   |   |   |--- sqft_lot <= 8520.00
+|   |   |   |   |   |   |--- class: high
+|   |   |   |   |   |--- sqft_lot >  8520.00
+|   |   |   |   |   |   |--- class: low
+|   |   |--- sqft_living >  1470.00
+|   |   |   |--- yr_built <= 1983.50
+|   |   |   |   |--- bedrooms <= 3.50
+|   |   |   |   |   |--- sqft_lot <= 11750.00
+|   |   |   |   |   |   |--- sqft_above <= 1660.00
+|   |   |   |   |   |   |   |--- sqft_lot <= 6939.00
+|   |   |   |   |   |   |   |   |--- sqft_above <= 1120.00
+|   |   |   |   |   |   |   |   |   |--- class: high
+|   |   |   |   |   |   |   |   |--- sqft_above >  1120.00
+|   |   |   |   |   |   |   |   |   |--- class: low
+|   |   |   |   |   |   |   |--- sqft_lot >  6939.00
+|   |   |   |   |   |   |   |   |--- class: high
+|   |   |   |   |   |   |--- sqft_above >  1660.00
+|   |   |   |   |   |   |   |--- sqft_above <= 1825.00
+|   |   |   |   |   |   |   |   |--- class: low
+|   |   |   |   |   |   |   |--- sqft_above >  1825.00
+|   |   |   |   |   |   |   |   |--- class: high
+|   |   |   |   |   |--- sqft_lot >  11750.00
+|   |   |   |   |   |   |--- bathrooms <= 2.00
+|   |   |   |   |   |   |   |--- sqft_above <= 940.00
+|   |   |   |   |   |   |   |   |--- class: high
+|   |   |   |   |   |   |   |--- sqft_above >  940.00
+|   |   |   |   |   |   |   |   |--- class: low
+|   |   |   |   |   |   |--- bathrooms >  2.00
+|   |   |   |   |   |   |   |--- class: high
+|   |   |   |   |--- bedrooms >  3.50
+|   |   |   |   |   |--- bathrooms <= 2.62
+|   |   |   |   |   |   |--- sqft_above <= 995.00
+|   |   |   |   |   |   |   |--- class: high
+|   |   |   |   |   |   |--- sqft_above >  995.00
+|   |   |   |   |   |   |   |--- sqft_lot <= 7572.50
+|   |   |   |   |   |   |   |   |--- sqft_basement <= 600.00
+|   |   |   |   |   |   |   |   |   |--- sqft_living <= 1625.00
+|   |   |   |   |   |   |   |   |   |   |--- sqft_lot <= 6287.50
+|   |   |   |   |   |   |   |   |   |   |   |--- class: high
+|   |   |   |   |   |   |   |   |   |   |--- sqft_lot >  6287.50
+|   |   |   |   |   |   |   |   |   |   |   |--- class: low
+|   |   |   |   |   |   |   |   |   |--- sqft_living >  1625.00
+|   |   |   |   |   |   |   |   |   |   |--- class: high
+|   |   |   |   |   |   |   |   |--- sqft_basement >  600.00
+|   |   |   |   |   |   |   |   |   |--- class: low
+|   |   |   |   |   |   |   |--- sqft_lot >  7572.50
+|   |   |   |   |   |   |   |   |--- sqft_living <= 2065.00
+|   |   |   |   |   |   |   |   |   |--- yr_built <= 1958.50
+|   |   |   |   |   |   |   |   |   |   |--- bathrooms <= 2.12
+|   |   |   |   |   |   |   |   |   |   |   |--- class: low
+|   |   |   |   |   |   |   |   |   |   |--- bathrooms >  2.12
+|   |   |   |   |   |   |   |   |   |   |   |--- class: high
+|   |   |   |   |   |   |   |   |   |--- yr_built >  1958.50
+|   |   |   |   |   |   |   |   |   |   |--- class: low
+|   |   |   |   |   |   |   |   |--- sqft_living >  2065.00
+|   |   |   |   |   |   |   |   |   |--- class: high
+|   |   |   |   |   |--- bathrooms >  2.62
+|   |   |   |   |   |   |--- class: high
+|   |   |   |--- yr_built >  1983.50
+|   |   |   |   |--- yr_built <= 1988.50
+|   |   |   |   |   |--- class: low
+|   |   |   |   |--- yr_built >  1988.50
+|   |   |   |   |   |--- yr_built <= 1989.50
+|   |   |   |   |   |   |--- class: high
+|   |   |   |   |   |--- yr_built >  1989.50
+|   |   |   |   |   |   |--- floors <= 1.50
+|   |   |   |   |   |   |   |--- sqft_lot <= 7901.00
+|   |   |   |   |   |   |   |   |--- class: high
+|   |   |   |   |   |   |   |--- sqft_lot >  7901.00
+|   |   |   |   |   |   |   |   |--- bathrooms <= 1.88
+|   |   |   |   |   |   |   |   |   |--- sqft_lot <= 10070.50
+|   |   |   |   |   |   |   |   |   |   |--- class: high
+|   |   |   |   |   |   |   |   |   |--- sqft_lot >  10070.50
+|   |   |   |   |   |   |   |   |   |   |--- class: low
+|   |   |   |   |   |   |   |   |--- bathrooms >  1.88
+|   |   |   |   |   |   |   |   |   |--- class: low
+|   |   |   |   |   |   |--- floors >  1.50
+|   |   |   |   |   |   |   |--- class: low
+|--- sqft_living >  2085.00
+|   |--- sqft_living <= 2695.00
+|   |   |--- sqft_above <= 2675.00
+|   |   |   |--- yr_renovated <= 2011.50
+|   |   |   |   |--- yr_built <= 1976.50
+|   |   |   |   |   |--- sqft_living <= 2580.00
+|   |   |   |   |   |   |--- class: high
+|   |   |   |   |   |--- sqft_living >  2580.00
+|   |   |   |   |   |   |--- sqft_above <= 1620.00
+|   |   |   |   |   |   |   |--- yr_renovated <= 996.50
+|   |   |   |   |   |   |   |   |--- class: high
+|   |   |   |   |   |   |   |--- yr_renovated >  996.50
+|   |   |   |   |   |   |   |   |--- class: low
+|   |   |   |   |   |   |--- sqft_above >  1620.00
+|   |   |   |   |   |   |   |--- class: high
+|   |   |   |   |--- yr_built >  1976.50
+|   |   |   |   |   |--- sqft_lot <= 9020.50
+|   |   |   |   |   |   |--- sqft_lot <= 7132.00
+|   |   |   |   |   |   |   |--- yr_renovated <= 2001.50
+|   |   |   |   |   |   |   |   |--- sqft_living <= 2600.00
+|   |   |   |   |   |   |   |   |   |--- class: high
+|   |   |   |   |   |   |   |   |--- sqft_living >  2600.00
+|   |   |   |   |   |   |   |   |   |--- sqft_above <= 2635.00
+|   |   |   |   |   |   |   |   |   |   |--- class: low
+|   |   |   |   |   |   |   |   |   |--- sqft_above >  2635.00
+|   |   |   |   |   |   |   |   |   |   |--- class: high
+|   |   |   |   |   |   |   |--- yr_renovated >  2001.50
+|   |   |   |   |   |   |   |   |--- class: low
+|   |   |   |   |   |   |--- sqft_lot >  7132.00
+|   |   |   |   |   |   |   |--- sqft_lot <= 7406.50
+|   |   |   |   |   |   |   |   |--- class: low
+|   |   |   |   |   |   |   |--- sqft_lot >  7406.50
+|   |   |   |   |   |   |   |   |--- sqft_living <= 2520.00
+|   |   |   |   |   |   |   |   |   |--- sqft_living <= 2230.00
+|   |   |   |   |   |   |   |   |   |   |--- condition <= 3.50
+|   |   |   |   |   |   |   |   |   |   |   |--- class: low
+|   |   |   |   |   |   |   |   |   |   |--- condition >  3.50
+|   |   |   |   |   |   |   |   |   |   |   |--- class: high
+|   |   |   |   |   |   |   |   |   |--- sqft_living >  2230.00
+|   |   |   |   |   |   |   |   |   |   |--- class: high
+|   |   |   |   |   |   |   |   |--- sqft_living >  2520.00
+|   |   |   |   |   |   |   |   |   |--- class: low
+|   |   |   |   |   |--- sqft_lot >  9020.50
+|   |   |   |   |   |   |--- yr_built <= 1984.50
+|   |   |   |   |   |   |   |--- sqft_basement <= 575.00
+|   |   |   |   |   |   |   |   |--- sqft_lot <= 12327.00
+|   |   |   |   |   |   |   |   |   |--- class: high
+|   |   |   |   |   |   |   |   |--- sqft_lot >  12327.00
+|   |   |   |   |   |   |   |   |   |--- sqft_living <= 2490.00
+|   |   |   |   |   |   |   |   |   |   |--- class: low
+|   |   |   |   |   |   |   |   |   |--- sqft_living >  2490.00
+|   |   |   |   |   |   |   |   |   |   |--- class: high
+|   |   |   |   |   |   |   |--- sqft_basement >  575.00
+|   |   |   |   |   |   |   |   |--- class: high
+|   |   |   |   |   |   |--- yr_built >  1984.50
+|   |   |   |   |   |   |   |--- class: high
+|   |   |   |--- yr_renovated >  2011.50
+|   |   |   |   |--- class: low
+|   |   |--- sqft_above >  2675.00
+|   |   |   |--- class: low
+|   |--- sqft_living >  2695.00
+|   |   |--- class: high
