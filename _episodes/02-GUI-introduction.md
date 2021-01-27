@@ -1,7 +1,7 @@
 ---
 title: "GUI Introduction"
 teaching: 15
-exercises: 5
+exercises: 15
 questions:
 - What is the ml4bio software?
 objectives:
@@ -51,7 +51,10 @@ The interface may differ slightly on different operating systems.
 
 #### Load Data
 
-Load *toy_data_1.csv* file from the data/toy_data by clicking on **Select File...**.
+> ## Software
+>
+> Load *toy_data_1.csv* file from the data/toy_data by clicking on **Select File...**.
+{: .checklist}
 
 <p align="center">
 <img width="350" src="{{ page.root }}/fig/software/before_load.png">
@@ -101,15 +104,21 @@ Choose from one of the three supported validation strategies.
 Adjust the values accordingly.
 In this workshop, we use Holdout Validation by default.
 
-
-We are ready for training classifiers.
-Click on **Next** to go to the next page.
+> ## Software
+>
+> We are ready for training classifiers.
+> Click on **Next** to go to the next page.
+{: .checklist}
 
 
 ### Step 2: Train Classifiers
 
-Use the drop-down menu to select a classifier type.
-We select SVM (i.e. support vector machine).
+> ## Software
+>
+> Use the drop-down menu to select a classifier type.
+> We select SVM (i.e. support vector machine).
+{: .checklist}
+
 
 <p align="center"><img width="350" src="{{ page.root }}/fig/software/classifier_type.png"></p>
 
@@ -135,10 +144,15 @@ For example, if the classifier is the third one you trained, its default name is
 #### Train and Evaluate Classifiers
 
 Now everything has been set up for training an SVM.
-If you changed the hyperparameters but want to start over,
+
+> ## Software
+>
+> If you changed the hyperparameters but want to start over, 
 click on **Reset**.
-The hyperparameters will be back to default.
+> The hyperparameters will be back to default.
 Otherwise, click on **Train**.
+{: .checklist}
+
 
 <p align="center">
 <img width="350" src="{{ page.root }}/fig/software/before_train.png">
@@ -197,7 +211,11 @@ The left figure includes ROC curves and the right one includes precision-recall 
 A curve is plotted for each class.
 The average curve is the unweighted average of all classwise curves.
 
-- **Switch between performance on different data types.**
+> ## Software
+>
+> **Switch between performance on different data types.**
+{: .checklist}
+
 You may want to compare the classifier's performance on training and validation data
 to see how well it generalizes.
 Use the drop-down menu at the top-right corner of the yellow area
@@ -232,10 +250,14 @@ The best one is a k-nearest neighbor classifier that achieves 100% accuracy on t
 <img width="350" src="{{ page.root }}/fig/software/p2_after.png">
 </p>
 
-Let's say we are happy about the k-nearest neighbor classifier.
-Click on **Next** to proceed to the next page.
-However, if you want to change, say, the validation method,
+> ## Software
+>
+> Let's say we are happy about the k-nearest neighbor classifier.
+> Click on **Next** to proceed to the next page.
+> However, if you want to change, say, the validation method,
 you may click on **Back**, which will bring you to the previous page.
+{: .checklist}
+
 _Be careful, because all trained classfiers will be lost if you do so._
 
 ### Step 3: Test and Predict
@@ -286,16 +308,23 @@ Select a classifier and test it.
 
 #### Make Predictions
 
-Optionally, you may make predictions on the unlabeled data you uploaded and save the results.
-If no unlabeled data exists, the **Predict** button is disabled.
+> ## Software
+>
+> Optionally, you may make predictions on the unlabeled data you uploaded and save the results.
+> If no unlabeled data exists, the **Predict** button is disabled.
+{: .checklist}
 
 <p align="center">
 <img width="350" src="{{ page.root }}/fig/software/predict.png">
 </p>
 
-Finally, finish your work by clicking on **Finish**.
-A message box will show up and you may choose from closing the software
+> ## Software
+>
+> Finally, finish your work by clicking on **Finish**.
+> A message box will show up and you may choose from closing the software
 or modeling a different dataset.
+{: .checklist}
+
 
 <p align="center">
 <img width="350" src="{{ page.root }}/fig/software/finish.png">
@@ -336,3 +365,10 @@ Once you are ready to evaluate the performance of the classifiers, click **Next*
 
 Either pick your own classifier you would like to test, 
 or pick a metric to evaluate the classifier.
+
+> ## Small Group Activity
+>
+> In a group of 2 or 3,
+share the performance you each get. 
+> Then, have the groups with the best metrics share their performance with everyone.
+{: .challenge}
