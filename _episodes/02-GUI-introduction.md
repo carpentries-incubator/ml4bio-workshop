@@ -372,3 +372,5 @@ or pick a metric to evaluate the classifier.
 share the performance you each get. 
 > Then, have the groups with the best metrics share their performance with everyone.
 {: .challenge}
+
+{% include links.md %}
