@@ -332,7 +332,7 @@ or modeling a different dataset.
 <img width="350" src="{{ page.root }}/fig/software/finish.png">
 </p>
 
-## Practice to Use the Software in Small Groups
+## Practice Using the Software in Small Groups
 
 ### Step 1: Select Data
 
