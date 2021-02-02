@@ -1,5 +1,5 @@
 ---
-title: "GUI Introduction"
+title: "ml4bio Software Introduction"
 teaching: 15
 exercises: 15
 questions:
