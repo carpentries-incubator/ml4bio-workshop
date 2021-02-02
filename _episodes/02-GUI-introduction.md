@@ -186,6 +186,8 @@ The right figure shows the classifier's performance with respect to different ty
 For each metric, classwise values as well as their average are computed.
 For example, the precision of the classifier on class 0 on the training data is 0.89.
 The classifier's overall precision on the training data is 0.9.
+These evaluation metrics will be discussed later in the workshop.
+For now, all you need to know is that in general higher numbers indicate better performance.
 
 - **Examine plots.**
 Three types of plots that reflect the classifier's performance are always available.
