@@ -336,7 +336,10 @@ or modeling a different dataset.
 
 ### Step 1: Select Data
 
-From the *data/toy_data* select *toy_data_4.csv*.
+> ## Software
+>
+> From the *data/toy_data* select *toy_data_4.csv*.
+{: .checklist}
 
 > ## Partner activity
 >
@@ -346,11 +349,17 @@ From the *data/toy_data* select *toy_data_4.csv*.
 > Do you notice any difference compared to the data from the guided tour, *toy_data_1.csv*?
 {: .challenge}
 
-Pick a Holdout Validation method and go to the next step. 
-
+> ## Software
+>
+> Pick a Holdout Validation method and go to the next step.
+{: .checklist}
+ 
 ### Step 2: Train Classifiers
 
-Pick any classifier from the menu. 
+> ## Software
+>
+> Pick any classifier from the menu. 
+{: .checklist}
 
 > ## Partner activity
 >
@@ -361,12 +370,18 @@ Pick any classifier from the menu.
 > Compare the results on the validation data.
 {: .challenge}
 
-Once you are ready to evaluate the performance of the classifiers, click **Next**.
+> ## Software
+>
+> Once you are ready to evaluate the performance of the classifiers, click **Next**.
+{: .checklist}
 
 ### Step 3: Test and Predict
 
-Either pick your own classifier you would like to test, 
+> ## Software
+>
+> Either pick your own classifier you would like to test, 
 or pick a metric to evaluate the classifier.
+{: .checklist}
 
 > ## Small Group Activity
 >
