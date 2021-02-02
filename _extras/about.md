@@ -2,7 +2,7 @@
 title: About ml4bio software
 ---
 
-See the [ml4bio graphical interface lesson](episode-gui) for a guide to the ml4bio software.
+See the [ml4bio graphical interface lesson][episode-gui] for a guide to the ml4bio software.
 
 ### Software environment details
 
