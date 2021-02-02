@@ -37,7 +37,7 @@ In the binary classification setting (where there are only two classes we're try
 
 
 <p align="center">
-<img width="700" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/confusionMatrix_plain.png">
+<img width="700" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/Matrix1.png">
 </p>
 
 
@@ -63,14 +63,14 @@ Almost all evaluation metrics used in machine learning can be derived from the e
 So to calculate accuracy we take the number of things we got right, which is the number of true positives and the number of true negatives:
 
 <p align="center">
-<img width="700" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/confusionMatrix_P.png">
+<img width="700" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/Matrix2.png">
 </p>
 
 
 And divide it by the number total entries in the table, which is all four entries:
 
 <p align="center">
-<img width="700" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/confusionMatrix_All.png">
+<img width="700" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/Matrix3.png">
 </p>
 
 Thus, accuracy is defined as $$\frac{TP + TN}{TP+FP+TN+FN}$$
@@ -82,7 +82,7 @@ An example of a different question we might want to ask about a model would be _
 To answer this question we would look at everything we predicted to be true, which is the true positive and false positives:
 
 <p align="center">
-<img width="700" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/confusionMatrix_tpfp.png">
+<img width="700" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/Matrix4.png">
 </p>
 
 
