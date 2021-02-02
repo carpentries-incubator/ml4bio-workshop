@@ -27,9 +27,9 @@ The interface can be divided into three areas:
 - **Red area.**
 This is the main area you operate on.
 It consists of three pages.
-The first page allows you to load data, split data and choose a validation method (steps 1,2 and 3).
-The second page is where you train classifiers (steps 4 and 5).
-The last page is for testing and prediction (steps 6 and 7).
+The first page allows you to load data, split data and choose a validation method.
+The second page is where you train classifiers.
+The last page is for testing and prediction.
 
 - **Yellow area.**
 This is where trained classifiers are listed.
