@@ -1,5 +1,5 @@
 ---
-title: "How to Choose a Model"
+title: "Evaluating a Model"
 teaching: 15
 exercises: 5
 questions:
@@ -73,7 +73,7 @@ And divide it by the number total entries in the table, which is all four entrie
 <img width="700" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/matrix_3.png">
 </p>
 
-Thus, accuracy is defined as $$\frac{TP + TN}{TP+FP+TN+FN}$$
+Therefore, accuracy is defined as $\frac{TP + TN}{TP+FP+TN+FN}$.
 
 We can see accuracy as estimating the answer to the question _How likely is our classifier to get a single instance right?_ However, for many models this might not be the right question.
 
@@ -86,7 +86,7 @@ To answer this question we would look at everything we predicted to be true, whi
 </p>
 
 
-We would then calculate the percent of these predictions that were correct, which are the true positives. Thus, to answer this question we would use the metric $\frac{TP}{TP + FP}$
+We would then calculate the percent of these predictions that were correct, which are the true positives. Thus, to answer this question we would use the metric $\frac{TP}{TP + FP}$.
 
 This metric is called _precision_ in machine learning (and may be different from the definition of precision you use in a laboratory setting).
 
