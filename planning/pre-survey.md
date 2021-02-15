@@ -14,7 +14,7 @@
   - 5: 100% computation, no bench work
 5. How comfortable would you be training machine learning classifiers for a research project? (1-3)
   - 1: Uncomfortable, wouldn't know where to start
-  - 5: Completely comfortable, would require no outside help
+  - 3: Completely comfortable, would require no outside help
 6. Do you have experience with the command line interface on your computer? (Yes/No)
 7. Have you taken a calculus course? (Yes/No)
 8. Have you taken a probability and statistics course? (Yes/No)
