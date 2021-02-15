@@ -4,7 +4,9 @@
 2. Do you expect to use the ml4bio software again for research?
 3. Did the workshop meet your expectations?
 4. Which of your workshop expectations were not met?
-5. How comfortable would you be training classifiers for a research project?
+5. How comfortable would you be training classifiers for a research project? (1-3)
+- 1: Uncomfortable, wouldn't know where to start
+- 3: Completely comfortable, would require no outside help
 6. Which workshop topics were most valuable for you?
 7. Which workshop topics would be difficult for you to explain to a friend at a high level?
 8. Do you think the website layout was appropriate?
