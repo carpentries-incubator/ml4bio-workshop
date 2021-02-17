@@ -20,5 +20,5 @@
 8. Have you taken a probability and statistics course? (Yes/No)
 9. Do you encounter large datasets in your research (too large to navigate in a spreadsheet)? (Yes/No)
 10. What is your career stage? (graduate student, postdoc, scientist, etc.)
-11. What problems do you want to solve with your data? (1-2 sentences)
-12. At a high level, what do you expect from the workshop? (1-2 sentences)
+11. What research questions do you want to answer with the data you collect or analyze? (1-2 sentences)
+12. What do you expect from the workshop? (1-2 sentences)
