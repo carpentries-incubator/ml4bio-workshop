@@ -36,6 +36,8 @@ Multiple overfitting classifiers are put together to reduce the overfitting.
 In the previous lesson we looked at overfitting.
 Looking again at the different decision boundaries, note that the one of the left has high __bias__ while the one on the right has high __variance__.
 
+{% include biasvariance_slideshow.html %}
+
 > ## Definitions
 >
 > Bias - The assumptions made by a model about what the decision boundary will look like. Models with high bias are less sensitive to changes in the training data.
