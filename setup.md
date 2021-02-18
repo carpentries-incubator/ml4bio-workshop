@@ -69,14 +69,14 @@ For Windows, launch the Anaconda Prompt (formerly Anaconda Command Prompt) and t
 - Type `install_launch_windows.bat` -> Enter
 
 <p align="center">
-<img width="350" src="{{ page.root }}/fig/setup/windows_script.png">
+<img width="500" src="{{ page.root }}/fig/setup/windows_script.png">
 </p>
 
 For Linux or Mac OS, open the terminal and navigate to the `ml-bio-workshop-gh-pages/scripts` directory.
 Then, enter `./` followed by the name of the script for your operating system without a space in between.
 
 <p align="center">
-<img width="350" src="{{ page.root }}/fig/setup/linux_script.png">
+<img width="500" src="{{ page.root }}/fig/setup/linux_script.png">
 </p>
 
 The [ml4bio graphical interface lesson][episode-gui] will provide an introduction to the ml4bio software during the workshop.
