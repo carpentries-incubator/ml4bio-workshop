@@ -90,7 +90,15 @@ We would then calculate the percent of these predictions that were correct, whic
 
 This metric is called _precision_ in machine learning (and may be different from the definition of precision you use in a laboratory setting).
 
-> ## Scenario
+> ## Scenario 1
+> You are designing a long-term study on the mutational rates of various breast cancer subtypes over several years using cell lines. Due to cost constraints you can only choose a few cell lines to monitor. However, there has been some recent research calling into question whether or not certain cell lines you were considering using are actually the cancer subtype they are believed to be. Due to the study's cost and length, you decide to create a machine model system to help verify that the cells lines you want to use are, in fact, the cancer subtypes you want to study. The model uses gene expression data to predict cancer subtype. 
+>
+> 1. Which entries in the confusion matrix are most important in this machine learning task? Is one type of correct or one type of incorrect prediction more important than the other for your machine learning system?
+> 2. Which metric would you use to evaluate this task?
+{: .callout}
+
+
+> ## Scenario 2
 >
 > You are designing a machine learning system for discovering existing drugs which may be effective in treating Malaria, focusing on the parasite _Plasmodium falciparum_. Your system takes in information on an FDA approved drug's chemical structure, and predicts whether or not a drug may interact with _P. falciparum_. The machine learning system will be used as an initial screening step; drugs classified as interacting by your system will be flagged and tested in the lab. The vast majority of drugs will not be useful in treating _P. falciparum_.
 > With your neighbor, talk through the following questions:
@@ -99,7 +107,7 @@ This metric is called _precision_ in machine learning (and may be different from
 > 3. What metric or couple of metrics would you use to evaluate your machine learning system?
 >
 >
-> Load the `simulated-drug-discovery` dataset from the `data` folder into the ML4Bio software. Trying training a logistic regression classifier on the dataset. Which metrics seem to accurately reflect the performance of the classifier?
+> Load the `simulated-drug-discovery` dataset from the `data` folder into the ML4Bio software. Try training a logistic regression classifier on the dataset. Which metrics seem to accurately reflect the performance of the classifier?
 {: .callout}
 
 Common Metrics:
