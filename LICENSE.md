@@ -13,9 +13,11 @@ See the linked original image sources for their licenses and terms of reuse.
 The ml4bio workshop is derived from materials, software, and templates from [The Carpentries](https://carpentries.org/).
 See below for third-party code and The Carpentries licensing information.
 
-## Data-Driven Documents (D3) License
+## Third-Party Licenses
 
-The third-party file `d3.min.js` from [D3](https://d3js.org/) is available under the BSD-3-Clause © 2020 Mike Bostock.
+The third-party file `d3.min.js` from [Data-Driven Documents (D3)](https://d3js.org/) is available under the BSD-3-Clause © 2020 Mike Bostock.
+
+The file `biasvariance_slideshow.html` is derived from the [W3Schools example](https://www.w3schools.com/howto/howto_js_slideshow.asp) © 1999-2021 [Refsnes Data](https://www.w3schools.com/about/about_copyright.asp).
 
 ## Instructional Material
 
