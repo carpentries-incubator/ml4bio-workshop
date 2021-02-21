@@ -56,7 +56,15 @@ If when training each tree in the forest, we give every tree the same data, we w
 In order to train the decision trees differently we need to provide slightly different data to each tree.
 To do this, we choose a **random** subset of the data to give to each tree.
 When training at each node in the tree we also **randomize** which features can be used to split the data.
+This method of creating random subsamples of data to make an __ensemble__ of classifiers which are then combined is called __bagging__. 
 The final prediction is based on a vote or the average taken across all the decision trees in the forest.
+
+> ## Definitions
+>
+> Ensemble Method - A general method where multiple models are combined to form a single model.
+>
+> Bagging - An ensemble method where many training sets are generated from a single training set using random sampling with replacement. Models are then trained on each sampled training set and combined for a final prediction. It is short for **bootstrap aggregating**. 
+{: .callout}
 
 
 ### Step 1 Select data

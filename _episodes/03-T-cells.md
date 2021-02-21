@@ -52,14 +52,6 @@ We will use a subset of the images and follow the workflow in a [T-cell classifi
 
 The goal of this study is to develop a method to classify T-cell activation state (activated vs. quiescent).
 
-### ml4bio software setup
-
-We will be using ml4bio software to build classifiers with the T-cell images.
-Refer to the [Setup](https://gitter-lab.github.io/ml-bio-workshop/setup.html) for instructions on how to install and launch the ml4bio software.
-To better understand the software features, check out the [About ml4bio](https://gitter-lab.github.io/ml-bio-workshop/about/index.html) page.
-All of the datasets that we will be using for this workshop have been formatted to fit the ml4bio requirements.
-If you want to experiment with your data, follow the guidelines in the *About ml4bio* page.
-
 ## Machine learning workflow
 
 <p align="center">
