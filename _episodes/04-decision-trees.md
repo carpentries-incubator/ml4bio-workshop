@@ -52,10 +52,6 @@ Our final class label is high.
 <img width="500" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/Decision_tree4.png">
 </p>
 
-<p align="center">
-<img width="500" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/Decision_tree5.png">
-</p>
-
 #### How does the classifier make predictions?
 
 Each split of a decision tree classifies instances based on a test of a single feature.
