@@ -82,7 +82,7 @@ e^{-(w_0+w_1x_1)} & = \frac{1-P(y=high|x;w)}{P(y=high|x;w)} \\ \\
 log(\frac{P(y=high|x;w)}{1-P(y=high|x;w)}) & = log (e^{w_0+w_1x_1}) = w_0+w_1x_1 \\
 \end{align}$$
 
-Remember, $y = w_0 + w_1x1$
+Remember, $y = w_0 + w_1x_1$
 
 Since, we are predicting the probability that the price belongs to one of the two classes, the classification is binary. 
 
@@ -133,7 +133,7 @@ We can control slope and steepness, from class 1 and class 2.
 
 > ## Definition
 >
-> Linear Separability - drawing a line in the plane that separates all the points of one kind on one side of the line, and all the point of the other kind on the other side of the line.
+> Linear Separability - drawing a line in the plane that separates all the points of one kind on one side of the line, and all the points of the other kind on the other side of the line.
 {: .callout}
 
 Recall, $y=mx+b$ graphed on the coordinate plane. 
@@ -148,6 +148,14 @@ If $w_0+w_1x_1>0$ the house price is classified high, and if $w_0+w_1x_1<0$ the 
 >
 > When do you think something is linearly separable?
 {: .challenge}
+
+
+#### Logistic regression demo
+
+**Work in progress interactive demo**
+
+{% include logreg_demo.html %}
+
 
 ### Step 1 Select Data
 
@@ -175,7 +183,7 @@ If $w_0+w_1x_1>0$ the house price is classified high, and if $w_0+w_1x_1<0$ the 
 > Is the data linearly separable?  
 {: .challenge}
 
-#### Logistic regression vs. Random forests
+#### Linear vs. Nonlinear classifiers
 
 > ## Software
 >
@@ -284,11 +292,5 @@ L2 regularization is also known as ridge reguralization.
 L2 reguralization makes the weights of less important features to be small values.
 Unlike L1 regularization, L2 regularization does not necessarily shrink the weights to 0.
 The higher the value of C, the smaller the feature weights will be.
-
-#### Logistic regression demo
-
-**Work in progress interactive demo**
-
-{% include logreg_demo.html %}
 
 {% include links.md %}
