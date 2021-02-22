@@ -136,4 +136,3 @@ we will discuss their most basic versions, multilayer perceptrons (a.k.a. neural
 >
 > 1. A survey of machine learning and its application in genetics and genomics. [Nature review](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5204302/)
 > 2. Opportunities and challenges for deep learning in biology. [Nature article](https://www.nature.com/articles/d41586-018-02174-z) and [a community-driven effort](http://doi.org/10.1098/rsif.2017.0387)
-> 3. Stay focused in class and do not solely rely on your superb ability of learning from examples. See [what psychologists found about learning math through concrete examples](https://www.sciencedaily.com/releases/2008/04/080424140410.htm).
