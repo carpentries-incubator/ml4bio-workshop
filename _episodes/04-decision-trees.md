@@ -196,16 +196,34 @@ In biology, it is common to have this type of __imbalanced training set__ with m
 > How does the data plot look for the uniform class_weight and how does it look for the balanced class weight?
 {: .challenge}
 
+### Step 3 Test and predict
+
+> ## Software
+>
+> Finish Step 3 of the creating a model pipeline. 
+{: .checklist}
+
+### Overfitting Example
+
+> ## Software
+>
+> Load ./data/neurotoxicity/*neurotoxicity_d16.csv* data set into the software.
+>
+> Go through the Steps 1 and 2 in the software. 
+{: .checklist}
+
 > ## Play time
 >
+> What do you notice after you trained the model?
+> 
+> How did the classifier perform on the training data compared to the validation data?
+> 
 > Change the max_depth parameter.
+> 
+> Has anything changed? 
 >
 > Did you notice any difference?
 {: .challenge}
-
-### Step 3 Test and predict
-
-#### Overfitting
 
 A good model will learn a pattern from the data and then it will be able to generalize the pattern on the new data.
 
