@@ -10,7 +10,7 @@ Day 1:
             Training set accuracy tends to be higher.
             Validation set accuracy tends to be higher.
 
-    Poll 2: T-Cell Classification: Exploring the Test Set
+    Poll 2: T-Cell Classification: Exploring the Training and Validation Set
         1. How did your training set accuracy compare to your validation accuracy? ( Single Choice)
             Training set accuracy was higher.
             Validation set accuracy was higher.
