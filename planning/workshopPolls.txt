@@ -10,7 +10,7 @@ Day 1:
             Training set accuracy tends to be higher.
             Validation set accuracy tends to be higher.
 
-    Poll 2: T-Cell Classification: Exploring the Test Set 
+    Poll 2: T-Cell Classification: Exploring the Test Set
         1. How did your final test set accuracy compare to your validation accuracy? ( Single Choice)
             Test set accuracy was higher.
             Validation set accuracy was higher.
@@ -39,18 +39,18 @@ Day 2:
             Model A
             Model B
 
-    Poll 7: Logit: Linear Seperability 
-        1. Is the data linearly separable? ( Single Choice)
+    Poll 7: Logit: Linear Seperability
+        1. Is the dataset linearly separable? ( Single Choice)
             Yes
             No
 
-    Poll 8: Logit: Classifier Choice	
+    Poll 8: Logit: Classifier Choice
         1. Which classifier do you think would work well on this data? ( Single Choice)
             Decision Trees
             Random Forests
             Logistic Regression
 
-    Poll 9: Logit: L1 Regularization	
+    Poll 9: Logit: L1 Regularization
     1. At what level of C did the classifier perform the best? ( Single Choice)
             0.08
             0.1
@@ -58,18 +58,16 @@ Day 2:
             0.5
             1.0
 
-    Poll 10: Evaluating a model: Scenario 1 
+    Poll 10: Evaluating a Model: Scenario 1
         1. Which quadrant(s) of the confusion matrix do you think are most important in this scenario? (Multiple Choice)
             True Positive
             True Negative
             False Positive
             False Negative
 
-    Poll 11: Evaluating a model: Scenario 2 
+    Poll 11: Evaluating a Model: Scenario 2
         1. Which quadrant(s) of the confusion matrix do you think are most important in this scenario? (Multiple Choice)
             True Positive
             True Negative
             False Positive
             False Negative
-
-
