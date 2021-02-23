@@ -1,4 +1,3 @@
-
 Day 1:
     Poll 1: T-Cell Classification: Exploring Model Training
         1.  How does changing the validation set percentage change the validation set and validation set accuracies? (Multiple Choice)
@@ -6,23 +5,23 @@ Day 1:
             Increasing the validation set percentage decreases validation set accuracy.
             Increasing the validation set percentage increases training set accuracy.
             Increasing the validation set percentage decreases training set accuracy.
-        2. Which tends to be higher, training set accuracy or validation set accuracy? ( Single Choice)
+        2. Which tends to be higher, training set accuracy or validation set accuracy? (Single Choice)
             Training set accuracy tends to be higher.
             Validation set accuracy tends to be higher.
 
     Poll 2: T-Cell Classification: Exploring the Training and Validation Set
-        1. How did your training set accuracy compare to your validation accuracy? ( Single Choice)
+        1. How did your training set accuracy compare to your validation accuracy? (Single Choice)
             Training set accuracy was higher.
             Validation set accuracy was higher.
 
     Poll 3: Decision Trees: Dataset Performance
-        1. How did the classifier perform on the validation data? ( Single Choice)
+        1. How did the classifier perform on the validation data? (Single Choice)
             Worse than the training data
             Better than the training data
             No difference
 
     Poll 4: Decision Trees: Hyperparameters
-        1. Which hyperparameter did you change to improve the performance? ( Single Choice)
+        1. Which hyperparameter did you change to improve the performance? (Single Choice)
             Criterion
             Max_depth
             Min_samples_split
@@ -30,28 +29,28 @@ Day 1:
             Class_weight
 Day 2:
     Poll 5:Random Forests: Bias and Variance 1
-        1. Does model A or model B fit this data better? ( Single Choice)
+        1. Does model A or model B fit this data better? (Single Choice)
             Model A
             Model B
 
     Poll 6:Random Forests: Bias and Variance 2
-        1. Does model A or model B fit this data better? ( Single Choice)
+        1. Does model A or model B fit this data better? (Single Choice)
             Model A
             Model B
 
     Poll 7: Logit: Linear Seperability
-        1. Is the dataset linearly separable? ( Single Choice)
+        1. Is the dataset linearly separable? (Single Choice)
             Yes
             No
 
     Poll 8: Logit: Classifier Choice
-        1. Which classifier do you think would work well on this data? ( Single Choice)
+        1. Which classifier do you think would work well on this data? (Single Choice)
             Decision Trees
             Random Forests
             Logistic Regression
 
     Poll 9: Logit: L1 Regularization
-    1. At what level of C did the classifier perform the best? ( Single Choice)
+    1. At what level of C did the classifier perform the best? (Single Choice)
             0.08
             0.1
             0.2
