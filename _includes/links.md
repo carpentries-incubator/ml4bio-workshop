@@ -19,6 +19,7 @@
 [episode-random-forests]: {{ relative_root_path }}{% link _episodes/05-random-forests.md %}
 [episode-log-regression]: {{ relative_root_path }}{% link _episodes/06-log-regression.md %}
 [episode-choosing-model]: {{ relative_root_path }}{% link _episodes/07-choosing-model.md %}
+[episode-conclusion]: {{ relative_root_path }}{% link _episodes/08-conclusion.md %}
 [github-importer]: https://import.github.com/
 [importer]: https://github.com/new/import
 [jekyll-collection]: https://jekyllrb.com/docs/collections/
