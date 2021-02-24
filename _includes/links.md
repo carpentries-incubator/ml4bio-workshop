@@ -12,7 +12,13 @@
 [cran-stringr]: https://cran.r-project.org/package=stringr
 [dc-lessons]: http://www.datacarpentry.org/lessons/
 [email]: mailto:team@carpentries.org
+[episode-introduction]: {{ relative_root_path }}{% link _episodes/01-introduction.md %}
 [episode-gui]: {{ relative_root_path }}{% link _episodes/02-GUI-introduction.md %}
+[episode-t-cells]: {{ relative_root_path }}{% link _episodes/03-T-cells.md %}
+[episode-decision-trees]: {{ relative_root_path }}{% link _episodes/04-decision-trees.md %}
+[episode-random-forests]: {{ relative_root_path }}{% link _episodes/05-random-forests.md %}
+[episode-log-regression]: {{ relative_root_path }}{% link _episodes/06-log-regression.md %}
+[episode-choosing-model]: {{ relative_root_path }}{% link _episodes/07-choosing-model.md %}
 [github-importer]: https://import.github.com/
 [importer]: https://github.com/new/import
 [jekyll-collection]: https://jekyllrb.com/docs/collections/
