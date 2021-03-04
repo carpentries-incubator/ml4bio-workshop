@@ -14,6 +14,7 @@ keypoints:
 ---
 
 ## Guided Tour
+If you close the ml4bio software, you can relaunch it by running the same `install_launch` script you used to [install][lesson-setup] the software originally.
 
 Once you open the ml4bio software, you will see the following interface.
 It may look slightly different in newer versions of ml4bio.
