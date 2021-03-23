@@ -17,17 +17,17 @@
 	
 6. How would you rate your knowledge of machine learning BEFORE taking this workshop?
 - 1: None little or no knowledge of machine learning
-- 5: Very knowledgable of machine learning
+- 5: Very knowledgeable of machine learning
 
 7. How would you rate your knowledge of machine learning AFTER taking this workshop?
 - 1: None little or no knowledge of machine learning
-- 5: Very knowledgable of machine learning
+- 5: Very knowledgeable of machine learning
 
 8. Imagine that in your research, you encountered a problem well-suited to machine learning.
-- How condfident are you that BEFORE this workshop you would identfy the problem as being well-suited to machine learning?
-- How condfident are you that AFTER this workshop you would identfy the problem as being well-suited to machine learning?
-- How likely would you be to persue machine learning for that problem BEFORE this workshop?
-- How likely would you be to persue machine learning for that problem AFTER this workshop?
+- How confident are you that BEFORE this workshop you would identify the problem as being well-suited to machine learning?
+- How confident are you that AFTER this workshop you would identify the problem as being well-suited to machine learning?
+- How likely would you be to pursue machine learning for that problem BEFORE this workshop?
+- How likely would you be to pursue machine learning for that problem AFTER this workshop?
 	
 9. Which workshop topics were most valuable for you?
 10. Which workshop topics would be difficult for you to explain to a friend at a high level?
