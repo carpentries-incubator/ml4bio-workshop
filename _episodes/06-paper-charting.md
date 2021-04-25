@@ -1,5 +1,5 @@
 ---
-title: "Random Forests"
+title: "Paper Charting Activity"
 teaching: 15
 exercises: 15
 questions:
