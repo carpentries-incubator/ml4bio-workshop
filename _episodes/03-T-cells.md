@@ -58,6 +58,11 @@ The goal of this study is to develop a method to classify T-cell activation stat
 <img width="800" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/tcells1.png">
 </p>
 
+Before we can use a model to predict T-cell states, we have to do three steps:
+1. __Preprocessing__: Gather data and get it ready for use in the machine learning model.
+2. __Learning/Training__: Choose a machine learning model and train it on the data. 
+3. __Evaluation__: Measure how well the model performed. Can we trust the predictions of the trained model?
+
 ### Data preprocessing
 
 The first step in machine learning is to prepare our data.
@@ -85,39 +90,56 @@ However, learning these methods and tools is outside the scope of this workshop.
 Preprocessing strategies are specific to both a dataset's domain and the technology used to gather the data.
 Throughout this workshop, we will assume that all of the data has already been preprocessed.
 
-> ## Software
->
-> Load size_intensity_feature.csv into the ml4bio software under the Labeled Data.
-{: .checklist}
-
-> ## Conceptual Questions
->
-> What are we trying to predict?
->
-> What features do we have for those predictions?
-{: .challenge}
 
 ## Step 1: Select data
+
+> ## Software
+>
+> Load size_intensity_feature.csv into the ml4bio software under the Labeled Data by clicking on **Select File...**..
+{: .checklist}
+
+<p align="center">
+<img width="350" src="{{ page.root }}/fig/software/before_load.png">
+</p>
+
+<p align="center">
+<img width="800" src="{{ page.root }}/fig/software/file_1.png">
+</p>
+
+After a valid labeled dataset is loaded, the file name will be shown next to **Select File...**.
+
+<p align="center">
+<img width="350" src="{{ page.root }}/fig/software/after_load.png">
+</p>
 
 ### Data summary
 
 Data Summary gives us an insight into features, __samples__, and __class__ for the dataset we selected.
 
+<p align="center">
+<img width="350" src="{{ page.root }}/fig/software/data_summary.png">
+</p>
+
 > ## Definitions
 >
 > Sample - A specific observation in a dataset.
-> For instance, in the T-cells example each T-cell is a sample.
+> In the T-cells example each T-cell is a sample.
 > Also called instances or observations.
 >
 > Class - The part of a dataset that is being predicted.
 > In the T-cells example a T-cell's state as active or quiescent is its class.
+> Also called the target variable or label.
+>
+> Feature - a property or a characteristic of the observed object. Used as an input.
+>
+> Class label - prediction output.
 > Also called the target variable or label.
 {: .callout}
 
 In this particular dataset, we can see that we have two features **cell_size** and **total_intensity**.
 The total number of samples is 843.
 
-> ## Conceptual Questions
+> ## Questions to consider
 >
 > How many quiescent samples are in the dataset?
 >
@@ -150,7 +172,35 @@ The training set is further divided into a training set and a __validation set__
 {: .callout}
 
 Setting a test set aside from the training and validation sets from the beginning, and only using it once for a final evaluation, is very important to be able to properly evaluate how well a machine learning algorithm learned.
+If this __data leakage__ occurs it contaminates the evaluation, making the evaluation not accurately reflect how well the model actually performs. 
 Letting the machine learning method learn from the test set can be seen as giving a student the answers to an exam; once a student sees any exam answers, their exam score will no longer reflect their true understanding of the material.  
+
+In other words, improper data splitting and data leakage means that _we will not know if our model works or not_. 
+
+> ## Definitions
+>
+> Data leakage - A model being influenced by data outside the training and validation sets. Data leakage can result in incorrectly estimating how well that model is performing. 
+{: .callout}
+
+<p align="center">
+<img width="350" src="{{ page.root }}/fig/software/train_test_split.png">
+</p>
+
+> ## Scenarios
+> In the following excerpts, consider the methodology presented and determine if there is evidence of data leakage:
+>
+> 1. We created a decision tree model to predict whether the compound would inhibit cell growth. 
+> We trained the model on the 48 available instances, and found that the decision tree was able to predict those instances with an accuracy of 0.96. 
+> Thus, the decision tree is high performing on this task. 
+>
+> 2. We trained 36 different models, each using a different combination of hyperparameters. 
+> We trained each model on 80% of the data, withholding 20% of the data to test each model. 
+> We present the highest performing model here to show the effectiveness of machine learning on this task. 
+>
+> 3. We split the data into training and testing sets of 80% and 20%, and further split the training set into a training and validation set. 
+> We trained 200 models on the training data, and chose the best-performing model based on performance on the validation set. 
+> After choosing and training the model, we found that the model had an accuracy of 0.93 on the testing set. 
+{: .callout}
 
 > ## Software
 >
@@ -159,6 +209,7 @@ Letting the machine learning method learn from the test set can be seen as givin
 >
 > We will use the software's default of 20% of the training set for the validation set.
 {: .checklist}
+
 
 <p align="center">
 <img width="600" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/Holdout_Validation.png">
@@ -180,12 +231,39 @@ Tools that use classification to predict an outcome are __classifiers__.
 > Instead of predicting a category, here the value of the label variable is predicted.
 {: .callout}
 
+<p align="center"><img width="350" src="{{ page.root }}/fig/software/classifier_type.png"></p>
+
 > ## Software
 >
 > The software has a dropdown menu of some of the most frequently used classifiers.
+> Choose one of them to continue with for this lesson. 
 {: .checklist}
 
 In this workshop, we will be further talking about [Decision Trees][episode-decision-trees], [Random Forests][episode-random-forests], and [Logistic Regression][episode-log-regression].
+
+Each classifier has its own hyperparameters specific to that classifier that can be tuned.
+Intuitively, think of the hyperparameters as the "knobs and dials" or settings of the classifier. 
+You can adjust the hyperparameters and explore how they impact performance on the training and validation sets. 
+
+<p align="center">
+<img width="350" src="{{ page.root }}/fig/software/svm_param.png">
+</p>
+
+You may give your classifier a name and add a comment.
+If you do not specify a name, the software will use "classifier\_[int]" as its default name.
+For example, if the classifier is the third one you trained, its default name is "classifier\_3".
+
+<p align="center">
+<img width="350" src="{{ page.root }}/fig/software/name_comment.png">
+</p>
+
+> ## Software
+>
+> If you changed the hyperparameters but want to start over, 
+click on **Reset**.
+> The hyperparameters will be back to default.
+Otherwise, click on **Train**.
+{: .checklist}
 
 We will use accuracy to evaluate the classifiers.
 Accuracy measures the fraction of the predictions that are correct.
@@ -200,52 +278,82 @@ In the T-cells dataset, this is the number of correctly predicted quiescent and 
 
 In the T-cells example, we want to predict whether a cell was quiescent or activated. The accuracy gives us the count of the cells that were correctly predicted.
 
-> ## Exploring model training
->
-> Pick a few classifiers and train them.
->
-> Try to answer these questions to get a better understanding of the software:
->
-> How does changing the validation set percentage change the training set and validation set accuracies?
->
-> How do training set accuracy and validation set accuracy tend to compare to each other? Why do you think this is?
->
-> What is the highest validation set accuracy you can get a classifier to achieve?
-{: .checklist}
-
 This type of exploration of multiple algorithms reflects how a good model is often found in real-world situations.
 It often takes many classifiers to find the one that you are satisfied with.
 
-> ## Software
->
-> For your final comparison, train at least one decision tree, random forest, and logistic regression classifier.
->
-{: .checklist}
-
-
-## Step 3 Test and Predict
-
-Our final step is model selection and evaluation.
-After we trained multiple classifiers and did holdout validation, the next step is to choose the best model.
-
 <p align="center">
-<img width="350" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/Screen%20Shot%202019-11-08%20at%2010.40.25%20AM.png">
+<img src="{{ page.root }}/fig/software/after_train.png">
 </p>
 
-There are a few visualization tools that can help with the model selection. The __Confusion Matrix__ reflects the selected dataset (training or validation). The T-cells dataset has two labels so that the Confusion Matrix will be 2 x 2. The sum of all the predictions will be the total number of samples in the selected dataset (training or validation).
+At the bottom right of the software window, there is a variety of information about the trained model. 
+
+Three types of plots that reflect the classifier's performance are always available.
+The data plot is only available when the dataset contains exactly two continuous features.
+_Note that the plots are all with respect to the type of data
+shown at the top-right corner of the software window._
+
+<p align="center">
+<img width='200' src="{{ page.root }}/fig/software/data_plot.png">
+<img width='200' src="{{ page.root }}/fig/software/confusion_matrix.png">
+</p>
+
+Shown on the top is a scatter plot of the training data and contours of the decision regions.
+This is a visualization of the __decision boundary__ of the classifier. 
+The darker the color, the more confident the classifier is.
+
+Shown on the bottom is the confusion matrix.
+The __Confusion Matrix__ reflects the selected dataset (training or validation). 
+The T-cells dataset has two labels so that the Confusion Matrix will be 2 x 2. 
+The sum of all the predictions will be the total number of samples in the selected dataset (training or validation).
+
+<img width='200' src="{{ page.root }}/fig/software/confusion_matrix.png">
 
 > ## Definitions
+>
+> Decision boundary - A region where all the patterns within the decision boundary belong to the same class. It divides the space that is represented by all the data points. Identifying the decision boundary can be used to classify the data points. The decision boundary does not have to be linear.
 >
 > Confusion matrix - A matrix used in classification to visualize the performance of a classifier.
 > Each cell shows the number of time the predicted and actual classes of samples occurred in a certain combination.
 {: .callout}
 
-### Test Data
+## Step 3 Test and Predict
 
-Once the model was selected based on the metric that we chose, use the model for the prediction on the test data.
-Based on the same prediction metrics that we used on the validation set, we can make certain conclusions about our model.
+Our final step is model selection and evaluation.
+After we trained multiple classifiers and did holdout validation, the next step is to choose the best model.
+Hit **Next** to continue. 
 
-> ## Conceptual Questions
+<p align="center">
+<img width="350" src="{{ page.root }}/fig/software/p3_before.png">
+</p>
+
+To select a classifier, you may let the software pick one for you by specifying a metric.
+In this case, the software will select the best classifier with respect to that metric.
+Otherwise, you may pick a classifier on your own.
+We let the software select the classifier with the highest accuracy.
+
+<p align="center">
+<img width="350" src="{{ page.root }}/fig/software/before_test.png">
+</p>
+
+After a classifier is selected, its name will show up.
+Double-check that it is the one you want to test.
+Now the **Test** button is enabled, and you may click on it to test the selected classifier.
+_Note that once you hit **Test**,
+you are no longer allowed to go back and train more classifiers._
+
+<p align="center">
+<img width="350" src="{{ page.root }}/fig/software/test.png">
+</p>
+
+Now the only classifier in the list is the tested one.
+Note that the software is showing the classifier's performance on the test data.
+You may examine the performance using either the summary or the plots.
+
+<p align="center">
+<img src="{{ page.root }}/fig/software/after_test.png">
+</p>
+
+> ## Questions to consider
 >
 > How did your final test set accuracy compare to your validation accuracy?
 {: .challenge}
