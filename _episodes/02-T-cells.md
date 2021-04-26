@@ -239,7 +239,7 @@ Tools that use classification to predict an outcome are __classifiers__.
 > Choose one of them to continue with for this lesson. 
 {: .checklist}
 
-In this workshop, we will be further talking about [Decision Trees][episode-decision-trees], [Random Forests][episode-random-forests], and [Logistic Regression][episode-log-regression].
+In this workshop, we will be further talking about [Decision Trees][episode-trees-overfitting], [Random Forests][episode-trees-overfitting], [Logistic Regression][episode-logit-ann], and [Artificial Neural Networks][episode-logit-ann].
 
 Each classifier has its own hyperparameters specific to that classifier that can be tuned.
 Intuitively, think of the hyperparameters as the "knobs and dials" or settings of the classifier. 
