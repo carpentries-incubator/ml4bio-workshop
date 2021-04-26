@@ -306,6 +306,15 @@ The __Confusion Matrix__ reflects the selected dataset (training or validation).
 The T-cells dataset has two labels so that the Confusion Matrix will be 2 x 2. 
 The sum of all the predictions will be the total number of samples in the selected dataset (training or validation).
 
+> ## Software
+>
+> Train a few different classifiers and explore the following questions:
+> 
+> How does the decision boundary change as the classifier and hyperparameters change?
+>
+> What is the highest validation set accuracy you can achieve? 
+{: .checklist}
+
 <img width='200' src="{{ page.root }}/fig/software/confusion_matrix.png">
 
 > ## Definitions
