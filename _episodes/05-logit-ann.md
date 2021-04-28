@@ -214,7 +214,7 @@ Artificial neural networks with a single hidden layer tend to perform well on si
 
 However artificial neural networks used on more complex data, such as raw image data or protein structure data, typically have much more complex architectures. 
 
-For example, below is the architecture of a neural network used to [evaluate the skill of robotic surgery arms][https://link.springer.com/article/10.1007/s11548-018-1860-1] based on motion captured over time.
+For example, below is the architecture of a neural network used to [evaluate the skill of robotic surgery arms](https://link.springer.com/article/10.1007/s11548-018-1860-1) based on motion captured over time.
 
 <p align="center">
 <img width="750" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/example_deep_network.png">
