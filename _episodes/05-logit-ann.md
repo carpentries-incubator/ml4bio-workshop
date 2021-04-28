@@ -1,5 +1,5 @@
 ---
-title: "Logistic Regression"
+title: "Logistic Regression, Artificial Neural Networks, and Linear Separability"
 teaching: 15
 exercises: 15
 questions:
@@ -16,11 +16,13 @@ keypoints:
 mathjax: true
 ---
 
+## Logistic Regression
+
 Logistic regression is a classifier that models the probability of a certain label.
-In our original example, when we predicted whether a price for a house is high or low, we were classifying our responses into two categories.
+In the T-cells example, we were classifying whether cells were in the two categories of active or quiescent.
 Using the logistic regression to predict one of the two labels is a binary logistic regression.
-Everything that applies to the binary classification could be applied to multi-class problems (for example, high, medium, or low).
-The focus of this workshop is on binary classification.
+Everything that applies to the binary classification could be applied to multi-class problems (for example if there was a third cell state).
+We will be focusing on the binary classification problem.
 
 #### Linear regression vs. logistic regression
 
@@ -36,10 +38,7 @@ In statistics, for the simple linear regression we write intercept term first $y
 The intercept term is a constant and it is defined as the mean of the outcome when the input is 0. 
 This interpretation gets more involved with multiple inputs, but that is out of the scope of the workshop. 
 The slope is a feature weight. 
-Think about the house price example.
-This time we want to predict the house price with one feature, for example, square footage. 
-The feature weight is the coefficient for the feature $x$ and it represents the average increase in the house price with a one unit increase in $x$. 
-Linear regression predicts the expected house price for the given feature, here the square footage.
+In the T-cells example, the feature weight is the coefficient for the feature $x$ and it represents the average increase in the confidence the cell is active with a one unit increase in $x$. 
 
 When we have multiple features, the linear regression would be $y = w_0 + w_1x_1 + w_2x_2 +...+ w_nx_n$.
 
@@ -54,7 +53,7 @@ Logistic regression returns the probability that a combination of features with 
 In the visual above that compares linear regression to logistic regression, we can see the "S" shaped function is defined by $p = \frac{1}{1+e^{-(w_0+w_1x_1)}}$. 
 The "S" shaped function is the inverse of the logistic function of __odds__. 
 It guarantees that the outcome will be between 0 and 1. 
-Recall that probability is always between 0 and 1.
+This allows us to treat the outcome as a probability, which also must be between 0 and 1. 
 
 > ## Definition
 >
@@ -63,73 +62,24 @@ Recall that probability is always between 0 and 1.
 
 $odds = \frac{P(event)}{1-P(event)}$
 
-
-In the original example, if the house price was higher than $150K, it was classified as high, otherwise it was classified as low. 
-Consider the situation where we want to predict the likelihood of a certain house price. 
-
-The goal is to predict the probability that the price is high $P(y=high\|x;w)$.
-
-From the previous visual, we saw that the sigmoid function represents the probability of a certain outcome. 
- 
-$$\begin{align}
-P(y=high|x;w) & = \frac{1}{1+e^{-(w_0+w_1x_1)}} \\ \\
-P(y=high|x;w)(1+e^{-(w_0+w_1x_1)}) & = 1 \\ \\
-P(y=high|x;w)+P(y=high|x;w)e^{-(w_0+w_1x_1)} & = 1 \\ \\
-P(y=high|x;w)e^{-(w_0+w_1x_1)} & = 1 - P(y=high|x;w) \\ \\
-e^{-(w_0+w_1x_1)} & = \frac{1-P(y=high|x;w)}{P(y=high|x;w)} \\ \\
-(e^{-(w_0+w_1x_1)})^{-1} & = (\frac{1-P(y=high|x;w)}{P(y=high|x;w)})^{-1} \\ \\
-\frac{P(y=high|x;w)}{1-P(y=high|x;w)} & = e^{w_0+w_1x_1}  \\ \\
-log(\frac{P(y=high|x;w)}{1-P(y=high|x;w)}) & = log (e^{w_0+w_1x_1}) = w_0+w_1x_1 \\
-\end{align}$$
-
-Remember, $y = w_0 + w_1x_1$
-
-Since, we are predicting the probability that the price belongs to one of the two classes, the classification is binary. 
-
-Examine the single feature, that is that square footage of a house, and how it affects the classification whether the house price is high or low. Build the visual of the house price example with one feature.
-
-<p align="center">
-<img width="500" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/logit1.jpeg">
-</p>
-
-<p align="center">
-<img width="400" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/logit3.jpeg">
-</p>
-
-
-> ## Conceptual Questions
->
-> What rule is the classifier learning?
-{: .challenge}
-
-> ## Activity
->
-> You are looking to purchase a house. How many square feet do you want?
->
-> Is the price for your house high or low based on this one feature?
-{: .challenge}
-
-
-<p align="center">
-<img width="650" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/logit2.jpeg">
-</p>
-
 Now, let's think about the T-cells example.
 If we focus only on one feature, for example cell size, we can use logistic regression to predict the probability that the cell would be active.
 
 The logistic function of odds is a sum of the __weighted features__.
-This makes the log-odds function a linear function.
-What is important to understand is that the change in one feature by a unit changes the odds ratio.
+Each feature is simply added together with a weight inside the logistic function. 
 So logistic regression treats each feature independently.
-This affects what type of rules it can learn.
+This means that, unlike decision trees, logistic regression is unable to find interactions between features.
+For instance, copy number increase of a certain gene may only affect cell state if another gene is also mutated.
+This feature independence affects what type of rules logistic regression can learn.
 
-So, an important characteristic of logistic regression features is how they affect the probability.
+> ## Questions to consider
+>
+> What could be another example of 2 features that interact with each other?
+{: .challenge}
+
+An important characteristic of features in logistic regression is how they affect the probability.
 If the feature weight is positive then the probability of the outcome increases, for example the probability that a T-cell is active increases.
 If the feature weight is negative then the probability of the outcome decreases, or in our example, the probability that a T-cell is active decreases.
-
-If we have 2 features, both cell size and cell intensity, logistic regression is learning a different rule.
-The rule is a single straight line.
-We can control slope and steepness, from class 1 and class 2.
 
 > ## Definition
 >
@@ -140,22 +90,14 @@ Recall, $y=mx+b$ graphed on the coordinate plane.
 It is a straight line. 
 $y = w_0 + w_1x_1$ is a straight line. 
 The separating function has the equation $w_0+w_1x_1= 0$.
-If $w_0+w_1x_1>0$ the house price is classified high, and if $w_0+w_1x_1<0$ the house price is classified as low. 
+If $w_0+w_1x_1>0$ the T-cell is classified as active, and if $w_0+w_1x_1<0$ the T-cell is classified as quiescent. 
 
-> ## Think-Pair-Share
+> ## Questions to consider
 >
 > Think of an example when a linear separability is not a straight line.
 >
 > When do you think something is linearly separable?
 {: .challenge}
-
-
-#### Logistic regression demo
-
-**Work in progress interactive demo**
-
-{% include logreg_demo.html %}
-
 
 ### Step 1 Select Data
 
@@ -175,13 +117,48 @@ If $w_0+w_1x_1>0$ the house price is classified high, and if $w_0+w_1x_1<0$ the 
 > For now use the default hyperparameters.
 {: .checklist}
 
-> ## Conceptual Questions
+> ## Questions to consider
 >
 > Look at the Data Plot.
 > What do you notice?
 >
 > Is the data linearly separable?  
 {: .challenge}
+
+Logistic regression can also be visualized as a network of features feeding into a single logistic function.
+Each of these 
+
+<p align="center">
+<img width="750" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/logit_nodes.png">
+</p>
+
+At the logistic function, the connected features are combined and fed into the logistic function to get the classifier's prediction.
+In this visualization, we can see that the features never interact with each other until they reach the logistic function, which results in feature independence.
+
+## Artificial Neural Networks
+
+An artificial neural network can be viewed as an extension of the logistic regression model, where additional layers of feature interactions are added.
+These additional layers allow for more complex, non-linear decision boundaries to be learned.
+
+<p align="center">
+<img width="750" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/ann_nodes.png">
+</p>
+
+Artificial neural networks have inputs and outputs, just like logistic regression, but have one or more additional layers called __hidden layers__ comprised of __hidden units__. 
+Hidden layers can contain any number of hidden units.
+In the neural network diagram, each unit in the input, output, and hidden layers resemble neurons in a human brain, hence the name neural network.
+The above figure shows a fully connected hidden layer, where every feature interacts with every other feature to form a new value. 
+The new value is created by passing the sum of the weighted feature values into the __activation function__ of the hidden layer.
+These new values are then fed to the logistic function as opposed to the raw features. 
+
+> ## Definitions
+>
+> Hidden unit - a function in a neural network which takes in values, applies some function to them, and outputs new values to be used in subsequent layer of the neural network. 
+>
+> Hidden layer - a layer of hidden units in a neural network. 
+>
+> Activation function - the function used to combine values in a specific layer of a neural network. 
+{: .callout}
 
 #### Linear vs. Nonlinear classifiers
 
@@ -191,10 +168,10 @@ If $w_0+w_1x_1>0$ the house price is classified high, and if $w_0+w_1x_1<0$ the 
 >
 > This data set is engineered specifically to demonstrate the difference between linear and nonlinear classifiers.
 >
-> Train the data set with the default hyperparameters using logistic regression classifier.
+> Train a logistic regression classifier using the default hyperparameters.
 {: .checklist}
 
-> ## Questions
+> ## Questions to consider
 >
 > What is the evaluation metrics telling?
 >
@@ -206,16 +183,18 @@ If $w_0+w_1x_1>0$ the house price is classified high, and if $w_0+w_1x_1<0$ the 
 
 > ## Software
 >
-> Train the data set with the default hyperparameters using random forests classifier.
+> Now train a neural network on the same data.
 {: .checklist}
 
-> ## Question
+> ## Questions to consider
 >
-> How did the accuracy change?
+> What shape is the decision boundary?
+>
+> How did the performance of the model change on the validation data?
 {: .challenge}
 
 This example demonstrates that logistic regression performs great with data that is linearly separable.
-However, with the nonlinear data, random forests will be the better choice for a classifier.
+However, with the nonlinear data, more complex models such as artificial neural networks need to be used.
 
 ### Step 2 Train Classifiers
 
@@ -228,6 +207,20 @@ This follows best practices in real applications.
 Smaller values of C mean stronger regularization.
 
 For those hyperparameters that we don't cover, we will use the default settings.
+
+#### Artificial neural networks in practice
+
+Artificial neural networks with a single hidden layer tend to perform well on simpler data, such as the toy datasets in this workshop. 
+
+However artificial neural networks used on more complex data, such as raw image data or protein structure data, typically have much more complex architectures. 
+
+For example, below is the architecture of a neural network used to [evaluate the skill of robotic surgery arms][https://link.springer.com/article/10.1007/s11548-018-1860-1] based on motion captured over time.
+
+<p align="center">
+<img width="750" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/example_deep_network.png">
+</p>
+
+This neural network still consists of hidden layers combined with functions, but contains many specialized layers which perform specific operations on the input features.
 
 #### Regularization
 
