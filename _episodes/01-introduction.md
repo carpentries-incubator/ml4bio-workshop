@@ -13,9 +13,21 @@ keypoints:
 - Supervised learning involves predicting labels from features
 ---
 
-> ## Think-Pair-Share
-> What do you think of when you hear the phrase machine learning?
-{: .challenge}
+### What is this workshop about?
+
+The learning objectives of this workshop are:
+
+1. Identity and characterize machine learning and a machine learning workflow.
+
+2. Evaluate whether a particular problem is easy or hard for machine learning to solve. 
+
+3. Assess a typical machine learning methodology presented in an academic paper. 
+
+4. Gain confidence in and appreciation for machine learning in biology.
+
+We will also be learning about some specific machine learning models: decision trees, random forests, logistic regression, and artificial neural networks. 
+
+
 
 ### What is machine learning?
 
@@ -26,46 +38,23 @@ keypoints:
 
 A machine learning __algorithm__ gets better at its task when it is shown examples as it tries to define general patterns from the examples.
 
+One of the most popular textbooks on machine learning, *Machine Learning* by Tom Mitchell, defines machine learning as, "the study of computer algorithms that improve automatically through experience."
+
 > ## Definition
 >
 > Algorithm - is a relationship between input and output. It is a set of steps that takes an input and produces an output.
 {: .callout}
 
-### Your first machine learning model
-
-Let’s say you want to buy a house.
-You follow the real estate market for a few months.
-During those months you visit 20 different houses.
-Every time you visit a house, you write down all the information you learned about the house.
-
-> ## Question
->
-> What are some of the __features__ that you would consider when buying a house?
-{: .challenge}
-
-> ## Definitions
->
-> Feature - a property or a characteristic of the observed object. Used as an input.
->
-> Class label - prediction output.
-> Also called the target variable or label.
-{: .callout}
-
-Note there can be different types of features (text, number, category, etc).
-
-### Group activity
-
-Create a housing dataset as a group.
-After the data is collected, label the prices into two categories low or high.
-
-<p align="center">
-<img width="800" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/intro1.png">
-</p>
-
-Our dataset has labeled data, so our problem is a __supervised machine learning__ task.
-There are different types of machine learning algorithms - supervised learning and __unsupervised learning__ are the main two.
+Machine learning can be broadly split into two categories, __supervised machine learning__ and and __unsupervised learning__.
+Machine learning is considered supervised when there is a specific answer the model is trying to predict, questions like what is the price of a house? 
+Is this mushroom edible? 
+What disease does this patient have. 
 Some examples of supervised machine learning are __classification__ and __regression__.
 These will be further defined in the next lesson.
+
+Unsupervised machine learning has no particular target for it's learning, it is instead trying to answer general questions about patterns.
+This can include questions like how do these cells group together?
+In what way are these samples most different from each other?
 An example of unsupervised machine learning is __clustering__.
 Unsupervised learning will not be covered in this workshop.
 For some external resources, check out the [glossary][lesson-glossary].
@@ -74,8 +63,12 @@ For some external resources, check out the [glossary][lesson-glossary].
 >
 > Supervised learning - training a model from the labeled input data.
 >
-> Unsupervised learning - training a model from the unlabeled input data to find the patterns in the data. 
+> Unsupervised learning - training a model from the unlabeled input data to find patterns in the data. 
 {: .callout}
+
+<p align="center">
+<img width="800" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/supervised_vs_unsupervised.png">
+</p>
 
 > ## Definition
 >
@@ -85,32 +78,25 @@ For some external resources, check out the [glossary][lesson-glossary].
 > 
 > Classifier - a specific model or algorithm that performs classification.
 >
-> Regression - predicting a continuous number for the samples in the data set. A regression version of the house price example would be predicting the price in dollars.
-{: .callout}
-
-In this workshop, we focus on supervised learning algorithms.
-
-We find a dream home that has not yet been listed for sale and is not part of our existing dataset.
-This home is new data, and we want to predict whether the price will be high or low.
-Based on the features that we already know, we want to classify our future home in one of the two possible categories.
-
-Visualize what the __machine learning model__ will predict (H for high, L for low price) based on the feature values.
-
-<p align="center">
-<img width="800" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/intro2.png">
-</p>
-
-> ## Definition
->
->__Decision boundary__ - a region where all the patterns within the decision boundary belong to the same class. It divides the space that is represented by all the data points. Identifying the decision boundary can be used to classify the data points. The decision boundary does not have to be linear.
-{: .callout}
-
-This is a simple example of machine learning.
-
-> ## Definition
+> Regression - predicting a continuous number for the samples in the data set. 
 >
 > Model - mathematical representation that generates predictions based on the input data.
 {: .callout}
+
+> ## Scenarios
+> 1. You are trying to understand how temperature affects the speed of embryo development in mice.
+> After running an experiment where you record developmental milestones in mice at various temperatures, you run a linear regression on the results to see what the overall trend is. 
+> You use the regression results to predict how long certain developmental milestones will take at temperatures you’ve not tested. 
+>
+> 2. You want to create a guide for which statistical test should be used in biological experiments. 
+> You hand-write a decision tree based on your own knowledge of statistical tests. 
+> You create an electronic version of the decision tree which takes in features of an experiment and outputs a recommended statistical test. 
+>
+> 3. You are annoyed when your phone rings out loud, and decide to try to teach it to only use silent mode. 
+> Whenever it rings, you throw the phone at the floor. 
+> Eventually, it stops ringing. “It has learned. This is machine learning,”  you think to yourself. 
+{: .callout}
+
 
 ### What is the difference between a machine learning algorithm and a traditional algorithm?
 
@@ -123,17 +109,6 @@ You are given the ingredients and the final solution, but you don’t know the r
 So, what you need to do it to find the “fitting” of the ingredients, that would result in your solution.  
 
 Think about the following questions whenever we encounter a situation involving machine learning.
-
-> ## Conceptual Questions
->
-> What is the benefit of machine learning in this situation?
->
-> What are we trying to predict?
->
-> What features do we have for those predictions?
->
-> What machine learning model did we use, and why did we decide to use that one?
-{: .challenge}
 
 ### What does machine learning mean for biology?
 

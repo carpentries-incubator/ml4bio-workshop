@@ -313,6 +313,8 @@ The sum of all the predictions will be the total number of samples in the select
 > How does the decision boundary change as the classifier and hyperparameters change?
 >
 > What is the highest validation set accuracy you can achieve? 
+>
+> How does this compare to the training set accuracy?
 {: .checklist}
 
 <img width='200' src="{{ page.root }}/fig/software/confusion_matrix.png">
