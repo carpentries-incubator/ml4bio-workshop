@@ -24,7 +24,7 @@ Or in the case of T-cells, a decision tree can predict whether a T-cell is activ
 
 #### Example
 
-To better understand the algorithm, consider the house price prediction example from the [Introduction episode](https://gitter-lab.github.io/ml-bio-workshop/01-introduction/index.html).
+To better understand the algorithm, consider the classification task of predicting whether a house has a low or high price.
 If the house price is higher than $200k, we will predict high, otherwise we will predict low.
 We are going to begin with an initial house price range, and for our neighborhood of interest the prices range from $100k - $250k.
 The first question we could ask is the number of bedrooms in the house.
@@ -102,7 +102,7 @@ Some cons of using decision trees:
 > Overfitting - an overfitting model fits the training data too well, but it fails to do this on the new data.
 {: .callout}
 
-### Step 1 Select data
+### Select data
 
 > ## Software
 >
@@ -121,7 +121,7 @@ We will continue working on the T-cells example.
 The goal is the same, predicting whether a cell is active or quiescent.
 We also have the same two features: cell size and intensity.
 
-### Step 2 Train classifiers
+### Train classifiers
 
 In the original T-cells example, we left the hyperparameters settings as the defaults.
 Now we will look further into some of the hyperparameters.
@@ -152,11 +152,6 @@ In biology, it is common to have this type of __imbalanced training set__ with m
 >
 > If we look at the Data Plot, the decision boundaries are rectangular.
 {: .solution}
-
-> ## Think-Pair-Share
->
-> What do the different points represent?
-{: .challenge}
 
 > ## Solution
 >
@@ -196,12 +191,53 @@ In biology, it is common to have this type of __imbalanced training set__ with m
 > How does the data plot look for the uniform class_weight and how does it look for the balanced class weight?
 {: .challenge}
 
-### Step 3 Test and predict
+## Random Forests
 
-> ## Software
+Random forests deals with the problem of overfitting by creating multiple trees, with each tree trained slightly differently so it overfits differently.
+Random forests is a classifier that combines a large number of decision trees.
+The decisions of each tree are then combined to make the final classification.
+This "team of specialists" approach random forests take often outperforms the "single generalist" approach of decision trees.
+Multiple overfitting classifiers are put together to reduce the overfitting.
+
+### Motivation from the bias variance trade-off
+
+<p align="center">
+<img width="900" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/decisiontree3.jpeg">
+</p>
+
+In the previous lesson we looked at overfitting.
+Looking again at the different decision boundaries, note that the one of the left has high __bias__ while the one on the right has high __variance__.
+
+{% include biasvariance_slideshow.html %}
+
+> ## Definitions
 >
-> Finish Step 3 of the creating a model pipeline. 
-{: .checklist}
+> Bias - The assumptions made by a model about what the decision boundary will look like. Models with high bias are less sensitive to changes in the training data.
+>
+> Variance - The amount the training data affects what a model's decision boundary looks like. Models with high variance have low bias.
+>
+> Note that these concepts have more exact mathematical definitions which are beyond the scope of this workshop.
+{: .callout}
+
+Random forests are based on mitigating the negative effects of this trade-off by creating multiple high variance models that work together.
+
+
+### Why is it called "random" forests?
+
+If when training each tree in the forest, we give every tree the same data, we would get the same predictions that are prone to overfitting.
+In order to train the decision trees differently we need to provide slightly different data to each tree.
+To do this, we choose a **random** subset of the data to give to each tree.
+When training at each node in the tree we also **randomize** which features can be used to split the data.
+This method of creating random subsamples of data to make an __ensemble__ of classifiers which are then combined is called __bagging__. 
+The final prediction is based on a vote or the average taken across all the decision trees in the forest.
+
+> ## Definitions
+>
+> Ensemble Method - A general method where multiple models are combined to form a single model.
+>
+> Bagging - An ensemble method where many training sets are generated from a single training set using random sampling with replacement. Models are then trained on each sampled training set and combined for a final prediction. It is short for **bootstrap aggregating**. 
+{: .callout}
+
 
 ### Overfitting Example
 
@@ -246,13 +282,8 @@ The model that overfits has high variance.
 > Switch between training data and validation data in the upper right corner.
 {: .checklist}
 
-By looking at the __evaluation metrics__ and the confusion matrix we can see that when the training data evaluation metrics were perfect, but they were not as great on the validation data.
+By looking at the evaluation metrics and the confusion matrix we can see that when the training data evaluation metrics were perfect, but they were not as great on the validation data.
 The classifier probably overfit.
-
-> ## Definition
->
-> Evaluation metrics - used to measure the performance of a model.
-{: .callout}
 
 > ## Software
 >
@@ -265,35 +296,6 @@ The classifier probably overfit.
 >
 > Did the classifier overfit?
 {: .challenge}
-
-#### Regularization
-
-Here we to introduce regularization as a way of dealing with overfitting.
-
-##### Brief Overview
-
-- The dataset is usually split in training data and evaluation data
-- The model is trained on the training data and then further tuned on the test data
-- The model is then tested on the evaluation data
-- We measure the model's performance using different metrics
-
-Overfitting of a tree can lead to the misclassification on future data points.
-We previously learned that by allowing the tree to go to the maximum depth during training, the classifier would fail to learn to generalize, and could overfit.
-To be able to improve the misclasssification of the model, we use certain metrics.
-The objective is to minimize the misclassification, or the error, and this can be done with regularization.
-
-##### Regularizing the model
-
-When a model overfits, it can fit the training data very well, but fail to predict the new evaluation data.
-Regularization in decision trees can be done by pruning.
-Pruning a plant means removing the parts of the plant that might be dead or non-productive. 
-Similarly, pruning in decision trees means removing parts of the tree that do not contribute to classification. 
-Pruning the decision tree reduces its size. 
-
-> ## Definition
->
-> Pruning - improves classification by reducing the overfitting.   
-{: .callout}
 
 
 ###  Application in biology
