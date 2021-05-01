@@ -1,33 +1,17 @@
 ---
 title: "Evaluating a Model"
-teaching: 15
-exercises: 5
+durtation: 20 
 questions:
-- "How do you evaluate the performance of a model?"
+- How do you evaluate the performance of a machine learning model?
 objectives:
 - Create questions to ask about a machine learning task to aid model selection
-- Evaluate the choice of a metric for a particular task
+- Choose the appropriate evaluation metric for a particular machine learning problem
 - Derive the definitions of popular evaluation metrics
 keypoints:
 - The choice of evaluation metric depends on what the data's class composition is, and what we want the model to succeed at.
 - Comparing performance on the validation set with the right metric is an effective way to select a classifier and hyperparameter settings.
 mathjax: true
 ---
-
-### Model Selection
-
-Choosing the proper machine learning model for a given task requires knowledge of both machine learning models and the domain of the task.
-Finding _the best_ model for a new task in machine learning is often a research question in itself.
-Finding a model that performs _reasonably well_, however, can often be accomplished by carefully considering the task domain and a little trial and error with the validation set.
-
-Some of the questions to consider when choosing a model are:
-
-* How much data is there to train with?
-* Does the data contain about the same number of each class?
-* How many features does the dataset have? Are all of the features relevant, or might some of them not be related to the data's class?
-* What types are the features (numeric, categorical, image, text)?
-* What might the decision boundary look like? Is the data likely linearly separable?
-* How noisy is the data?
 
 ### Evaluation Metrics
 

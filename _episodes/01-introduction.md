@@ -1,13 +1,11 @@
 ---
 title: "Introduction"
-teaching: 20
-exercises: 5
+duration: 30
 questions:
 - What is machine learning?
 objectives:
-- Define machine learning
+- Define and give examples of machine learning
 - Identify problems in computational biology suitable for machine learning
-- Recognize the benefits of machine learning techniques
 keypoints:
 - Machine learning algorithms recognize patterns from example data
 - Supervised learning involves predicting labels from features

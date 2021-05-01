@@ -1,9 +1,8 @@
 ---
 title: "Conclusion"
-teaching: 5
-exercises: 20
+duration: 40
 questions:
-- "Where can you learn more about machine learning?"
+- Where can you learn more about machine learning?
 objectives:
 - Assess how well you understand a machine learning workflow
 - Provide feedback on the workshop

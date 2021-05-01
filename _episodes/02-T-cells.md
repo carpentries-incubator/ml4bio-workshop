@@ -1,14 +1,13 @@
 ---
 title: "Classifying T-cells"
-teaching: 25
-exercises: 5
+duration: 45
 questions:
 - What are the steps in a machine learning workflow?
 objectives:
 - Define classifiers
-- Comprehend how the datasets are preprocessed
-- Learn what are samples, features, and class labels in a biological example
-- Understand training, validation, and test sets
+- Identify the parts of a machine learning workflow using machine learning terminology
+- Summarize the stages of a machine learning workflow
+- Describe how training, validation, and test sets can avoid data leakage
 keypoints:
 - Choosing how to represent a dataset in a machine learning task can have a large impact on performance
 - The machine learning workflow is split into data preprocessing and selection, training and model selection, and evaluation stages

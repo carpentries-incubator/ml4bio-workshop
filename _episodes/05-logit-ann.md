@@ -1,18 +1,17 @@
 ---
 title: "Logistic Regression, Artificial Neural Networks, and Linear Separability"
-teaching: 15
-exercises: 15
+duration: 40
 questions:
 - What is linear separability?
 objectives:
-- Understand advantages and disadvantages of a classifier.
-- Develop an ability to discern between linear and nonlinear classifiers.
-- Learn various methods to prevent overfitting.
+- Understand advantages and disadvantages of logistic regression and artificial neural networks
+- Distinguish linear and nonlinear classifiers
+- Predict whether a dataset is likely to be linear or nonlinear
 keypoints:
 - Logistic regression is a linear classifier.
 - The output of logistic regression is probability of a certain class.
-- Logistic regression is characterized by linear separability of the data.
-- Regularization can be used to improve an overfitting model.
+- Artificial neural networks can be viewed as an extension of logistic regression
+- Artificial neural networks can have nonlinear decision boundaries
 mathjax: true
 ---
 

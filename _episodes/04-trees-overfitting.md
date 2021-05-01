@@ -1,17 +1,16 @@
 ---
 title: "Decision Trees"
-teaching: 15
-exercises: 15
+duration: 35
 questions:
-- How does the decision trees classifier make predictions?
+- How do decision trees and random forests make decisions?
 objectives:
-- Develop knowledge on how a classifier makes predictions.
-- Understand advantages and disadvantages of a classifier.
-- Discuss applying, updating, and evaluating a trained model on new data.
+- Describe the decision boundary of a decision tree and random forest
+- Understand advantages and disadvantages of decision trees and random forests
+- Identify evidence of overfitting
 keypoints:
-- Decision trees are easy to visualize and intuitive to understand.
-- Decision trees are prone to overfitting.
-- In biology, imbalanced datasets are common.
+- Decision trees are easy to visualize and intuitive to understand
+- Decision trees are prone to overfitting
+- Random forests solve many of the problems of decision trees but are more difficult to interpret
 ---
 
 ### What is the decision tree classifier?
