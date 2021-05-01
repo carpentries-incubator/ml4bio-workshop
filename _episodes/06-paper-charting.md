@@ -1,115 +1,63 @@
 ---
-title: "Paper Charting Activity"
-teaching: 15
-exercises: 15
+title: "Understanding Machine Learning Literature"
+length: 60 minutes
 questions:
-- How is the classifier preventing overfitting?
+- How are machine learning workflows presented in research papers?
 objectives:
-- Develop knowledge on how a random forest classifier makes a prediction.
-- Come up with the random forest decision rule.
+- Assess a typical machine learning methodology presented in an academic paper
 keypoints:
-- Random forests combines the large number of decision trees.
-- Each tree is given a random subset of the data.
-- Random forests tend to be a good classifier on many different datasets.
+- Research workflows for machine learning are often not straightforward
+- Published papers often omit details which can make it difficult to evaluate machine learning workflows
+- Machine learning is used in a large variety of ways in biology
 ---
 
-In this episode, we will learn about the random forests classifier.
-Using the software, we will analyze the pre-engineered dataset and discuss the hyperparameters.
-Then we will consider some applications in biology.
+This lesson will focus on understanding and evaluation machine learning workflows as they are presented in the literature. 
+For this lesson, __we request that you bring a paper from your field which involves machine learning for day 2__.
 
-We previously examined decision trees.
-One of their main weaknesses is their tendency to overfit if the tree is allowed to get too deep.
-In training a decision tree we often have to alter the decision tree's parameters to keep it a "generalist", instead of allowing it to overly specialize and overfit the training examples.
+We will be exploring filling out  <a href="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/assessmentChartV2Form.pdf" download="paper_ML_chart.pdf">  
+ this chart 
+ </a>
+for the paper you select. 
 
-Random forests deals with the problem of overfitting by creating multiple trees, with each tree trained slightly differently so it overfits differently.
-Random forests is a classifier that combines a large number of decision trees.
-The decisions of each tree are then combined to make the final classification.
-This "team of specialists" approach random forests take often outperforms the "single generalist" approach of decision trees.
-Multiple overfitting classifiers are put together to reduce the overfitting.
+## Choosing a paper to bring
 
-### Motivation from the bias variance trade-off
+Ideally, this paper will use supervised learning in some form. 
+While the paper should contain a classification or regression task, this task does not have to be the main goal of the paper. 
+If the paper you choose has multiple machine learning models or tasks, choose one of them to focus on. 
 
-<p align="center">
-<img width="900" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/decisiontree3.jpeg">
-</p>
+Terms to look out for when searcher for a paper are terms related to the machine learning workflow such as training, testing, holdout, features, classifier, or regression. 
+You can also looks for the name of and specific classifier, such as random forest or neural network. 
+Papers which use deep learning methods are also usable for this activity.
 
-In the previous lesson we looked at overfitting.
-Looking again at the different decision boundaries, note that the one of the left has high __bias__ while the one on the right has high __variance__.
+It's okay if the paper is not an exact fit, especially if it is a technique used in your field which you want to understand.
 
-{% include biasvariance_slideshow.html %}
+### Example/Backup Papers
 
-> ## Definitions
+Here is a list of papers which are good examples for this activity. 
+If you're struggling to find a paper, you can use of of these instead.
+
+- [Classification of human genomic regions based on experimentally determined binding sites of more than 100 transcription-related factors](https://genomebiology.biomedcentral.com/articles/10.1186/gb-2012-13-9-r48#Sec21)
+
+### Example Chart
+
+Here is an example partially filled-out chart from Predictive Models for [Breast Cancer Susceptibility from Multiple Single Nucleotide Polymorphisms](https://clincancerres.aacrjournals.org/content/clincanres/10/8/2725.full.pdf). 
+Note that this paper uses 3 different classifiers, but we are just going to focus on the decision tree:
+
+<a href="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/partial_filled_assessmentChartV2Form.pdf" download>
+  <img src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/partial_form_assessmentChartV2.png" alt="W3Schools" width="104" height="142">
+</a>
+
+> ## Example Chart Activity
 >
-> Bias - The assumptions made by a model about what the decision boundary will look like. Models with high bias are less sensitive to changes in the training data.
+> Look in the paper for where the filled in parts of the chart came from.
 >
-> Variance - The amount the training data affects what a model's decision boundary looks like. Models with high variance have low bias.
->
-> Note that these concepts have more exact mathematical definitions which are beyond the scope of this workshop.
+> Based on the paper and the filled out parts of the chart, try to fill in the conclusion section.
 {: .callout}
 
-Random forests are based on mitigating the negative effects of this trade-off by creating multiple high variance models that work together.
-
-
-### Why is it called "random" forests?
-
-If when training each tree in the forest, we give every tree the same data, we would get the same predictions that are prone to overfitting.
-In order to train the decision trees differently we need to provide slightly different data to each tree.
-To do this, we choose a **random** subset of the data to give to each tree.
-When training at each node in the tree we also **randomize** which features can be used to split the data.
-This method of creating random subsamples of data to make an __ensemble__ of classifiers which are then combined is called __bagging__. 
-The final prediction is based on a vote or the average taken across all the decision trees in the forest.
-
-> ## Definitions
+> ## Charting Your Paper
 >
-> Ensemble Method - A general method where multiple models are combined to form a single model.
+> Now, on your own, being to see if you can fill in a blank chart using the paper you brought today.
 >
-> Bagging - An ensemble method where many training sets are generated from a single training set using random sampling with replacement. Models are then trained on each sampled training set and combined for a final prediction. It is short for **bootstrap aggregating**. 
 {: .callout}
-
-
-### Step 1 Select data
-
-> ## Software
->
-> Load a simulated_t_cells_2 data set into our software.
-{: .checklist}
-
-> ## Conceptual Questions
->
-> What are we trying to predict?
->
-> What is the decision rule?
-{: .challenge}
-
-
-### Step 2 Train Classifiers
-
-In this workshop not all of the hyperparameters from the software will be covered.
-For the hyperparameters that we don't discuss, use the default settings.
-- N-estimator represents the number of the decision trees that go into forest. Although we want to consider the biggest number of trees possible, there is a certain number where the classifier performance won't be improving. The software allows at most 50 trees.
-- Max-features represents the number of features considered. For the classification problems *sqrt* is mostly used. That is the square root of the total number of features.
-
-> ## Software
->
-> Train the classifier without changing the hyperparameters.
-{: .checklist}
-
-> ## Think-Pair-Share
->
-> What happens when you change the number of trees in the forest?
->
-> Compare test data and validation data.
-{: .challenge}
-
-
-### Step 3 Test and Predict
-
-> ## Software
->
-> In the software, go to the Step 3.
->
-> Choose the evaluation metric to select the best-performing classifier.
-{: .checklist}
-
 
 {% include links.md %}
