@@ -14,10 +14,7 @@ keypoints:
 This lesson will focus on understanding and evaluation machine learning workflows as they are presented in the literature. 
 For this lesson, __we request that you bring a paper from your field which involves machine learning for day 2__.
 
-We will be exploring filling out  <a href="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/assessmentChartV2Form.pdf" download="paper_ML_chart.pdf">  
- this chart 
- </a>
-for the paper you select. 
+We will be exploring filling out  <a href="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/assessmentChartV2Form.pdf" download="paper_ML_chart.pdf">  this chart </a> for the paper you select. 
 
 ## Choosing a paper to bring
 
