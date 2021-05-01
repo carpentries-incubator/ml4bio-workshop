@@ -40,7 +40,7 @@ If you're struggling to find a paper, you can use of of these instead.
 Here is an example partially filled-out chart from Predictive Models for [Breast Cancer Susceptibility from Multiple Single Nucleotide Polymorphisms](https://clincancerres.aacrjournals.org/content/clincanres/10/8/2725.full.pdf). 
 Note that this paper uses 3 different classifiers, but we are just going to focus on the decision tree:
 
-<a href="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/partial_filled_assessmentChartV2.png" download>
+<a href="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/partial_filled_assessmentChartV2form.pdf" download>
   <img src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/partial_form_assessmentChartV2.png" width="750">
 </a>
 
