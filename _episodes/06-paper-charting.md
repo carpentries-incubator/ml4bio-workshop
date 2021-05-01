@@ -14,7 +14,7 @@ keypoints:
 This lesson will focus on understanding and evaluation machine learning workflows as they are presented in the literature. 
 For this lesson, __we request that you bring a paper from your field which involves machine learning for day 2__.
 
-We will be exploring filling out  <a href="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/assessmentChartV2Form.pdf">  this chart </a> for the paper you select. 
+We will be exploring filling out  <a href="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/assessmentChartV2Form.pdf" download>  this chart </a> for the paper you select. 
 
 ## Choosing a paper to bring
 
@@ -40,7 +40,7 @@ If you're struggling to find a paper, you can use of of these instead.
 Here is an example partially filled-out chart from Predictive Models for [Breast Cancer Susceptibility from Multiple Single Nucleotide Polymorphisms](https://clincancerres.aacrjournals.org/content/clincanres/10/8/2725.full.pdf). 
 Note that this paper uses 3 different classifiers, but we are just going to focus on the decision tree:
 
-<a href="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/partial_filled_assessmentChartV2Form.pdf">
+<a href="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/partial_filled_assessmentChartV2form.pdf" download>
   <img src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/partial_form_assessmentChartV2.png" width="750">
 </a>
 
