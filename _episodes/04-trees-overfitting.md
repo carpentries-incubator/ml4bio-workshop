@@ -230,6 +230,10 @@ When training at each node in the tree we also **randomize** which features can 
 This method of creating random subsamples of data to make an __ensemble__ of classifiers which are then combined is called __bagging__. 
 The final prediction is based on a vote or the average taken across all the decision trees in the forest.
 
+<p align="center">
+<img width="900" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/random_forest_diagram.png">
+</p>
+
 > ## Definitions
 >
 > Ensemble Method - A general method where multiple models are combined to form a single model.
@@ -244,18 +248,13 @@ The final prediction is based on a vote or the average taken across all the deci
 >
 > Load ./data/neurotoxicity/*neurotoxicity_d16.csv* data set into the software.
 >
-> Go through the Steps 1 and 2 in the software. 
-{: .checklist}
-
-> ## Play time
+> Try training both a decision tree and a random forest on the data. 
 >
 > What do you notice after you trained the model?
 > 
 > How did the classifier perform on the training data compared to the validation data?
 > 
 > Change the max_depth parameter.
-> 
-> Has anything changed? 
 >
 > Did you notice any difference?
 {: .challenge}
@@ -269,10 +268,6 @@ The overfitted model has too many features.
 However, the solution is not necessarily to start removing these features, because this might lead to underfitting.
 
 The model that overfits has high variance.
-
-<p align="center">
-<img width="900" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/decisiontree3.jpeg">
-</p>
 
 > ## Software
 >
@@ -296,6 +291,20 @@ The classifier probably overfit.
 > Did the classifier overfit?
 {: .challenge}
 
+> ## Classifier selection scenarios
+>
+> In the following scenarios, which classifier would you choose?
+>
+> 1. You want to create a model to classify a protein's subcellular localization (nucleus, mitochondria, plasma membrane, etc.). 
+> You have a labeled set of 15,000 human proteins with 237 features for each protein. 
+> These features were computationally derived from simulations using protein structure predicting software, and do not have any predefined meaning.
+>
+> 2. You want to create a model to predict whether or not a species' conservation status (least concern, endangered, extinct, etc.) will be affected by climate change. 
+> You have a labeled dataset of 40 species, with 18 features for each species which have been curated by ecologists. 
+> These features include information such as the species' average size, diet, taxonomic class, migratory pattern, and habitat. 
+> You are interested to see which features are most important for predicting a species' fate.
+>
+{: .challenge}
 
 ###  Application in biology
 

@@ -221,6 +221,20 @@ For example, below is the architecture of a neural network used to [evaluate the
 
 This neural network still consists of hidden layers combined with functions, but contains many specialized layers which perform specific operations on the input features.
 
+> ## Classifier selection scenarios
+>
+> In the following scenarios, which classifier would you choose?
+>
+> 1. You are interested in learning about how different factors contribute to different water preservation adaptations in plants. 
+> You plan to create a model for each of 4 moisture preservation adaptations, and use a dataset of 200 plant species to train each model.
+> You have 15 features for each species, consisting of environmental information such as latitude, average temperature, average rainfall, average sun intensity, etc. 
+>
+> 2. You have been tasked with creating a model to predict whether a mole sample is benign or malignant based on gene expression data. 
+> Your dataset is a set of 380 skin samples, each of which has expression data for 50 genes believed to be involved in melanoma. 
+> It is likely that a combination of genes is required for a mole to be cancerous. 
+>
+{: .challenge}
+
 #### Regularization
 
 Recall, regularization is used to make sure that our model pays attention only to the important features to avoid overfitting. 

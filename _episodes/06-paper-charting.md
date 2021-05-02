@@ -22,7 +22,7 @@ Ideally, this paper will use supervised learning in some form.
 While the paper should contain a classification or regression task, this task does not have to be the main goal of the paper. 
 If the paper you choose has multiple machine learning models or tasks, choose one of them to focus on. 
 
-Terms to look out for when searcher for a paper are terms related to the machine learning workflow such as training, testing, holdout, features, classifier, or regression. 
+Terms to look out for when searching for a paper are terms related to the machine learning workflow such as training, testing, holdout, features, classifier, or regression. 
 You can also looks for the name of and specific classifier, such as random forest or neural network. 
 Papers which use deep learning methods are also usable for this activity.
 
