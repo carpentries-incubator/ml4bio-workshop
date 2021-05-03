@@ -91,7 +91,7 @@ $y = w_0 + w_1x_1$ is a straight line.
 The separating function has the equation $w_0+w_1x_1= 0$.
 If $w_0+w_1x_1>0$ the T-cell is classified as active, and if $w_0+w_1x_1<0$ the T-cell is classified as quiescent. 
 
-> ## Questions to consider
+> ## Questions to consider 
 >
 > Think of an example when a linear separability is not a straight line.
 >
@@ -116,7 +116,7 @@ If $w_0+w_1x_1>0$ the T-cell is classified as active, and if $w_0+w_1x_1<0$ the 
 > For now use the default hyperparameters.
 {: .checklist}
 
-> ## Questions to consider
+> ## Questions to consider - Poll
 >
 > Look at the Data Plot.
 > What do you notice?
@@ -221,7 +221,7 @@ For example, below is the architecture of a neural network used to [evaluate the
 
 This neural network still consists of hidden layers combined with functions, but contains many specialized layers which perform specific operations on the input features.
 
-> ## Classifier selection scenarios
+> ## Classifier selection scenarios - Poll
 >
 > In the following scenarios, which classifier would you choose?
 >

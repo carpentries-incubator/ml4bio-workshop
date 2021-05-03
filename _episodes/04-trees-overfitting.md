@@ -244,7 +244,7 @@ The final prediction is based on a vote or the average taken across all the deci
 
 ### Overfitting Example
 
-> ## Software
+> ## Software - Poll
 >
 > Load ./data/neurotoxicity/*neurotoxicity_d16.csv* data set into the software.
 >
@@ -284,14 +284,14 @@ The classifier probably overfit.
 > Let's go to the Step 3 in the software.
 {: .checklist}
 
-> ## Questions
+> ## Questions 
 >
 > Based on accuracy, which classifier was best-performing?
 >
 > Did the classifier overfit?
 {: .challenge}
 
-> ## Classifier selection scenarios
+> ## Classifier selection scenarios - Poll
 >
 > In the following scenarios, which classifier would you choose?
 >

@@ -185,7 +185,7 @@ In other words, improper data splitting and data leakage means that _we will not
 <img width="350" src="{{ page.root }}/fig/software/train_test_split.png">
 </p>
 
-> ## Scenarios
+> ## Scenarios - Poll
 > In the following excerpts, consider the methodology presented and determine if there is evidence of data leakage:
 >
 > 1. We created a decision tree model to predict whether the compound would inhibit cell growth. 
@@ -316,7 +316,7 @@ The __Confusion Matrix__ reflects the selected dataset (training or validation).
 The T-cells dataset has two labels so that the Confusion Matrix will be 2 x 2. 
 The sum of all the predictions will be the total number of samples in the selected dataset (training or validation).
 
-> ## Software
+> ## Software - Poll
 >
 > Train a few different classifiers and explore the following questions:
 > 
