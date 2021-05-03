@@ -1,6 +1,6 @@
 ---
 title: "Logistic Regression, Artificial Neural Networks, and Linear Separability"
-duration: 40
+duration: 45
 questions:
 - What is linear separability?
 objectives:

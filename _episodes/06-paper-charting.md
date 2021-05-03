@@ -1,6 +1,6 @@
 ---
 title: "Understanding Machine Learning Literature"
-duration: 60
+duration: 65
 questions:
 - How are machine learning workflows presented in research papers?
 objectives:

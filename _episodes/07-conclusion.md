@@ -1,6 +1,6 @@
 ---
-title: "Conclusion"
-duration: 40
+title: "Conclusion and next steps"
+duration: 45
 questions:
 - Where can you learn more about machine learning?
 objectives:
