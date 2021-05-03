@@ -61,7 +61,7 @@
         {% endif %}
       </td>
     </tr>
-    {% assign current = current | plus: episode.teaching | plus: episode.exercises | plus: episode.break %}
+    {% assign current = current | plus: episode.duration | plus: episode.break%}
   {% endfor %}
   {% assign hours = current | divided_by: 60 %}
   {% assign minutes = current | modulo: 60 %}

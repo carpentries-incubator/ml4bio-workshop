@@ -1,6 +1,6 @@
 ---
 title: "Evaluating a Model"
-durtation: 20 
+duration: 20 
 questions:
 - How do you evaluate the performance of a machine learning model?
 objectives:
