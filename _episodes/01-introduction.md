@@ -64,9 +64,10 @@ For some external resources, check out the [glossary][lesson-glossary].
 > Unsupervised learning - training a model from the unlabeled input data to find patterns in the data. 
 {: .callout}
 
-<p align="center">
+<figure>
 <img width="800" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/supervised_vs_unsupervised.png">
-</p>
+<figcaption> Image adapted from <a href="https://github.com/rasbt/python-machine-learning-book-2nd-edition"> Python Machine Learning, 2rd Ed.</a> by Sebastian Raschka and Vahid Mirjalili</figcaption>
+</figure>
 
 > ## Definition
 >

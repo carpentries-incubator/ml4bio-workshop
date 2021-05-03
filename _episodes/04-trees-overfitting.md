@@ -1,5 +1,5 @@
 ---
-title: "Decision Trees"
+title: "Decision Trees, Random Forests, and Overfitting"
 duration: 40
 questions:
 - How do decision trees and random forests make decisions?
