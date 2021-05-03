@@ -209,7 +209,7 @@ The number of times the data is split is referred to as the number of folds.
 For instance, 5-fold cross validation would split a dataset into 5 equal subsets, then run 5 different iterations of training and testing:
 
 <p align="center">
-<img width="800" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/cv_fig.png">
+<img width="700" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/cv_fig.png">
 </p>
 
 > ## Software
