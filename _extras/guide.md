@@ -15,13 +15,13 @@ After warm-up, go through the 3 ML examples:
 
 1. You are trying to understand how temperature affects the speed of embryo development in mice. After running an experiment where you record developmental milestones in mice at various temperatures, you run a linear regression on the results to see what the overall trend is. You use the regression results to predict how long certain developmental milestones will take at temperatures you’ve not tested.
 
-*This is machine learning*
-*There is a model, the linear regression, which is learning from instances and being used for prediction.*
-*Even though a linear regression is simple, when used in this way it is machine learning*
+    *This is machine learning*
+    *There is a model, the linear regression, which is learning from instances and being used for prediction.*
+    *Even though a linear regression is simple, when used in this way it is machine learning*
 
 2. You want to create a guide for which statistical test should be used in biological experiments. You hand-write a decision tree based on your own knowledge of statistical tests. You create an electronic version of the decision tree which takes in features of an experiment and outputs a recommended statistical test.
 
-    *While this example contains a decision tree, which is used as a classifier, there is no learning from data*
+    *While this example contains a decision tree, which is used as a classifier, there is no learning from data.*
     *The decision tree is instead being created by hand.*
     *This is not machine learning.*
 
@@ -36,23 +36,23 @@ Data leakage scenarios:
 
 1. We created a decision tree model to predict whether the compound would inhibit cell growth. We trained the model on the 48 available instances, and found that the decision tree was able to predict those instances with an accuracy of 0.96. Thus, the decision tree is high performing on this task.
 
-*This is the improper usage of data.*
-*Clues that can lead us to this conclusion are that there is no mention of splitting the data between a training set and a testing set.*
-*The only information that is provided is that the accuracy was on the same instances that the model was trained with.*
-*This accuracy value is not representative of what would be gotten with new data.*
+    *This is the improper usage of data.*
+    *Clues that can lead us to this conclusion are that there is no mention of splitting the data between a training set and a testing set.*
+    *The only information that is provided is that the accuracy was on the same instances that the model was trained with.*
+    *This accuracy value is not representative of what would be gotten with new data.*
 
 2. We trained 36 different models, each using a different combination of hyperparameters. We trained each model on 80% of the data, withholding 20% of the data to test each model. We present the highest performing model here to show the effectiveness of machine learning on this task. 
 
-*In this example, we do see that there is a split between the training set and the testing set.*
-*However, the testing set was used to select the best of the 36 models instead of a validation set.*
-*Thus, information from the testing set has __leaked__ into creating the model.*
-*The models performance is thus likely inflated.*
+    *In this example, we do see that there is a split between the training set and the testing set.*
+    *However, the testing set was used to select the best of the 36 models instead of a validation set.*
+    *Thus, information from the testing set has __leaked__ into creating the model.*
+    *The models performance is thus likely inflated.*
 
 3. We split the data into training and testing sets of 80% and 20%, and further split the training set into a training and validation set. We trained 200 models on the training data, and chose the best-performing model based on performance on the validation set. After choosing and training the model, we found that the model had an accuracy of 0.93 on the testing set.
 
-*This example does not appear to have any data leakage.*
-*The data was properly split into a training and validation set, and the best model was chosen without looking at the testing set.*
-*Thus, we can trust that the performance on the testing set would represent performance on new data given to the model.*
+    *This example does not appear to have any data leakage.*
+    *The data was properly split into a training and validation set, and the best model was chosen without looking at the testing set.*
+    *Thus, we can trust that the performance on the testing set would represent performance on new data given to the model.*
 
 ## Evaluating a model
 
@@ -66,7 +66,7 @@ In the following scenarios, which classifier would you choose?
 You want to create a model to classify a protein’s subcellular localization (nucleus, mitochondria, plasma membrane, etc.). You have a labeled set of 15,000 human proteins with 237 features for each protein. These features were computationally derived from simulations using protein structure predicting software, and do not have any predefined meaning.
 
 *In this scenario, we would probably want to use a random forest.*
-*There are a lof of features and data, which means that a random forest's increased complexity is a good thing here.*
+*There are a lot of features and data, which means that a random forest's increased complexity is a good thing here.*
 *The features are also not that interpretable, so we're not too concerned with being able to understand why the model is making certain decisions.*
 
 You want to create a model to predict whether or not a species’ conservation status (least concern, endangered, extinct, etc.) will be affected by climate change. You have a labeled dataset of 40 species, with 18 features for each species which have been curated by ecologists. These features include information such as the species’ average size, diet, taxonomic class, migratory pattern, and habitat. You are interested to see which features are most important for predicting a species’ fate.

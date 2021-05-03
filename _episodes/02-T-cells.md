@@ -188,13 +188,13 @@ In other words, improper data splitting and data leakage means that _we will not
 > ## Scenarios - Poll
 > In the following excerpts, consider the methodology presented and determine if there is evidence of data leakage:
 >
-> 1. We created a decision tree model to predict whether the compound would inhibit cell growth. 
+> 1. We created a decision tree model to predict whether a compound would inhibit cell growth. 
 > We trained the model on the 48 available instances, and found that the decision tree was able to predict those instances with an accuracy of 0.96. 
 > Thus, the decision tree is high performing on this task. 
 >
 > 2. We trained 36 different models, each using a different combination of hyperparameters. 
 > We trained each model on 80% of the data, withholding 20% of the data to test each model. 
-> We present the highest performing model here to show the effectiveness of machine learning on this task. 
+> We present the highest performing model to show the effectiveness of machine learning on this task. 
 >
 > 3. We split the data into training and testing sets of 80% and 20%, and further split the training set into a training and validation set. 
 > We trained 200 models on the training data, and chose the best-performing model based on performance on the validation set. 

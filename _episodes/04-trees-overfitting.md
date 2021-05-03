@@ -64,12 +64,12 @@ The splitting goes from the __root__ at the top of the tree to a __leaf node__ a
 > Leaf node - a bottom node that doesn't split any further. It represents the class label.
 {: .callout}
 
-An instance is classified starting from the root and testing the feature specified by the __node__, then going down the split based on the outcome of the test and testing a different feature specified by another node.  
+An instance is classified starting from the root and testing the feature specified by the __node__, then going down the split based on the outcome of the test and testing a different feature specified by another node.
 Each leaf node in the tree is a class label.
 
 > ## Definition
 >
-> Node - a test performed on a feature. It branches into two branches.
+> Node - a test performed on a feature. It splits into two branches.
 {: .callout}
 
 ### About the classifier
@@ -236,7 +236,7 @@ The final prediction is based on a vote or the average taken across all the deci
 
 > ## Definitions
 >
-> Ensemble Method - A general method where multiple models are combined to form a single model.
+> Ensemble method - A general method where multiple models are combined to form a single model.
 >
 > Bagging - An ensemble method where many training sets are generated from a single training set using random sampling with replacement. Models are then trained on each sampled training set and combined for a final prediction. It is short for **bootstrap aggregating**. 
 {: .callout}
@@ -246,7 +246,7 @@ The final prediction is based on a vote or the average taken across all the deci
 
 > ## Software - Poll
 >
-> Load ./data/neurotoxicity/*neurotoxicity_d16.csv* data set into the software.
+> Load *./data/neurotoxicity/neurotoxicity_d16.csv* data set into the software.
 >
 > Try training both a decision tree and a random forest on the data. 
 >

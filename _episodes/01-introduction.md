@@ -46,11 +46,11 @@ One of the most popular textbooks on machine learning, *Machine Learning* by Tom
 Machine learning can be broadly split into two categories, __supervised machine learning__ and and __unsupervised learning__.
 Machine learning is considered supervised when there is a specific answer the model is trying to predict, questions like what is the price of a house? 
 Is this mushroom edible? 
-What disease does this patient have. 
+What disease does this patient have? 
 Some examples of supervised machine learning are __classification__ and __regression__.
 These will be further defined in the next lesson.
 
-Unsupervised machine learning has no particular target for it's learning, it is instead trying to answer general questions about patterns.
+Unsupervised machine learning has no particular target for its learning, it is instead trying to answer general questions about patterns.
 This can include questions like how do these cells group together?
 In what way are these samples most different from each other?
 An example of unsupervised machine learning is __clustering__.
@@ -103,7 +103,7 @@ For some external resources, check out the [glossary][lesson-glossary].
 Let’s say you are doing an experiment, and you need to mix up some solutions.
 You have all the ingredients, you have the “recipe” or the proportions, and you follow the recipe to get a solution.
 
-**ML algorithm:**
+**Machine learning algorithm:**
 You are given the ingredients and the final solution, but you don’t know the recipe.
 So, what you need to do it to find the “fitting” of the ingredients, that would result in your solution.  
 

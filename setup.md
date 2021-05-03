@@ -83,7 +83,7 @@ After you close the ml4bio software, you can run the same `install_launch` scrip
 The script will not install anything new the second time you run it.
 It will use Anaconda to open ml4bio.
 
-The [ml4bio graphical interface lesson][episode-gui] will provide an introduction to the ml4bio software during the workshop.
+A dedicated [lesson][episode-t-cells] will provide an introduction to the ml4bio software during the workshop.
 See the [software environment details](#software-environment-details) for more information about how the ml4bio software works.
 
 ### Troubleshooting

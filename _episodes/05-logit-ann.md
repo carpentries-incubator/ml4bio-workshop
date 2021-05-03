@@ -25,7 +25,7 @@ We will be focusing on the binary classification problem.
 
 #### Linear regression vs. logistic regression
 
-You should be familiar with $y=mx+b$. 
+We can write the equation for a line as $y=mx+b$, where $x$ is the x-coordinate and $y$ is the y-coordinate.
 If we rewrite it in terms of feature weights $y=w_1x+w_0$ where $w_0$ is the intercept of the line and $w_1$ is the slope of the line. 
 In statistics, for the simple linear regression we write intercept term first $y=w_0+w_1x$. 
 
@@ -172,7 +172,7 @@ These new values are then fed to the logistic function as opposed to the raw fea
 
 > ## Questions to consider
 >
-> What is the evaluation metrics telling?
+> What are the evaluation metrics telling us?
 >
 > Look at the Data Plot.
 > What do you notice?
@@ -225,7 +225,7 @@ This neural network still consists of hidden layers combined with functions, but
 >
 > In the following scenarios, which classifier would you choose?
 >
-> 1. You are interested in learning about how different factors contribute to different water preservation adaptations in plants. 
+> 1. You are interested in learning about how different factors contribute to water preservation adaptations in plants. 
 > You plan to create a model for each of 4 moisture preservation adaptations, and use a dataset of 200 plant species to train each model.
 > You have 15 features for each species, consisting of environmental information such as latitude, average temperature, average rainfall, average sun intensity, etc. 
 >

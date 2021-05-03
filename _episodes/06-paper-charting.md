@@ -11,7 +11,7 @@ keypoints:
 - Machine learning is used in a large variety of ways in biology
 ---
 
-This lesson will focus on understanding and evaluation machine learning workflows as they are presented in the literature. 
+This lesson will focus on understanding and evaluating machine learning workflows as they are presented in the literature. 
 For this lesson, __we request that you bring a paper from your field which involves machine learning for day 2__.
 
 We will be exploring filling out  <a href="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/assessmentChartV2form.pdf" download>  this chart </a> for the paper you select. 
@@ -23,7 +23,7 @@ While the paper should contain a classification or regression task, this task do
 If the paper you choose has multiple machine learning models or tasks, choose one of them to focus on. 
 
 Terms to look out for when searching for a paper are terms related to the machine learning workflow such as training, testing, holdout, features, classifier, or regression. 
-You can also looks for the name of and specific classifier, such as random forest or neural network. 
+You can also looks for the name of a specific classifier, such as random forest or neural network. 
 Papers which use deep learning methods are also usable for this activity.
 
 It's okay if the paper is not an exact fit, especially if it is a technique used in your field which you want to understand.
@@ -48,12 +48,12 @@ Note that this paper uses 3 different classifiers, but we are just going to focu
 >
 > Look in the paper for where the filled in parts of the chart came from.
 >
-> Based on the paper and the filled out parts of the chart, try to fill in the conclusion section.
+> Based on the paper and the filled out parts of the chart, try to fill in the Your Conclusions section.
 {: .callout}
 
 > ## Charting Your Paper
 >
-> Now, on your own, being to see if you can fill in a blank chart using the paper you brought today.
+> Now, on your own, see if you can fill in a blank chart using the paper you brought today.
 >
 {: .callout}
 
