@@ -1,6 +1,6 @@
 ---
 title: "Decision Trees"
-duration: 35
+duration: 40
 questions:
 - How do decision trees and random forests make decisions?
 objectives:
