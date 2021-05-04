@@ -55,7 +55,7 @@ This can include questions like how do these cells group together?
 In what way are these samples most different from each other?
 An example of unsupervised machine learning is __clustering__.
 Unsupervised learning will not be covered in this workshop.
-For some external resources, check out the [glossary][lesson-glossary].
+For some external resources, check out the [references][lesson-reference].
 
 > ## Definitions
 >
@@ -71,18 +71,21 @@ For some external resources, check out the [glossary][lesson-glossary].
 
 > ## Definition
 >
-> Clustering - grouping related samples in the data set. In the house price example, a sample is each house.
+> Clustering - grouping related samples in the data set. 
 >
-> Classification - predicting a category for the samples in the data set. In the house price example, the categories are high and low.
-> 
-> Classifier - a specific model or algorithm that performs classification.
+> Classification - predicting a category for the samples in the data set.
 >
 > Regression - predicting a continuous number for the samples in the data set. 
+> 
+> Classifier - a specific model or algorithm that performs classification.
 >
 > Model - mathematical representation that generates predictions based on the input data.
 {: .callout}
 
 > ## Scenarios
+>
+> Consider whether the following 3 scenarios should or should not be considered machine learning.
+>
 > 1. You are trying to understand how temperature affects the speed of embryo development in mice.
 > After running an experiment where you record developmental milestones in mice at various temperatures, you run a linear regression on the results to see what the overall trend is. 
 > You use the regression results to predict how long certain developmental milestones will take at temperatures you’ve not tested. 

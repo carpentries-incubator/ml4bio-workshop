@@ -9,14 +9,14 @@ objectives:
 - Summarize the stages of a machine learning workflow
 - Describe how training, validation, and test sets can avoid data leakage
 keypoints:
-- Choosing how to represent a dataset in a machine learning task can have a large impact on performance
+- The ml4bio software supports interactively exploring different classifiers and hyperparameters on a dataset
 - The machine learning workflow is split into data preprocessing and selection, training and model selection, and evaluation stages
 - Splitting a dataset into training, validation, and testing sets is key to being able to properly evaluate a machine learning method
 ---
 
 ### Why classify T-cells
 
-Consider how to answer a real biological question using the same concepts we saw in the introduction.
+Consider how to answer a biological question using machine learning.
 The question pertains to immunotherapy, a type of cancer treatment that uses the body's immune cells to attack cancer.
 T-cells are a common target for immunotherapies.
 For immunotherapy to be effective, the modified T-cells must be in an active state.
@@ -94,7 +94,8 @@ Throughout this workshop, we will assume that all of the data has already been p
 
 > ## Software
 >
-> Load size_intensity_feature.csv into the ml4bio software under the Labeled Data by clicking on **Select File...**..
+> Load __size_intensity_feature.csv__ into the ml4bio software under the Labeled Data by clicking on **Select File...**.
+> Note that some of the screenshots below show different datasets being used. 
 {: .checklist}
 
 <p align="center">
@@ -102,7 +103,7 @@ Throughout this workshop, we will assume that all of the data has already been p
 </p>
 
 <p align="center">
-<img width="800" src="{{ page.root }}/fig/software/file_1.png">
+<img width="800" src="{{ page.root }}/fig/software/file_size_intensity_feature.png">
 </p>
 
 After a valid labeled dataset is loaded, the file name will be shown next to **Select File...**.
@@ -189,7 +190,7 @@ In other words, improper data splitting and data leakage means that _we will not
 > In the following excerpts, consider the methodology presented and determine if there is evidence of data leakage:
 >
 > 1. We created a decision tree model to predict whether a compound would inhibit cell growth. 
-> We trained the model on the 48 available instances, and found that the decision tree was able to predict those instances with an accuracy of 0.96. 
+> We trained the model on the 48 available instances, and found that the decision tree was able to predict 96 percent of those instances correctly. 
 > Thus, the decision tree is high performing on this task. 
 >
 > 2. We trained 36 different models, each using a different combination of hyperparameters. 
@@ -198,7 +199,7 @@ In other words, improper data splitting and data leakage means that _we will not
 >
 > 3. We split the data into training and testing sets of 80% and 20%, and further split the training set into a training and validation set. 
 > We trained 200 models on the training data, and chose the best-performing model based on performance on the validation set. 
-> After choosing and training the model, we found that the model had an accuracy of 0.93 on the testing set. 
+> After choosing and training the model, we found that the model was able to predict correctly 93 percent of the time on the testing set. 
 {: .callout}
 
 ### Cross Validation
@@ -304,7 +305,7 @@ shown at the top-right corner of the software window._
 
 <p align="center">
 <img width='200' src="{{ page.root }}/fig/software/data_plot.png">
-<img width='200' src="{{ page.root }}/fig/software/confusion_matrix.png">
+<img width='200' src="{{ page.root }}/fig/software/confusion_matrix_tcell.png">
 </p>
 
 Shown on the top is a scatter plot of the training data and contours of the decision regions.
@@ -326,8 +327,6 @@ The sum of all the predictions will be the total number of samples in the select
 >
 > How does this compare to the training set accuracy?
 {: .checklist}
-
-<img width='200' src="{{ page.root }}/fig/software/confusion_matrix.png">
 
 > ## Definitions
 >

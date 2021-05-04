@@ -152,35 +152,27 @@ In biology, it is common to have this type of __imbalanced training set__ with m
 > If we look at the Data Plot, the decision boundaries are rectangular.
 {: .solution}
 
-> ## Solution
->
-> The data plot shows two features, where the blue data points represent the quiescent cells, and the red data points represent the active cells.
-{: .solution}
-
 > ## Question
 >
-> So if you notice these cut offs, what do you think they represent?
+> What do the individual line segments which make up the decision boundary represent?
 {: .challenge}
 
 > ## Solution
 >
 > They each represent a node in the decision tree.
-> When we are trying to come up with the decision rule, we will consider the features and the data plot.
+> The line segment shows the split at that node.
 {: .solution}
 
 > ## Conceptual Question
 >
 > What hyperparameter might be important for this example?
+> (hint: what is not ideal about this dataset?)
 {: .challenge}
 
-> ## Solution
->
-> The given dataset is imbalanced with more quiescent cells than active cells.
-{: .solution}
-
 > ## Software
->
-> Let's change the class_weight to balanced.
+> 
+> One thing we can see from the data plot is that this dataset is imbalanced, with more quiescent cells than active cells.
+> Let's change the class_weight hyperparameter to balanced.
 {: .checklist}
 
 > ## Activity
@@ -204,8 +196,7 @@ Multiple overfitting classifiers are put together to reduce the overfitting.
 <img width="900" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/decisiontree3.jpeg">
 </p>
 
-In the previous lesson we looked at overfitting.
-Looking again at the different decision boundaries, note that the one of the left has high __bias__ while the one on the right has high __variance__.
+If we examine the different decision boundaries, note that the one of the left has high __bias__ while the one on the right has high __variance__.
 
 {% include biasvariance_slideshow.html %}
 
@@ -298,6 +289,7 @@ The classifier probably overfit.
 > 1. You want to create a model to classify a protein's subcellular localization (nucleus, mitochondria, plasma membrane, etc.). 
 > You have a labeled set of 15,000 human proteins with 237 features for each protein. 
 > These features were computationally derived from simulations using protein structure predicting software, and do not have any predefined meaning.
+> Thus, you do not expect the features to be meaningful for human interpretation.
 >
 > 2. You want to create a model to predict whether or not a species' conservation status (least concern, endangered, extinct, etc.) will be affected by climate change. 
 > You have a labeled dataset of 40 species, with 18 features for each species which have been curated by ecologists. 

@@ -8,7 +8,7 @@ objectives:
 - Choose the appropriate evaluation metric for a particular machine learning problem
 - Derive the definitions of popular evaluation metrics
 keypoints:
-- The choice of evaluation metric depends on what the data's class composition is, and what we want the model to succeed at.
+- The choice of evaluation metric depends on the relative proportions of different classes in the data, and what we want the model to succeed at.
 - Comparing performance on the validation set with the right metric is an effective way to select a classifier and hyperparameter settings.
 mathjax: true
 ---
@@ -75,7 +75,13 @@ We would then calculate the percent of these predictions that were correct, whic
 This metric is called _precision_ in machine learning (and may be different from the definition of precision you use in a laboratory setting).
 
 > ## Scenario 1 - Poll
-> You are designing a long-term study on the mutational rates of various breast cancer subtypes over several years using cell lines. Due to cost constraints you can only choose a few cell lines to monitor. However, there has been some recent research calling into question whether or not certain cell lines you were considering using are actually the cancer subtype they are believed to be. Due to the study's cost and length, you decide to create a machine model system to help verify that the cells lines you want to use are, in fact, the cancer subtypes you want to study. The model uses gene expression data to predict cancer subtype. 
+>
+> You are designing a long-term study on the mutational rates of various breast cancer subtypes over several years using cell lines. 
+> Due to cost constraints you can only choose a few cell lines to monitor. 
+> However, there has been some recent research calling into question whether or not certain cell lines you were considering using are actually the cancer subtype they are believed to be. 
+> You cannot afford to include cell lines of the wrong subtype in your study.
+> To aid in this task you decide to create a machine learning system to help verify that the cells lines you want to use are, in fact, the cancer subtypes you want to study. 
+> The model uses gene expression data to predict cancer subtype. 
 >
 > 1. Which entries in the confusion matrix are most important in this machine learning task? Is one type of correct or one type of incorrect prediction more important than the other for your machine learning system?
 > 2. Which metric would you use to evaluate this task?
@@ -84,8 +90,13 @@ This metric is called _precision_ in machine learning (and may be different from
 
 > ## Scenario 2 - Poll
 >
-> You are designing a machine learning system for discovering existing drugs which may be effective in treating Malaria, focusing on the parasite _Plasmodium falciparum_. Your system takes in information on an FDA approved drug's chemical structure, and predicts whether or not a drug may interact with _P. falciparum_. The machine learning system will be used as an initial screening step; drugs classified as interacting by your system will be flagged and tested in the lab. The vast majority of drugs will not be useful in treating _P. falciparum_.
-> With your neighbor, talk through the following questions:
+> You are designing a machine learning system for discovering existing drugs which may be effective in treating Malaria, focusing on the parasite _Plasmodium falciparum_. 
+> Your system takes in information on an FDA approved drug's chemical structure, and predicts whether or not a drug may interact with _P. falciparum_. 
+> The machine learning system will be used as an initial screening step; drugs classified as interacting by your system will be flagged and tested in the lab. 
+> It is okay if some drugs sent to be tested in the lab end up having no effect. 
+> If your study leads to the approval of even a single new drug for treating _P. falciparum_ you will consider the system a success. 
+> The vast majority of drugs will not be useful in treating _P. falciparum_.
+>
 > 1. Which entries in the confusion matrix are most important in this machine learning task? Is one type of correct or one type of incorrect prediction more important than the other for your machine learning system?
 > 2. Imagine a classifier that predicted that all drugs are non-interacting. If you evaluated this classifier using the entire catalog of FDA approved drugs, what would the accuracy look like?
 > 3. What metric or couple of metrics would you use to evaluate your machine learning system?

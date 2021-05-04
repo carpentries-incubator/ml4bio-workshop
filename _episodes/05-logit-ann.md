@@ -93,8 +93,6 @@ If $w_0+w_1x_1>0$ the T-cell is classified as active, and if $w_0+w_1x_1<0$ the 
 
 > ## Questions to consider 
 >
-> Think of an example when a linear separability is not a straight line.
->
 > When do you think something is linearly separable?
 {: .challenge}
 
@@ -125,7 +123,6 @@ If $w_0+w_1x_1>0$ the T-cell is classified as active, and if $w_0+w_1x_1<0$ the 
 {: .challenge}
 
 Logistic regression can also be visualized as a network of features feeding into a single logistic function.
-Each of these 
 
 <p align="center">
 <img width="750" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/logit_nodes.png">
@@ -226,7 +223,8 @@ This neural network still consists of hidden layers combined with functions, but
 > In the following scenarios, which classifier would you choose?
 >
 > 1. You are interested in learning about how different factors contribute to water preservation adaptations in plants. 
-> You plan to create a model for each of 4 moisture preservation adaptations, and use a dataset of 200 plant species to train each model.
+> You plan to create a model for each of 4 moisture preservation adaptations, where in each model the presence of the moisture preservation adaptation is the class being predicted. 
+> You use a dataset of 200 plant species to train each model.
 > You have 15 features for each species, consisting of environmental information such as latitude, average temperature, average rainfall, average sun intensity, etc. 
 >
 > 2. You have been tasked with creating a model to predict whether a mole sample is benign or malignant based on gene expression data. 
