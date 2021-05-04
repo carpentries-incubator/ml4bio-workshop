@@ -61,7 +61,7 @@ Day 1:
             Model B
 Day 2:
 
-    Poll 1: Logit: Linear Seperability
+    Poll 1: Logit: Linear Separability
         1. Is the dataset linearly separable? (Single Choice)
             Yes
             No
