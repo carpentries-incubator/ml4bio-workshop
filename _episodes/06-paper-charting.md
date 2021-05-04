@@ -34,6 +34,10 @@ Here is a list of papers which are good examples for this activity.
 If you're struggling to find a paper, you can use of of these instead.
 
 - [Classification of human genomic regions based on experimentally determined binding sites of more than 100 transcription-related factors](https://genomebiology.biomedcentral.com/articles/10.1186/gb-2012-13-9-r48#Sec21)
+- [DeepCpG: accurate prediction of single-cell DNA methylation states using deep learning](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-017-1189-z#Sec7)
+- [Gradient modeling of conifer species using random forests](https://link.springer.com/article/10.1007/s10980-009-9341-0#Sec2)
+- [A Logistic Regression Model Based on the National Mammography Database Format to Aid Breast Cancer Diagnosis](https://www.ajronline.org/doi/full/10.2214/AJR.07.3345) 
+- [Potential neutralizing antibodies discovered for novel corona virus using machine learning](https://www.nature.com/articles/s41598-021-84637-4#Sec2)
 
 ### Example Chart
 
