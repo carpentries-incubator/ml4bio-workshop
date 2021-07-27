@@ -122,6 +122,8 @@ When evaluating machine learning models, multiple metrics are often combined int
 These curves are plotted at different confidence cut-offs, selecting different confidence thresholds for what is predicted to be in the positive class.
 The two most popular curves are the __ROC curve__ and the __PR curve__.
 
+{% include pr_curve_slideshow.html %}
+
 > ## Definitions
 > Receiver Operating Characteristic (ROC) Curve - A curve which plots the recall (true positive rate) against the false positive rate at different confidence cut-offs. The area under the curve (often called the AUROC) can then be used as a single metric to evaluate a classifier.
 >
