@@ -244,7 +244,9 @@ Regularization does not make models fit better on the training data, but it help
 
 > ## Definition
 >
-> Penalty - mathematically reduces importance of certain features by shrinking the feature weights. 
+> Regularization - approaches to make machine learning models less complex in order to reduce overfitting.
+>
+> Penalty - a regularization strategy that reduces the importance of certain features by adding a cost to the feature weights, which makes the feature weights smaller.
 {: .callout}
 
 #### L1 regularization

@@ -252,7 +252,7 @@ The final prediction is based on a vote or the average taken across all the deci
 
 A good model will learn a pattern from the data and then it will be able to generalize the pattern on the new data.
 
-It is easy to go to deep in the tree, and to fit the parameters that are specific for that training set, rather than to generalize to the whole dataset.
+It is easy to go too deep in the tree, and to fit the parameters that are specific for that training set, rather than to generalize to the whole dataset.
 This is overfitting.
 In other words, the more complex the model, the higher the chance that it will overfit.
 The overfitted model has too many features.
