@@ -237,7 +237,7 @@ The final prediction is based on a vote or the average taken across all the deci
 
 > ## Software - Poll
 >
-> Load *./data/neurotoxicity/neurotoxicity_d16.csv* data set into the software.
+> Load *./data/t_cell/cellprofiler_feature.csv* data set into the software.
 >
 > Try training both a decision tree and a random forest on the data. 
 >
@@ -245,7 +245,7 @@ The final prediction is based on a vote or the average taken across all the deci
 > 
 > How did the classifier perform on the training data compared to the validation data?
 > 
-> Change the max_depth parameter.
+> Try training a decision tree with the max_depth hyperparameter set to 2.
 >
 > Did you notice any difference?
 {: .challenge}
