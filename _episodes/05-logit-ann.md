@@ -82,7 +82,7 @@ If the feature weight is negative then the probability of the outcome decreases,
 
 > ## Definition
 >
-> Linear Separability - drawing a line in the plane that separates all the points of one kind on one side of the line, and all the points of the other kind on the other side of the line.
+> Linear separability - drawing a line in the plane that separates all the points of one kind on one side of the line, and all the points of the other kind on the other side of the line.
 {: .callout}
 
 Recall, $y=mx+b$ graphed on the coordinate plane. 
@@ -96,7 +96,7 @@ If $w_0+w_1x_1>0$ the T-cell is classified as active, and if $w_0+w_1x_1<0$ the 
 > When do you think something is linearly separable?
 {: .challenge}
 
-### Step 1 Select Data
+### Step 1 Train a Logistic Regression Classifier
 
 > ## Software
 >
@@ -107,9 +107,12 @@ If $w_0+w_1x_1>0$ the T-cell is classified as active, and if $w_0+w_1x_1<0$ the 
 
 #### Linear separability
 
+In this workshop, not all of the hyperparameters in the ml4bio software will be discussed.
+For those hyperparameters that we don't cover, we will use the default settings.
+
 > ## Software
 >
-> Let's train logistic regression classifier.
+> Let's train a logistic regression classifier.
 >
 > For now use the default hyperparameters.
 {: .checklist}
@@ -156,7 +159,7 @@ These new values are then fed to the logistic function as opposed to the raw fea
 > Activation function - the function used to combine values in a specific layer of a neural network. 
 {: .callout}
 
-#### Linear vs. Nonlinear classifiers
+### Step 2 Compare Linear and Nonlinear classifiers
 
 > ## Software
 >
@@ -192,18 +195,6 @@ These new values are then fed to the logistic function as opposed to the raw fea
 This example demonstrates that logistic regression performs great with data that is linearly separable.
 However, with the nonlinear data, more complex models such as artificial neural networks need to be used.
 
-### Step 2 Train Classifiers
-
-In this workshop not all of the hyperparameters from the software will be discussed.
-The most important hyperparameters are:
-- The regularization penalty can be L1 or L2.
-Although it is possible to train a logistic regression classifier without regularization, regularization is always used in the ml4bio software.
-This follows best practices in real applications.
-- C is the inverse of the regularization strength.
-Smaller values of C mean stronger regularization.
-
-For those hyperparameters that we don't cover, we will use the default settings.
-
 #### Artificial neural networks in practice
 
 Artificial neural networks with a single hidden layer tend to perform well on simpler data, such as the toy datasets in this workshop. 
@@ -233,6 +224,8 @@ This neural network still consists of hidden layers combined with functions, but
 >
 {: .challenge}
 
+### Step 3 Test Regularization Strategies
+
 #### Regularization
 
 Recall, regularization is used to make sure that our model pays attention only to the important features to avoid overfitting. 
@@ -248,6 +241,15 @@ Regularization does not make models fit better on the training data, but it help
 >
 > Penalty - a regularization strategy that reduces the importance of certain features by adding a cost to the feature weights, which makes the feature weights smaller.
 {: .callout}
+
+#### Regularization hyperparameters in the ml4bio software
+
+The most important hyperparameters in the ml4bio software are:
+- The regularization penalty can be L1 or L2.
+Although it is possible to train a logistic regression classifier without regularization, regularization is always used in the ml4bio software.
+This follows best practices in real applications.
+- C is the inverse of the regularization strength.
+Smaller values of C mean stronger regularization (higher penalties, therefore lower feature weights).
 
 #### L1 regularization
 
