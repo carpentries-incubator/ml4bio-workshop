@@ -127,7 +127,7 @@ Let’s look at some examples of how machine learning is being used in biology r
 * [Diagnosing cancer from DNA methylation data.](http://doi.org/10.1038/d41586-018-02881-7)
 * [Finding glaucoma in color fundus photographs using deep learning.](http://doi.org/10.1001/jamaophthalmol.2019.3512)
 * [Predicting lymphocyte fate from cell imaging](https://doi.org/10.1371/journal.pone.0083251)
-* [Predicting 3d protein structures](https://deepmind.com/blog/article/alphafold-a-solution-to-a-50-year-old-grand-challenge-in-biology)
+* [Predicting 3d protein structures](https://doi.org/10.1038/s41586-021-03819-2)
 * [Discovering new antibiotics](https://doi.org/10.1016/j.cell.2020.01.021)
 * [Recognizing clinical impact of genetic variants](https://doi.org/10.1038/s41588-018-0167-z)
 
