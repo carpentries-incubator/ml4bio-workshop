@@ -12,13 +12,17 @@ keypoints:
 ---
 
 This lesson will focus on understanding and evaluating machine learning workflows as they are presented in the literature. 
-For this lesson, __we request that you bring a paper from your field which involves machine learning for day 2__.
+For this lesson, __you will choose one of the below papers to read__.
+__Please read this paper for day 2 of the workshop, so you are familiar with the paper's layout__.
+Alternatively, if you brought a paper to day 1 you think is a good candidate, we can add it to the list of papers people can choose from. 
+We will ask you to switch papers if you end up being the only person in the workshop who chooses that paper. 
 
 We will be exploring filling out  <a href="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/assessmentChartV2form.pdf" download>  this chart </a> for the paper you select. 
+This chart is a tool to help you think about how machine learning is used in a paper and come to a conclusion about if you think the claims made in the paper using machine learning are valid.
 
-## Choosing a paper to bring
+## Choosing a paper to read
 
-Ideally, this paper will use supervised learning in some form. 
+The paper you choose will use supervised learning in some form. 
 While the paper should contain a classification or regression task, this task does not have to be the main goal of the paper. 
 If the paper you choose has multiple machine learning models or tasks, choose one of them to focus on. 
 
@@ -30,16 +34,20 @@ It's okay if the paper is not an exact fit, especially if it is a technique used
 
 ### Example/Backup Papers
 
-Here is a list of papers which are good examples for this activity. 
-If you're struggling to find a paper, you can use of of these instead.
+Here is a list of papers which you can choose for this activity. 
 
 - [Classification of human genomic regions based on experimentally determined binding sites of more than 100 transcription-related factors](https://genomebiology.biomedcentral.com/articles/10.1186/gb-2012-13-9-r48#Sec21)
 - [DeepCpG: accurate prediction of single-cell DNA methylation states using deep learning](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-017-1189-z#Sec7)
 - [Gradient modeling of conifer species using random forests](https://link.springer.com/article/10.1007/s10980-009-9341-0#Sec2)
 - [A Logistic Regression Model Based on the National Mammography Database Format to Aid Breast Cancer Diagnosis](https://www.ajronline.org/doi/full/10.2214/AJR.07.3345) 
 - [Potential neutralizing antibodies discovered for novel corona virus using machine learning](https://www.nature.com/articles/s41598-021-84637-4#Sec2)
+- [seqQscorer: automated quality control of next-generation sequencing data using machine learning](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-021-02294-2)
+- [Identifying mouse developmental essential genes using machine learning](https://journals.biologists.com/dmm/article/11/12/dmm034546/3057/Identifying-mouse-developmental-essential-genes)
 
 ### Example Chart
+
+While it might be helpful to look at this chart while filling out the paper, you do not need to fill this chart out before day 2 of the workshop. 
+You will fill out this chart for the paper you chose during day 2 of the workshop.
 
 Here is an example partially filled-out chart from Predictive Models for [Breast Cancer Susceptibility from Multiple Single Nucleotide Polymorphisms](https://clincancerres.aacrjournals.org/content/clincanres/10/8/2725.full.pdf). 
 Note that this paper uses 3 different classifiers, but we are just going to focus on the decision tree:
@@ -57,7 +65,7 @@ Note that this paper uses 3 different classifiers, but we are just going to focu
 
 > ## Charting Your Paper
 >
-> Now, on your own, see if you can fill in a blank chart using the paper you brought today.
+> Now, on your own, see if you can fill in a blank chart using the paper you brought today with your group.
 >
 {: .callout}
 
