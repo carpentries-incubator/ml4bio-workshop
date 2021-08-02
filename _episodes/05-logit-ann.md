@@ -106,7 +106,7 @@ Press the play button to automatically train the weights to minimize the number 
 
 > ## Software
 >
-> Let's load toy_data_3 data set into our software.
+> Load the `toy_data/toy_data_3.csv` data set into the software.
 >
 > This dataset is engineered specifically for the logistic regression classifier.
 {: .checklist}
@@ -176,7 +176,7 @@ Press the play button to watch how the neural network can iteratively make small
 
 > ## Software
 >
-> Let's load _toy_data_8_ data set into our software.
+> Load the `toy_data/toy_data_8.csv` data set into the software.
 >
 > This data set is engineered specifically to demonstrate the difference between linear and nonlinear classifiers.
 >
@@ -264,16 +264,17 @@ This follows best practices in real applications.
 - C is the inverse of the regularization strength.
 Smaller values of C mean stronger regularization (higher penalties, therefore lower feature weights).
 
-#### L1 regularization
-
-L1 regularization is also known as Lasso reguralization.
-
 > ## Software
 >
-> Let's load _simulated_t_cells_1_ data set into our software.
+> Load the `simulated_t_cell/simulated_t_cells_1.csv` data set into the software.
 >
 > This data set is engineered specifically to demonstrate the effects of regularization.
 {: .checklist}
+
+
+#### L1 regularization
+
+L1 regularization is also known as Lasso reguralization.
 
 Recall that $x_1, x_2, ..., x_n$ are the features, and $w_0, w_1, ..., w_n$ are the feature weights.
 Without regularization, the classifier might fit the training data perfectly, giving certain values to each weight that would lead to overfitting. 
@@ -283,36 +284,36 @@ L1 regularization prevents overfitting by adding a penalty term and mathematical
 L1 could shrink the weights of less important features all the way to 0, effectively deleting those weights. 
 The corresponding features are then not used at all to make predictions on new data.
 
-Recall: C is the inverse of regularization strength.
-Smaller values of C will shrink more weights and use fewer features to make the prediction.
-
-> ## Software
->
-> First, set penalty to ‘L1’.
-> Experiment with C = 0.08, 0.1, 0.2, 0.5, 1.
->
-> Next, set penalty to ‘L2’.
-> Experiment with the same set of C.
-{: .checklist}
-
-> ## Questions
->
-> What do you observe?
->
-> Think about the difference.
->
-> How does the decision boundary change?
-{: .challenge}
-
-L1 will regularize such that one feature weight goes to 0.
-We can see the classifier ignores that feature in its decision boundary.
-
 #### L2 Penalty
 
 L2 regularization is also known as ridge reguralization.
 L2 reguralization makes the weights of less important features to be small values.
 Unlike L1 regularization, L2 regularization does not necessarily shrink the weights to 0.
 The higher the value of C, the smaller the feature weights will be.
+
+Recall: C is the inverse of regularization strength.
+Smaller values of C will shrink more weights and use fewer features to make the prediction.
+
+> ## Software
+>
+> First, set penalty to ‘L1’.
+> Experiment with C = 0.001, 0.07, 0.1, 0.25, 1.
+>
+> Next, set penalty to ‘L2’.
+> Experiment with the same values of C.
+{: .checklist}
+
+> ## Questions
+>
+> What do you observe in the Data Plot? For each value of C, which of the two features seem to influence the decision boundary?
+>
+> What is the difference between L1 and L2 regularization? (Hint: consider C = 0.07)
+>
+> How does the decision boundary change as C increases?
+{: .challenge}
+
+L1 can regularize such that one feature's weight goes to 0.
+We can see the classifier ignores that feature in its decision boundary.
 
 > ## Break
 > Let's take a short break. 
