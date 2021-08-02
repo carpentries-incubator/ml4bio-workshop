@@ -18,6 +18,11 @@ The [Elements of AI](https://course.elementsofai.com/) course presents general i
 
 The workshop organizers track additional resources for [beginners](https://github.com/gitter-lab/ml-bio-workshop/issues/43) and [intermediate users](https://github.com/gitter-lab/ml-bio-workshop/issues/94).
 
+Training classifiers for a research project typically requires training many models and tuning their hyperparameters on a validation dataset.
+Writing scripts helps automate this process, document the training and tuning decisions, and improve reproducibility.
+[Software Carpentry](https://software-carpentry.org/lessons/) introduces strategies for script-driven research.
+A computing cluster helps train and evaluate many machine learning models in parallel.
+
 ## Jupyter notebook example
 
 You can [run an example Jupyter notebook](https://mybinder.org/v2/gh/gitter-lab/ml-bio-workshop/gh-pages?filepath=illustration.ipynb) in Binder to see how a machine learning workflow looks in Python code using scikit-learn.
