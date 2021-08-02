@@ -94,7 +94,7 @@ Throughout this workshop, we will assume that all of the data has already been p
 
 > ## Software
 >
-> Load __size_intensity_feature.csv__ into the ml4bio software under the Labeled Data by clicking on **Select File...**.
+> Load `t_cell/size_intensity_feature.csv` into the ml4bio software under the Labeled Data by clicking on **Select File...**.
 > Note that some of the screenshots below show different datasets being used. 
 {: .checklist}
 
@@ -287,7 +287,8 @@ In the T-cells dataset, this is the number of correctly predicted quiescent and 
 > __Remember, you can switch between the training set and validation set at any time.__
 {: .checklist}
 
-In the T-cells example, we want to predict whether a cell was quiescent or activated. The accuracy gives us the count of the cells that were correctly predicted.
+In the T-cells example, we want to predict whether a cell was quiescent or activated.
+The accuracy gives us the count of the cells that were correctly predicted.
 
 This type of exploration of multiple algorithms reflects how a good model is often found in real-world situations.
 It often takes many classifiers to find the one that you are satisfied with.
