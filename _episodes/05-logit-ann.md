@@ -6,7 +6,7 @@ questions:
 objectives:
 - Understand advantages and disadvantages of logistic regression and artificial neural networks
 - Distinguish linear and nonlinear classifiers
-- Predict whether a dataset is likely to be linear or nonlinear
+- Select a linear or nonlinear classifier for a dataset
 keypoints:
 - Logistic regression is a linear classifier.
 - The output of logistic regression is probability of a certain class.

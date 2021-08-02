@@ -186,8 +186,32 @@ In order to further make sure that our curvy lines are different enough, we also
 
 ## Logistic Regression, Artificial Neural Networks, and Linear Separability
 
+### Introducing logistic regression
+
+Use the TensorFlow Playground example to build intuition about the linear decision boundary of a logistic regression classifier.
+Modify the feature weights to show how the decision boundary changes.
+Set one weight to 0 to preview the regularization discussion.
+
+Transition to talk about the equations for linear and logistic regression briefly using the network diagram as a guide.
+Explain the logistic function shape and purpose.
+Work through the `toy_data/toy_data_3.csv` example.
+The example has 3 classes instead of 2 so explain what linear decision boundaries look like with multi-class classification.
+
+### Introducing neural networks
+
+Use the TensorFlow Playground examples to show how logistic regression cannot fit the XOR pattern.
+Adding hidden layers and hidden units with create a neural network that can fit the pattern.
+Use the spiral example and manually step through a few weight updates to build intuition about how a neural network trains.
+The workshop does not cover gradient descent.
+
+Show the neural network diagram and make the connection to adding more layers and hidden units in TensorFlow Playground.
+
+Work through the `toy_data/toy_data_8.csv` example.
+Discuss why logistic regression cannot fit this multi-class dataset.
+
 ### Artificial neural networks in practice
 
+Make the connection to the term deep learning.
 We're not expected to be able to understand everything ion the robotic surgery arm example. 
 However, we can see that in a modern deep neural network the building blocks are still then same as the simpler models we've looked at. 
 We have additional layers which are performing complex tasks on the features of the data to create rich features the final classification layers can predict on. 
@@ -209,8 +233,37 @@ You have been tasked with creating a model to predict whether a mole sample is b
 *We wouldn't want to treat the 50 genes independently.*
 *Therefore, we should use a neural network for this task.*
 
+### Regularization
+
+This section is typically skipped unless the lesson is moving more quickly than usual.
+Refer back to overfitting problems with decision trees and what overfitting means with a logistic regression model.
+Explain how L1 and L2 penalties reduce the feature weights.
+
+In the `simulated_t_cell/simulated_t_cells_1.csv` activity, there are a few main takeaways.
+When C = 0.001 all feature weights are 0.
+Neither feature is used, and all data points are predicted as the same class.
+C = 0.07 is the most important value of C.
+Here the L1 penalty will set one feature weight to 0 but the L2 penalty will not.
+Discuss this difference.
+For higher values of C the orientation and steepness of the decision boundary changes, but both features are used.
+
 ## Understanding machine learning literature
 
 ## Conclusion
+
+Discuss some of the considerations of machine learning in practice.
+
+Give time to work through the assessment activity.
+
+Thank participants and encourage them to complete the post-workshop survey to help improve the workshop.
+Send the survey link by email immediately after the workshop.
+
+Review the References page.
+Show a few of the extensive ml4bio guides that define the classifiers that were not covered in the workshop (k Nearest Neighbors, Naïve Bayes, Support Vector Machine) and provides a more formal treatment all classifiers.
+Point out the links to references for next steps, which involves moving from the ml4bio software to code-driven modeling.
+Software Carpentry teaches basic Python and command line skills, which is one avenue for acquiring the background knowledge needed to tackle the Python-based machine learning tutorials.
+
+Emphasize that the machine learning workflow in the ml4bio software is the same workflow in the example Jupyter notebook that uses Python code.
+If time permits, open the notebook in Binder to show how it can execute in a web browser and the major workflow steps.
 
 {% include links.md %}
