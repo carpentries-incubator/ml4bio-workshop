@@ -99,6 +99,10 @@ For some external resources, check out the [references][lesson-reference].
 > Eventually, it stops ringing. “It has learned. This is machine learning,”  you think to yourself. 
 {: .callout}
 
+<figure>
+<img width="1000" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/ml_introDebate.png">
+<figcaption> Confidence scale for machine learning scenarios.</figcaption>
+</figure>
 
 ### What is the difference between a machine learning algorithm and a traditional algorithm?
 
