@@ -19,14 +19,15 @@ mathjax: true
 
 Logistic regression is a classifier that models the probability of a certain label.
 In the T-cells example, we were classifying whether cells were in the two categories of active or quiescent.
-Using the logistic regression to predict one of the two labels is a binary logistic regression.
-Everything that applies to the binary classification could be applied to multi-class problems (for example if there was a third cell state).
+Using the logistic regression to predict the whether a cell is active is a binary logistic regression.
+Everything that applies to the binary classification could be applied to multi-class problems (for example, if there was a third cell state).
 We will be focusing on the binary classification problem.
 
 #### Linear regression vs. logistic regression
 
-We can write the equation for a line as $y=mx+b$, where $x$ is the x-coordinate and $y$ is the y-coordinate.
-If we rewrite it in terms of feature weights $y=w_1x+w_0$ where $w_0$ is the intercept of the line and $w_1$ is the slope of the line. 
+We can write the equation for a line as $y=mx+b$, where $x$ is the x-coordinate, $y$ is the y-coordinate, $m$ is the slope, and $b$ is the intercept.
+We can rename $m$ and $b$ to instead refer to them as feature weights, $y=w_1x+w_0$.
+Now $w_0$ is the intercept of the line and $w_1$ is the slope of the line. 
 In statistics, for the simple linear regression we write intercept term first $y=w_0+w_1x$. 
 
 > ## Definition
@@ -34,7 +35,7 @@ In statistics, for the simple linear regression we write intercept term first $y
 > Feature weights - determine the importance of a feature in a model.  
 {: .callout}
 
-The intercept term is a constant and it is defined as the mean of the outcome when the input is 0. 
+The intercept term is a constant and is defined as the mean of the outcome when the input $x$ is 0. 
 This interpretation gets more involved with multiple inputs, but that is out of the scope of the workshop. 
 The slope is a feature weight. 
 In the T-cells example, the feature weight is the coefficient for the feature $x$ and it represents the average increase in the confidence the cell is active with a one unit increase in $x$. 
@@ -65,15 +66,15 @@ Now, let's think about the T-cells example.
 If we focus only on one feature, for example cell size, we can use logistic regression to predict the probability that the cell would be active.
 
 The logistic function of odds is a sum of the __weighted features__.
-Each feature is simply added together with a weight inside the logistic function. 
+Each feature is simply multiplied by a weight and then added together inside the logistic function. 
 So logistic regression treats each feature independently.
 This means that, unlike decision trees, logistic regression is unable to find interactions between features.
-For instance, copy number increase of a certain gene may only affect cell state if another gene is also mutated.
+An example of a feature interaction is if the copy number increase of a certain gene may only affect cell state if another gene is also mutated.
 This feature independence affects what type of rules logistic regression can learn.
 
 > ## Questions to consider
 >
-> What could be another example of 2 features that interact with each other?
+> What could be another example of two features that interact with each other?
 {: .challenge}
 
 An important characteristic of features in logistic regression is how they affect the probability.
@@ -95,6 +96,11 @@ If $w_0+w_1x_1>0$ the T-cell is classified as active, and if $w_0+w_1x_1<0$ the 
 >
 > When do you think something is linearly separable?
 {: .challenge}
+
+You can use the TensorFlow Playground website to explore how changing feature weights changes the line in the plane that separates blue and orange points.
+This [example](http://playground.tensorflow.org/#activation=relu&batchSize=10&dataset=gauss&regDataset=reg-plane&learningRate=0.03&regularizationRate=0&noise=0&networkShape=&seed=0.97800&showTestData=false&discretize=false&percTrainData=50&x=true&y=true&xTimesY=false&xSquared=false&ySquared=false&cosX=false&sinX=false&cosY=false&sinY=false&collectStats=false&problem=classification&initZero=false&hideText=false) has two features $x_1$ and $x_2$.
+You can click the the blue lines to modify the weights $w_1$ and $w_2$.
+Press the play button to automatically train the weights to minimize the number of points that are predicted as the wrong color.
 
 ### Step 1 Train a Logistic Regression Classifier
 
@@ -152,12 +158,19 @@ These new values are then fed to the logistic function as opposed to the raw fea
 
 > ## Definitions
 >
-> Hidden unit - a function in a neural network which takes in values, applies some function to them, and outputs new values to be used in subsequent layer of the neural network. 
+> Hidden unit - a function in a neural network that takes in values, applies some function to them, and outputs new values to be used in subsequent layer of the neural network. 
 >
-> Hidden layer - a layer of hidden units in a neural network. 
+> Hidden layer - a layer of hidden units in a neural network, such as the logistic function.
 >
 > Activation function - the function used to combine values in a specific layer of a neural network. 
 {: .callout}
+
+You can again use TensorFlow Playground to examine the difference between logistic regression, which has a single logistic function, and a neural network with multiple hidden layers.
+This [example](http://playground.tensorflow.org/#activation=relu&batchSize=10&dataset=xor&regDataset=reg-plane&learningRate=0.03&regularizationRate=0&noise=0&networkShape=&seed=0.77646&showTestData=false&discretize=false&percTrainData=50&x=true&y=true&xTimesY=false&xSquared=false&ySquared=false&cosX=false&sinX=false&cosY=false&sinY=false&collectStats=false&problem=classification&initZero=false&hideText=false) initially attemps to use logistic regression to separate the orange and blue points.
+Try adding more hidden layers and more neurons in each layer using the play button to train the weights.
+
+This final [example](http://playground.tensorflow.org/#activation=relu&batchSize=5&dataset=spiral&regDataset=reg-plane&learningRate=0.01&regularizationRate=0&noise=0&networkShape=8,8,8,8&seed=0.94235&showTestData=false&discretize=false&percTrainData=50&x=true&y=true&xTimesY=false&xSquared=false&ySquared=false&cosX=false&sinX=false&cosY=false&sinY=false&collectStats=false&problem=classification&initZero=false&hideText=false) has a complicated orange/blue pattern.
+Press the play button to watch how the neural network can iteratively make small weight updates that reduce the number of mislabeled points.
 
 ### Step 2 Compare Linear and Nonlinear classifiers
 
@@ -228,7 +241,7 @@ This neural network still consists of hidden layers combined with functions, but
 
 #### Regularization
 
-Recall, regularization is used to make sure that our model pays attention only to the important features to avoid overfitting. 
+Regularization is used to make sure that our model pays attention only to the important features to avoid overfitting. 
 Previously, we talked about the positive and negative effect a feature and its weight can have on the outcome probability.
 As with decision trees and random forests, logistic regression can overfit.
 If we have a complex model with many features, our model might have high variance.
