@@ -12,7 +12,6 @@ Give clear indicators of when learners should be looking at the projector screen
 ## Introduction
 After warm-up, go through the 3 ML examples:
 
-
 1. You are trying to understand how temperature affects the speed of embryo development in mice. After running an experiment where you record developmental milestones in mice at various temperatures, you run a linear regression on the results to see what the overall trend is. You use the regression results to predict how long certain developmental milestones will take at temperatures you’ve not tested.
 
     *This is machine learning*
@@ -46,33 +45,37 @@ After warm-up, go through the 3 ML examples:
 
 #### Introduce Data:
 Pretty straightforward, just introduce the task and maybe note how we can see differences but it's difficult and time consuming. 
+Benefits of machine learning for this task: rapidly classify many new cells in real time on a microscopy to sort them.
 
 #### ML Workflow:
 
 #### Preprocessing:
-Here is where it might be food to actually open up the .csv file and show what it looks like raw (or we could just add an image of the csv file to the lesson).
+Here is where it might be good to actually open up the .csv file and show what it looks like raw (or we could just add an image of the csv file to the lesson).
 Make a note of data terminology here, things like class, sample, instance, etc.
-Talk about how the size and intensity features were made, how outliers have to be considered, and where in the software to note various stats like the features, number of samples, etc.  
+Talk about how the size and intensity features were made, how outliers have to be considered, and where in the software to note various stats like the features, number of samples, etc.
 Note that data preprocessing is very field specific.
+For the T cells, Cell Profiler was used for preprocessing to extract features.
+Some cell images were also removed because they were red blood cells, not T cells.
 
 #### Data splitting:
-Define and give a basic definition of the data split. 
-Currently the lesson uses the analogy of a student cheating on a test, though that can be changed if there's an analogy you prefer.
-Generally fist introduce the idea of needing to have a test set, then introduce the concept of needing to further split the data so we can try things out. 
+Define and give a basic definition of the data split.
+Currently the lesson uses the analogy of a student cheating on a test.
+Validation set is like a practice test, okay to take it many times.
+Generally first introduce the idea of needing to have a test set, then introduce the concept of needing to further split the data so we can try things out.
 The idea of this workflow as an experiment, where we are trying to simulate finding new data we want to use the model on, can be a helpful way to frame this concept as well.
 The validation set split allows us to experiment as much as we want with changing the model and seeing how it affects performance without ever accidentally cheating and peeking at the test answers, the testing set.
 
-
 Data leakage scenarios:
 
-These notes are just guides to how to talk about each of the 3 scenarios. Feel no need to follow them exactly. Make sure to do the polls for each scenario.
+These notes are just guides to how to talk about each of the 3 scenarios. Feel no need to follow them exactly.
+Make sure to do the polls for each scenario.
 
 1. We created a decision tree model to predict whether the compound would inhibit cell growth. We trained the model on the 48 available instances, and found that the decision tree was able to predict those instances with an accuracy of 0.96. Thus, the decision tree is high performing on this task.
 
     *This is the improper usage of data.*
     *Clues that can lead us to this conclusion are that there is no mention of splitting the data between a training set and a testing set.*
     *The only information that is provided is that the accuracy was on the same instances that the model was trained with.*
-    *What we need to look for is whether or not the result fo the experiment tells us how the model would perform on new data we collect*
+    *What we need to look for is whether or not the result of the experiment tells us how the model would perform on new data we collect*
     *The model already saw whether or not each of these compounds inhibits cell growth.* 
     *So the model already knows the answer to this problem for these 48 instances.*
     *It's going to do better on these than it would on other instances that it hasn't seen the right answer to*
@@ -97,11 +100,12 @@ After the scenarios, if there is time talk about cross validation but if there i
 
 #### Training
 
-This is mostly showing how the software works. And some terminology. 
+This is mostly showing how the software works and some terminology.
 
-Mention how hyperparameters work and encourage participants ot experiment with them. 
+Mention how hyperparameters work and encourage participants to experiment with them. 
 
-If participants seem lively it might be nice to ask participants to post the highest accuracy they can get in the chat. 
+If participants seem lively it might be nice to ask participants to post the highest accuracy they can get in the chat.
+Show difference between training and validation metrics.
 
 Be sure to show and explain the data plot and talk about what a decision boundary is. 
 
@@ -109,12 +113,63 @@ Feel free to skip the poll here if it doesn't feel useful in the moment.
 
 #### Test and predict
 
-There is not much to do here, just emphasize how the software enforces the train the train test split and note that many peoples performance probably when down a bit.
+There is not much to do here, just emphasize how the software enforces the train the train test split and note that many people's performance probably went down a bit.
+This is also the stage where we could predict on new unlabeled data if we had loaded some.
+Show how to close and restart the software.
 
 ## Evaluating a model
+Explain confusion matrix, define each of the cells, introduce synonyms for these values and metrics.
+Describe how different evaluation metrics use and emphasize different parts of the confusion matrix.
+The metric should match the needs of the domains, which we explore with the scenarios.
 
+Split into breakout rooms of 3-4 participants.
+~5 minutes for scenario 1, ~8 minutes for scenario 2.
+Instructors rotate through breakout rooms.
+
+Scenario 1:
+Want to minimize FP, cannot afford to test the wrong cell line.
+Precision can be a good metric that accounts for FP.
+
+Scenario 2:
+FN are important here, do not want to miss a drug that will be effective.
+Very many TN if classifier predicts all negative.
+Avoid metrics that use TN, like accuracy.
+Recall is a good metric, goal is recover good leads (TP) and can tolerate FP so precision isn't a major issue.
+Logistic regression will predict all negative because it cannot learn the correct decision boundary.
+Check the metrics.
+Accuracy is still high but other metrics like recall are not.
+The metrics can be unintuitive because precision and recall consider interacting to be positive, then non-interacting to be positive, then average the two values.
+
+Show the simulated drug discovery dataset in the software.
+The trained model is very bad, which we see in the Data plot, but the accuracy is still very high because of class imbalance.
+
+Introduce error curves, step through the construction of a precision-recall curve
+Show where the precision-recall curve is in the ml4bio software.
 
 ## Trees and overfitting
+
+Identify where decision trees may be used implicitly or explicitly in the real world, like medical decision making.
+Define tree elements, leaves and root.
+Can draw a tree to show the correspondence.
+Use the image of the trained tree to show how they can operate with continuous or discrete features.
+Reintroduce the idea of hyperparameters as the settings of a classifier, explain the main decision tree hyperparameters (max_depth, min_samples_split, class_weights).
+Introduce overfitting and why an overfit model is not useful even though it performs very well on the training data, why are decision trees prone to overfitting if we don't limit the depth or sample size.
+
+After loading dataset and letting participants explore decision tree hyperparamters, explain some of the main conclusions.
+Explain how the lines in the decision boundary correspond to nodes in the decision tree.
+Explain how hyperparameters affect the decision boundary.
+Remind everyone that this is an imbalanced dataset when discussing class weights and accuracy.
+
+Random forests are a good classifier for many real datasets.
+Define underfitting and remind what overfitting looks like in the regression examples.
+Define bias and variance, how the fit curves would change if one data point is moved.
+Amount of training data affects whether a high bias or high variance model is appropriate, complex models require more data to fit well.
+Draw many squiggly lines on the bias/variance example and show how the average of many high variance models gives a good fit.
+Random forests subsample data and features.
+
+Cell Profiler T cell dataset shows and example of overfitting with the default decision tree.
+Decision tree with max depth of 2 or random forest can improve validation performance.
+Discuss the training and valiation performance gap.
 
 Scenarios:
 
@@ -132,8 +187,7 @@ You want to create a model to predict whether or not a species’ conservation s
 *Decision trees are likely the right choice here, especially since we have a very informative, small set of features.*
 *We are also interested in being able to interpret the model, which decision trees excel at and random forests can struggle with.*
 
-### Overfitting Cont. 
-
+### Overfitting Continued
 
 __Only do this part if we are ahead of schedule.__
 
@@ -152,7 +206,7 @@ Now we're going to draw another plot to highlight the relationship between overf
 `First draw the data plot on the left. `
 Imagine that it is a st of data for a drug response.
 Ask what looks right as a fit line, the straight line or curvy line?
-The straight line feels better, as those curves are making a lot of assumptions on the sape of the dose response based on only one data point. 
+The straight line feels better, as those curves are making a lot of assumptions on the shape of the dose response based on only one data point. 
 
 `Now add data points so that the plot looks like the plots on the right.` 
 With additional data, we the curvy line looks more appropriate.
@@ -173,7 +227,7 @@ But what if we had a bunch of small training sets, created high-variance models,
 
 `Draw multiple curvy lines with different shapes on the plot`
 
-We could average out the error caused by variance accross the models, while still maintaining the flexibility and low bias these models give us. 
+We could average out the error caused by variance across the models, while still maintaining the flexibility and low bias these models give us. 
 
 This is the intuition behind random forests, where we use a many trees [a forest of trees]  which we setup to have high variance and use them together to choose a final classification. 
 
@@ -183,6 +237,12 @@ This is where the random in random forests comes in.
 
 We fake having more data by randomly sampling with replacement from the training data. 
 In order to further make sure that our curvy lines are different enough, we also only use a subset of all the features, also chosen randomly, for each tree. 
+
+### Preparation for day 2
+Before ending day 1, ask participants to sign up for a paper to read and discuss on day 2.
+Pick papers from the Understanding Machine Learning Literature lesson based on their title
+Can add any papers the participants brought.
+Use https://padlet.com/ or a similar tool for participants to self-organize into papers so each paper has at least 2 participants.
 
 ## Logistic Regression, Artificial Neural Networks, and Linear Separability
 
