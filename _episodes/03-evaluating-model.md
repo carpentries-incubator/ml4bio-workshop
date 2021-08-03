@@ -131,10 +131,4 @@ The two most popular curves are the __ROC curve__ and the __PR curve__.
 >
 {: .callout}
 
-> ## Break
-> Let's take a short break. 
->
-{: .discussion}
-
-
 {% include links.md %}
