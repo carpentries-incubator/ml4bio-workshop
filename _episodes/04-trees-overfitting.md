@@ -107,7 +107,7 @@ Some cons of using decision trees:
 >
 > Load *simulated_t_cells_7.csv* data set into the software.
 >
-> This dataset is engineered specifically to demonstrate the decision tree classifier.
+> Turn off "stratified sampling" under validation methodology (right above next) before continuing. 
 {: .checklist}
 
 > ## Conceptual Questions
