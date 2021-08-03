@@ -105,7 +105,7 @@ Some cons of using decision trees:
 
 > ## Software
 >
-> Load *simulated_t_cells_7.csv* data set into the software.
+> Load `simulated_t_cell/simulated_t_cells_7.csv` data set into the software.
 >
 > Turn off "stratified sampling" under validation methodology (right above next) before continuing. 
 {: .checklist}
@@ -237,7 +237,7 @@ The final prediction is based on a vote or the average taken across all the deci
 
 > ## Software - Poll
 >
-> Load *./data/t_cell/cellprofiler_feature.csv* data set into the software.
+> Load `t_cell/cellprofiler_feature.csv` data set into the software.
 >
 > Try training both a decision tree and a random forest on the data. 
 >

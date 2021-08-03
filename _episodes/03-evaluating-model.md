@@ -102,7 +102,7 @@ This metric is called _precision_ in machine learning (and may be different from
 > 3. What metric or couple of metrics would you use to evaluate your machine learning system?
 >
 >
-> Load the `simulated-drug-discovery` dataset from the `data` folder into the ML4Bio software. Try training a logistic regression classifier on the dataset. Which metrics seem to accurately reflect the performance of the classifier?
+> Load the `simulated_drug_discovery/simulated-drug-discovery.csv` dataset from the `data` folder into the ML4Bio software. Try training a logistic regression classifier on the dataset. Which metrics seem to accurately reflect the performance of the classifier?
 {: .callout}
 
 Common Metrics:
