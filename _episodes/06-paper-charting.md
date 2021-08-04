@@ -43,6 +43,7 @@ Here is a list of papers which you can choose for this activity.
 - [Potential neutralizing antibodies discovered for novel corona virus using machine learning](https://www.nature.com/articles/s41598-021-84637-4#Sec2)
 - [seqQscorer: automated quality control of next-generation sequencing data using machine learning](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-021-02294-2)
 - [Identifying mouse developmental essential genes using machine learning](https://journals.biologists.com/dmm/article/11/12/dmm034546/3057/Identifying-mouse-developmental-essential-genes)
+- [A deep learning approach to antibiotic discovery](https://doi.org/10.1016/j.cell.2020.01.021)
 
 ### Example Chart
 
