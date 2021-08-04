@@ -89,6 +89,7 @@ However, learning these methods and tools is outside the scope of this workshop.
 Preprocessing strategies are specific to both a dataset's domain and the technology used to gather the data.
 Throughout this workshop, we will assume that all of the data has already been preprocessed.
 
+In the T-cell study, preprocessing steps included removing images of red blood cells from the dataset, padding images with black borders to make them all the same size, and extracting cell features with [Cell Profiler](https://cellprofiler.org/).
 
 ## Step 1: Select data
 
