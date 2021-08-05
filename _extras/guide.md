@@ -169,23 +169,7 @@ Random forests subsample data and features.
 
 Cell Profiler T cell dataset shows and example of overfitting with the default decision tree.
 Decision tree with max depth of 2 or random forest can improve validation performance.
-Discuss the training and valiation performance gap.
-
-Scenarios:
-
-In the following scenarios, which classifier would you choose?
-
-You want to create a model to classify a protein’s subcellular localization (nucleus, mitochondria, plasma membrane, etc.). You have a labeled set of 15,000 human proteins with 237 features for each protein. These features were computationally derived from simulations using protein structure predicting software, and do not have any predefined meaning.
-
-*In this scenario, we would probably want to use a random forest.*
-*There are a lot of features and data, which means that a random forest's increased complexity is a good thing here.*
-*The features are also not that interpretable, so we're not too concerned with being able to understand why the model is making certain decisions.*
-
-You want to create a model to predict whether or not a species’ conservation status (least concern, endangered, extinct, etc.) will be affected by climate change. You have a labeled dataset of 40 species, with 18 features for each species which have been curated by ecologists. These features include information such as the species’ average size, diet, taxonomic class, migratory pattern, and habitat. You are interested to see which features are most important for predicting a species’ fate.
-
-*We have less data in this scenario, so a simpler model might be better.*
-*Decision trees are likely the right choice here, especially since we have a very informative, small set of features.*
-*We are also interested in being able to interpret the model, which decision trees excel at and random forests can struggle with.*
+Discuss the training and validation performance gap.
 
 ### Overfitting Continued
 
@@ -237,6 +221,22 @@ This is where the random in random forests comes in.
 
 We fake having more data by randomly sampling with replacement from the training data. 
 In order to further make sure that our curvy lines are different enough, we also only use a subset of all the features, also chosen randomly, for each tree. 
+
+### Scenarios
+
+In the following scenarios, which classifier would you choose?
+
+You want to create a model to classify a protein’s subcellular localization (nucleus, mitochondria, plasma membrane, etc.). You have a labeled set of 15,000 human proteins with 237 features for each protein. These features were computationally derived from simulations using protein structure predicting software, and do not have any predefined meaning.
+
+*In this scenario, we would probably want to use a random forest.*
+*There are a lot of features and data, which means that a random forest's increased complexity is a good thing here.*
+*The features are also not that interpretable, so we're not too concerned with being able to understand why the model is making certain decisions.*
+
+You want to create a model to predict whether or not a species’ conservation status (least concern, endangered, extinct, etc.) will be affected by climate change. You have a labeled dataset of 40 species, with 18 features for each species which have been curated by ecologists. These features include information such as the species’ average size, diet, taxonomic class, migratory pattern, and habitat. You are interested to see which features are most important for predicting a species’ fate.
+
+*We have less data in this scenario, so a simpler model might be better.*
+*Decision trees are likely the right choice here, especially since we have a very informative, small set of features.*
+*We are also interested in being able to interpret the model, which decision trees excel at and random forests can struggle with.*
 
 ### Preparation for day 2
 Before ending day 1, ask participants to sign up for a paper to read and discuss on day 2.
@@ -309,11 +309,25 @@ For higher values of C the orientation and steepness of the decision boundary ch
 
 ## Understanding machine learning literature
 
+Start by discussing some of the important workflow components to look for when reading a paper: data splitting strategy, type of classifier, how hyperparameters were selected, whether the evaluation metric is appropriate for the dataset.
+Open the example paper breast cancer susceptibility paper.
+Narrate going through the paper, looking for the methods section and finding important information like the number of instances, class labels, and features.
+Highlight the text as this information is located.
+Try not to jump around the paper too quickly when sharing the screen.
+
+Nested cross validation is used in this paper so explain how that differs from the cross validation we described previously.
+
+Let participants read their papers individually and work on the form for 10 minutes.
+Then split into breakout rooms organized by paper for 15 minutes.
+Instructors rotate through the rooms to clarify confusing points or non-traditional workflow decisions.
+Then return to the entire group and ask participants to share interesting aspects of their papers.
+
 ## Conclusion
 
 Discuss some of the considerations of machine learning in practice.
 
 Give time to work through the assessment activity.
+Point out what we modified the paper excerpt, possibly to introduce errors, possibly to correct errors.
 
 Thank participants and encourage them to complete the post-workshop survey to help improve the workshop.
 Send the survey link by email immediately after the workshop.
@@ -325,5 +339,6 @@ Software Carpentry teaches basic Python and command line skills, which is one av
 
 Emphasize that the machine learning workflow in the ml4bio software is the same workflow in the example Jupyter notebook that uses Python code.
 If time permits, open the notebook in Binder to show how it can execute in a web browser and the major workflow steps.
+Launch the notebook in Binder before the workshop begins so that the image is prepared in advance and the notebook loads quickly.
 
 {% include links.md %}
