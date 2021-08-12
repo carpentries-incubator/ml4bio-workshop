@@ -79,12 +79,19 @@ Then, enter `./` followed by the name of the script for your operating system wi
 <img width="500" src="{{ page.root }}/fig/setup/linux_script.png">
 </p>
 
+If the ml4bio software was successfully installed, you should see this graphical interface:
+
+<p align="center">
+<img width="500" src="{{ page.root }}/fig/software/launch.png">
+</p>
+
 After you close the ml4bio software, you can run the same `install_launch` script to relaunch it.
 The script will not install anything new the second time you run it.
 It will use Anaconda to open ml4bio.
 
 A dedicated [lesson][episode-t-cells] will provide an introduction to the ml4bio software during the workshop.
 See the [software environment details](#software-environment-details) for more information about how the ml4bio software works.
+
 
 ### Troubleshooting
 You must extract the contents of the `ml-bio-workshop-gh-pages.zip` workshop materials file.
