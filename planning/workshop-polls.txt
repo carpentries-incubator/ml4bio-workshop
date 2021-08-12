@@ -80,10 +80,8 @@ Day 2:
 
     Poll 4: Logit: L1 Regularization
     1. At what level of C did the classifier perform the best? (Single Choice)
-            0.08
+            0.001
+            0.07
             0.1
-            0.2
-            0.5
+            0.25
             1.0
-
-
