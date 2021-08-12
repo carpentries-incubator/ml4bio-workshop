@@ -97,6 +97,7 @@ exclude:
   - Makefile
   - bin/
   - .Rproj.user/
+  - planning/
 
 # Turn on built-in syntax highlighting.
 highlighter: rouge
