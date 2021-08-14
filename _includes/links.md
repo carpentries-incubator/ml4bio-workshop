@@ -21,7 +21,6 @@
 [episode-conclusion]: {{ relative_root_path }}{% link _episodes/07-conclusion.md %}
 [github-importer]: https://import.github.com/
 [importer]: https://github.com/new/import
-[issues]: {{ repo_url }}/issues
 [jekyll-collection]: https://jekyllrb.com/docs/collections/
 [jekyll-install]: https://jekyllrb.com/docs/installation/
 [jekyll-windows]: http://jekyll-windows.juthilo.com/
