@@ -36,19 +36,19 @@ That gives us the price of $230k.
 Our final class label is high.
 
 <p align="center">
-<img width="500" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/Decision_tree1.png">
+<img width="500" src="{{ page.root }}/assets/Decision_tree1.png">
 </p>
 
 <p align="center">
-<img width="500" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/Decision_tree2.png">
+<img width="500" src="{{ page.root }}/assets/Decision_tree2.png">
 </p>
 
 <p align="center">
-<img width="500" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/Decision_tree3.png">
+<img width="500" src="{{ page.root }}/assets/Decision_tree3.png">
 </p>
 
 <p align="center">
-<img width="500" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/Decision_tree4.png">
+<img width="500" src="{{ page.root }}/assets/Decision_tree4.png">
 </p>
 
 #### How does the classifier make predictions?
@@ -193,7 +193,7 @@ Multiple overfitting classifiers are put together to reduce the overfitting.
 ### Motivation from the bias variance trade-off
 
 <p align="center">
-<img width="900" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/decisiontree3.jpeg">
+<img width="900" src="{{ page.root }}/assets/decisiontree3.jpeg">
 </p>
 
 If we examine the different decision boundaries, note that the one of the left has high __bias__ while the one on the right has high __variance__.
@@ -222,7 +222,7 @@ This method of creating random subsamples of data to make an __ensemble__ of cla
 The final prediction is based on a vote or the average taken across all the decision trees in the forest.
 
 <p align="center">
-<img width="900" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/random_forest_diagram.png">
+<img width="900" src="{{ page.root }}/assets/random_forest_diagram.png">
 </p>
 
 > ## Definitions

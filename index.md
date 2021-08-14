@@ -10,7 +10,7 @@ The participants will be able to interactively develop an understanding of machi
 The focus will be on problems in biology where machine learning is effectively used. 
 
 **Please note that the workshop materials for ml4bio are still in development.
-Feedback is welcome in the [GitHub issues](https://github.com/gitter-lab/ml-bio-workshop/issues).**
+Feedback is welcome in the [GitHub issues][issues].**
 
 > ## Getting Started
 >
@@ -25,3 +25,5 @@ Feedback is welcome in the [GitHub issues](https://github.com/gitter-lab/ml-bio-
 > get access to the required software and data for this workshop.
 > 
 {: .callout}
+
+{% include links.md %}

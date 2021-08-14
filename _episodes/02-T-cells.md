@@ -54,7 +54,7 @@ The goal of this study is to develop a method to classify T-cell activation stat
 ## Machine learning workflow
 
 <p align="center">
-<img width="800" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/tcells1.png">
+<img width="800" src="{{ page.root }}/assets/tcells1.png">
 </p>
 
 Before we can use a model to predict T-cell states, we have to do three steps:
@@ -155,7 +155,7 @@ Before we continue, split the dataset into a __training set__ and a __test set__
 The training set is further divided into a training set and a __validation set__.
 
 <p align="center">
-<img width="600" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/tcells2.png">
+<img width="600" src="{{ page.root }}/assets/tcells2.png">
 </p>
 
 > ## Definitions
@@ -211,7 +211,7 @@ The number of times the data is split is referred to as the number of folds.
 For instance, 5-fold cross validation would split a dataset into 5 equal subsets, then run 5 different iterations of training and testing:
 
 <p align="center">
-<img width="700" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/cv_fig.png">
+<img width="700" src="{{ page.root }}/assets/cv_fig.png">
 </p>
 
 > ## Software
@@ -224,7 +224,7 @@ For instance, 5-fold cross validation would split a dataset into 5 equal subsets
 
 
 <p align="center">
-<img width="600" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/Holdout_Validation.png">
+<img width="600" src="{{ page.root }}/assets/Holdout_Validation.png">
 </p>
 
 ## Step 2: Train classifiers

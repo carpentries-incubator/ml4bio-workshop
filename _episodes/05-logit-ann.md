@@ -43,7 +43,7 @@ In the T-cells example, the feature weight is the coefficient for the feature $x
 When we have multiple features, the linear regression would be $y = w_0 + w_1x_1 + w_2x_2 +...+ w_nx_n$.
 
 <p align="center">
-<img width="550" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/Linreg-vs-logit_.png">
+<img width="550" src="{{ page.root }}/assets/Linreg-vs-logit_.png">
 </p>
 
 ### What is logistic regression?
@@ -134,7 +134,7 @@ For those hyperparameters that we don't cover, we will use the default settings.
 Logistic regression can also be visualized as a network of features feeding into a single logistic function.
 
 <p align="center">
-<img width="750" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/logit_nodes.png">
+<img width="750" src="{{ page.root }}/assets/logit_nodes.png">
 </p>
 
 At the logistic function, the connected features are combined and fed into the logistic function to get the classifier's prediction.
@@ -146,7 +146,7 @@ An artificial neural network can be viewed as an extension of the logistic regre
 These additional layers allow for more complex, non-linear decision boundaries to be learned.
 
 <p align="center">
-<img width="750" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/ann_nodes.png">
+<img width="750" src="{{ page.root }}/assets/ann_nodes.png">
 </p>
 
 Artificial neural networks have inputs and outputs, just like logistic regression, but have one or more additional layers called __hidden layers__ comprised of __hidden units__. 
@@ -214,10 +214,10 @@ Artificial neural networks with a single hidden layer tend to perform well on si
 
 However artificial neural networks used on more complex data, such as raw image data or protein structure data, typically have much more complex architectures. 
 
-For example, below is the architecture of a neural network used to [evaluate the skill of robotic surgery arms](https://link.springer.com/article/10.1007/s11548-018-1860-1) based on motion captured over time.
+For example, below is the architecture of a neural network used to [evaluate the skill of robotic surgery arms](https://doi.org/10.1007/s11548-018-1860-1) based on motion captured over time.
 
 <p align="center">
-<img width="750" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/fig/third_party_figures/example_deep_network.png">
+<img width="750" src="{{ page.root }}/fig/third_party_figures/example_deep_network.png">
 </p>
 
 This neural network still consists of hidden layers combined with functions, but contains many specialized layers which perform specific operations on the input features.

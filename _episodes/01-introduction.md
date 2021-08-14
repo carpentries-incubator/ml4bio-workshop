@@ -65,7 +65,7 @@ For some external resources, check out the [references][lesson-reference].
 {: .callout}
 
 <figure>
-<img width="800" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/supervised_vs_unsupervised.png">
+<img width="800" src="{{ page.root }}/assets/supervised_vs_unsupervised.png">
 <figcaption> Image adapted from <a href="https://github.com/rasbt/python-machine-learning-book-2nd-edition"> Python Machine Learning, 2rd Ed.</a> by Sebastian Raschka and Vahid Mirjalili</figcaption>
 </figure>
 
@@ -100,7 +100,7 @@ For some external resources, check out the [references][lesson-reference].
 {: .callout}
 
 <figure>
-<img width="1000" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/ml_introDebate.png">
+<img width="1000" src="{{ page.root }}/assets/ml_introDebate.png">
 <figcaption> Confidence scale for machine learning scenarios.</figcaption>
 </figure>
 
@@ -126,10 +126,10 @@ Machine learning may also recognize complex patterns that are not obvious to exp
 Let’s look at some examples of how machine learning is being used in biology research.
 
 * [Imputing missing SNP data.](https://doi.org/10.1038/sj.ejhg.5201988)
-* [Identifying transcription-factor binding sites from DNA sequence data alone, and predicting gene function from sequence and expression data.](http://doi.org/10.1038/nrg3920)   
+* [Identifying transcription-factor binding sites from DNA sequence data alone, and predicting gene function from sequence and expression data.](https://doi.org/10.1038/nrg3920)   
 * [Finding drug targets in  breast, pancreatic and ovarian cancer.](https://doi.org/10.1186/s13073-014-0057-7)
-* [Diagnosing cancer from DNA methylation data.](http://doi.org/10.1038/d41586-018-02881-7)
-* [Finding glaucoma in color fundus photographs using deep learning.](http://doi.org/10.1001/jamaophthalmol.2019.3512)
+* [Diagnosing cancer from DNA methylation data.](https://doi.org/10.1038/d41586-018-02881-7)
+* [Finding glaucoma in color fundus photographs using deep learning.](https://doi.org/10.1001/jamaophthalmol.2019.3512)
 * [Predicting lymphocyte fate from cell imaging](https://doi.org/10.1371/journal.pone.0083251)
 * [Predicting 3d protein structures](https://doi.org/10.1038/s41586-021-03819-2)
 * [Discovering new antibiotics](https://doi.org/10.1016/j.cell.2020.01.021)

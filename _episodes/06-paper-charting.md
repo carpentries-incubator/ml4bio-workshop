@@ -17,7 +17,7 @@ __Please read this paper for day 2 of the workshop, so you are familiar with the
 Alternatively, if you brought a paper to day 1 you think is a good candidate, we can add it to the list of papers people can choose from. 
 We will ask you to switch papers if you end up being the only person in the workshop who chooses that paper. 
 
-We will be exploring filling out  <a href="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/assessmentChartV2form.pdf" download>  this chart </a> for the paper you select. 
+We will be exploring filling out [this chart]({{ page.root }}/assets/assessmentChartV2form.pdf) for the paper you select. 
 This chart is a tool to help you think about how machine learning is used in a paper and come to a conclusion about if you think the claims made in the paper using machine learning are valid.
 
 ## Choosing a paper to read
@@ -53,8 +53,8 @@ You will fill out this chart for the paper you chose during day 2 of the worksho
 Here is an example partially filled-out chart from Predictive Models for [Breast Cancer Susceptibility from Multiple Single Nucleotide Polymorphisms](https://clincancerres.aacrjournals.org/content/clincanres/10/8/2725.full.pdf). 
 Note that this paper uses 3 different classifiers, but we are just going to focus on the decision tree:
 
-<a href="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/partial_filled_assessmentChartV2form.pdf" download>
-  <img src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/partial_form_assessmentChartV2.png" width="750">
+<a href="{{ page.root }}/assets/partial_filled_assessmentChartV2form.pdf" download>
+  <img src="{{ page.root }}/assets/partial_form_assessmentChartV2.png" width="750">
 </a>
 
 > ## Example Chart Activity
