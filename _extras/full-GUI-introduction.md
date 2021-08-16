@@ -89,7 +89,7 @@ Both of them are continous.
 
 #### Split Data
 
-In the lesson [Classifying T-cells](https://gitter-lab.github.io/ml-bio-workshop/03-T-cells/index.html) we will go into details how to split a dataset. 
+In the lesson [Classifying T-cells][episode-t-cells] we will go into details how to split a dataset. 
 For now, splitting data means deciding how much data you want to set aside for testing.
 You may adjust the percent of test data
 and decide whether or not to split the data in a stratified fashion.
