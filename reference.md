@@ -8,7 +8,7 @@ title: "References"
 The [Google machine learning glossary](https://developers.google.com/machine-learning/glossary) and [ml4bio guides](https://github.com/gitter-lab/ml-bio-workshop/tree/gh-pages/guide) define common machine learning terms.
 
 The [scikit-learn tutorials](https://scikit-learn.org/stable/tutorial/index.html) provide a Python-based introduction to machine learning.
-There is also a third-party [scikit-learn tutorial](https://github.com/jakevdp/sklearn_tutorial).
+There is also a third-party [scikit-learn tutorial](https://github.com/jakevdp/sklearn_tutorial) and a Carpentries [lesson](https://carpentries-incubator.github.io/machine-learning-novice-sklearn/).
 
 The book Python Machine Learning has machine learning [example code](https://github.com/rasbt/python-machine-learning-book-3rd-edition).
 
@@ -25,7 +25,7 @@ A computing cluster helps train and evaluate many machine learning models in par
 
 ## Jupyter notebook example
 
-You can [run an example Jupyter notebook](https://mybinder.org/v2/gh/gitter-lab/ml-bio-workshop/gh-pages?filepath=illustration.ipynb) in Binder to see how a machine learning workflow looks in Python code using scikit-learn.
+You can [run an example Jupyter notebook](https://mybinder.org/v2/gh/{{ site.repository }}/gh-pages?filepath=illustration.ipynb) in Binder to see how a machine learning workflow looks in Python code using scikit-learn.
 The notebook will load an executable Python environment in your web browser.
 After it loads, you can inspect the code and output or rerun it yourself.
 
