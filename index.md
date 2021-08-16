@@ -10,7 +10,7 @@ The participants will be able to interactively develop an understanding of machi
 The focus will be on problems in biology where machine learning is effectively used. 
 
 **Please note that the workshop materials for ml4bio are still in development.
-Feedback is welcome in the [GitHub issues]({{ repo_url }}/issues).**
+Feedback is welcome in the [GitHub issues]({{ site.github.issues_url }}).**
 
 > ## Getting Started
 >
