@@ -25,7 +25,7 @@ A computing cluster helps train and evaluate many machine learning models in par
 
 ## Jupyter notebook example
 
-You can [run an example Jupyter notebook](https://mybinder.org/v2/gh/{{ site.github.repository_nwo }}/gh-pages?filepath=illustration.ipynb) in Binder to see how a machine learning workflow looks in Python code using scikit-learn.
+You can [run an example Jupyter notebook](https://mybinder.org/v2/gh/gitter-lab/ml-bio-workshop/gh-pages?filepath=illustration.ipynb) in Binder to see how a machine learning workflow looks in Python code using scikit-learn.
 The notebook will load an executable Python environment in your web browser.
 After it loads, you can inspect the code and output or rerun it yourself.
 
