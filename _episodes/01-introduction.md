@@ -135,4 +135,6 @@ Let’s look at some examples of how machine learning is being used in biology r
 * [Discovering new antibiotics](https://doi.org/10.1016/j.cell.2020.01.021)
 * [Recognizing clinical impact of genetic variants](https://doi.org/10.1038/s41588-018-0167-z)
 
+Feedback is welcome in the [GitHub issues]({{ repo_url }}/issues).
+
 {% include links.md %}
