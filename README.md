@@ -1,6 +1,5 @@
 # Machine Learning for Biology (ml4bio) workshop
-[![Build Status](https://travis-ci.org/carpentries-incubator/ml4bio-workshop.svg?branch=gh-pages)](https://travis-ci.org/carpentries-incubator/ml4bio-workshop)
-[![Binder](http://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/gitter-lab/ml-bio-workshop/gh-pages?filepath=illustration.ipynb)
+[![Binder](http://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/carpentries-incubator/ml4bio-workshop/gh-pages?filepath=illustration.ipynb)
 
 Recent advances in high-throughput technologies have led to rapid growth in the amount of omics data.
 These massive datasets, accompanied by numerous data points enriched over the past decades, are extremely valuable in the discovery of complex biological structures, but also present big challenges in various aspects of data analysis.
@@ -11,7 +10,7 @@ This repository contains materials for the ml4bio workshop.
 It generates the corresponding lesson website from [The Carpentries](https://carpentries.org/) lesson template.
 
 ## Getting started
-Visit the [software setup page](https://gitter-lab.github.io/ml-bio-workshop/setup.html) for instructions on installing the ml4bio software and downloading the example datasets, guides, and slides contained in this repository.
+Visit the [software setup page](https://carpentries-incubator.github.io/ml4bio-workshop/setup.html) for instructions on installing the ml4bio software and downloading the example datasets, guides, and slides contained in this repository.
 
 ## Overview
 In addition to the materials needed to build the lesson website, this repository contains the following files and subdirectories:
@@ -27,7 +26,7 @@ The [ml4bio repository](https://github.com/gitter-lab/ml4bio) contains the Pytho
 
 ## Contributing
 We welcome contributions to improve the workshop!
-The best way to provide suggestions or propose contributions is in the [GitHub issues](https://github.com/gitter-lab/ml-bio-workshop/issues).
+The best way to provide suggestions or propose contributions is in the [GitHub issues](https://github.com/carpentries-incubator/ml4bio-workshop/issues).
 
 ## Maintainers
 Current maintainers of this lesson are
@@ -37,7 +36,7 @@ Current maintainers of this lesson are
 * [@agitter](https://github.com/agitter)
 
 ## Authors
-A list of contributors to the lesson can be found in [AUTHORS](AUTHORS) and the [GitHub contributors](https://github.com/gitter-lab/ml-bio-workshop/graphs/contributors).
+A list of contributors to the lesson can be found in [AUTHORS](AUTHORS) and the [GitHub contributors](https://github.com/carpentries-incubator/ml4bio-workshop/graphs/contributors).
 
 ## Citation
 To cite this lesson, please consult with [CITATION](CITATION)
@@ -49,4 +48,4 @@ See the linked original image sources for their licenses and terms of reuse.
 
 The workshop template is derived from [The Carpentries lesson template](https://github.com/carpentries/styles).
 The template is Copyright © 2018–2020 [The Carpentries](https://carpentries.org/) and [licensed CC BY 4.0](https://github.com/carpentries/styles/blob/gh-pages/LICENSE.md).
-See the [license](https://gitter-lab.github.io/ml-bio-workshop/LICENSE.html) for additional information.
+See the [license](https://carpentries-incubator.github.io/ml4bio-workshop/LICENSE.html) for additional information.

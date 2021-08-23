@@ -25,7 +25,7 @@ See the [troubleshooting](#troubleshooting) if you run into problems during the 
 If you already have Python installed and do not want to use Anaconda, download the ml4bio materials and proceed to the [advanced](#advanced-users) instructions.
 
 ### Download the ml4bio materials
-To download the ml4bio materials, visit <https://github.com/gitter-lab/ml-bio-workshop/>.
+To download the ml4bio materials, visit <https://github.com/carpentries-incubator/ml4bio-workshop/>.
 Click the `Code` button followed by `Download ZIP`.
 
 <p align="center">
@@ -33,7 +33,7 @@ Click the `Code` button followed by `Download ZIP`.
 </p>
 
 Save the file `ml-bio-workshop-gh-pages.zip` and then open that location on your computer.
-Extract the zip file and open the folder `ml-bio-workshop-gh-pages`, which has the same contents as <https://github.com/gitter-lab/ml-bio-workshop/>.
+Extract the zip file and open the folder `ml-bio-workshop-gh-pages`, which has the same contents as <https://github.com/carpentries-incubator/ml4bio-workshop/>.
 You are now ready to install the Python dependencies needed to run the ml4bio software and follow the workshop exercises.
 You will also use the datasets in the `data` subdirectory during the workshop.
 Take note of the location of the `ml-bio-workshop-gh-pages` folder so you can navigate to it during the workshop.
