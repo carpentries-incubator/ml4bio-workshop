@@ -184,7 +184,7 @@ First re-hash overfitting, pointing out the definitions of bias and variance.
 
 Now we're going to draw another plot to highlight the relationship between overfitting and the amount of training data
 <p align="center">
-<img width="900" src="https://raw.githubusercontent.com/gitter-lab/ml-bio-workshop/gh-pages/assets/randomForestsOverfitting.png">
+<img width="900" src="{{ page.root }}/assets/randomForestsOverfitting.png">
 </p>
 
 `First draw the data plot on the left. `
