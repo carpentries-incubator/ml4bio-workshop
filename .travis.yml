@@ -1,9 +1,8 @@
-# Build all branches including gh-pages
+# Only build the 'none' branch, which does not exist
 # https://docs.travis-ci.com/user/customizing-the-build#safelisting-or-blocklisting-branches
 branches:
   only:
-  - gh-pages
-  - /.*/
+  - none
 
 # Use a build matrix to run one set of jobs that test the conda environments
 # another to test the URLs in the Markdown files

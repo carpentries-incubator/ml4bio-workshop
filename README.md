@@ -1,5 +1,5 @@
 # Machine Learning for Biology (ml4bio) workshop
-[![Build Status](https://travis-ci.org/gitter-lab/ml-bio-workshop.svg?branch=gh-pages)](https://travis-ci.org/gitter-lab/ml-bio-workshop)
+[![Build Status](https://travis-ci.org/carpentries-incubator/ml4bio-workshop.svg?branch=gh-pages)](https://travis-ci.org/carpentries-incubator/ml4bio-workshop)
 [![Binder](http://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/gitter-lab/ml-bio-workshop/gh-pages?filepath=illustration.ipynb)
 
 Recent advances in high-throughput technologies have led to rapid growth in the amount of omics data.
