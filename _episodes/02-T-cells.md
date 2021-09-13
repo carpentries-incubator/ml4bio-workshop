@@ -160,7 +160,8 @@ The training set is further divided into a training set and a __validation set__
 
 > ## Definitions
 >
-> Training set - The training set is a part of the original dataset that trains or fits the model. This is the data that the model uses to learn patterns.
+> Training set - The training set is a part of the original dataset that trains or fits the model.
+> This is the data that the model uses to learn patterns and set the model __parameters__.
 >
 > Validation set - Part of the training set is used to validate that the fitted model works on new data.
 > This is not the final evaluation of the model.
@@ -168,7 +169,11 @@ The training set is further divided into a training set and a __validation set__
 >
 > Test set - The test set checks how well we expect the model to work on new data in the future. The test set is used in the final phase of the workflow, and it evaluates the final model. It can only be used one time, and the model cannot be adjusted after using it.
 >
-> Hyperparameters - These are the settings of a machine learning model. Each machine learning method has different hyperparameters, and they control various trade-offs which change how the model learns.
+> Parameters - These are the aspects of a machine learning model that are learned from the training data.
+> The parameters define the prediction rules of the trained model.
+>
+> Hyperparameters - These are the user-specified settings of a machine learning model.
+> Each machine learning method has different hyperparameters, and they control various trade-offs which change how the model learns.
 > Hyperparameters control parts of a machine learning method such as how much emphasis the method should place on being perfectly correct versus becoming overly complex, how fast the method should learn, the type of mathematical model the method should use for learning, and more.
 {: .callout}
 
