@@ -50,7 +50,7 @@ Benefits of machine learning for this task: rapidly classify many new cells in r
 #### ML Workflow:
 
 #### Preprocessing:
-Here is where it might be good to actually open up the .csv file and show what it looks like raw (or we could just add an image of the csv file to the lesson).
+Here is where it might be good to actually open up the .csv file and show what it looks like raw.
 Make a note of data terminology here, things like class, sample, instance, etc.
 Talk about how the size and intensity features were made, how outliers have to be considered, and where in the software to note various stats like the features, number of samples, etc.
 Note that data preprocessing is very field specific.
@@ -61,6 +61,7 @@ Some cell images were also removed because they were red blood cells, not T cell
 Define and give a basic definition of the data split.
 Currently the lesson uses the analogy of a student cheating on a test.
 Validation set is like a practice test, okay to take it many times.
+It is also used to tune the model, which may be like a student adusting their studying strategy.
 Generally first introduce the idea of needing to have a test set, then introduce the concept of needing to further split the data so we can try things out.
 The idea of this workflow as an experiment, where we are trying to simulate finding new data we want to use the model on, can be a helpful way to frame this concept as well.
 The validation set split allows us to experiment as much as we want with changing the model and seeing how it affects performance without ever accidentally cheating and peeking at the test answers, the testing set.
