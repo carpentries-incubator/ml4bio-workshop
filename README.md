@@ -1,5 +1,5 @@
 # Machine Learning for Biology (ml4bio) workshop
-[![Binder](http://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/carpentries-incubator/ml4bio-workshop/gh-pages?filepath=illustration.ipynb)
+[![Binder](http://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/carpentries-incubator/ml4bio-workshop/gh-pages?urlpath=tree/illustration.ipynb)
 
 Recent advances in high-throughput technologies have led to rapid growth in the amount of omics data.
 These massive datasets, accompanied by numerous data points enriched over the past decades, are extremely valuable in the discovery of complex biological structures, but also present big challenges in various aspects of data analysis.
