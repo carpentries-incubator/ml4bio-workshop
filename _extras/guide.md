@@ -251,6 +251,7 @@ Use https://padlet.com/ or a similar tool for participants to self-organize into
 
 Use the TensorFlow Playground example to build intuition about the linear decision boundary of a logistic regression classifier.
 Modify the feature weights to show how the decision boundary changes.
+Discuss how this makes logistic regression easy to interpret.
 Set one weight to 0 to preview the regularization discussion.
 
 Transition to talk about the equations for linear and logistic regression briefly using the network diagram as a guide.
@@ -263,6 +264,7 @@ The example has 3 classes instead of 2 so explain what linear decision boundarie
 Use the TensorFlow Playground examples to show how logistic regression cannot fit the XOR pattern.
 Adding hidden layers and hidden units with create a neural network that can fit the pattern.
 Use the spiral example and manually step through a few weight updates to build intuition about how a neural network trains.
+Discuss how the weights are no longer directly interpretable and require special interpretation techniques.
 The workshop does not cover gradient descent.
 
 Show the neural network diagram and make the connection to adding more layers and hidden units in TensorFlow Playground.
