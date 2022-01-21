@@ -16,7 +16,7 @@ The following data were from UCI ML Repository:
 
 Citation information:
 
-Dua, D. and Karra Taniskidou, E. (2017). UCI Machine Learning Repository [http://archive.ics.uci.edu/ml]. Irvine, CA: University of California, School of Information and Computer Science. 
+Dua, D. and Karra Taniskidou, E. (2017). UCI Machine Learning Repository <http://archive.ics.uci.edu/ml>. Irvine, CA: University of California, School of Information and Computer Science. 
 
 ## Other possibilities
 - [Compendiums of Cancer Transcriptome for Machine Learning Applications](https://doi.org/10.1101/353698)
