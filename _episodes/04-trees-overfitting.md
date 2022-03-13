@@ -8,7 +8,7 @@ objectives:
 - Understand advantages and disadvantages of decision trees and random forests
 - Identify evidence of overfitting
 keypoints:
-- Decision trees are easy to visualize and intuitive to understand
+- Decision trees require less effort to visualize interpret than other models
 - Decision trees are prone to overfitting
 - Random forests solve many of the problems of decision trees but are more difficult to interpret
 ---
@@ -86,8 +86,8 @@ An important property of the decision tree is the __depth of tree__.
 
 Some pros of using decision trees:
 
-- easy to visualize and interpret
-- the classification can be visually followed, so it is easy to reproduce
+- often simpler to visualize and interpret than other models
+- the classification can be visually followed and performed manually
 - makes few assumptions about the data
 - can ignore useless features
 
