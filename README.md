@@ -1,12 +1,12 @@
-# Machine Learning for Biology (ml4bio) workshop
+# Machine Learning for Biologists (ML4Bio) workshop
 [![Binder](http://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/carpentries-incubator/ml4bio-workshop/gh-pages?urlpath=tree/illustration.ipynb)
 
 Recent advances in high-throughput technologies have led to rapid growth in the amount of omics data.
-These massive datasets, accompanied by numerous data points enriched over the past decades, are extremely valuable in the discovery of complex biological structures, but also present big challenges in various aspects of data analysis.
-This workshop introduces biologists to machine learning, a powerful set of models for drawing inference from big data.
-Upon completion of the workshop, attendees will gain expertise in building simple predictive models and become more comfortable to collaborate with computational experts on more complicated data analysis tasks.
+These massive datasets, accompanied by numerous data points enriched over the past decades, are extremely valuable in the discovery of complex biological structures, but also present challenges in various aspects of data analysis.
+This workshop introduces biologists to concepts in machine learning, a powerful set of models for drawing inference from data.
+Upon completion of the workshop, attendees will be able to identify machine learning applications, examine factors that influence model selection, recognize major methodological flaws in a machine learning experiment, and gain a greater appreciations for machine learning.
 
-This repository contains materials for the ml4bio workshop.
+This repository contains materials for the ML4Bio workshop.
 It generates the corresponding lesson website from [The Carpentries](https://carpentries.org/) lesson template.
 
 ## Getting started

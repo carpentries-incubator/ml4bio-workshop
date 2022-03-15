@@ -5,7 +5,7 @@ title: "References"
 
 ## Glossary and other resources
 
-The [Google machine learning glossary](https://developers.google.com/machine-learning/glossary) and [ml4bio guides](https://github.com/carpentries-incubator/ml4bio-workshop/tree/gh-pages/guide) define common machine learning terms.
+The [Google machine learning glossary](https://developers.google.com/machine-learning/glossary) and [ML4Bio guides](https://github.com/carpentries-incubator/ml4bio-workshop/tree/gh-pages/guide) define common machine learning terms.
 
 The [scikit-learn tutorials](https://scikit-learn.org/stable/tutorial/index.html) provide a Python-based introduction to machine learning.
 There is also a third-party [scikit-learn tutorial](https://github.com/jakevdp/sklearn_tutorial) and a Carpentries [lesson](https://carpentries-incubator.github.io/machine-learning-novice-sklearn/).

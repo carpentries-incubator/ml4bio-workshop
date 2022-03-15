@@ -8,7 +8,7 @@ title: Setup
 > #### Questions
 >
 > 1.   What do I need to run the ml4bio software?
-> 2.   How do I download the ml4bio workshop materials?
+> 2.   How do I download the ML4Bio workshop materials?
 >
 > #### Objectives
 >
@@ -16,27 +16,27 @@ title: Setup
 > 2.   Explain the ml4bio software environment
 
 ### Overview
-There are three main steps to prepare for the ml4bio workshop:
+There are three main steps to prepare for the ML4Bio workshop:
 1. [Download the workshop materials](#download-the-ml4bio-materials)
 2. [Install the Anaconda Python distribution](#install-python)
 3. [Install the ml4bio software](#launch-the-ml4bio-software)
 
 See the [troubleshooting](#troubleshooting) if you run into problems during the installation.
-If you already have Python installed and do not want to use Anaconda, download the ml4bio materials and proceed to the [advanced](#advanced-users) instructions.
+If you already have Python installed and do not want to use Anaconda, download the ML4Bio materials and proceed to the [advanced](#advanced-users) instructions.
 
-### Download the ml4bio materials
-To download the ml4bio materials, visit <https://github.com/carpentries-incubator/ml4bio-workshop/>.
+### Download the ML4Bio materials
+To download the ML4Bio materials, visit <https://github.com/carpentries-incubator/ml4bio-workshop/>.
 Click the `Code` button followed by `Download ZIP`.
 
 <p align="center">
 <img width="350" src="{{ page.root }}/fig/setup/download_button.png">
 </p>
 
-Save the file `ml-bio-workshop-gh-pages.zip` and then open that location on your computer.
-Extract the zip file and open the folder `ml-bio-workshop-gh-pages`, which has the same contents as <https://github.com/carpentries-incubator/ml4bio-workshop/>.
+Save the file `ml4bio-workshop-gh-pages.zip` and then open that location on your computer.
+Extract the zip file and open the folder `ml4bio-workshop-gh-pages`, which has the same contents as <https://github.com/carpentries-incubator/ml4bio-workshop/>.
 You are now ready to install the Python dependencies needed to run the ml4bio software and follow the workshop exercises.
 You will also use the datasets in the `data` subdirectory during the workshop.
-Take note of the location of the `ml-bio-workshop-gh-pages` folder so you can navigate to it during the workshop.
+Take note of the location of the `ml4bio-workshop-gh-pages` folder so you can navigate to it during the workshop.
 
 ### Install Python
 ml4bio requires Python and several other Python packages.
@@ -53,7 +53,7 @@ This will also make Anaconda your primary Python distribution.
 See the [Carpentries Anaconda installation instructions](http://carpentries.github.io/workshop-template/#python) for a step-by-step guide and video on how to install Anaconda for your operating system.
 
 ### Launch the ml4bio software
-After you install Anaconda, you will use installation scripts in the `scripts` subdirectory of the `ml-bio-workshop-gh-pages` directory to install the ml4bio software.
+After you install Anaconda, you will use installation scripts in the `scripts` subdirectory of the `ml4bio-workshop-gh-pages` directory to install the ml4bio software.
 These are wrapper scripts that will run ml4bio inside a [conda environment](#software-environment-details).
 If the environment does not already exist, it will be created.
 This can take 5-10 minutes and requires internet connectivity to download the Python packages.
@@ -62,17 +62,17 @@ You may need to run this script twice, once to install the software and again to
 - For **Mac OS**, launch the `install_launch_mac.command` script.
 - For **Linux**, launch the `install_launch_linux.sh` script.
 
-To launch the correct script for your operating system, navigate to the `scripts` subdirectory of the unzipped `ml-bio-workshop-gh-pages` directory from the command line.
+To launch the correct script for your operating system, navigate to the `scripts` subdirectory of the unzipped `ml4bio-workshop-gh-pages` directory from the command line.
 For Windows, launch the Anaconda Prompt (formerly Anaconda Command Prompt) and then run the script:
 - Start -> Type "Anaconda" -> Anaconda Prompt
-- Navigate to the `ml-bio-workshop-gh-pages\scripts` directory from the command line using the command `cd <PATH_TO_ml-bio-workshop-gh-pages>\scripts` (replace `<PATH_TO_ml-bio-workshop-gh-pages>` with the appropriate directory on your computer)
+- Navigate to the `ml4bio-workshop-gh-pages\scripts` directory from the command line using the command `cd <PATH_TO_ml4bio-workshop-gh-pages>\scripts` (replace `<PATH_TO_ml4bio-workshop-gh-pages>` with the appropriate directory on your computer)
 - Type `install_launch_windows.bat` -> Enter
 
 <p align="center">
 <img width="500" src="{{ page.root }}/fig/setup/windows_script.png">
 </p>
 
-For Linux or Mac OS, open the terminal and navigate to the `ml-bio-workshop-gh-pages/scripts` directory.
+For Linux or Mac OS, open the terminal and navigate to the `ml4bio-workshop-gh-pages/scripts` directory.
 Then, enter `./` followed by the name of the script for your operating system without a space in between.
 
 <p align="center">
@@ -94,7 +94,7 @@ See the [software environment details](#software-environment-details) for more i
 
 
 ### Troubleshooting
-You must extract the contents of the `ml-bio-workshop-gh-pages.zip` workshop materials file.
+You must extract the contents of the `ml4bio-workshop-gh-pages.zip` workshop materials file.
 Even though you may be able to browse the compressed directory to inspect the files, the software installation will not work until the file is unzipped.
 
 If you did not add Anaconda to your `PATH` during installation and would like to, follow these instructions for Windows 10:
