@@ -1,7 +1,7 @@
 ## Python environment
 
 Requires:
-- Python 3.5
+- Python 3.12
 - pandas
 - numpy
 - sklearn

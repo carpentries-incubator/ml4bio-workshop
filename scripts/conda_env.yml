@@ -1,12 +1,13 @@
 name: ml4bio
+channels:
+  - conda-forge
+  - defaults
 dependencies:
-  - python=3.5
+  - python=3.12
   - pandas
-  - numpy
-  - scikit-learn=0.19
-  - matplotlib=2.1
+  - numpy=2
+  - scikit-learn=1.6
+  - matplotlib=3.10
   - pyqt=5
   - scipy
   - pip
-  - pip:
-    - ml4bio
