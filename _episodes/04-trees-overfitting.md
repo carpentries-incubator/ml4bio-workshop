@@ -138,7 +138,7 @@ In biology, it is common to have this type of __imbalanced training set__ with m
 
 > ## Software
 >
-> Without changing any hyperparameter settings, look at the Data Plot.
+> Train a decision tree with the default hyperparameter settings, then look at the Data Plot.
 {: .checklist}
 
 > ## Conceptual Questions
