@@ -41,6 +41,8 @@ __Confusion matrix__ - a matrix used in classification to visualize the performa
 
 __Overfitting__ - an overfitting model fits the training data too well, but it fails to do this on the new data.
 
+__Data leakage__ - when information from the test set is used to directly or indirectly make decisions about model training or tuning. For further [reading](https://doi.org/10.1038/s41592-024-02362-y).
+
 __Root node__ - the topmost node where the decision flow starts.
 
 __Leaf node__ - a bottom node that doesn't split any further. It represents the class label.
