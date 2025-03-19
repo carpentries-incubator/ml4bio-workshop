@@ -11,3 +11,5 @@ dependencies:
   - pyqt=5
   - scipy
   - pip
+  - pip:
+     - ml4bio
