@@ -22,7 +22,7 @@ T-cells are a common target for immunotherapies.
 For immunotherapy to be effective, the modified T-cells must be in an active state.
 Here we will study how to assess the activation state of individual T-cells.
 
-Scientists at UW-Madison and the Morgridge Institute [developed an imaging method](https://doi.org/10.1101/536813) to quickly acquire images of T-cells without destroying them.
+Scientists at UW-Madison and the Morgridge Institute [developed an imaging method](https://doi.org/10.1038/s41551-020-0592-z) to quickly acquire images of T-cells without destroying them.
 These images contain information that can be used to predict T-cell activity.
 The goal is to develop a classifier that can take an image of a T-cell and predict whether it is __active__ or __quiescent__.
 The active cells would then be used for immunotherapy, and the quiescent cells can be considered inactive and would be discarded.
