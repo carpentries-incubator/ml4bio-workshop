@@ -225,6 +225,8 @@ For instance, 5-fold cross validation would split a dataset into 5 equal subsets
 > This reserves a single fixed portion of the data for evaluation.
 >
 > We will use the software's default of 20% of the training set for the validation set.
+>
+> Select Next to proceed to Step 2.
 {: .checklist}
 
 
@@ -261,6 +263,7 @@ In this workshop, we will be further talking about [Decision Trees][episode-tree
 Each classifier has its own hyperparameters specific to that classifier that can be tuned.
 Intuitively, think of the hyperparameters as the "knobs and dials" or settings of the classifier. 
 You can adjust the hyperparameters and explore how they impact performance on the training and validation sets. 
+If you train an SVM, you will have to increase the max_iter parameter to be at least 1000.
 
 <p align="center">
 <img width="350" src="{{ page.root }}/fig/software/svm_param.png">
@@ -387,7 +390,7 @@ You may examine the performance using either the summary or the plots.
 
 #### Image attributions
 
-> The T-cell images come from [Wang et al. 2019](https://doi.org/10.1002/jbio.201960050) with data originally from [Walsh et al. 2019](https://doi.org/10.1101/536813).
+> The T-cell images come from [Wang et al. 2019](https://doi.org/10.1002/jbio.201960050) with data originally from [Walsh et al. 2020](https://doi.org/10.1038/s41551-020-0592-z).
 
 > ## Break
 > Let's take a short break. 
