@@ -144,7 +144,10 @@ The metrics can be unintuitive because precision and recall consider interacting
 Show the simulated drug discovery dataset in the software.
 The trained model is very bad, which we see in the Data plot, but the accuracy is still very high because of class imbalance.
 
-Introduce error curves, step through the construction of a precision-recall curve
+Introduce error curves, step through the construction of a precision-recall curve.
+Explain how the purpose of a curve is to avoid calculating precision and recall metrics a single time, calculate them multiple times.
+Introduce the concept of confidence, which has not come up previously.
+Can relate it to the blue and red shading in the data plot in the software.
 Show where the precision-recall curve is in the ml4bio software.
 
 ## Trees and overfitting
